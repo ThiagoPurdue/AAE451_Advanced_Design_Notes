@@ -47,6 +47,12 @@ project:
         - file: notes/lecture-02/weight-estimation.md
         - file: notes/lecture-02/mission-fuel.md
         - file: notes/lecture-02/sizing-loop.ipynb
+    - title: "Lecture 3: Aircraft Configuration"
+      children:
+        - file: notes/lecture-03/configuration.md
+    - title: Assignments
+      children:
+        - file: notes/assignments/a01.md
     - file: notes/glossary.md
     - file: notes/accessibility.md
 site:

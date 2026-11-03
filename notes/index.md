@@ -39,6 +39,16 @@ Why takeoff weight comes first, the empty-weight trend lines and regression, how
 The design mission, the fuel weight fraction, historical segment fractions, the Breguet equations and the sizing iteration.
 :::
 
+:::{card} Lecture 3: Aircraft configuration
+:link: lecture-03/configuration.md
+Wing placement, fuselage cross-section, engine placement, tail and landing gear arrangements, the morphological chart and the trainer cohort.
+:::
+
+:::{card} Assignment A01: RFP breakdown and system requirements
+:link: assignments/a01.md
+The first assignment: deconstruct the RFP, write the needs, the concept of operations and the requirements, and trace them together.
+:::
+
 ::::
 
 More lectures will be added during the semester.

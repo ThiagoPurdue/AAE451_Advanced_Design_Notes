@@ -11,6 +11,9 @@ Compliance matrix
 Conceptual design
 : Phase 1 of an aircraft program. It selects the configuration, sizes it and shows that the requirements can be met. Its output is a feasible design.
 
+Configuration
+: The type, location and count of each major component of the aircraft: wing, fuselage, engines, tail and landing gear.
+
 CONOPS
 : Concept of operations. A description of how the system will be operated during its life-cycle phases to meet stakeholder expectations.
 
@@ -32,6 +35,9 @@ Mission profile
 MLW
 : Maximum landing weight. The highest weight at which the aircraft is allowed to land.
 
+Morphological chart
+: A table with one row per major arrangement choice and one column per option. One pick per row is a configuration.
+
 MTOW
 : Maximum takeoff weight. The highest weight at which the aircraft is allowed to take off.
 
@@ -43,6 +49,9 @@ Objective
 
 PDR
 : Preliminary Design Review. The review at the end of this course, where the converged conceptual design is judged against the requirements.
+
+Pugh matrix
+: A selection matrix that scores each concept against a reference concept, criterion by criterion.
 
 Requirement
 : An obligation on the system, written as "The system shall...", with a verification method.
