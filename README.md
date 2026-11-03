@@ -1,6 +1,6 @@
-# AAE 490/590 Aircraft Design: Lecture Notes
+# AAE 451 Advanced Aircraft Design: Lecture Notes
 
-Lecture notes for AAE 490/590 Aircraft Design, Purdue University, Fall 2026, built with
+Lecture notes for AAE 451 Advanced Aircraft Design, Purdue University, built with
 [Jupyter Book 2](https://jupyterbook.org) (MyST). The notes follow the AIAA 2026-27 Navy Jet
 Trainer RFP.
 
@@ -13,10 +13,11 @@ Site: https://thiagopurdue.github.io/AAE451_Advanced_Design_Notes/
 | `myst.yml` | Book configuration and table of contents |
 | `notes/` | All Markdown pages of the book: `index.md`, `accessibility.md` and one folder per chapter |
 | `notes/navy-rfp/` | The RFP summary page and its figures |
-| `notes/lecture-NN/` | One folder per lecture: its pages and a `figures/` folder |
+| `notes/lecture-NN/` | One folder per lecture: its pages and a `figures/` folder. Diagrams drawn in draw.io keep their `.drawio` source there |
 | `notes/_static/site.css` | Accessibility overrides for the theme |
 | `notes/_parts/` | Sidebar footer text |
-| `scripts/make_figures.py` | Draws every diagram in the book |
+| `scripts/make_figures.py` | Draws every figure except the draw.io diagrams |
+| `scripts/export_drawio.py` | Exports every `.drawio` file under `notes/` to SVG (needs the draw.io desktop app) |
 | `scripts/fix_theme_a11y.py` | Post-build fix for two theme labelling issues (WCAG 2.5.3) |
 | `scripts/check_accessibility.mjs` | Runs the axe accessibility engine on the built site |
 | `.github/workflows/deploy.yml` | Builds and publishes the site to GitHub Pages on every push to `main` |
@@ -41,10 +42,11 @@ node /path/to/Lecture_Notes_Book/scripts/check_accessibility.mjs /path/to/Lectur
 The GitHub workflow runs the same build, fix and check on every push to `main`. It does not
 publish the site if the check finds a WCAG 2.1 A or AA violation.
 
-Regenerate the figures after editing the script:
+Regenerate the figures after editing the script, and the draw.io diagrams after editing them in draw.io:
 
 ```bash
 python3 scripts/make_figures.py
+python3 scripts/export_drawio.py
 ```
 
 ## Add a lecture

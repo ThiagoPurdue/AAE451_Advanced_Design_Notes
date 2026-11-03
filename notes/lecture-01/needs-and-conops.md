@@ -103,10 +103,10 @@ Each of these elements puts requirements on the aircraft.
 
 ```{figure} figures/goaero-conops.svg
 :label: fig-goaero-conops
-:alt: Diagram centered on the operating zone. The competition vehicle, a semi-autonomous aircraft that carries one passenger or a medium payload, flies from the operating zone to the areas of operation and back. In the areas of operation it flies to and from objects of interest with autonomous recognition, adapting to diverse conditions. From the operating zone it also flies through obstacles, which it navigates with onboard sensors, and returns. Transportation brings the vehicle and the ground station to the area by road. GPS gives positioning data to the vehicle and the ground station commands the vehicle, both over data links.
+:alt: Diagram centered on an orange box labeled Operating Zone. Above it is the competition vehicle, a quadcopter, described as a semi-autonomous aircraft capable of transporting a single passenger and medium payloads. Top left, a GPS satellite that gives accurate positioning data, joined to the vehicle by a dotted line. Top right, icons of a storm cloud, a rain cloud, a person, a package and a target, labeled Areas of Operation: fly to and from objects of interest with autonomous recognition, adapting to diverse conditions. Left, gate and marker icons labeled Obstacles: the vehicle navigates complex obstacle environments using onboard sensors. Bottom center, Transportation: ground transport for the vehicle and the ground station to arrive at the required area of operation. Bottom right, a satellite dish labeled Ground Station: command and control center for the operator to fly the vehicle, joined to the vehicle by a dotted line. Green arrows run from the vehicle to the obstacles and to the areas of operation, from the obstacles and from the areas back to the operating zone, and from the operating zone up to the vehicle.
 :width: 100%
 
-CONOPS of the Purdue GoAERO team, redrawn from the lecture slide. Solid arrows are flights. Dashed lines are data links.
+CONOPS of the Purdue GoAERO team, redrawn in draw.io from the lecture slide. Green arrows are flights. Red dotted lines are data links. The source file, `goaero-conops.drawio`, is kept next to the figure.
 ```
 
 The GoAERO diagram is centered on the operating zone, not on the aircraft. It shows how the vehicle and the ground station arrive, where the vehicle flies, what it must avoid, and which links it depends on.
@@ -123,7 +123,7 @@ The mission profile draws one mission as altitude against distance or time, divi
 
 ```{figure} figures/combat-mission-profile.svg
 :label: fig-combat-mission
-:alt: Altitude against distance for a mission that starts and ends at the origin. Phase 1, engine start and takeoff. Phase 2, accelerate and climb to cruise speed and altitude. Phase 3, cruise to the destination. Phase 4, descend and accelerate to a high-speed dash. Phase 5, combat, during which altitude drops. Phase 6, climb and cruise back to the origin at a higher altitude. Phase 7, descend and loiter. Phase 8, land, taxi and shut down.
+:alt: Altitude against distance for a mission that starts and ends at the origin, drawn as a filled profile. Phase 1, engine start and takeoff. Phase 2, accelerate and climb to cruise speed and altitude. Phase 3, cruise to the destination. Phase 4, accelerate to a high-speed dash. Phase 5, combat, drawn as a descending coil. Phase 6, climb and cruise back to the origin at a higher altitude. Phase 7, descend and loiter, drawn as a small loop. Phase 8, land, taxi and engine shutdown. A list inside the profile names the eight phases.
 :width: 90%
 
 A generic combat mission profile. Redrawn after the figure credited to Raymer on the lecture slide. Phase numbers match {numref}`tbl-combat-mission`.

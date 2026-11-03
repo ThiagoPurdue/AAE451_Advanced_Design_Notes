@@ -11,7 +11,7 @@ An aircraft program runs through six phases, from the first feasibility study to
 
 ```{figure} figures/design-phases.svg
 :label: fig-design-phases
-:alt: Six arrows in a row. Phase 0 feasibility study, Phase 1 conceptual design, Phase 2 preliminary design, Phase 3 detail design, Phase 4 entry into service and production, Phase 5 operation and phase-out.
+:alt: Six chevrons in a row. Phase 0, feasibility study, in gray. Phases 1 to 5 in blue: conceptual design, preliminary design, detailed design, entry into service and production, operating and phase out.
 :width: 100%
 
 Phases of an aircraft program. Redrawn after Venson, as credited on the lecture slide.
@@ -27,18 +27,18 @@ This course is Phase 1, conceptual design, carried to a Preliminary Design Revie
 
 ```{figure} figures/design-process-flow.svg
 :label: fig-design-process-flow
-:alt: Flow chart in five rows. Row 1, the customer leads to mission requirements, then the concept of operations, then design guidelines (radius, payload, altitude, signature). Two input boxes feed this row. One is evaluating and negotiating requirements with the customer. The other is the system approach, technology, measures of merit and selection criteria. Row 2 runs back from configuration sketches to concepts 1 to n, initial sizing and select configuration. Row 3 runs from functional inputs (aero, propulsion, weights, structure) to design trades (W/S, T/W, AR, sweep), select preferred configuration and the baseline design. Row 4 runs from mission trades (radius, payload, speed, time) and technology trades (TSFC, engine T/W, empty weight, L/D) to a decision, satisfied? Risk assessment feeds the decision. If no, the design returns to initial sizing through connector A. If yes, trade results are shared with the customer. Row 5 asks whether the requirements change. If yes, the process returns to the design guidelines. If no, the point design (outer mold line, arrangement, performance, subsystems, risk, cost, technology readiness level 3 to 4) goes on to preliminary design.
+:alt: Flow chart of the conceptual design process. The customer sets the mission requirements, which lead to the concept of operations. Requirements are evaluated and negotiated with the customer before a GO decision. The concept of operations, the selection criteria, the system approach (tactics, support aircraft, ECM, subsystems), the technology (materials, stealth, propulsion) and the measures of merit (life cycle cost, takeoff weight, targets killed per life cycle cost) feed the design guidelines (radius, payload, altitude, signature). The guidelines lead to configuration sketches and a stack of concepts, then to initial sizing and selection of a configuration. Functional inputs (aero, propulsion, weights, materials and structure, signature) feed design trades on wing loading, thrust-to-weight ratio, aspect ratio and sweep, plotted against the measures of merit, which lead to the preferred configuration and the baseline design. The baseline goes through mission trades (radius, payload, speed, box size, hover time) and technology trades (TSFC, engine thrust-to-weight ratio, empty weight, drag coefficient, lift-to-drag ratio, maximum lift coefficient), each plotted as the change in a measure of merit for changes of minus 10 to plus 10 percent. A risk assessment feeds the question Happy? If no, the design is iterated from point A, which re-enters at the design trades. If yes, the trade results are shared with the customer. If the requirements change, the process goes back to GO. If not, the point design (outer mold line, general arrangement, performance, subsystems, risk analysis, requirements analysis, systems engineering results, management plan, reliability, maintainability and supportability, life cycle cost analysis, system specifications, test planning, technology readiness level 3 to 4) goes on to preliminary design.
 :width: 100%
 
-The conceptual design process. Simplified and redrawn after Nicolai and Carichner (2010). The two boxes marked A are one connection: an unsatisfactory trade result sends the design back to initial sizing.
+The conceptual design process. Redrawn after Nicolai and Carichner (2010), as shown on the lecture slide. Point A is where a design iteration re-enters the process. MoM is a measure of merit.
 ```
 
 Read the chart in four steps:
 
-1. **Define the problem.** The customer states the mission. The team writes the concept of operations and the design guidelines. The measures of merit are set here. These are the quantities used to rank concepts, such as life cycle cost or takeoff weight.
+1. **Define the problem.** The customer states the mission. The team writes the concept of operations, evaluates and negotiates the requirements with the customer, and gets a GO decision. The design guidelines and the measures of merit are set here. These are the quantities used to rank concepts, such as life cycle cost or takeoff weight.
 2. **Find a baseline.** The team sketches several configurations, sizes each one and selects one. Design trades on wing loading (W/S), thrust-to-weight ratio (T/W), aspect ratio (AR) and sweep refine it into a baseline design.
-3. **Trade and decide.** Mission trades change the requirements, such as radius, payload or speed. Technology trades change the assumptions, such as specific fuel consumption, engine thrust-to-weight ratio or empty weight. Each trade is plotted as the change in a measure of merit. If the result is not acceptable, the design returns to initial sizing.
-4. **Share and close.** The trade results go back to the customer. If the customer changes a requirement, the process starts again from the design guidelines. If not, the point design goes forward.
+3. **Trade and decide.** Mission trades change the requirements, such as radius, payload or speed. Technology trades change the assumptions, such as specific fuel consumption, engine thrust-to-weight ratio or empty weight. Each trade is plotted as the change in a measure of merit. If the result is not acceptable, the design is iterated from point A, back through the design trades.
+4. **Share and close.** The trade results go back to the customer. If the customer changes a requirement, the process goes back to GO. If not, the point design goes forward.
 
 Requirements are not fixed at the start. A trade study can show that one requirement costs far more than it is worth, and the customer may then change it.
 
@@ -61,10 +61,10 @@ Raymer describes the same three phases by the questions each one answers ({numre
 
 ```{figure} figures/design-funnel.svg
 :label: fig-design-funnel
-:alt: Three stacked funnels between requirements at the top and fabrication at the bottom. Conceptual design asks what requirements drive the design, what it should look like, its weight and cost, what trade-offs to consider, what technologies to use, and whether the requirements give a viable and salable aircraft. Preliminary design freezes the configuration, develops the lofting (surface definition) and the test and analytical database, designs the major items and develops the cost estimate. Detail design designs the pieces to be built and the tooling and fabrication process, tests major items such as structure and landing gear, and finalizes the weight and performance estimates.
+:alt: Three stacked boxes, each with a chevron pointing down into the next. A box labeled Requirements points into the first. Conceptual Design: What requirements drive the design? What should it look like? Weight? Cost? What tradeoffs should be considered? What technologies should be used? Do these requirements produce a viable and salable plane? Preliminary Design: Freeze the configuration. Develop lofting (surface definition). Develop test and analytical database. Design major items. Develop actual cost estimate (statistical), you bet your company. Detail Design: Design actual pieces to be built. Design tooling and fabrication process. Test major items, structure, landing gear and so on. Finalize weight and performance estimates, now you learn the real numbers. The last chevron points into a box labeled Fabrication.
 :width: 85%
 
-Conceptual, preliminary and detail design. Redrawn after Raymer (2018).
+Conceptual, preliminary and detail design. Redrawn after Raymer, as shown on the lecture slide.
 ```
 
 Raymer adds two remarks. Preliminary design is where the company commits to the program. He calls the commitment made at that stage, based on that cost estimate, "you bet your company". Detail design is where the real numbers are learned. Every number in conceptual design is an estimate. Keep track of what each estimate rests on.
@@ -97,10 +97,10 @@ The lecture recommends the video [Turboprops, regional aviation and other stuff]
 
 ```{figure} figures/narrowbody-production.svg
 :label: fig-narrowbody-production
-:alt: Horizontal bar chart of the number of aircraft produced. Airbus A318, A319, A320 and A321, 16,000. Boeing 737 family, 10,500. Bombardier CRJ family, 1,945. Embraer E-Jets first generation, 1,500. McDonnell Douglas MD-80 and MD-90, 1,191. COMAC C919, 305. Fokker 100, 283. Bombardier CSeries, now the Airbus A220, 220. Sukhoi Superjet 100, 200. Embraer E-Jets E2, 200. Fokker 70, 47. Mitsubishi SpaceJet, 0.
+:alt: Horizontal bar chart titled Narrow Body Aircraft Production, showing the number of aircraft produced. From the top: McDonnell Douglas MD-80 and MD-90, 1191. COMAC C919, 305. Mitsubishi SpaceJet, 0. Bombardier CSeries, now the Airbus A220, 220. Sukhoi Superjet 100, 200. Embraer E-Jets E2, second generation, 200. Bombardier CRJ family, 1945. Embraer E-Jets, first generation, 1500. Fokker 100, 283. Fokker 70, 47. Boeing 737 family, 10500. Airbus A318, A319, A320 and A321, 16000.
 :width: 90%
 
-Narrow-body aircraft production. Values as shown on the lecture slide. They are rounded and are not current production totals.
+Narrow-body aircraft production. Redrawn from the lecture slide with its values. They are rounded and are not current production totals.
 ```
 
 A new aircraft enters a market that already has a leader. The Mitsubishi SpaceJet, formerly the MRJ, is the example at the bottom of the chart.

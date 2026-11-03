@@ -1,12 +1,12 @@
-# Jupyter Book 2 (MyST) configuration for the AAE 490/590 lecture notes.
+# Jupyter Book 2 (MyST) configuration for the AAE 451 Advanced Aircraft Design lecture notes.
 # Build locally:   jupyter-book start        (live preview)
 #                  jupyter-book build --html (static site in _build/html)
 version: 1
 project:
-  id: aae490-590-aircraft-design-notes
-  title: AAE 490/590 Aircraft Design
+  id: aae451-advanced-aircraft-design-notes
+  title: AAE 451 Advanced Aircraft Design
   subtitle: Lecture notes, Navy Jet Trainer
-  description: Lecture notes for AAE 490/590 Aircraft Design at Purdue University, written around the AIAA 2026-27 Navy Jet Trainer request for proposal.
+  description: Lecture notes for AAE 451 Advanced Aircraft Design at Purdue University, written around the AIAA 2026-27 Navy Jet Trainer request for proposal.
   keywords:
     - aircraft design
     - conceptual design
@@ -34,7 +34,7 @@ project:
 site:
   template: book-theme
   options:
-    logo_text: AAE 490/590 Aircraft Design
+    logo_text: AAE 451 Advanced Aircraft Design
     hide_authors: true
     style: notes/_static/site.css
   parts:

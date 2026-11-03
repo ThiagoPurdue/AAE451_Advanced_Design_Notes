@@ -3,7 +3,7 @@ title: About these notes
 short_title: About
 ---
 
-These are the lecture notes for AAE 490/590 Aircraft Design, Fall 2026, in the School of Aeronautics and Astronautics at Purdue University. The course is the first semester of the senior design sequence. It covers conceptual design and ends with a Preliminary Design Review. The instructor is Prof. Thiago Guimaraes.
+These are the lecture notes for AAE 451 Advanced Aircraft Design in the School of Aeronautics and Astronautics at Purdue University. The course covers conceptual design and ends with a Preliminary Design Review. The instructor is Prof. Thiago Guimaraes.
 
 The notes are written around one design problem: the AIAA 2026-27 Undergraduate Team Aircraft Design Competition request for proposal (RFP), *Design of a Navy Jet Training Aircraft*. The RFP itself is summarized in [](navy-rfp/navy-rfp.md).
 

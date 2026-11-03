@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="607.5pt" height="376.416pt" viewBox="0 0 607.5 376.416" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="600.3pt" height="369.216pt" viewBox="0 0 600.3 369.216" xmlns="http://www.w3.org/2000/svg" version="1.1">
  <metadata>
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-11-03T15:19:55.115801</dc:date>
+    <dc:date>2026-11-03T15:56:08.585847</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -21,174 +21,174 @@
  </defs>
  <g id="figure_1">
   <g id="patch_1">
-   <path d="M 0 376.416 
-L 607.5 376.416 
-L 607.5 0 
+   <path d="M 0 369.216 
+L 600.3 369.216 
+L 600.3 0 
 L 0 0 
 z
 " style="fill: #ffffff"/>
   </g>
   <g id="axes_1">
    <g id="patch_2">
-    <path d="M 20.1744 85.196903 
-L 171.3366 85.196903 
-Q 176.0238 85.196903 176.0238 80.618632 
-L 176.0238 32.546787 
-Q 176.0238 27.968516 171.3366 27.968516 
-L 20.1744 27.968516 
-Q 15.4872 27.968516 15.4872 32.546787 
-L 15.4872 80.618632 
-Q 15.4872 85.196903 20.1744 85.196903 
+    <path d="M 16.5744 81.596903 
+L 167.7366 81.596903 
+Q 172.4238 81.596903 172.4238 77.018632 
+L 172.4238 28.946787 
+Q 172.4238 24.368516 167.7366 24.368516 
+L 16.5744 24.368516 
+Q 11.8872 24.368516 11.8872 28.946787 
+L 11.8872 77.018632 
+Q 11.8872 81.596903 16.5744 81.596903 
 z
-" clip-path="url(#pb30a797ccb)" style="fill: #cfb991; stroke: #8e6f3e; stroke-width: 1.6; stroke-linejoin: miter"/>
+" clip-path="url(#p3387a23b61)" style="fill: #cfb991; stroke: #8e6f3e; stroke-width: 1.6; stroke-linejoin: miter"/>
    </g>
    <g id="patch_3">
-    <path d="M 45.954 85.196903 
-Q 45.954 91.205884 45.954 95.649617 
-" clip-path="url(#pb30a797ccb)" style="fill: none; stroke: #000000; stroke-width: 1.4; stroke-linecap: round"/>
-    <path d="M 49.154 89.249617 
-L 45.954 95.649617 
-L 42.754 89.249617 
+    <path d="M 42.354 81.596903 
+Q 42.354 87.605884 42.354 92.049617 
+" clip-path="url(#p3387a23b61)" style="fill: none; stroke: #000000; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 45.554 85.649617 
+L 42.354 92.049617 
+L 39.154 85.649617 
 z
-" clip-path="url(#pb30a797ccb)" style="stroke: #000000; stroke-width: 1.4; stroke-linecap: round"/>
+" clip-path="url(#p3387a23b61)" style="stroke: #000000; stroke-width: 1.4; stroke-linecap: round"/>
    </g>
    <g id="patch_4">
-    <path d="M 34.8219 153.870968 
-L 171.3366 153.870968 
-Q 176.0238 153.870968 176.0238 149.292697 
-L 176.0238 101.220852 
-Q 176.0238 96.642581 171.3366 96.642581 
-L 34.8219 96.642581 
-Q 30.1347 96.642581 30.1347 101.220852 
-L 30.1347 149.292697 
-Q 30.1347 153.870968 34.8219 153.870968 
+    <path d="M 31.2219 150.270968 
+L 167.7366 150.270968 
+Q 172.4238 150.270968 172.4238 145.692697 
+L 172.4238 97.620852 
+Q 172.4238 93.042581 167.7366 93.042581 
+L 31.2219 93.042581 
+Q 26.5347 93.042581 26.5347 97.620852 
+L 26.5347 145.692697 
+Q 26.5347 150.270968 31.2219 150.270968 
 z
-" clip-path="url(#pb30a797ccb)" style="fill: #ebd99f; stroke: #8e6f3e; stroke-width: 1.6; stroke-linejoin: miter"/>
+" clip-path="url(#p3387a23b61)" style="fill: #ebd99f; stroke: #8e6f3e; stroke-width: 1.6; stroke-linejoin: miter"/>
    </g>
    <g id="patch_5">
-    <path d="M 60.6015 153.870968 
-Q 60.6015 159.879948 60.6015 164.323681 
-" clip-path="url(#pb30a797ccb)" style="fill: none; stroke: #000000; stroke-width: 1.4; stroke-linecap: round"/>
-    <path d="M 63.8015 157.923681 
-L 60.6015 164.323681 
-L 57.4015 157.923681 
+    <path d="M 57.0015 150.270968 
+Q 57.0015 156.279948 57.0015 160.723681 
+" clip-path="url(#p3387a23b61)" style="fill: none; stroke: #000000; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 60.2015 154.323681 
+L 57.0015 160.723681 
+L 53.8015 154.323681 
 z
-" clip-path="url(#pb30a797ccb)" style="stroke: #000000; stroke-width: 1.4; stroke-linecap: round"/>
+" clip-path="url(#p3387a23b61)" style="stroke: #000000; stroke-width: 1.4; stroke-linecap: round"/>
    </g>
    <g id="patch_6">
-    <path d="M 49.4694 222.545032 
-L 171.3366 222.545032 
-Q 176.0238 222.545032 176.0238 217.966761 
-L 176.0238 169.894916 
-Q 176.0238 165.316645 171.3366 165.316645 
-L 49.4694 165.316645 
-Q 44.7822 165.316645 44.7822 169.894916 
-L 44.7822 217.966761 
-Q 44.7822 222.545032 49.4694 222.545032 
+    <path d="M 45.8694 218.945032 
+L 167.7366 218.945032 
+Q 172.4238 218.945032 172.4238 214.366761 
+L 172.4238 166.294916 
+Q 172.4238 161.716645 167.7366 161.716645 
+L 45.8694 161.716645 
+Q 41.1822 161.716645 41.1822 166.294916 
+L 41.1822 214.366761 
+Q 41.1822 218.945032 45.8694 218.945032 
 z
-" clip-path="url(#pb30a797ccb)" style="fill: #f5efdc; stroke: #8e6f3e; stroke-width: 1.6; stroke-linejoin: miter"/>
+" clip-path="url(#p3387a23b61)" style="fill: #f5efdc; stroke: #8e6f3e; stroke-width: 1.6; stroke-linejoin: miter"/>
    </g>
    <g id="patch_7">
-    <path d="M 75.249 222.545032 
-Q 75.249 228.554013 75.249 232.997746 
-" clip-path="url(#pb30a797ccb)" style="fill: none; stroke: #000000; stroke-width: 1.4; stroke-linecap: round"/>
-    <path d="M 78.449 226.597746 
-L 75.249 232.997746 
-L 72.049 226.597746 
+    <path d="M 71.649 218.945032 
+Q 71.649 224.954013 71.649 229.397746 
+" clip-path="url(#p3387a23b61)" style="fill: none; stroke: #000000; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 74.849 222.997746 
+L 71.649 229.397746 
+L 68.449 222.997746 
 z
-" clip-path="url(#pb30a797ccb)" style="stroke: #000000; stroke-width: 1.4; stroke-linecap: round"/>
+" clip-path="url(#p3387a23b61)" style="stroke: #000000; stroke-width: 1.4; stroke-linecap: round"/>
    </g>
    <g id="patch_8">
-    <path d="M 64.1169 291.219097 
-L 171.3366 291.219097 
-Q 176.0238 291.219097 176.0238 286.640826 
-L 176.0238 238.568981 
-Q 176.0238 233.99071 171.3366 233.99071 
-L 64.1169 233.99071 
-Q 59.4297 233.99071 59.4297 238.568981 
-L 59.4297 286.640826 
-Q 59.4297 291.219097 64.1169 291.219097 
+    <path d="M 60.5169 287.619097 
+L 167.7366 287.619097 
+Q 172.4238 287.619097 172.4238 283.040826 
+L 172.4238 234.968981 
+Q 172.4238 230.39071 167.7366 230.39071 
+L 60.5169 230.39071 
+Q 55.8297 230.39071 55.8297 234.968981 
+L 55.8297 283.040826 
+Q 55.8297 287.619097 60.5169 287.619097 
 z
-" clip-path="url(#pb30a797ccb)" style="fill: #f5efdc; stroke: #8e6f3e; stroke-width: 1.6; stroke-linejoin: miter"/>
+" clip-path="url(#p3387a23b61)" style="fill: #f5efdc; stroke: #8e6f3e; stroke-width: 1.6; stroke-linejoin: miter"/>
    </g>
    <g id="patch_9">
-    <path d="M 89.8965 291.219097 
-Q 89.8965 297.228077 89.8965 301.67181 
-" clip-path="url(#pb30a797ccb)" style="fill: none; stroke: #000000; stroke-width: 1.4; stroke-linecap: round"/>
-    <path d="M 93.0965 295.27181 
-L 89.8965 301.67181 
-L 86.6965 295.27181 
+    <path d="M 86.2965 287.619097 
+Q 86.2965 293.628077 86.2965 298.07181 
+" clip-path="url(#p3387a23b61)" style="fill: none; stroke: #000000; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 89.4965 291.67181 
+L 86.2965 298.07181 
+L 83.0965 291.67181 
 z
-" clip-path="url(#pb30a797ccb)" style="stroke: #000000; stroke-width: 1.4; stroke-linecap: round"/>
+" clip-path="url(#p3387a23b61)" style="stroke: #000000; stroke-width: 1.4; stroke-linecap: round"/>
    </g>
    <g id="patch_10">
-    <path d="M 78.7644 359.893161 
-L 171.3366 359.893161 
-Q 176.0238 359.893161 176.0238 355.31489 
-L 176.0238 307.243045 
-Q 176.0238 302.664774 171.3366 302.664774 
-L 78.7644 302.664774 
-Q 74.0772 302.664774 74.0772 307.243045 
-L 74.0772 355.31489 
-Q 74.0772 359.893161 78.7644 359.893161 
+    <path d="M 75.1644 356.293161 
+L 167.7366 356.293161 
+Q 172.4238 356.293161 172.4238 351.71489 
+L 172.4238 303.643045 
+Q 172.4238 299.064774 167.7366 299.064774 
+L 75.1644 299.064774 
+Q 70.4772 299.064774 70.4772 303.643045 
+L 70.4772 351.71489 
+Q 70.4772 356.293161 75.1644 356.293161 
 z
-" clip-path="url(#pb30a797ccb)" style="fill: #ffffff; stroke: #8e6f3e; stroke-width: 1.6; stroke-linejoin: miter"/>
+" clip-path="url(#p3387a23b61)" style="fill: #ffffff; stroke: #8e6f3e; stroke-width: 1.6; stroke-linejoin: miter"/>
    </g>
    <g id="text_1">
-    <text style="font-weight: 700; font-size: 12.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="95.7555" y="48.949551" transform="rotate(-0 95.7555 48.949551)">Level 1</text>
+    <text style="font-weight: 700; font-size: 12.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle" x="92.1555" y="45.349551" transform="rotate(-0 92.1555 45.349551)">Level 1</text>
    </g>
    <g id="text_2">
-    <text style="font-size: 12.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="95.7555" y="71.262762" transform="rotate(-0 95.7555 71.262762)">System of systems</text>
+    <text style="font-size: 12.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle" x="92.1555" y="67.662762" transform="rotate(-0 92.1555 67.662762)">System of systems</text>
    </g>
    <g id="text_3">
-    <text style="font-size: 12px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(198.288 52.746741)">Air transportation or defense system: aircraft, missiles,</text>
-    <text style="font-size: 12px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(198.288 66.628678)">satellites, ground stations, airports, air traffic management</text>
+    <text style="font-size: 12px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(194.688 49.146741)">Air transportation or defense system: aircraft, missiles,</text>
+    <text style="font-size: 12px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(194.688 63.028678)">satellites, ground stations, airports, air traffic management</text>
    </g>
    <g id="text_4">
-    <text style="font-weight: 700; font-size: 12.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="103.07925" y="117.623615" transform="rotate(-0 103.07925 117.623615)">Level 2</text>
+    <text style="font-weight: 700; font-size: 12.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle" x="99.47925" y="114.023615" transform="rotate(-0 99.47925 114.023615)">Level 2</text>
    </g>
    <g id="text_5">
-    <text style="font-size: 12.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="103.07925" y="139.936827" transform="rotate(-0 103.07925 139.936827)">System</text>
+    <text style="font-size: 12.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle" x="99.47925" y="136.336827" transform="rotate(-0 99.47925 136.336827)">System</text>
    </g>
    <g id="text_6">
-    <text style="font-size: 12px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(198.288 121.420805)">The aircraft and related systems: operators, trainers,</text>
-    <text style="font-size: 12px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(198.288 135.302743)">manufacturing plants, maintenance shops</text>
+    <text style="font-size: 12px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(194.688 117.820805)">The aircraft and related systems: operators, trainers,</text>
+    <text style="font-size: 12px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(194.688 131.702743)">manufacturing plants, maintenance shops</text>
    </g>
    <g id="text_7">
-    <text style="font-weight: 700; font-size: 12.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="110.403" y="186.29768" transform="rotate(-0 110.403 186.29768)">Level 3</text>
+    <text style="font-weight: 700; font-size: 12.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle" x="106.803" y="182.69768" transform="rotate(-0 106.803 182.69768)">Level 3</text>
    </g>
    <g id="text_8">
-    <text style="font-size: 12.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="110.403" y="208.610891" transform="rotate(-0 110.403 208.610891)">Subsystem</text>
+    <text style="font-size: 12.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle" x="106.803" y="205.010891" transform="rotate(-0 106.803 205.010891)">Subsystem</text>
    </g>
    <g id="text_9">
-    <text style="font-size: 12px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(198.288 190.021745)">Flight control, hydraulic, electric, avionics, powerplant,</text>
-    <text style="font-size: 12px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(198.288 203.903682)">fuel, air conditioning, structure</text>
+    <text style="font-size: 12px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(194.688 186.421745)">Flight control, hydraulic, electric, avionics, powerplant,</text>
+    <text style="font-size: 12px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(194.688 200.303682)">fuel, air conditioning, structure</text>
    </g>
    <g id="text_10">
-    <text style="font-weight: 700; font-size: 12.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="117.72675" y="254.971744" transform="rotate(-0 117.72675 254.971744)">Level 4</text>
+    <text style="font-weight: 700; font-size: 12.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle" x="114.12675" y="251.371744" transform="rotate(-0 114.12675 251.371744)">Level 4</text>
    </g>
    <g id="text_11">
-    <text style="font-size: 12.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="117.72675" y="277.358198" transform="rotate(-0 117.72675 277.358198)">Component</text>
+    <text style="font-size: 12.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle" x="114.12675" y="273.758198" transform="rotate(-0 114.12675 273.758198)">Component</text>
    </g>
    <g id="text_12">
-    <text style="font-size: 12px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(198.288 258.768934)">Wing, fuselage, tail, landing gear, radar, pumps, nacelles,</text>
-    <text style="font-size: 12px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(198.288 272.650872)">control surfaces, auxiliary power unit</text>
+    <text style="font-size: 12px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(194.688 255.168934)">Wing, fuselage, tail, landing gear, radar, pumps, nacelles,</text>
+    <text style="font-size: 12px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(194.688 269.050872)">control surfaces, auxiliary power unit</text>
    </g>
    <g id="text_13">
-    <text style="font-weight: 700; font-size: 12.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="125.0505" y="323.645809" transform="rotate(-0 125.0505 323.645809)">Level 5</text>
+    <text style="font-weight: 700; font-size: 12.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle" x="121.4505" y="320.045809" transform="rotate(-0 121.4505 320.045809)">Level 5</text>
    </g>
    <g id="text_14">
-    <text style="font-size: 12.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="125.0505" y="345.95609" transform="rotate(-0 125.0505 345.95609)">Part</text>
+    <text style="font-size: 12.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle" x="121.4505" y="342.35609" transform="rotate(-0 121.4505 342.35609)">Part</text>
    </g>
    <g id="text_15">
-    <text style="font-size: 12px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(198.288 327.513311)">Fittings, fasteners, blades, screws, nuts, ribs, spars,</text>
-    <text style="font-size: 12px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(198.288 341.395249)">frames, stiffeners, skin, shafts, pipes, propellers</text>
+    <text style="font-size: 12px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(194.688 323.913311)">Fittings, fasteners, blades, propellers, screws, nuts, ribs,</text>
+    <text style="font-size: 12px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(194.688 337.795249)">spars, frames, stiffeners, skin, shafts, pipes</text>
    </g>
   </g>
  </g>
  <defs>
-  <clipPath id="pb30a797ccb">
-   <rect x="10.8" y="10.8" width="585.9" height="354.816"/>
+  <clipPath id="p3387a23b61">
+   <rect x="7.2" y="7.2" width="585.9" height="354.816"/>
   </clipPath>
  </defs>
 </svg>

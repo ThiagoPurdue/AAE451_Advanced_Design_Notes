@@ -1,21 +1,26 @@
-"""Figures for the AAE 490/590 lecture notes book.
+"""Figures for the AAE 451 Advanced Aircraft Design lecture notes book.
 
 Run from the book folder:  python3 scripts/make_figures.py
-Writes SVG files to the figures folder of each chapter (notes/<chapter>/figures/). Text stays as text in the SVG
-(svg.fonttype = none) so it scales and can be selected.
+Writes SVG files to the figures folder of each chapter (notes/<chapter>/figures/).
+Text stays as text in the SVG (svg.fonttype = none) so it scales and can be
+selected. Set FIG_PREVIEW=<folder> to also write PNG copies for checking.
 
-Every diagram is redrawn for the book. Sources are named in the captions
-in the Markdown files; the data in the bar chart are the values printed on
-the lecture slide.
+Each figure is a vector redraw of the figure on the lecture slide or in the
+RFP, named in its caption, kept as close to the source as the redraw allows.
+Colors follow the sources, except where a source color would not meet the
+contrast needed on a white page. The GoAERO concept of operations is not
+drawn here: it is a draw.io file next to the figures, exported to SVG.
 """
 import os
 from pathlib import Path
 
+import numpy as np
 import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.patches import FancyArrowPatch, FancyBboxPatch, Polygon
+from matplotlib.patches import (Ellipse, FancyArrowPatch, FancyBboxPatch, Polygon,
+                                Rectangle, RegularPolygon)
 
 NOTES = Path(__file__).resolve().parents[1] / "notes"
 # Each figure goes to the figures folder of the chapter that uses it.
@@ -29,8 +34,8 @@ PREVIEW = os.environ.get("FIG_PREVIEW")  # optional PNG copies for checking
 plt.rcParams.update({
     "svg.fonttype": "none",
     "font.family": "sans-serif",
-    "font.sans-serif": ["Arial", "DejaVu Sans"],
-    "font.size": 13,
+    "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans"],
+    "font.size": 12,
     "axes.edgecolor": "#000000",
     "axes.labelcolor": "#000000",
     "xtick.color": "#000000",
@@ -38,253 +43,367 @@ plt.rcParams.update({
     "savefig.facecolor": "white",
 })
 
-# Purdue palette. Text is always black or white on these fills.
-GOLD = "#CFB991"      # Boilermaker gold
-DUST = "#EBD99F"
-LIGHT = "#F5EFDC"
-AGED = "#8E6F3E"      # aged gold, lines
-STEEL = "#555960"
-GRAY = "#D9D9D9"
-BLUE = "#0072B2"      # Okabe-Ito blue
 INK = "#000000"
+# Purdue palette, used only for the figure that has no source drawing.
+GOLD, DUST, LIGHT, AGED = "#CFB991", "#EBD99F", "#F5EFDC", "#8E6F3E"
 
 
 def save(fig, name):
     out = NOTES / FOLDER.get(name, DEFAULT_FOLDER) / "figures"
     out.mkdir(parents=True, exist_ok=True)
-    fig.savefig(out / f"{name}.svg", bbox_inches="tight", pad_inches=0.15)
+    fig.savefig(out / f"{name}.svg", bbox_inches="tight", pad_inches=0.1)
     if PREVIEW:
-        fig.savefig(Path(PREVIEW) / f"{name}.png", dpi=80, bbox_inches="tight",
-                    pad_inches=0.15)
+        fig.savefig(Path(PREVIEW) / f"{name}.png", dpi=110, bbox_inches="tight",
+                    pad_inches=0.1)
     plt.close(fig)
     print("wrote", name)
 
 
-def canvas(w, h, xmax, ymax):
-    fig, ax = plt.subplots(figsize=(w, h))
-    ax.set_xlim(0, xmax)
-    ax.set_ylim(0, ymax)
+def pixel_canvas(w, h):
+    """Axes whose data units are pixels of the source image, y downwards."""
+    fig = plt.figure(figsize=(w / 100, h / 100))
+    ax = fig.add_axes([0, 0, 1, 1])   # fills the figure, so insets can use the same units
+    ax.set_xlim(0, w)
+    ax.set_ylim(h, 0)
     ax.axis("off")
     return fig, ax
 
 
-def box(ax, x, y, w, h, text, fill=LIGHT, size=12, bold=False, edge=AGED):
-    """Box centered at (x, y)."""
-    p = FancyBboxPatch((x - w / 2, y - h / 2), w, h,
-                       boxstyle="round,pad=0.25,rounding_size=0.8",
-                       fc=fill, ec=edge, lw=1.6)
-    ax.add_patch(p)
-    ax.text(x, y, text, ha="center", va="center", fontsize=size,
-            fontweight="bold" if bold else "normal", color=INK,
-            linespacing=1.25)
-
-
-def diamond(ax, x, y, w, h, text, size=12):
-    ax.add_patch(Polygon([(x - w / 2, y), (x, y + h / 2), (x + w / 2, y),
-                          (x, y - h / 2)], closed=True, fc=GOLD, ec=AGED,
-                         lw=1.6))
-    ax.text(x, y, text, ha="center", va="center", fontsize=size,
-            fontweight="bold", color=INK)
-
-
-def arrow(ax, p, q, style="-|>", ls="-", color=INK, rad=0.0, lw=1.6):
-    ax.add_patch(FancyArrowPatch(p, q, arrowstyle=style, mutation_scale=16,
-                                 lw=lw, ls=ls, color=color,
-                                 connectionstyle=f"arc3,rad={rad}",
-                                 shrinkA=0, shrinkB=0))
-
-
 # ---------------------------------------------------------------------------
 def design_phases():
-    """Phases 0 to 5 of an aircraft program, after Venson."""
-    fig, ax = canvas(11, 2.6, 113, 26)
-    names = ["Feasibility\nstudy", "Conceptual\ndesign", "Preliminary\ndesign",
-             "Detail\ndesign", "Entry into\nservice and\nproduction",
-             "Operation\nand\nphase-out"]
-    w, tip, y0, y1 = 17.0, 4.0, 3.0, 23.0
+    """Phases 0 to 5 of an aircraft program, after Venson (lecture slide 2)."""
+    fig, ax = plt.subplots(figsize=(11, 2.4))
+    ax.set_xlim(0, 113)
+    ax.set_ylim(0, 24)
+    ax.axis("off")
+    names = ["feasibility\nstudy", "conceptual\ndesign", "preliminary\ndesign",
+             "detailed\ndesign", "entry into\nservice &\nproduction",
+             "operating\n& phase out"]
+    w, tip, y0, y1 = 17.0, 4.0, 0.5, 23.5
     for i, name in enumerate(names):
-        x = 1 + i * (w + 1.0)
-        pts = [(x, y0), (x + w, y0), (x + w + tip, (y0 + y1) / 2), (x + w, y1),
-               (x, y1)]
+        x = 1 + i * (w + 0.9)
+        pts = [(x, y0), (x + w, y0), (x + w + tip, (y0 + y1) / 2), (x + w, y1), (x, y1)]
         if i > 0:
             pts.append((x + tip, (y0 + y1) / 2))
-        ax.add_patch(Polygon(pts, closed=True, fc=GRAY if i == 0 else DUST,
-                             ec=AGED, lw=1.6))
+        ax.add_patch(Polygon(pts, closed=True, fc="#A6A6A6" if i == 0 else "#4FA3DD",
+                             ec="white", lw=2.5))
         cx = x + w / 2 + (tip / 2 if i > 0 else 0)
-        ax.text(cx, 16.5, name, ha="center", va="center", fontsize=12.5,
-                linespacing=1.15)
-        ax.text(cx, 6.3, f"Phase {i}", ha="center", va="center",
-                fontsize=12.5, fontweight="bold")
+        ax.text(cx, 13.5, name, ha="center", va="center", fontsize=12.5,
+                fontweight="bold", linespacing=1.15)
+        ax.text(cx, 3.6, f"Phase {i}", ha="center", va="center", fontsize=12,
+                fontweight="bold")
     save(fig, "design-phases")
 
 
 # ---------------------------------------------------------------------------
 def design_process_flow():
-    """Conceptual design flow, simplified after Nicolai and Carichner."""
-    fig, ax = canvas(11, 9.6, 100, 88)
-    W, H = 19, 8.5
-    xs = [12, 37, 62, 87]
-    r1, r2, r3, r4, r5 = 72, 56, 40, 24, 8
+    """The conceptual design process, after Nicolai and Carichner (slide 3).
 
-    # Row 1, left to right
-    box(ax, xs[0], r1, W, H, "Customer", fill=GOLD, bold=True)
-    box(ax, xs[1], r1, W, H, "Mission\nrequirements")
-    box(ax, xs[2], r1, W, H, "Concept of\noperations")
-    box(ax, xs[3], r1, W, H + 1.5, "Design guidelines\nradius, payload,\naltitude, signature",
-        size=11.5)
-    for a, b in zip(xs[:-1], xs[1:]):
-        arrow(ax, (a + W / 2 + 0.4, r1), (b - W / 2 - 0.4, r1))
-    # inputs to the design guidelines
-    box(ax, 76, 85, 36, 6.5,
-        "Inputs: system approach, technology,\nmeasures of merit, selection criteria",
-        fill="white", size=11)
-    arrow(ax, (87, 81.4), (87, r1 + (H + 1.5) / 2 + 0.4))
-    box(ax, 37, 85, 30, 6.5, "Evaluate and negotiate\nrequirements with the customer",
-        fill="white", size=11)
-    arrow(ax, (37, 81.4), (37, r1 + H / 2 + 0.4))
+    Drawn in the pixel coordinates of the source figure (1187 by 907) so the
+    arrangement matches it box for box.
+    """
+    W, H = 1187, 907
+    fig, ax = pixel_canvas(W, H)
+    NB = "#1F5FA8"   # outline blue
+    FB = "#4F86C6"   # filled boxes
+    LB = "#9DB9D9"   # wide arrows
 
-    # Row 2, right to left
-    box(ax, xs[3], r2, W, H, "Configuration\nsketches")
-    box(ax, xs[2], r2, W, H, "Concepts\n1 to n")
-    box(ax, xs[1], r2, W, H, "Initial\nsizing")
-    box(ax, xs[0], r2, W, H, "Select\nconfiguration")
-    arrow(ax, (87, r1 - (H + 1.5) / 2 - 0.4), (87, r2 + H / 2 + 0.4))
-    for a, b in zip(xs[::-1][:-1], xs[::-1][1:]):
-        arrow(ax, (a - W / 2 - 0.4, r2), (b + W / 2 + 0.4, r2))
+    def box(x0, y0, x1, y1, title, items=(), filled=False, ts=11, isz=9.5):
+        ax.add_patch(Rectangle((x0, y0), x1 - x0, y1 - y0, fc=FB if filled else "white",
+                               ec=NB, lw=2.2, zorder=3))
+        tc = "white" if filled else INK
+        if items:
+            ax.text((x0 + x1) / 2, y0 + 7, title, ha="center", va="top", fontsize=ts,
+                    fontweight="bold", color=tc, linespacing=1.1, zorder=4)
+            n = title.count("\n") + 1
+            ax.text(x0 + 9, y0 + 9 + n * ts * 1.55, "\n".join(items), ha="left",
+                    va="top", fontsize=isz, color=tc, linespacing=1.22, zorder=4)
+        else:
+            ax.text((x0 + x1) / 2, (y0 + y1) / 2, title, ha="center", va="center",
+                    fontsize=ts, fontweight="bold", color=tc, linespacing=1.1, zorder=4)
 
-    # Row 3, left to right
-    box(ax, xs[0], r3, W, H + 2, "Functional inputs\naero, propulsion,\nweights, structure",
-        size=11.5)
-    box(ax, xs[1], r3, W, H + 2, "Design trades\nW/S, T/W,\nAR, sweep", size=11.5)
-    box(ax, xs[2], r3, W, H, "Select preferred\nconfiguration")
-    box(ax, xs[3], r3, W, H, "Baseline\ndesign", fill=GOLD, bold=True)
-    arrow(ax, (12, r2 - H / 2 - 0.4), (12, r3 + (H + 2) / 2 + 0.4))
-    for a, b in zip(xs[:-1], xs[1:]):
-        arrow(ax, (a + W / 2 + 0.4, r3), (b - W / 2 - 0.4, r3))
+    def arrow(pts, thick=False, head=True):
+        c = LB if thick else NB
+        lw = 9 if thick else 2
+        if len(pts) > 2:
+            xs, ys = zip(*pts[:-1])
+            ax.plot(xs, ys, color=c, lw=lw, solid_joinstyle="miter",
+                    solid_capstyle="projecting", zorder=1)
+        p, q = pts[-2], pts[-1]
+        if not head:
+            ax.plot([p[0], q[0]], [p[1], q[1]], color=c, lw=lw,
+                    solid_capstyle="projecting", zorder=1)
+            return
+        if thick:
+            style = "simple,head_length=1.6,head_width=2.6,tail_width=1.0"
+            ax.add_patch(FancyArrowPatch(p, q, arrowstyle=style, mutation_scale=9,
+                                         color=c, lw=0, zorder=1, shrinkA=0, shrinkB=0))
+        else:
+            ax.add_patch(FancyArrowPatch(p, q, arrowstyle="-|>,head_length=0.7,head_width=0.35",
+                                         mutation_scale=12, color=c, lw=2, zorder=2,
+                                         shrinkA=0, shrinkB=0))
 
-    # Row 4, right to left
-    box(ax, xs[3], r4, W, H + 2, "Mission trades\nradius, payload,\nspeed, time", size=11.5)
-    box(ax, xs[2], r4, W, H + 2, "Technology trades\nTSFC, engine T/W,\nempty weight, L/D",
-        size=11.5)
-    diamond(ax, xs[1], r4, 17, 11, "Satisfied?")
-    box(ax, xs[0], r4, W, H + 2, "Share trade\nresults with\nthe customer")
-    arrow(ax, (87, r3 - H / 2 - 0.4), (87, r4 + (H + 2) / 2 + 0.4))
-    arrow(ax, (xs[3] - W / 2 - 0.4, r4), (xs[2] + W / 2 + 0.4, r4))
-    arrow(ax, (xs[2] - W / 2 - 0.4, r4), (xs[1] + 8.5 + 0.2, r4))
-    arrow(ax, (xs[1] - 8.5 - 0.2, r4), (xs[0] + W / 2 + 0.4, r4))
-    ax.text(26.5, r4 + 1.6, "Yes", fontsize=11.5, ha="center", fontweight="bold")
-    # No branch: iterate from initial sizing through connector A
-    def connector(x, y):
-        ax.add_patch(matplotlib.patches.Circle((x, y), 1.7, fc="white", ec=AGED,
-                                               lw=1.6))
-        ax.text(x, y, "A", ha="center", va="center", fontsize=11.5,
-                fontweight="bold")
-    connector(37, 32.4)
-    arrow(ax, (37, r4 + 5.5 + 0.2), (37, 30.6))
-    ax.text(35.6, 30.2, "No", fontsize=11.5, ha="right", va="center",
-            fontweight="bold")
-    connector(31, 48.6)
-    arrow(ax, (31, 50.4), (31, r2 - H / 2 - 0.4))
-    # risk assessment
-    box(ax, 62, 32.3, 17, 3.6, "Risk assessment", fill="white", size=11)
-    arrow(ax, (53.2, 31.4), (41.4, 26.6))
+    def ellipse(cx, cy, text):
+        ax.add_patch(Ellipse((cx, cy), 42, 46, fc="white", ec=NB, lw=2.2, zorder=3))
+        ax.text(cx, cy, text, ha="center", va="center", fontsize=10.5, fontweight="bold",
+                zorder=4)
 
-    # Row 5, left to right
-    diamond(ax, xs[0], r5, 19, 11, "Requirements\nchange?", size=11)
-    box(ax, 52, r5, 34, H + 3,
-        "Point design\nOML, arrangement, performance,\nsubsystems, risk, cost, TRL 3 to 4",
-        size=11)
-    arrow(ax, (12, r4 - (H + 2) / 2 - 0.4), (12, r5 + 5.5 + 0.2))
-    arrow(ax, (xs[0] + 9.5 + 0.2, r5), (52 - 17 - 0.6, r5))
-    ax.text(25, r5 + 1.6, "No", fontsize=11.5, fontweight="bold")
-    box(ax, 87, r5, W, H, "Preliminary\ndesign", fill=GOLD, bold=True)
-    arrow(ax, (69.6, r5), (87 - W / 2 - 0.4, r5))
-    # Yes branch: back to design guidelines
-    arrow(ax, (12, r5 - 5.5 - 0.2), (12, -3.2))
-    ax.text(12, -5.6, "Yes: return to design guidelines", fontsize=11, ha="left",
-            va="center", bbox=dict(fc="white", ec="none", pad=0.5))
-    ax.set_ylim(-8, 89)
+    def diamond(cx, cy, hw, hh, text):
+        ax.add_patch(Polygon([(cx - hw, cy), (cx, cy - hh), (cx + hw, cy), (cx, cy + hh)],
+                             closed=True, fc="white", ec=NB, lw=2.2, zorder=3))
+        ax.text(cx, cy, text, ha="center", va="center", fontsize=10.5, fontweight="bold",
+                linespacing=1.05, zorder=4)
+
+    def inset(x0, y0, x1, y1):
+        a = fig.add_axes([x0 / W, 1 - y1 / H, (x1 - x0) / W, (y1 - y0) / H])
+        a.set_xticks([])
+        a.set_yticks([])
+        for s in a.spines.values():
+            s.set_edgecolor("#888888")
+        a.set_facecolor("#F2F2F2")
+        return a
+
+    # --- left column: customer to concept of operations
+    box(15, 83, 130, 125, "Customer")
+    box(15, 155, 130, 215, "Mission\nReqs")
+    box(15, 245, 130, 305, "Concept\nof Ops")
+    arrow([(72, 125), (72, 155)])
+    arrow([(72, 215), (72, 245)])
+
+    # --- requirements negotiation, GO, design guidelines
+    box(188, 8, 315, 60, "Evaluate\nReq/ConOps")
+    box(188, 80, 340, 135, "Negotiate\nwith Customer", filled=True)
+    arrow([(250, 60), (250, 80)], head=False)
+    arrow([(188, 108), (155, 108), (155, 268)], thick=True)
+    arrow([(130, 275), (178, 275)], thick=True)
+    star = []
+    for k in range(24):
+        r = 36 if k % 2 == 0 else 24
+        a = np.pi / 12 * k
+        star.append((225 + r * np.cos(a), 180 + r * np.sin(a)))
+    ax.add_patch(Polygon(star, closed=True, fc="#C9D9EE", ec=NB, lw=1.8, zorder=3))
+    ax.text(225, 180, "GO", ha="center", va="center", fontsize=12, fontweight="bold",
+            zorder=4)
+    box(323, 150, 425, 210, "Selection\nCriteria")
+    arrow([(323, 180), (280, 180), (280, 225)])
+    box(178, 225, 288, 370, "Design\nGuidelines",
+        ["Radius", "Payload", "Altitude", "Signature", "etc."])
+    box(325, 240, 450, 305, "Configuration\nSketches")
+    arrow([(288, 272), (325, 272)], thick=True)
+    arrow([(450, 272), (490, 272)], thick=True)
+
+    # --- concept stack
+    for k in (2, 1, 0):
+        d = 10 * k
+        ax.add_patch(Rectangle((490 + d, 200 - d), 130, 110, fc="white", ec="#555555",
+                               lw=2.2, zorder=3 + (2 - k) * 0.1))
+    ax.text(497, 207, "Concept No. 1", ha="left", va="top", fontsize=10.5,
+            fontweight="bold", fontstyle="italic", zorder=4)
+    planform = [(612, 262), (575, 254), (562, 236), (549, 236), (557, 254), (538, 254),
+                (531, 258), (538, 266), (557, 270), (549, 288), (562, 288), (575, 270)]
+    ax.add_patch(Polygon(planform, closed=True, fc="#BBBBBB", ec="#444444", lw=1.2,
+                         zorder=4))
+    ax.plot([503, 530], [252, 252], color="#444444", lw=1.5, zorder=4)
+    ax.plot([516, 516], [240, 252], color="#444444", lw=1.5, zorder=4)
+    arrow([(590, 312), (590, 393)], thick=True)
+    arrow([(515, 312), (515, 348)])
+    box(460, 348, 550, 410, "Initial\nSizing")
+    ax.add_patch(RegularPolygon((590, 425), 6, radius=30, orientation=np.pi / 6,
+                                fc="#8FB3DB", ec=NB, lw=2.2, zorder=3))
+    ax.text(590, 425, "A", ha="center", va="center", fontsize=12, fontweight="bold",
+            zorder=4)
+    arrow([(505, 410), (505, 470)])
+    box(443, 470, 565, 530, "Select\nConfiguration")
+    arrow([(505, 530), (505, 580)])
+    box(443, 580, 565, 725, "Functional\nInputs",
+        ["Aero", "Propulsion", "Weights", "Mat'l Structure", "Signature"])
+
+    # --- inputs to the design guidelines
+    box(12, 350, 140, 520, "System\nApproach",
+        ["Tactics", "Support Aircraft", "ECM", "Subsystems", "etc."])
+    box(315, 350, 425, 470, "Technology", ["Materials", "Stealth", "Propulsion", "etc."])
+    box(158, 465, 300, 605, "Measures\nof Merit",
+        ["Life Cycle Cost (LCC)", "Takeoff Weight", "Targets Killed/LCC", "etc."])
+    arrow([(140, 430), (200, 372)])
+    arrow([(315, 400), (266, 372)])
+    arrow([(232, 465), (232, 372)])
+    arrow([(158, 575), (75, 575), (75, 685)])
+
+    # --- design trades and the baseline
+    box(183, 640, 330, 690, "Design Trades", filled=True)
+    arrow([(443, 665), (330, 665)])
+    a = inset(183, 695, 330, 795)
+    a.set_xlim(0, 1)
+    a.set_ylim(0, 1)
+    a.text(0.03, 0.5, "MoM", ha="left", va="center", fontsize=8.5, fontweight="bold")
+    a.plot([0.2, 0.2], [0.08, 0.92], color=INK, lw=2.5)
+    for x0, lab in ((0.30, "W/S"), (0.60, "T/W")):
+        for j in range(3):
+            xs = np.linspace(x0 + 0.05 * j, x0 + 0.05 * j + 0.17, 20)
+            a.plot(xs, 0.25 + 0.14 * j + 0.5 * (xs - x0 - 0.05 * j) ** 2 * 4, color=NB,
+                   lw=0.8)
+            a.plot([x0 + 0.06 * j, x0 + 0.06 * j + 0.1], [0.22, 0.6], color=NB, lw=0.8)
+        a.text(x0 + 0.08, 0.72, lab, fontsize=6.5, rotation=40, color=INK)
+    ax.text(336, 712, "W/S\nT/W\nAR\nSweep\netc.", ha="left", va="top", fontsize=9.5,
+            linespacing=1.2)
+    arrow([(183, 725), (145, 725)])
+    box(10, 685, 145, 765, "Select\nPreferred\nConfiguration")
+    arrow([(75, 765), (75, 820)])
+    box(15, 820, 140, 885, "Baseline\nDesign")
+    arrow([(140, 855), (655, 855), (655, 60), (683, 60)], thick=True)
+    arrow([(590, 455), (590, 745), (380, 745)], thick=True)
+
+    # --- trades loop, right side
+    box(683, 30, 783, 90, "Mission\nTrades", filled=True)
+    ax.text(792, 6, "Radius\nPayload\nSpeed\nBox Size\nHover\nTime\netc.", ha="left",
+            va="top", fontsize=9.5, linespacing=1.2)
+    ax.text(858, 52, "MoM", ha="center", va="center", fontsize=8.5, fontweight="bold")
+    a = inset(870, 15, 1050, 90)
+    a.set_xlim(-10, 10)
+    a.set_ylim(-1.1, 1.1)
+    a.plot([-10, -10], [-1.1, 1.1], color=INK, lw=2.5)
+    a.axhline(0, color=INK, lw=1)
+    for k, lab in ((0.09, "Payload"), (0.06, "Speed"), (0.03, "Radius")):
+        a.plot([-10, 10], [-10 * k, 10 * k], color=NB, lw=0.8)
+        a.text(9.8, 10 * k, lab, fontsize=5.5, ha="right", va="bottom", rotation=12)
+    for t in (-10, -5, 0, 5, 10):
+        a.text(t, -1.05, f"{t:+d}" if t else "0", fontsize=5.5, ha="center", va="bottom")
+    arrow([(1050, 52), (1075, 52), (1075, 250)], thick=True)
+
+    box(1015, 250, 1130, 315, "Technology\nTrades", filled=True)
+    ax.text(966, 388, "MoM", ha="center", va="center", fontsize=9, fontweight="bold")
+    a = inset(990, 320, 1155, 455)
+    a.set_xlim(-10, 10)
+    a.set_ylim(-1.1, 1.1)
+    a.plot([-10, -10], [-1.1, 1.1], color=INK, lw=2.5)
+    a.axhline(0, color=INK, lw=1)
+    for k, lab, dx in ((-0.09, "TSFC", -1), (-0.06, "Weight", -1), (0.07, "L/D", 1)):
+        a.plot([-9, 9], [-9 * k, 9 * k], color=NB, lw=0.8)
+        a.text(9.5 * dx, 9 * k * dx, lab, fontsize=5.5, ha="center", va="bottom")
+    for t in (-10, -5, 0, 5, 10):
+        a.text(t, -1.05, f"{t:+d}" if t else "0", fontsize=5.5, ha="center", va="bottom")
+    ax.text(1085, 460, "TSFC\nEngine T/W\nEmpty Weight\n$C_D$\nL/D\n$C_{L\\,max}$\netc.",
+            ha="left", va="top", fontsize=9.5, linespacing=1.2)
+    arrow([(1072, 455), (1072, 585), (1006, 585)], thick=True)
+
+    diamond(966, 585, 40, 46, "Happy\n??")
+    box(1058, 705, 1165, 765, "Risk\nAssessment")
+    arrow([(1058, 735), (1030, 735), (1030, 625)], thick=True)
+    ellipse(966, 480, "No")
+    arrow([(966, 539), (966, 503)])
+    box(923, 250, 1003, 310, "Iterate\nDesign\n(back to A)", ts=10)
+    arrow([(966, 457), (966, 310)])
+    ellipse(966, 680, "Yes")
+    arrow([(966, 631), (966, 657)])
+    box(795, 540, 923, 625, "Share\nTrade Results\nwith Customer", filled=True)
+    arrow([(945, 680), (859, 680), (859, 625)])
+    arrow([(859, 540), (859, 425)])
+    diamond(859, 375, 42, 50, "Req\nChange\n??")
+    ellipse(813, 280, "No")
+    arrow([(817, 375), (813, 303)])
+    box(681, 250, 748, 310, "Point\nDesign")
+    arrow([(792, 280), (748, 280)])
+    ellipse(859, 185, "Yes")
+    arrow([(859, 325), (859, 208)])
+    box(928, 158, 1001, 215, "Back\nto GO")
+    arrow([(880, 185), (928, 185)])
+    ax.text(681, 325, "OML\nGen Arrangement\nPerformance\nSubsystems\nRisk Analysis\n"
+            "Req Analysis\nSys Engr Results\nManagement Plan\nRM&S\nLCC Analysis\n"
+            "System Specs\nTest Planning\nTRL = 3-4", ha="left", va="top", fontsize=9.5,
+            linespacing=1.2)
+    arrow([(695, 310), (695, 772), (783, 772)], thick=True)
+    ax.add_patch(FancyBboxPatch((783, 720), 175, 105, boxstyle="round,pad=0,rounding_size=22",
+                                fc=FB, ec=NB, lw=2.2, zorder=3))
+    ax.text(870, 772, "Preliminary\nDesign", ha="center", va="center", fontsize=14,
+            fontweight="bold", color="white", zorder=4)
+    ax.text(1170, 890, "MoM = Measure of Merit", ha="right", va="center", fontsize=10,
+            fontstyle="italic")
     save(fig, "design-process-flow")
 
 
 # ---------------------------------------------------------------------------
 def design_funnel():
-    """Conceptual, preliminary and detail design, after Raymer."""
-    fig, ax = canvas(9.5, 8.2, 100, 86)
+    """Conceptual, preliminary and detail design, after Raymer (slide 4)."""
+    fig, ax = plt.subplots(figsize=(8.6, 8.2))
+    ax.set_xlim(0, 100)
+    ax.set_ylim(100, 0)
+    ax.axis("off")
+    OR, TT = "#C55A11", "#A04F00"
     stages = [
-        ("Conceptual design",
-         "What requirements drive the design?\nWhat should it look like? Weight? Cost?\n"
-         "What trade-offs should be considered?\nWhat technologies should be used?\n"
-         "Do these requirements give a viable and salable aircraft?"),
-        ("Preliminary design",
-         "Freeze the configuration\nDevelop lofting (surface definition)\n"
-         "Develop the test and analytical database\nDesign major items\n"
-         "Develop the cost estimate"),
-        ("Detail design",
-         "Design the actual pieces to be built\nDesign tooling and fabrication process\n"
-         "Test major items: structure, landing gear\n"
-         "Finalize weight and performance estimates"),
+        ("Conceptual Design",
+         ["What requirements drive the design?", "What should it look like? Weight? Cost?",
+          "What tradeoffs should be considered?", "What technologies should be used?",
+          "Do these requirements produce a viable &", "salable plane?"]),
+        ("Preliminary Design",
+         ["Freeze the configuration", "Develop lofting (surface definition)",
+          "Develop test and analytical database", "Design major items",
+          "Develop actual cost estimate (statistical)", "(“You bet your company”)"]),
+        ("Detail Design",
+         ["Design actual pieces to be built", "Design tooling and fabrication process",
+          "Test major items - structure, landing gear, …",
+          "Finalize weight and performance estimates",
+          "(NOW you learn the real numbers!)"]),
     ]
-    tops = [74, 49, 24]
-    hgt = 23
-    for (title, body), top in zip(stages, tops):
-        ax.add_patch(Polygon([(6, top), (94, top), (84, top - hgt), (16, top - hgt)],
-                             closed=True, fc=DUST, ec=AGED, lw=1.6))
-        ax.text(50, top - 3.2, title, ha="center", va="center", fontsize=13.5,
+    x0, x1, xm, dip = 30, 94, 62, 4.5
+    tops = [3, 33.5, 64]
+    hts = [26, 26, 23]
+    for (title, lines), top, h in zip(stages, tops, hts):
+        bot = top + h
+        ax.plot([x0, x0, x1, x1], [bot, top, top, bot], color=OR, lw=1.8)
+        ax.plot([x0 - 4, xm, x1 + 4], [bot, bot + dip, bot], color=OR, lw=1.8)
+        ax.text(xm, top + 2.2, title, ha="center", va="top", color=TT, fontsize=13.5,
                 fontweight="bold")
-        ax.text(50, top - 13.3, body, ha="center", va="center", fontsize=11.5,
-                linespacing=1.3)
-    ax.text(50, 81.5, "Requirements", ha="center", va="center", fontsize=13,
-            fontweight="bold",
-            bbox=dict(boxstyle="round,pad=0.45", fc=GOLD, ec=AGED, lw=1.6))
-    arrow(ax, (50, 78.6), (50, 74.4))
-    ax.text(50, -5.5, "Fabrication", ha="center", va="center", fontsize=13,
-            fontweight="bold",
-            bbox=dict(boxstyle="round,pad=0.45", fc=GOLD, ec=AGED, lw=1.6))
-    arrow(ax, (50, 0.8), (50, -2.6))
-    ax.set_ylim(-9, 86)
+        ax.text(xm, top + 6.3, "\n".join(lines), ha="center", va="top", fontsize=11.5,
+                linespacing=1.33)
+    ax.add_patch(Polygon([(2, 7), (22, 7), (22, 3.5), (30, 11), (22, 18.5), (22, 15),
+                          (2, 15)], closed=True, fc="white", ec=OR, lw=1.8))
+    ax.text(12, 11, "Requirements", ha="center", va="center", fontsize=12.5)
+    ax.add_patch(Rectangle((44, 92.5), 36, 6, fc="white", ec=OR, lw=1.8))
+    ax.text(62, 95.5, "Fabrication", ha="center", va="center", fontsize=12.5)
     save(fig, "design-funnel")
 
 
 # ---------------------------------------------------------------------------
 def narrowbody_production():
-    """Narrow-body production counts, values as printed on the lecture slide."""
+    """Narrow-body production, values and order as on the lecture slide (slide 7)."""
     data = [
-        ("Airbus A318/A319/A320/A321", 16000),
-        ("Boeing 737 family", 10500),
-        ("Bombardier CRJ family", 1945),
-        ("Embraer E-Jets (first generation)", 1500),
         ("McDonnell Douglas MD-80/90", 1191),
         ("COMAC C919", 305),
-        ("Fokker 100", 283),
+        ("Mitsubishi SpaceJet", 0),
         ("Bombardier CSeries (A220)", 220),
         ("Sukhoi Superjet 100", 200),
-        ("Embraer E-Jets E2 (second generation)", 200),
+        ("Embraer E-Jets E2 (Second Generation)", 200),
+        ("Bombardier CRJ Family", 1945),
+        ("Embraer E-Jets (First Generation)", 1500),
+        ("Fokker 100", 283),
         ("Fokker 70", 47),
-        ("Mitsubishi SpaceJet", 0),
+        ("737 Family", 10500),
+        ("Airbus A318/A319/A320/A321", 16000),
     ]
     names = [d[0] for d in data][::-1]
     vals = [d[1] for d in data][::-1]
-    fig, ax = plt.subplots(figsize=(9.5, 6.2))
-    bars = ax.barh(names, vals, color=BLUE, edgecolor=INK, lw=0.6)
+    fig, ax = plt.subplots(figsize=(10, 7))
+    bars = ax.barh(names, vals, color="#87CEEB", edgecolor="#2F6F8F", lw=0.6, height=0.72)
     for b, v in zip(bars, vals):
-        ax.text(b.get_width() + 150, b.get_y() + b.get_height() / 2, f"{v:,}",
-                va="center", fontsize=12)
-    ax.set_xlabel("Number of aircraft produced")
-    ax.set_xlim(0, 18500)
-    ax.xaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(
-        lambda x, _: f"{int(x):,}"))
-    ax.spines[["top", "right"]].set_visible(False)
-    ax.tick_params(axis="y", length=0)
-    ax.grid(axis="x", color="#BBBBBB", lw=0.6)
+        ax.text(b.get_width() + 150, b.get_y() + b.get_height() / 2, f"{v}", va="center",
+                fontsize=12)
+    ax.set_title("Narrow Body Aircraft Production", fontsize=15, pad=12)
+    ax.set_xlabel("Number of Aircraft Produced", fontsize=13)
+    ax.set_xlim(0, 17500)
+    ax.set_xticks(range(0, 17501, 2000))
+    ax.set_xticklabels([])
+    ax.tick_params(axis="y", length=5, labelsize=12)
+    ax.grid(axis="x", color="#999999", lw=0.8, ls="--")
     ax.set_axisbelow(True)
-    assert vals[-1] == max(vals) and vals[0] == 0
+    for s in ("top", "right"):
+        ax.spines[s].set_visible(False)
+    assert vals[0] == 16000 and dict(data)["Mitsubishi SpaceJet"] == 0
     save(fig, "narrowbody-production")
 
 
 # ---------------------------------------------------------------------------
 def system_levels():
-    """Five levels of an aircraft system, after Sadraey."""
+    """Five levels of an aircraft system, after Sadraey (slide 9, text only)."""
     levels = [
         ("Level 1", "System of systems",
          "Air transportation or defense system: aircraft, missiles,\n"
@@ -299,10 +418,13 @@ def system_levels():
          "Wing, fuselage, tail, landing gear, radar, pumps, nacelles,\n"
          "control surfaces, auxiliary power unit"),
         ("Level 5", "Part",
-         "Fittings, fasteners, blades, screws, nuts, ribs, spars,\n"
-         "frames, stiffeners, skin, shafts, pipes, propellers"),
+         "Fittings, fasteners, blades, propellers, screws, nuts, ribs,\n"
+         "spars, frames, stiffeners, skin, shafts, pipes"),
     ]
-    fig, ax = canvas(10.5, 6.4, 100, 62)
+    fig, ax = plt.subplots(figsize=(10.5, 6.4))
+    ax.set_xlim(0, 100)
+    ax.set_ylim(0, 62)
+    ax.axis("off")
     fills = [GOLD, DUST, LIGHT, LIGHT, "white"]
     for i, ((lv, name, ex), fc) in enumerate(zip(levels, fills)):
         y = 54 - i * 12
@@ -310,133 +432,114 @@ def system_levels():
         ax.add_patch(FancyBboxPatch((1 + indent, y - 4.8), 27 - indent, 9.6,
                                     boxstyle="round,pad=0.2,rounding_size=0.8",
                                     fc=fc, ec=AGED, lw=1.6))
-        ax.text(14.5 + indent / 2, y + 1.9, lv, ha="center", va="center",
-                fontsize=12.5, fontweight="bold")
-        ax.text(14.5 + indent / 2, y - 2.0, name, ha="center", va="center",
-                fontsize=12.5)
+        ax.text(14.5 + indent / 2, y + 1.9, lv, ha="center", va="center", fontsize=12.5,
+                fontweight="bold")
+        ax.text(14.5 + indent / 2, y - 2.0, name, ha="center", va="center", fontsize=12.5)
         ax.text(32, y, ex, ha="left", va="center", fontsize=12, linespacing=1.3)
         if i < 4:
-            arrow(ax, (6 + indent, y - 5.0), (6 + indent, y - 7.1), lw=1.4)
+            ax.add_patch(FancyArrowPatch((6 + indent, y - 5.0), (6 + indent, y - 7.1),
+                                         arrowstyle="-|>", mutation_scale=16, lw=1.4,
+                                         color=INK, shrinkA=0, shrinkB=0))
     save(fig, "system-levels")
 
 
 # ---------------------------------------------------------------------------
-def goaero_conops():
-    """Purdue GoAERO team CONOPS diagram, redrawn with readable contrast."""
-    fig, ax = canvas(11, 7.4, 110, 74)
-    box(ax, 55, 34, 18, 12, "Operating\nzone", fill=GOLD, size=13.5, bold=True)
-    nodes = {
-        "vehicle": (55, 64, "Competition vehicle",
-                    "Semi-autonomous aircraft that carries\none passenger or a medium payload"),
-        "gps": (10, 64, "GPS", "Accurate\npositioning data"),
-        "areas": (95, 46, "Areas of operation",
-                  "Fly to and from objects of interest\nwith autonomous recognition,\n"
-                  "adapting to diverse conditions"),
-        "obst": (14, 30, "Obstacles",
-                 "The vehicle navigates complex\nobstacle environments using\n"
-                 "onboard sensors"),
-        "trans": (52, 8, "Transportation",
-                  "Ground transport brings the vehicle\nand the ground station to the\n"
-                  "area of operation"),
-        "ground": (95, 14, "Ground station",
-                   "Command and control center\nfor the operator to fly\nthe vehicle"),
-    }
-    for key, (x, y, title, body) in nodes.items():
-        ax.text(x, y + 3.2, title, ha="center", va="bottom", fontsize=13,
-                fontweight="bold")
-        ax.text(x, y + 2.6, body, ha="center", va="top", fontsize=11.5,
-                linespacing=1.25)
-    # flight paths (solid)
-    arrow(ax, (58, 40.5), (58, 56.0), lw=2.2)                  # zone -> vehicle
-    arrow(ax, (72, 62.5), (84, 52.5), lw=2.2, rad=-0.15)       # vehicle -> areas
-    arrow(ax, (82, 36.5), (64.6, 34), lw=2.2, rad=-0.15)       # areas -> zone
-    arrow(ax, (45.4, 33), (29, 30), lw=2.2, rad=0.1)           # zone -> obstacles
-    arrow(ax, (14, 23.0), (45.4, 30), lw=2.2, rad=0.25)        # obstacles -> zone
-    arrow(ax, (52, 14.2), (52, 27.6), lw=2.2)                  # transport -> zone
-    # data links (dashed)
-    arrow(ax, (19, 68.2), (40, 68.2), ls="--", color=BLUE, lw=2.0, style="-")
-    arrow(ax, (88, 20.5), (66, 56.5), ls="--", color=BLUE, lw=2.0, style="-",
-          rad=0.1)
-    ax.text(29.5, 69.2, "data link", ha="center", fontsize=11, color=INK)
-    ax.text(76.5, 27.5, "data link", ha="center", fontsize=11, color=INK)
-    save(fig, "goaero-conops")
-
-
-# ---------------------------------------------------------------------------
 def combat_mission_profile():
-    """Generic combat mission profile with eight phases, after Raymer."""
-    fig, ax = plt.subplots(figsize=(10, 5.4))
-    x = [0, 3, 18, 40, 42, 47, 52, 66, 86, 87, 87.5, 95, 96]
-    y = [0, 2, 70, 73, 60, 60, 37, 80, 82, 25, 25, 0, 0]
-    ax.fill_between(x, y, color=LIGHT)
-    ax.plot(x, y, color=INK, lw=2.2)
-    labels = [(9, 18, "1"), (12, 42, "2"), (29, 77, "3"), (43, 66, "4"),
-              (49.5, 46, "5"), (76, 86, "6"), (91, 31, "7"), (93, 8, "8")]
-    for lx, ly, t in labels:
-        ax.text(lx, ly, t, ha="center", va="center", fontsize=13,
-                fontweight="bold",
-                bbox=dict(boxstyle="circle,pad=0.25", fc="white", ec=AGED))
-    ax.set_xlabel("Distance (not to scale)")
-    ax.set_ylabel("Altitude (not to scale)")
+    """Generic combat mission profile with eight phases, after Raymer (slide 17)."""
+    fig, ax = plt.subplots(figsize=(10, 6.2))
+    takeoff_x = np.linspace(0, 6, 12)
+    takeoff_y = 12 * (takeoff_x / 6) ** 2.2
+    x = list(takeoff_x) + [18, 40, 41.5, 48, 53, 66, 86, 87, 87.5, 95, 96]
+    y = list(takeoff_y) + [70, 73, 61, 61, 37, 80, 82, 25, 25, 0, 0]
+    ax.fill_between(x, y, color="#AFC6E2")
+    ax.plot(x, y, color=INK, lw=2.4)
+    t = np.linspace(0, 0.94, 400)
+    ax.plot(48 + 5 * t + 1.8 * np.cos(2 * np.pi * 4 * t),
+            61 - 24 * t + 3.5 * np.sin(2 * np.pi * 4 * t), color=INK, lw=1.8)
+    ax.add_patch(Ellipse((87.6, 25), 6.5, 4.5, fc="none", ec=INK, lw=1.8))
+    labels = [(10.5, 4, "Phase 1"), (19.5, 38, "Phase 2"), (29, 77, "Phase 3"),
+              (46.5, 66.5, "Phase 4"), (39.5, 47, "Phase 5"), (76, 86, "Phase 6"),
+              (93.5, 31, "Phase 7"), (97, 10, "Phase 8")]
+    for lx, ly, s in labels:
+        ax.text(lx, ly, s, ha="center", va="center", fontsize=13, fontweight="bold",
+                fontstyle="italic")
+    legend = ["Engine start and takeoff", "Accelerate and climb to cruise speed/alt",
+              "Cruise to destination", "Accelerate to high speed dash", "Combat",
+              "Cruise back to origin", "Loiter", "Land, taxi, engine shutdown"]
+    for i, s in enumerate(legend):
+        yy = 27 - 3.2 * i
+        ax.text(46, yy, f"Phase {i + 1}", fontsize=8.5, fontstyle="italic", va="center")
+        ax.text(53, yy, s, fontsize=8.5, fontstyle="italic", va="center")
+    ax.set_xlabel("Distance", fontsize=14, fontweight="bold")
+    ax.set_ylabel("Altitude", fontsize=14, fontweight="bold")
     ax.set_xticks([0, 96], ["origin", "origin"])
+    ax.tick_params(axis="x", labelsize=11)
+    for lab in ax.get_xticklabels():
+        lab.set_fontstyle("italic")
     ax.set_yticks([])
-    ax.set_xlim(-1, 100)
+    ax.set_xlim(-0.5, 103)
     ax.set_ylim(0, 95)
-    ax.spines[["top", "right"]].set_visible(False)
+    for s in ("top", "right"):
+        ax.spines[s].set_visible(False)
+    for s in ("left", "bottom"):
+        ax.spines[s].set_linewidth(2)
     save(fig, "combat-mission-profile")
 
 
 # ---------------------------------------------------------------------------
 def navy_training_mission():
-    """Training flight from the Navy Jet Trainer RFP (schematic, distance not to scale)."""
+    """Training flight from the Navy Jet Trainer RFP (RFP page 2)."""
     fig, ax = plt.subplots(figsize=(10, 4.6))
     x = [0, 4, 7, 21, 37, 41, 53, 57, 71, 85, 89]
     y = [0, 0, 0, 20000, 20000, 10000, 10000, 20000, 20000, 0, 0]
-    ax.plot(x, y, color=INK, lw=2.2)
-    seg = [(2, 0, "1"), (5.5, 0, "2"), (14, 10000, "3"), (29, 20000, "4"),
-           (39, 15000, "5"), (47, 10000, "6"), (55, 15000, "7"), (64, 20000, "8"),
-           (78, 10000, "9"), (87, 0, "10")]
-    for sx, sy, t in seg:
-        ax.text(sx, sy, t, ha="center", va="center", fontsize=12, fontweight="bold",
-                bbox=dict(boxstyle="circle,pad=0.25", fc="white", ec=AGED))
+    ax.plot(x, y, color=INK, lw=1.8)
+    seg = [(2, 1400, "1"), (5.5, 1400, "2"), (12.5, 10000, "3"), (29, 21300, "4"),
+           (40.5, 15500, "5"), (47, 11300, "6"), (54, 15500, "7"), (64, 21300, "8"),
+           (79.5, 10000, "9"), (88, 1400, "10")]
+    for sx, sy, s in seg:
+        ax.text(sx, sy, s, ha="center", va="center", fontsize=12)
     for xa, xb in ((7, 41), (53, 85)):
         ax.annotate("", xy=(xb, -4200), xytext=(xa, -4200),
-                    arrowprops=dict(arrowstyle="<|-|>", color=BLUE, lw=1.6))
-        ax.text((xa + xb) / 2, -4200, "50 nm", ha="center", va="center",
-                fontsize=12, bbox=dict(fc="white", ec="none", pad=1.5))
+                    arrowprops=dict(arrowstyle="<|-|>", color="#4472C4", lw=1.6))
+        ax.text((xa + xb) / 2, -4200, "50 nm", ha="center", va="center", fontsize=12,
+                bbox=dict(fc="white", ec="#BBBBBB", pad=3))
     ax.set_yticks([0, 10000, 20000], ["0 ft", "10,000 ft", "20,000 ft"])
     ax.set_xticks([])
     ax.set_xlabel("Distance (not to scale)")
     ax.set_ylabel("Altitude")
     ax.set_ylim(-6500, 23500)
     ax.set_xlim(-1, 91)
-    ax.grid(axis="y", color="#BBBBBB", lw=0.6)
-    ax.spines[["top", "right"]].set_visible(False)
+    for s in ("top", "right"):
+        ax.spines[s].set_visible(False)
+    for s in ("left", "bottom"):
+        ax.spines[s].set_linewidth(2)
     save(fig, "navy-training-mission")
 
 
 def navy_ferry_mission():
-    """Ferry flight from the Navy Jet Trainer RFP (schematic)."""
+    """Ferry flight from the Navy Jet Trainer RFP (RFP page 3)."""
     fig, ax = plt.subplots(figsize=(10, 4.2))
     x = [0, 4, 7, 22, 72, 87, 91]
     y = [0, 0, 0, 1, 1, 0, 0]
-    ax.plot(x, y, color=INK, lw=2.2)
-    seg = [(2, 0, "1"), (5.5, 0, "2"), (14.5, 0.5, "3"), (47, 1, "4"),
-           (79.5, 0.5, "5"), (89, 0, "6")]
-    for sx, sy, t in seg:
-        ax.text(sx, sy, t, ha="center", va="center", fontsize=12, fontweight="bold",
-                bbox=dict(boxstyle="circle,pad=0.25", fc="white", ec=AGED))
+    ax.plot(x, y, color=INK, lw=1.8)
+    seg = [(2, 0.07, "1"), (5.5, 0.07, "2"), (13, 0.5, "3"), (47, 1.07, "4"),
+           (81, 0.5, "5"), (89, 0.07, "6")]
+    for sx, sy, s in seg:
+        ax.text(sx, sy, s, ha="center", va="center", fontsize=12)
     ax.annotate("", xy=(87, -0.22), xytext=(7, -0.22),
-                arrowprops=dict(arrowstyle="<|-|>", color=BLUE, lw=1.6))
-    ax.text(47, -0.22, "600 nm, segments 3 to 5", ha="center", va="center",
-            fontsize=12, bbox=dict(fc="white", ec="none", pad=1.5))
+                arrowprops=dict(arrowstyle="<|-|>", color="#4472C4", lw=1.6))
+    ax.text(47, -0.22, "600 nm, segments 3 to 5", ha="center", va="center", fontsize=12,
+            bbox=dict(fc="white", ec="#BBBBBB", pad=3))
     ax.set_yticks([0, 1], ["0 ft", "Cruise altitude\n(team choice)"])
     ax.set_xticks([])
     ax.set_xlabel("Distance (not to scale)")
     ax.set_ylabel("Altitude")
-    ax.set_ylim(-0.38, 1.18)
+    ax.set_ylim(-0.38, 1.2)
     ax.set_xlim(-1, 93)
-    ax.spines[["top", "right"]].set_visible(False)
+    for s in ("top", "right"):
+        ax.spines[s].set_visible(False)
+    for s in ("left", "bottom"):
+        ax.spines[s].set_linewidth(2)
     save(fig, "navy-ferry-mission")
 
 
@@ -446,7 +549,6 @@ if __name__ == "__main__":
     design_funnel()
     narrowbody_production()
     system_levels()
-    goaero_conops()
     combat_mission_profile()
     navy_training_mission()
     navy_ferry_mission()
