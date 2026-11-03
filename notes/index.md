@@ -29,6 +29,6 @@ The notes explain methods. The assignment briefs on Brightspace state what to su
 
 ## Source and corrections
 
-The notes are written in MyST Markdown and built with Jupyter Book 2. The source is on [GitHub](https://github.com/ThiagoPurdue/AAE490_Aircraft_Design_Notes). Report an error by opening an issue there or by contacting the instructor through Brightspace.
+The notes are written in MyST Markdown and built with Jupyter Book 2. The source is on [GitHub](https://github.com/ThiagoPurdue/AAE451_Advanced_Design_Notes). Report an error by opening an issue there or by contacting the instructor through Brightspace.
 
 The accessibility of this site is described in [](accessibility.md).

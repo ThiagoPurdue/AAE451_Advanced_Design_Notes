@@ -16,7 +16,7 @@ project:
     - name: Thiago Guimaraes
       affiliations:
         - Purdue University, School of Aeronautics and Astronautics
-  github: https://github.com/ThiagoPurdue/AAE490_Aircraft_Design_Notes
+  github: https://github.com/ThiagoPurdue/AAE451_Advanced_Design_Notes
   exclude:
     - README.md
     - scripts/**

@@ -4,7 +4,7 @@ Lecture notes for AAE 490/590 Aircraft Design, Purdue University, Fall 2026, bui
 [Jupyter Book 2](https://jupyterbook.org) (MyST). The notes follow the AIAA 2026-27 Navy Jet
 Trainer RFP.
 
-Site: https://thiagopurdue.github.io/AAE490_Aircraft_Design_Notes/
+Site: https://thiagopurdue.github.io/AAE451_Advanced_Design_Notes/
 
 ## Layout
 
