@@ -116,7 +116,7 @@ The sizing iteration.
 
 ### A short MATLAB example
 
-[](sizing-loop.ipynb) runs the loop of {numref}`fig-sizing-loop` cell by cell in MATLAB, with the lecture's equations: a trend line for the empty weight, and the product of segment fractions for the fuel, with Raymer's historical fractions for takeoff, climb and landing and the Breguet equations for cruise and loiter. The inputs describe a small jet transport with invented values, so the example is not the Navy trainer. The same code is one script, `sizing_loop.m`, which you can download from the link at the top of this page.
+[](sizing-loop.ipynb) runs the loop of {numref}`fig-sizing-loop` cell by cell, and its cells can be run and edited in the browser. It uses the lecture's equations: a trend line for the empty weight, and the product of segment fractions for the fuel, with Raymer's historical fractions for takeoff, climb and landing and the Breguet equations for cruise and loiter. The inputs describe a small jet transport with invented values, so the example is not the Navy trainer. The same code is one script, `sizing_loop.m`, which you can download from the link at the top of this page.
 
 :::{exercise} From the example to your code
 :label: ex-sizing-script

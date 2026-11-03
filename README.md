@@ -62,6 +62,12 @@ MATLAB code appears in two forms.
   scripts/execute_notebooks.sh        # uses /Applications/MATLAB_R2026a.app; set MATLAB_APP to change
   ```
 
+  Readers can also run and edit the cells on the page. The `thebe` entry in `myst.yml`
+  connects the browser to a kernel on mybinder.org, built from the `binder/` folder (GNU Octave
+  runs the MATLAB code; MATLAB itself cannot be licensed on a public kernel service). To use a
+  Jupyter server with the MATLAB kernel instead, set `thebe.server` (url and token) and
+  `kernelName: jupyter_matlab_kernel`.
+
 - A **script** (`notes/lecture-NN/code/*.m`) offered for download through the `downloads`
   entry in a page's front matter. Its output, when shown, is a text file next to it:
 
@@ -69,9 +75,6 @@ MATLAB code appears in two forms.
   cd notes/lecture-02/code
   /Applications/MATLAB_R2026a.app/bin/matlab -batch "run('sizing_loop.m')" | tee sizing_loop_output.txt
   ```
-
-Readers can run a script in their browser through the "Open in MATLAB Online" link, which
-needs a MATLAB license (Purdue students have one).
 
 ## Add a lecture
 

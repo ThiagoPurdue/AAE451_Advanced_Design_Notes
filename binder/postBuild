@@ -1,0 +1,4 @@
+#!/bin/bash
+# Register the Octave kernel for the live code cells of the book (Thebe on mybinder.org).
+python -m octave_kernel install --user || true
+jupyter kernelspec list

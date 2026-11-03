@@ -17,8 +17,20 @@ project:
       affiliations:
         - Purdue University, School of Aeronautics and Astronautics
   github: https://github.com/ThiagoPurdue/AAE451_Advanced_Design_Notes
+  # Live code cells: Thebe connects the reader's browser to a kernel on mybinder.org,
+  # built from the binder/ folder of this repository (GNU Octave runs the MATLAB code).
+  # For a Jupyter server with the MATLAB kernel, replace `binder` with
+  #   server: { url: https://<host>, token: <token> }  and kernelName: jupyter_matlab_kernel
+  thebe:
+    binder:
+      url: https://mybinder.org/
+      repo: ThiagoPurdue/AAE451_Advanced_Design_Notes
+      ref: main
+      provider: github
+    kernelName: octave
   exclude:
     - README.md
+    - binder/**
     - scripts/**
     - notes/_parts/**
     - notes/_static/**
