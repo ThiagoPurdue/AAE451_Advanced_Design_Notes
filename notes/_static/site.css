@@ -12,3 +12,48 @@
     animation-duration: 0.01ms !important;
   }
 }
+
+/* "Navy Jet Trainer" boxes: the admonitions that tie a lecture to the RFP.
+   Navy header with white text in both color modes (contrast 14:1). */
+.myst-admonition.navy {
+  border-color: #0B2545 !important;
+}
+.myst-admonition.navy > .myst-admonition-header,
+.myst-admonition.navy > .myst-admonition-header * {
+  background-color: #0B2545 !important;
+  color: #FFFFFF !important;
+}
+
+/* Tables: navy header row, ruled cells, zebra rows. Numeric columns are
+   right-aligned in the Markdown source. */
+article table {
+  border-collapse: collapse;
+  width: 100%;
+}
+article table th {
+  background-color: #0B2545 !important;
+  color: #FFFFFF !important;
+  font-weight: 600;
+  text-align: left;
+  vertical-align: bottom;
+  padding: 0.5rem 0.65rem !important;
+  border: 1px solid #0B2545 !important;
+}
+article table td {
+  padding: 0.45rem 0.65rem !important;
+  border: 1px solid #C9CED6 !important;
+  vertical-align: top;
+}
+article table th[align="right"], article table td[align="right"],
+article table th[style*="text-align: right"], article table td[style*="text-align: right"] {
+  text-align: right;
+}
+article table tr:nth-child(even) td {
+  background-color: #F5EFDC;
+}
+html.dark article table td {
+  border-color: #4B5563 !important;
+}
+html.dark article table tr:nth-child(even) td {
+  background-color: rgba(255, 255, 255, 0.07);
+}

@@ -19,7 +19,9 @@ Phases of an aircraft program. Redrawn after Venson, as credited on the lecture 
 
 Phase 0, the feasibility study, asks whether the program should start at all. Phases 1 to 3 are design. Phase 4 is certification, entry into service and production. Phase 5 is operation of the fleet and its retirement.
 
-This course is Phase 1, conceptual design, carried to a Preliminary Design Review at the end of the semester.
+:::{important} Where this course sits
+This course is Phase 1, {term}`conceptual design`, carried to a Preliminary Design Review ({term}`PDR`) at the end of the semester.
+:::
 
 ## What happens in conceptual design
 
@@ -33,9 +35,15 @@ This course is Phase 1, conceptual design, carried to a Preliminary Design Revie
 The conceptual design process. Redrawn after Nicolai and Carichner (2010), as shown on the lecture slide. Point A is where a design iteration re-enters the process. MoM is a measure of merit.
 ```
 
+:::{prf:definition} Measure of merit
+:label: def-measure-of-merit
+
+A {term}`measure of merit` is a quantity used to rank concepts, such as life cycle cost or takeoff weight. Trade studies report the change in a measure of merit. The chart abbreviates it MoM.
+:::
+
 Read the chart in four steps:
 
-1. **Define the problem.** The customer states the mission. The team writes the concept of operations, evaluates and negotiates the requirements with the customer, and gets a GO decision. The design guidelines and the measures of merit are set here. These are the quantities used to rank concepts, such as life cycle cost or takeoff weight.
+1. **Define the problem.** The customer states the mission. The team writes the concept of operations, evaluates and negotiates the requirements with the customer, and gets a GO decision. The design guidelines and the measures of merit are set here.
 2. **Find a baseline.** The team sketches several configurations, sizes each one and selects one. Design trades on wing loading (W/S), thrust-to-weight ratio (T/W), aspect ratio (AR) and sweep refine it into a baseline design.
 3. **Trade and decide.** Mission trades change the requirements, such as radius, payload or speed. Technology trades change the assumptions, such as specific fuel consumption, engine thrust-to-weight ratio or empty weight. Each trade is plotted as the change in a measure of merit. If the result is not acceptable, the design is iterated from point A, back through the design trades.
 4. **Share and close.** The trade results go back to the customer. If the customer changes a requirement, the process goes back to GO. If not, the point design goes forward.
@@ -48,11 +56,12 @@ Requirements are not fixed at the start. A trade study can show that one require
 :label: tbl-design-phases-detail
 
 | Aspect | Phase 1, conceptual design | Phase 2, preliminary design | Phase 3, detail design |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Known | Basic mission requirements: range, altitude and speed. Basic material properties: strength-to-density ratio σ/ρ, stiffness-to-density ratio E/ρ, cost per pound | Aeroelastic, fatigue and flutter requirements. Overall strength requirements | Local strength requirements. Producibility. Functional requirements |
 | Results | Geometry: airfoil type, aspect ratio, thickness ratio t/c, taper ratio λ, sweep Λ. Design objectives: drag level, weight goals, cost goals | Basic internal arrangement. Complete external configuration, with camber and twist distribution and local flow problems solved. Major loads, stresses and deflections | Detail design of mechanisms, joints, fittings and attachments. Design refinements from testing |
 | Output | Feasible design | Mature design | Shop designs |
-| TRL | 2 to 3 | 4 to 5 | 6 to 7 |
+| {term}`TRL` | 2 to 3 | 4 to 5 | 6 to 7 |
+
 :::
 
 The slide illustrates each phase with a sketch. Phase 1 compares two wing planforms. Phase 2 compares two airfoil sections and two incidence angles, 3° and 5°. Phase 3 shows the internal structure of a wing box.
@@ -70,26 +79,40 @@ Conceptual, preliminary and detail design. Redrawn after Raymer, as shown on the
 Raymer adds two remarks. Preliminary design is where the company commits to the program. He calls the commitment made at that stage, based on that cost estimate, "you bet your company". Detail design is where the real numbers are learned. Every number in conceptual design is an estimate. Keep track of what each estimate rests on.
 
 :::{admonition} Navy Jet Trainer
-:class: note
+:class: navy
 
 The RFP asks for "a preliminary design". In this course you carry the design through conceptual design to a Preliminary Design Review. Expect your weights and performance to change as the methods improve during the semester. Record the source of every number so you can update it.
 :::
 
 ## Market analysis and business case
 
-An aircraft program starts with a market. The market analysis finds the demand and the competition:
+An aircraft program starts with a market.
+
+::::{grid} 1 1 2 2
+
+:::{card}
+:header: Market analysis
+Understand the demand and the competition.
 
 - **Market segments.** Commercial, military, business and other segments.
 - **Competitors.** Their strengths, weaknesses and market share.
 - **Demand forecast.** Future trends, growth areas and the age of the fleets in service.
+:::
 
-The business case justifies the program in terms of profit and strategic fit:
+:::{card}
+:header: Business case
+Justify the program in terms of profit and strategic fit.
 
 - **Cost analysis.** Development, production and operating costs against the expected revenue.
 - **Return on investment.** The financial return the program can produce.
 - **Risk assessment.** Technical, financial and market risks, and how to reduce them.
+:::
 
+::::
+
+:::{seealso}
 The lecture recommends the video [Turboprops, regional aviation and other stuff](https://www.youtube.com/watch?v=_33Zqer6Nzc) by Marcelo Alves Araujo.
+:::
 
 ### Example: narrow-body aircraft
 
@@ -113,19 +136,40 @@ A new aircraft enters a market that already has a leader. The Mitsubishi SpaceJe
 The first MRJ90 flight-test aircraft, JA21MJ, in Japan in 2016. Photo by CHIYODA I, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:JA21MJ_TAKEOFF_ROLL.jpg).
 ```
 
+:::{warning} The SpaceJet
 The SpaceJet flew and went through years of flight testing, yet no aircraft was delivered. Mitsubishi Heavy Industries ended the program in 2023, citing the cost and time still needed for type certification and a weak market. The lecture slide shows one of the flight-test aircraft being cut up. A program can fail on certification, cost and schedule even after the aircraft flies.
+:::
 
 ## Feasibility study
 
-The feasibility study is Phase 0. It checks four things:
+The feasibility study is Phase 0. It checks four things.
 
-- **Technical feasibility.** Can the design be built with current technology?
-- **Economic viability.** Is the program financially sustainable?
-- **Operational feasibility.** Can the aircraft be operated within existing infrastructure?
-- **Environmental impact.** What are the negative environmental effects, and how can they be reduced?
+::::{grid} 1 2 2 4
+
+:::{card}
+:header: Technical feasibility
+Can the design be built with current technology?
+:::
+
+:::{card}
+:header: Economic viability
+Is the program financially sustainable?
+:::
+
+:::{card}
+:header: Operational feasibility
+Can the aircraft be operated within existing infrastructure?
+:::
+
+:::{card}
+:header: Environmental impact
+What are the negative environmental effects, and how can they be reduced?
+:::
+
+::::
 
 :::{admonition} Navy Jet Trainer
-:class: note
+:class: navy
 
 The customer is the Navy. The business case appears in the RFP's cost section. It asks for development, test and certification cost in 2030 dollars. Production is 10 aircraft at low rate and 500 at full rate. The RFP also asks for the unit flyaway cost, the life cycle cost and the operating cost per flight hour. See [](../navy-rfp/navy-rfp.md).
 :::
@@ -144,10 +188,10 @@ Levels of an aircraft system. Redrawn after Sadraey (2012).
 
 Each level is designed against requirements that come from the level above. A requirement on the aircraft, Level 2, comes from the system of systems it serves, Level 1. The aircraft requirement then flows down to the subsystems at Level 3.
 
-:::{admonition} Navy Jet Trainer
-:class: note
+:::{exercise} Levels of the trainer
+:label: ex-system-levels
 
-What is Level 1 for the trainer, and which other elements sit beside the aircraft in it? Level 3 starts with the list in the RFP's aircraft systems section: propulsion, landing gear, electrical, hydraulics, fuel, pressurization, air conditioning and oxygen, avionics, control system actuators and flight control computers. Ask which requirements the trainer inherits from Level 1 before writing requirements for Level 2.
+What is Level 1 for the trainer, and which other elements sit beside the aircraft in it? Level 3 starts with the list in the RFP's aircraft systems section: propulsion, landing gear, electrical, hydraulics, fuel, pressurization, air conditioning and oxygen, avionics, control system actuators and flight control computers. Which requirements does the trainer inherit from Level 1? Answer that before writing requirements for Level 2.
 :::
 
 ## References

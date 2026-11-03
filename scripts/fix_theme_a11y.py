@@ -5,8 +5,8 @@ Run after `jupyter-book build --html`:  python3 scripts/fix_theme_a11y.py _build
 The theme gives two kinds of links an aria-label that differs from their
 visible text, which fails WCAG 2.1 success criterion 2.5.3 (Label in Name):
 
-1. Figure and table number links in captions ("Figure 1:") are labelled
-   "Link to this figure". The label is kept only for the pilcrow anchors next
+1. Figure, table, definition and exercise number links in captions
+   ("Figure 1:") are labelled "Link to this figure" and so on. The label is kept only for the pilcrow anchors next
    to headings, whose visible text is a symbol.
 2. Previous and next page links in the footer are labelled "Next: <title>".
    Without the label, their name is their visible text.
@@ -43,7 +43,7 @@ if missing:
     sys.exit("Theme code changed; patch not applied: " + "; ".join(missing))
 
 caption_label = re.compile(
-    r'(<a [^>]*title="Link to this [a-z]+") aria-label="Link to this [a-z]+"(>(?!¶))')
+    r'(<a [^>]*title="Link to this [A-Za-z ]+") aria-label="Link to this [A-Za-z ]+"(>(?!¶))')
 footer_label = re.compile(r' aria-label="(?:Next|Previous): [^"]*"')
 pages = 0
 for html in root.glob("**/*.html"):

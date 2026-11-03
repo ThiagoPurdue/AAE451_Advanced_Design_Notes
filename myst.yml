@@ -30,6 +30,7 @@ project:
         - file: notes/lecture-01/design-process.md
         - file: notes/lecture-01/needs-and-conops.md
         - file: notes/lecture-01/requirements.md
+    - file: notes/glossary.md
     - file: notes/accessibility.md
 site:
   template: book-theme

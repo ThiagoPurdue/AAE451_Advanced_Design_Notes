@@ -5,23 +5,67 @@ short_title: About
 
 These are the lecture notes for AAE 451 Advanced Aircraft Design in the School of Aeronautics and Astronautics at Purdue University. The course covers conceptual design and ends with a Preliminary Design Review. The instructor is Prof. Thiago Guimaraes.
 
-The notes are written around one design problem: the AIAA 2026-27 Undergraduate Team Aircraft Design Competition request for proposal (RFP), *Design of a Navy Jet Training Aircraft*. The RFP itself is summarized in [](navy-rfp/navy-rfp.md).
+The notes are written around one design problem: the AIAA 2026-27 Undergraduate Team Aircraft Design Competition request for proposal ({term}`RFP`), *Design of a Navy Jet Training Aircraft*.
+
+::::{grid} 1 1 2 2
+
+:::{card} Navy Jet Trainer RFP
+:link: navy-rfp/navy-rfp.md
+What the Navy asks for: performance, cockpit, missions, the analyses and data the proposal must contain, and how proposals are judged.
+:::
+
+:::{card} Lecture 1, part 1: The aircraft design process
+:link: lecture-01/design-process.md
+Phases of a program, what happens in conceptual design, the market and business case, the feasibility study and the systems view.
+:::
+
+:::{card} Lecture 1, part 2: Needs, mission statement and CONOPS
+:link: lecture-01/needs-and-conops.md
+Customer needs and stakeholders, the mission statement, the concept of operations and the mission profile.
+:::
+
+:::{card} Lecture 1, part 3: Requirements
+:link: lecture-01/requirements.md
+SMART requirements, the tests for one requirement and for the set, the checklist, the compliance matrix and trade studies.
+:::
+
+::::
+
+More lectures will be added during the semester.
 
 ## How the notes are organized
 
 Each lecture is one chapter. A chapter follows the slides shown in class and adds the explanation given in the room. Figures and tables from the slides are included. Diagrams were redrawn for the web so their text stays sharp at any zoom level. Each figure has alt text for screen readers.
 
-Boxes titled **Navy Jet Trainer** connect the lecture to the RFP. They point to the RFP sections that matter and to the questions your team has to answer. They do not give design answers. The configuration, the engine and the design point are your team's decisions.
+## Boxes used in the notes
 
-## Chapters
+The notes use five kinds of box. Each has one meaning.
 
-1. [](navy-rfp/navy-rfp.md) summarizes what the Navy asks for: performance, cockpit, missions, analyses and data.
-2. **Lecture 1, Introduction to Aircraft Design**, covers the design process, stakeholder needs, the concept of operations and requirements.
-   - [](lecture-01/design-process.md)
-   - [](lecture-01/needs-and-conops.md)
-   - [](lecture-01/requirements.md)
+:::{admonition} Navy Jet Trainer
+:class: navy
 
-More lectures will be added during the semester.
+Connects the lecture to the RFP. It points to the RFP sections that matter and to the questions your team has to answer. It does not give design answers. The configuration, the engine and the design point are your team's decisions.
+:::
+
+:::{prf:definition} Example of a definition box
+:label: def-sample
+
+Defines a term the course uses in a fixed sense. The [glossary](glossary.md) collects these terms. In the text, a term with a dotted underline opens its definition.
+:::
+
+:::{exercise} Example of an exercise box
+:label: ex-sample
+
+A question to work through with your RFP. It is not graded. The assignment briefs on Brightspace state what is.
+:::
+
+:::{tip}
+A working method, or a habit that saves rework later.
+:::
+
+:::{warning}
+A common mistake, and how to avoid it.
+:::
 
 ## Using the notes with the assignments
 
