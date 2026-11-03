@@ -1,0 +1,14 @@
+/* Accessibility overrides for the MyST book theme.
+   The sidebar footer fades in over 0.7 s; show it at once so its text always
+   meets the 4.5:1 contrast ratio, and respect readers who turn off motion. */
+.myst-primary-sidebar-footer {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

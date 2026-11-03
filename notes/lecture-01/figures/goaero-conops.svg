@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="637.202539pt" height="431.856pt" viewBox="0 0 637.202539 431.856" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-03T15:19:55.135391</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 431.856 
+L 637.202539 431.856 
+L 637.202539 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 271.04857 267.21 
+L 365.35057 267.21 
+Q 369.81457 267.21 369.81457 262.7748 
+L 369.81457 202.3452 
+Q 369.81457 197.91 365.35057 197.91 
+L 271.04857 197.91 
+Q 266.58457 197.91 266.58457 202.3452 
+L 266.58457 262.7748 
+Q 266.58457 267.21 271.04857 267.21 
+z
+" clip-path="url(#pf3cfbde8e7)" style="fill: #cfb991; stroke: #8e6f3e; stroke-width: 1.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 334.93957 196.524 
+Q 334.93957 153.558 334.93957 113.051675 
+" clip-path="url(#pf3cfbde8e7)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: round"/>
+    <path d="M 331.73957 119.451675 
+L 334.93957 113.051675 
+L 338.13957 119.451675 
+z
+" clip-path="url(#pf3cfbde8e7)" style="stroke: #000000; stroke-width: 2.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 413.05957 74.556 
+Q 454.85557 92.232 478.655639 127.949127 
+" clip-path="url(#pf3cfbde8e7)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: round"/>
+    <path d="M 477.76968 120.848769 
+L 478.655639 127.949127 
+L 472.443778 124.397679 
+z
+" clip-path="url(#pf3cfbde8e7)" style="stroke: #000000; stroke-width: 2.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 468.85957 218.7 
+Q 422.39257 240.1938 374.199749 232.926751 
+" clip-path="url(#pf3cfbde8e7)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: round"/>
+    <path d="M 380.051068 237.045254 
+L 374.199749 232.926751 
+L 381.005343 230.716798 
+z
+" clip-path="url(#pf3cfbde8e7)" style="stroke: #000000; stroke-width: 2.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 264.63157 238.104 
+Q 217.21237 237.2688 175.406347 253.830102 
+" clip-path="url(#pf3cfbde8e7)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: round"/>
+    <path d="M 182.535032 254.448044 
+L 175.406347 253.830102 
+L 180.177912 248.497919 
+z
+" clip-path="url(#pf3cfbde8e7)" style="stroke: #000000; stroke-width: 2.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 89.41957 293.544 
+Q 186.72757 317.943 262.721503 256.285723 
+" clip-path="url(#pf3cfbde8e7)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: round"/>
+    <path d="M 255.735398 257.833087 
+L 262.721503 256.285723 
+L 259.767731 262.803026 
+z
+" clip-path="url(#pf3cfbde8e7)" style="stroke: #000000; stroke-width: 2.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 301.45957 342.3312 
+Q 301.45957 305.1864 301.45957 270.501275 
+" clip-path="url(#pf3cfbde8e7)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: round"/>
+    <path d="M 298.25957 276.901275 
+L 301.45957 270.501275 
+L 304.65957 276.901275 
+z
+" clip-path="url(#pf3cfbde8e7)" style="stroke: #000000; stroke-width: 2.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 117.31957 42.9552 
+Q 175.90957 42.9552 234.49957 42.9552 
+" clip-path="url(#pf3cfbde8e7)" style="fill: none; stroke-dasharray: 7.4,3.2; stroke-dashoffset: 0; stroke: #0072b2; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 502.33957 307.404 
+Q 460.91797 195.336 379.57957 107.82 
+" clip-path="url(#pf3cfbde8e7)" style="fill: none; stroke-dasharray: 7.4,3.2; stroke-dashoffset: 0; stroke: #0072b2; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 13.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(286.32375 228.68165)">Operating</text>
+    <text style="font-weight: 700; font-size: 13.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(302.825391 243.601787)">zone</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="318.19957" y="45.933731" transform="rotate(-0 318.19957 45.933731)">Competition vehicle</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(222.334492 60.057084)">Semi-autonomous aircraft that carries</text>
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(224.870781 72.632065)">one passenger or a medium payload</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="67.09957" y="45.933731" transform="rotate(-0 67.09957 45.933731)">GPS</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(44.409531 60.057084)">Accurate</text>
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(26.821719 72.632065)">positioning data</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="541.39957" y="145.725731" transform="rotate(-0 541.39957 145.725731)">Areas of operation</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(456.396602 159.989241)">Fly to and from objects of interest</text>
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(466.610039 172.698987)">with autonomous recognition,</text>
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(465.32707 185.408733)">adapting to diverse conditions</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="89.41957" y="234.429731" transform="rotate(-0 89.41957 234.429731)">Obstacles</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(10.8 248.553084)">The vehicle navigates complex</text>
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(16.55 261.26283)">obstacle environments using</text>
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(46.590156 273.972577)">onboard sensors</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="301.45957" y="356.397731" transform="rotate(-0 301.45957 356.397731)">Transportation</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(211.653555 370.661241)">Ground transport brings the vehicle</text>
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(228.257578 383.370987)">and the ground station to the</text>
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(257.987773 396.255928)">area of operation</text>
+   </g>
+   <g id="text_12">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="541.39957" y="323.133731" transform="rotate(-0 541.39957 323.133731)">Ground station</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(467.256016 337.257084)">Command and control center</text>
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(488.348633 350.00726)">for the operator to fly</text>
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(513.911875 362.717006)">the vehicle</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="175.90957" y="37.4112" transform="rotate(-0 175.90957 37.4112)">data link</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="438.16957" y="268.596" transform="rotate(-0 438.16957 268.596)">data link</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pf3cfbde8e7">
+   <rect x="11.29957" y="10.8" width="613.8" height="410.256"/>
+  </clipPath>
+ </defs>
+</svg>

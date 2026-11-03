@@ -1,0 +1,41 @@
+# Jupyter Book 2 (MyST) configuration for the AAE 490/590 lecture notes.
+# Build locally:   jupyter-book start        (live preview)
+#                  jupyter-book build --html (static site in _build/html)
+version: 1
+project:
+  id: aae490-590-aircraft-design-notes
+  title: AAE 490/590 Aircraft Design
+  subtitle: Lecture notes, Navy Jet Trainer
+  description: Lecture notes for AAE 490/590 Aircraft Design at Purdue University, written around the AIAA 2026-27 Navy Jet Trainer request for proposal.
+  keywords:
+    - aircraft design
+    - conceptual design
+    - requirements
+    - Navy jet trainer
+  authors:
+    - name: Thiago Guimaraes
+      affiliations:
+        - Purdue University, School of Aeronautics and Astronautics
+  github: https://github.com/ThiagoPurdue/AAE490_Aircraft_Design_Notes
+  exclude:
+    - README.md
+    - scripts/**
+    - notes/_parts/**
+    - notes/_static/**
+  toc:
+    - file: notes/index.md
+    - file: notes/navy-rfp/navy-rfp.md
+    - title: "Lecture 1: Introduction to Aircraft Design"
+      children:
+        - file: notes/lecture-01/design-process.md
+        - file: notes/lecture-01/needs-and-conops.md
+        - file: notes/lecture-01/requirements.md
+    - file: notes/accessibility.md
+site:
+  template: book-theme
+  options:
+    logo_text: AAE 490/590 Aircraft Design
+    hide_authors: true
+    style: notes/_static/site.css
+  parts:
+    primary_sidebar_footer: notes/_parts/sidebar-footer.md

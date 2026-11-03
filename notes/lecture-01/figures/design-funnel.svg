@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="551.7pt" height="476.208pt" viewBox="0 0 551.7 476.208" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-03T15:19:55.061504</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 476.208 
+L 551.7 476.208 
+L 551.7 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 42.606 68.224168 
+L 509.094 68.224168 
+L 456.084 178.287158 
+L 95.616 178.287158 
+z
+" clip-path="url(#pcaf169b9e2)" style="fill: #ebd99f; stroke: #8e6f3e; stroke-width: 1.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 42.606 187.857853 
+L 509.094 187.857853 
+L 456.084 297.920842 
+L 95.616 297.920842 
+z
+" clip-path="url(#pcaf169b9e2)" style="fill: #ebd99f; stroke: #8e6f3e; stroke-width: 1.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 42.606 307.491537 
+L 509.094 307.491537 
+L 456.084 417.554526 
+L 95.616 417.554526 
+z
+" clip-path="url(#pcaf169b9e2)" style="fill: #ebd99f; stroke: #8e6f3e; stroke-width: 1.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 275.85 46.211571 
+Q 275.85 56.2608 275.85 64.521175 
+" clip-path="url(#pcaf169b9e2)" style="fill: none; stroke: #000000; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 279.05 58.121175 
+L 275.85 64.521175 
+L 272.65 58.121175 
+z
+" clip-path="url(#pcaf169b9e2)" style="stroke: #000000; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 275.85 418.511596 
+Q 275.85 426.646686 275.85 432.992922 
+" clip-path="url(#pcaf169b9e2)" style="fill: none; stroke: #000000; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 279.05 426.592922 
+L 275.85 432.992922 
+L 272.65 426.592922 
+z
+" clip-path="url(#pcaf169b9e2)" style="stroke: #000000; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 13.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="275.85" y="87.030405" transform="rotate(-0 275.85 87.030405)">Conceptual design</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(181.891406 108.396351)">What requirements drive the design?</text>
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(174.642813 121.699874)">What should it look like? Weight? Cost?</text>
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(177.19168 134.821195)">What trade-offs should be considered?</text>
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(184.752031 147.989952)">What technologies should be used?</text>
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(130.751445 161.293476)">Do these requirements give a viable and salable aircraft?</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 13.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="275.85" y="206.581824" transform="rotate(-0 275.85 206.581824)">Preliminary design</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(213.846133 228.212238)">Freeze the configuration</text>
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(188.920781 241.515762)">Develop lofting (surface definition)</text>
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(172.287109 254.637082)">Develop the test and analytical database</text>
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(226.643477 267.758402)">Design major items</text>
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(209.695352 280.879723)">Develop the cost estimate</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 13.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="275.85" y="326.215508" transform="rotate(-0 275.85 326.215508)">Detail design</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(186.674688 354.17802)">Design the actual pieces to be built</text>
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(178.367734 367.481544)">Design tooling and fabrication process</text>
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(173.595234 380.602864)">Test major items: structure, landing gear</text>
+    <text style="font-size: 11.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif" transform="translate(166.55418 393.906387)">Finalize weight and performance estimates</text>
+   </g>
+   <g id="text_7">
+    <g id="patch_7">
+     <path d="M 232.507188 44.119376 
+L 319.192813 44.119376 
+Q 325.042813 44.119376 325.042813 38.269376 
+L 325.042813 26.398751 
+Q 325.042813 20.548751 319.192813 20.548751 
+L 232.507188 20.548751 
+Q 226.657188 20.548751 226.657188 26.398751 
+L 226.657188 38.269376 
+Q 226.657188 44.119376 232.507188 44.119376 
+z
+" style="fill: #cfb991; stroke: #8e6f3e; stroke-width: 1.6; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 13px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="275.85" y="35.703907" transform="rotate(-0 275.85 35.703907)">Requirements</text>
+   </g>
+   <g id="text_8">
+    <g id="patch_8">
+     <path d="M 240.820078 460.444597 
+L 310.879922 460.444597 
+Q 316.729922 460.444597 316.729922 454.594597 
+L 316.729922 442.723972 
+Q 316.729922 436.873972 310.879922 436.873972 
+L 240.820078 436.873972 
+Q 234.970078 436.873972 234.970078 442.723972 
+L 234.970078 454.594597 
+Q 234.970078 460.444597 240.820078 460.444597 
+z
+" style="fill: #cfb991; stroke: #8e6f3e; stroke-width: 1.6; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 13px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="275.85" y="452.029128" transform="rotate(-0 275.85 452.029128)">Fabrication</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pcaf169b9e2">
+   <rect x="10.8" y="10.8" width="530.1" height="454.608"/>
+  </clipPath>
+ </defs>
+</svg>
