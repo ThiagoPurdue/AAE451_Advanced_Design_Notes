@@ -137,7 +137,7 @@ Each of these elements puts requirements on the aircraft.
 :alt: Diagram centered on an orange box labeled Operating Zone. Above it is the competition vehicle, a quadcopter, described as a semi-autonomous aircraft capable of transporting a single passenger and medium payloads. Top left, a GPS satellite that gives accurate positioning data, joined to the vehicle by a dotted line. Top right, icons of a storm cloud, a rain cloud, a person, a package and a target, labeled Areas of Operation: fly to and from objects of interest with autonomous recognition, adapting to diverse conditions. Left, gate and marker icons labeled Obstacles: the vehicle navigates complex obstacle environments using onboard sensors. Bottom center, Transportation: ground transport for the vehicle and the ground station to arrive at the required area of operation. Bottom right, a satellite dish labeled Ground Station: command and control center for the operator to fly the vehicle, joined to the vehicle by a dotted line. Green arrows run from the vehicle to the obstacles and to the areas of operation, from the obstacles and from the areas back to the operating zone, and from the operating zone up to the vehicle.
 :width: 100%
 
-CONOPS of the Purdue GoAERO team, redrawn in draw.io from the lecture slide. Green arrows are flights. Red dotted lines are data links. The source file, `goaero-conops.drawio`, is kept next to the figure.
+CONOPS of the Purdue GoAERO team, redrawn from the lecture slide. Green arrows are flights. Red dotted lines are data links.
 ```
 
 The GoAERO diagram is centered on the operating zone. It shows how the vehicle and the ground station arrive, where the vehicle flies, what it must avoid, and which links it depends on.

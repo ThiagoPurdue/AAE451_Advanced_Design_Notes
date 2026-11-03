@@ -14,8 +14,14 @@ Conceptual design
 CONOPS
 : Concept of operations. A description of how the system will be operated during its life-cycle phases to meet stakeholder expectations.
 
+Design mission
+: The most demanding mission the aircraft must fly. It sizes the fuel. The operating mission is the one flown on an ordinary day.
+
 FCLP
 : Field Carrier Landing Practice. Carrier approaches and landings flown to a land runway marked as a carrier deck.
+
+Fixed engine
+: An engine selected off the shelf, with known thrust and fuel flow, that does not change during sizing.
 
 Measure of merit
 : A quantity used to rank concepts, such as life cycle cost or takeoff weight. Trade studies report the change in a measure of merit.
@@ -44,11 +50,17 @@ Requirement
 RFP
 : Request for proposal. The document in which a customer states what it needs and the limits a bidder's design must meet.
 
+Rubber engine
+: An engine that scales with the aircraft during sizing. It implies new engine development.
+
 SRR
 : System Requirements Review. The review at which the mission statement, the needs and the requirements are baselined.
 
 Stakeholder
 : Anyone with an interest in the project: customers, operators, maintainers, investors, regulators, suppliers and end users.
+
+Technology factor
+: A factor applied to a regression result to account for a technology the database never saw.
 
 Threshold
 : The minimum acceptable value of a requirement. A design that meets every threshold is acceptable.

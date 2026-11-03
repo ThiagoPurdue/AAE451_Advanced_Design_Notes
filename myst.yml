@@ -30,6 +30,11 @@ project:
         - file: notes/lecture-01/design-process.md
         - file: notes/lecture-01/needs-and-conops.md
         - file: notes/lecture-01/requirements.md
+    - title: "Lecture 2: Aircraft Sizing"
+      children:
+        - file: notes/lecture-02/weight-estimation.md
+        - file: notes/lecture-02/mission-fuel.md
+        - file: notes/lecture-02/sizing-loop.ipynb
     - file: notes/glossary.md
     - file: notes/accessibility.md
 site:

@@ -27,6 +27,8 @@ NOTES = Path(__file__).resolve().parents[1] / "notes"
 FOLDER = {
     "navy-training-mission": "navy-rfp",
     "navy-ferry-mission": "navy-rfp",
+    "design-mission-profile": "lecture-02",
+    "empty-weight-trends": "lecture-02",
 }
 DEFAULT_FOLDER = "lecture-01"
 PREVIEW = os.environ.get("FIG_PREVIEW")  # optional PNG copies for checking
@@ -543,6 +545,59 @@ def navy_ferry_mission():
     save(fig, "navy-ferry-mission")
 
 
+# ---------------------------------------------------------------------------
+def design_mission_profile():
+    """Design mission with numbered points 0 to 4 (sizing lecture, slide 8)."""
+    fig, ax = plt.subplots(figsize=(9, 3.4))
+    pts = [(0, 0), (0.5, 0), (1.9, 1.0), (6.9, 1.4), (6.9, 0)]
+    xs, ys = zip(*pts)
+    ax.plot(xs, ys, color=AGED, lw=3, solid_capstyle="round")
+    ax.plot(xs, ys, "o", color="#555960", ms=7)
+    for (x, y), lab, dy in zip(pts, "01234", (-0.17, -0.17, 0.14, 0.14, -0.17)):
+        ax.text(x, y + dy, lab, ha="center", va="center", fontsize=13, color="#555960")
+    ax.text(0.25, -0.42, "Warm-up, taxi, takeoff", ha="center", va="center", fontsize=13,
+            color=AGED)
+    ax.text(0.95, 0.55, "Climb", ha="right", va="center", fontsize=13, color=AGED)
+    ax.text(4.4, 1.33, "Cruise-climb", ha="center", va="bottom", fontsize=13, color=AGED)
+    ax.text(7.1, 0.7, "No-range\ndescent", ha="left", va="center", fontsize=13, color=AGED,
+            linespacing=1.2)
+    ax.annotate("", xy=(6.9, -0.65), xytext=(0.5, -0.65),
+                arrowprops=dict(arrowstyle="<->", color="#555960", lw=1.2))
+    ax.text(3.7, -0.65, "still air range", ha="center", va="center", fontsize=13,
+            color="#555960", bbox=dict(fc="white", ec="none", pad=2))
+    ax.set_xlim(-0.6, 8.4)
+    ax.set_ylim(-0.95, 1.75)
+    ax.axis("off")
+    save(fig, "design-mission-profile")
+
+
+# ---------------------------------------------------------------------------
+def empty_weight_trends():
+    """Empty-weight trend lines from Nicolai Table 5.1, with the F9F-5 point
+    (Nicolai Table I.5a) used in the lecture's check of the regression."""
+    fig, ax = plt.subplots(figsize=(8, 6))
+    w = np.logspace(3, 5, 100)
+    ax.plot(w, 0.747 * w ** 0.993, color="#0072B2", lw=2.2, ls="-",
+            label="Military jet trainer, $W_e = 0.747\,W_{TO}^{\,0.993}$")
+    ax.plot(w, 0.911 * w ** 0.947, color="#D55E00", lw=2.2, ls="--",
+            label="Multipurpose fighter and light civil, $W_e = 0.911\,W_{TO}^{\,0.947}$")
+    ax.plot([17500], [10223], "s", color=INK, ms=9, label="Grumman F9F-5 (17,500 lb, 10,223 lb)")
+    ax.set_xscale("log")
+    ax.set_yscale("log")
+    ax.set_xlim(1e3, 1e5)
+    ax.set_ylim(5e2, 1e5)
+    ax.set_xlabel("Takeoff gross weight, $W_{TO}$ (lb)", fontsize=13)
+    ax.set_ylabel("Empty weight, $W_e$ (lb)", fontsize=13)
+    ax.grid(True, which="both", color="#CCCCCC", lw=0.6)
+    ax.legend(fontsize=11, loc="upper left")
+    for s in ("top", "right"):
+        ax.spines[s].set_visible(False)
+    # the lecture's check: the trainer line over-predicts the F9F-5 by 19 percent
+    assert abs(0.747 * 17500 ** 0.993 / 10223 - 1.19) < 0.01
+    assert abs(0.911 * 17500 ** 0.947 / 10223 - 0.93) < 0.01
+    save(fig, "empty-weight-trends")
+
+
 if __name__ == "__main__":
     design_phases()
     design_process_flow()
@@ -552,3 +607,5 @@ if __name__ == "__main__":
     combat_mission_profile()
     navy_training_mission()
     navy_ferry_mission()
+    design_mission_profile()
+    empty_weight_trends()

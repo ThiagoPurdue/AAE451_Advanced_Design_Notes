@@ -49,6 +49,30 @@ python3 scripts/make_figures.py
 python3 scripts/export_drawio.py
 ```
 
+## Code in the notes
+
+MATLAB code appears in two forms.
+
+- A **notebook page** (`notes/lecture-NN/*.ipynb`) with the MATLAB kernel. Its outputs are
+  stored in the notebook, so GitHub builds the page without MATLAB. Execute the notebooks on a
+  machine with a licensed MATLAB before committing:
+
+  ```bash
+  .venv/bin/pip install jupyter-matlab-proxy nbconvert
+  scripts/execute_notebooks.sh        # uses /Applications/MATLAB_R2026a.app; set MATLAB_APP to change
+  ```
+
+- A **script** (`notes/lecture-NN/code/*.m`) offered for download through the `downloads`
+  entry in a page's front matter. Its output, when shown, is a text file next to it:
+
+  ```bash
+  cd notes/lecture-02/code
+  /Applications/MATLAB_R2026a.app/bin/matlab -batch "run('sizing_loop.m')" | tee sizing_loop_output.txt
+  ```
+
+Readers can run a script in their browser through the "Open in MATLAB Online" link, which
+needs a MATLAB license (Purdue students have one).
+
 ## Add a lecture
 
 1. Write the pages in `notes/lecture-NN/` and put its figures in `notes/lecture-NN/figures/`.

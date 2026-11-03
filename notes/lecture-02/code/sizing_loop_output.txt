@@ -1,0 +1,11 @@
+Fuel weight fraction Wfuel/W0 = 0.189
+
+ iter     W0 guess           We        Wfuel      W0 calc
+    1        20000        10779         3780        31616
+    2        31616        16631         5976        30182
+    3        30182        15916         5705        30320
+    4        30320        15985         5731        30306
+    5        30306        15978         5728        30308
+    6        30308        15979         5729        30307
+
+Converged after 6 iterations: W0 = 30307 lb (We/W0 = 0.527, Wfuel/W0 = 0.189)

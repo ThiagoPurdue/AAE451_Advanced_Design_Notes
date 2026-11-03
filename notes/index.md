@@ -29,6 +29,16 @@ Customer needs and stakeholders, the mission statement, the concept of operation
 SMART requirements, the tests for one requirement and for the set, the checklist, the compliance matrix and trade studies.
 :::
 
+:::{card} Lecture 2, part 1: Starting from weight and the empty weight
+:link: lecture-02/weight-estimation.md
+Why takeoff weight comes first, the empty-weight trend lines and regression, how good they are, and fixed against rubber engines.
+:::
+
+:::{card} Lecture 2, part 2: The design mission, fuel weight and the sizing loop
+:link: lecture-02/mission-fuel.md
+The design mission, the fuel weight fraction, historical segment fractions, the Breguet equations and the sizing iteration.
+:::
+
 ::::
 
 More lectures will be added during the semester.
