@@ -49,6 +49,11 @@ Wing placement, fuselage cross-section, engine placement, tail and landing gear 
 The first assignment: deconstruct the RFP, write the needs, the concept of operations and the requirements, and trace them together.
 :::
 
+:::{card} Assignment A02: Aircraft sizing and certification requirements
+:link: assignments/a02.md
+The second assignment: the certification basis, the team aircraft database, the empty-weight trend, the first takeoff-weight estimate, and the AI use record.
+:::
+
 ::::
 
 More lectures will be added during the semester.

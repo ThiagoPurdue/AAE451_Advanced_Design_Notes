@@ -368,6 +368,7 @@ A {term}`morphological chart` has one row per major arrangement choice and one c
 A03 Deliverable 2: choose the rows from your requirements and CONOPS, then compose at least three distinct configurations.
 :::
 
+(trainer-cohort)=
 ## The trainer cohort
 
 The eight aircraft of the A02 database. Photos via Wikimedia Commons.

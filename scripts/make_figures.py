@@ -29,6 +29,7 @@ FOLDER = {
     "navy-ferry-mission": "navy-rfp",
     "design-mission-profile": "lecture-02",
     "empty-weight-trends": "lecture-02",
+    "trend-honesty": "assignments",
 }
 DEFAULT_FOLDER = "lecture-01"
 PREVIEW = os.environ.get("FIG_PREVIEW")  # optional PNG copies for checking
@@ -598,6 +599,46 @@ def empty_weight_trends():
     save(fig, "empty-weight-trends")
 
 
+# ---------------------------------------------------------------------------
+def trend_honesty():
+    """Sample figure from the A02 brief (Deliverable 3): a least-squares line
+    appears whether or not the data supports one. Invented data, same seed as
+    the brief's figure. Left panel one aircraft class, right panel mixed classes."""
+    rng = np.random.default_rng(42)
+    x1 = np.sort(rng.uniform(10, 70, 9))                  # gross weight, 1000 lb
+    y1 = 0.68 - 0.0025 * x1 + rng.normal(0, 0.006, x1.size)
+    x2 = np.sort(rng.uniform(10, 70, 9))
+    y2 = rng.normal(0.55, 0.055, x2.size)
+
+    def fit_r2(x, y):
+        b, a = np.polyfit(x, y, 1)
+        yhat = a + b * x
+        return a, b, 1 - np.sum((y - yhat) ** 2) / np.sum((y - y.mean()) ** 2)
+
+    a1, b1, r2_1 = fit_r2(x1, y1)
+    a2, b2, r2_2 = fit_r2(x2, y2)
+    print(f"trend-honesty: left R^2 = {r2_1:.3f}, right R^2 = {r2_2:.3f}")
+    # the point of the figure; refuse to write a version that does not show it
+    assert r2_1 > 0.85, f"left panel shows no real trend (R^2={r2_1:.3f})"
+    assert r2_2 < 0.30, f"right panel shows a trend (R^2={r2_2:.3f})"
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.0, 3.6), sharey=True, sharex=True)
+    for ax, x, y, a, b, r2, title in (
+        (axes[0], x1, y1, a1, b1, r2_1, "One aircraft class"),
+        (axes[1], x2, y2, a2, b2, r2_2, "Mixed classes"),
+    ):
+        xf = np.linspace(8, 72, 50)
+        ax.plot(x, y, "o", color="#0072B2", ms=7, zorder=3)
+        ax.plot(xf, a + b * xf, "--", color="#D55E00", lw=2, zorder=2)
+        ax.set_title(title)
+        ax.set_xlabel("Takeoff gross weight (1000 lb)")
+        ax.text(0.04, 0.07, f"$R^2$ = {r2:.2f}", transform=ax.transAxes)
+        ax.grid(True, lw=0.4, alpha=0.5)
+    axes[0].set_ylabel("Empty-weight fraction (–)")
+    fig.tight_layout()
+    save(fig, "trend-honesty")
+
+
 if __name__ == "__main__":
     design_phases()
     design_process_flow()
@@ -609,3 +650,4 @@ if __name__ == "__main__":
     navy_ferry_mission()
     design_mission_profile()
     empty_weight_trends()
+    trend_honesty()

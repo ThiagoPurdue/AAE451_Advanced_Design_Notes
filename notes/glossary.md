@@ -5,6 +5,9 @@ title: Glossary
 Terms the notes use in a fixed sense. In the text, a term with a dotted underline opens its definition.
 
 :::{glossary}
+Certification basis
+: The airworthiness document, and the sections of it that apply to the aircraft, against which compliance is shown. In this course the Navy Jet Trainer uses MIL-HDBK-516C.
+
 Compliance matrix
 : A table with one row per requirement: its threshold, its objective or target, and the current value of the design.
 
