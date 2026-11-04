@@ -17,7 +17,7 @@ These notes are written to meet the Web Content Accessibility Guidelines (WCAG) 
 
 ## Known limitations
 
-- Twelve figures are photographs or images of third-party material: the MRJ90 photograph and two illustrations in Lecture 1, and the nine aircraft photographs in Lecture 3, some reused in Lectures 4 and 5. Two of them contain text: the Wisk Aero urban air mobility illustration and the 2022 student mission statement slide. Their content is given in the alt text and in the text around them.
+- Twelve figures are photographs or images of third-party material: the MRJ90 photograph and two illustrations in Lecture 1, and the nine aircraft photographs in Lecture 3, some reused in Lectures 2 and 4. Two of them contain text: the Wisk Aero urban air mobility illustration and the 2022 student mission statement slide. Their content is given in the alt text and in the text around them.
 - The YouTube videos the lecture recommends are hosted by YouTube. Their captions are provided by YouTube, not by this site.
 - Linked external documents, such as the RFP and the military standards, are outside the control of this site.
 

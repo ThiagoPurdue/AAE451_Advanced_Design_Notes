@@ -3,7 +3,7 @@ title: Design missions and energy reserves
 short_title: Design missions and reserves
 ---
 
-This is Lecture 5, *Design Missions and Energy Reserves*. The RFP prescribes the trainer's two missions segment by segment. The work is to interpret them: find what sizes the aircraft, resolve what the RFP leaves open, and turn each answer into an assumption or a requirement before the {term}`SRR`. Every number on this page comes from the RFP.
+This page completes Lecture 2, *Aircraft Sizing*, with the lecture *Design Missions and Energy Reserves*. The sizing loop needs a mission; the RFP prescribes the trainer's two missions segment by segment. The work is to interpret them: find what sizes the aircraft, resolve what the RFP leaves open, and turn each answer into an assumption or a requirement before the {term}`SRR`. Every number on this page comes from the RFP.
 
 :::{note} What to take from this lecture
 - The training flight and the ferry flight are both prescribed. Fly both in the sizing code before believing either one sizes the fuel.

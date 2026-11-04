@@ -44,6 +44,11 @@ The design mission, the fuel weight fraction, historical segment fractions, the 
 The sizing iteration run cell by cell on an invented small transport. The cells can be edited and rerun in the browser.
 :::
 
+:::{card} Lecture 2, part 4: Design missions and energy reserves
+:link: lecture-02/design-missions.md
+The two prescribed missions, which one sizes the fuel, point performance, what FCLP drives, and the seven questions each team answers before the SRR.
+:::
+
 :::{card} Lecture 3: Aircraft configuration
 :link: lecture-03/configuration.md
 Wing placement, fuselage cross-section, engine placement, tail and landing gear arrangements, the morphological chart, and the trainer cohort.
@@ -54,9 +59,14 @@ Wing placement, fuselage cross-section, engine placement, tail and landing gear 
 Brainstorming, the morphological chart, Pugh's controlled convergence in ten steps, its limits, and weighted objectives.
 :::
 
-:::{card} Lecture 5: Design missions and energy reserves
-:link: lecture-05/design-missions.md
-The two prescribed missions, which one sizes the fuel, point performance, what FCLP drives, and the seven questions each team answers before the SRR.
+:::{card} Lecture 5, part 1: The airfoil
+:link: lecture-05/airfoil.md
+What the RFP asks of the wing, the airfoil families, reading section data, Reynolds and Mach effects, stall classes, and the comparison that selects an airfoil.
+:::
+
+:::{card} Lecture 5, part 2: Wing geometry and lift
+:link: lecture-05/wing-geometry-and-lift.md
+Planform, wing volume and height, aspect ratio, taper, sweep and drag divergence, twist, incidence, the lift-curve slope, clean maximum lift, and stall speed.
 :::
 
 :::{card} Assignment A01: RFP breakdown and system requirements
@@ -72,6 +82,16 @@ The second assignment: the certification basis, the team aircraft database, the 
 :::{card} Assignment A03: Sizing II, configuration selection and mission analysis
 :link: assignments/a03.md
 The third assignment: the refined sizing, the morphological chart and the Pugh selection, the mission analysis, and the SRR baseline.
+:::
+
+:::{card} Assignment A04: Airfoil, wing geometry, high lift and initial layout
+:link: assignments/a04.md
+The fourth assignment: the airfoil selection, the wing geometry, the high-lift estimate, the first dimensioned layout and loft, and the SRR action items.
+:::
+
+:::{card} Assignment A05: Propulsion selection and installed engine deck
+:link: assignments/a05.md
+The fifth assignment: propulsion requirements and engine class, candidates and selection, the installed engine deck in the sizing code, and the inlet.
 :::
 
 ::::
