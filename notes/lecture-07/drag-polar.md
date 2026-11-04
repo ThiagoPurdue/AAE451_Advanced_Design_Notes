@@ -255,7 +255,7 @@ One wing and tail, three solvers: a multidisciplinary design optimization (MDO) 
 4. Compute the drag rise at the maximum operating Mach number.
 
 :::{tip}
-The takeoff and landing polars need the flap increments from [Lecture 6](../lecture-06/high-lift-wing-and-field.md) and the gear increment from [Lecture 7, part 1](parasite-drag.md). [](../assignments/a05.md), Deliverable 1, asks you to state the drag polar of each configuration your segments fly, with its source.
+The takeoff and landing polars need the flap increments from [Lecture 6](../lecture-06/high-lift-wing-and-field.md) and the gear increment from [Lecture 7, part 1](parasite-drag.md). [](../assignments/a05.md), Deliverable 1, asks for the build-up by component and the polars.
 :::
 
 :::{important} Summary
