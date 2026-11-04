@@ -44,6 +44,11 @@ The design mission, the fuel weight fraction, historical segment fractions, the 
 Wing placement, fuselage cross-section, engine placement, tail and landing gear arrangements, the morphological chart and the trainer cohort.
 :::
 
+:::{card} Lecture 4: Concept generation and selection
+:link: lecture-04/concept-selection.md
+Brainstorming, the morphological chart, Pugh's controlled convergence in ten steps, its limits, and weighted objectives.
+:::
+
 :::{card} Assignment A01: RFP breakdown and system requirements
 :link: assignments/a01.md
 The first assignment: deconstruct the RFP, write the needs, the concept of operations and the requirements, and trace them together.
@@ -52,6 +57,11 @@ The first assignment: deconstruct the RFP, write the needs, the concept of opera
 :::{card} Assignment A02: Aircraft sizing and certification requirements
 :link: assignments/a02.md
 The second assignment: the certification basis, the team aircraft database, the empty-weight trend, the first takeoff-weight estimate, and the AI use record.
+:::
+
+:::{card} Assignment A03: Sizing II, configuration selection and mission analysis
+:link: assignments/a03.md
+The third assignment: the refined sizing, the morphological matrix and the Pugh selection, the mission analysis, and the SRR baseline.
 :::
 
 ::::

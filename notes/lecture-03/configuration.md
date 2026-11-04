@@ -347,7 +347,7 @@ A {term}`morphological chart` has one row per major arrangement choice and one c
 
 - Compose many configurations. Check each against your requirements and CONOPS.
 - Record every disqualifier with the requirement or RFP statement it violates.
-- The selection method, the Pugh matrix, is the next lecture.
+- The selection method, the Pugh matrix, is in [](../lecture-04/concept-selection.md).
 
 :::{table} Illustration of a morphological chart. Your rows come from your own decomposition.
 :label: tbl-morphological-illustration
@@ -438,7 +438,7 @@ For each of the eight trainers, identify the wing placement, the inlet placement
 :::
 
 :::{seealso} Reading
-Raymer (2018), Chapter 4. The next lecture covers configuration generation and selection.
+Raymer (2018), Chapter 4. Concept generation and selection follow in [](../lecture-04/concept-selection.md).
 :::
 
 ## References

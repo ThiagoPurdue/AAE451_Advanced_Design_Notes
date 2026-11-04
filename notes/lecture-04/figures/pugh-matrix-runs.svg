@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="326.88pt" height="213.984pt" viewBox="0 0 326.88 213.984" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-03T21:34:41.736758</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 213.984 
+L 326.88 213.984 
+L 326.88 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="line2d_1">
+    <path d="M 39.324112 49.088 
+L 91.890841 98.368 
+L 109.413084 86.048 
+L 161.979813 125.472 
+L 179.502056 115.616 
+L 232.068785 145.184 
+L 267.113271 150.112 
+" clip-path="url(#pf66088e739)" style="fill: none; stroke: #8e6f3e; stroke-width: 2.8; stroke-linecap: round"/>
+   </g>
+   <g id="patch_2">
+    <path d="M 23.799912 172.288 
+Q 159.058394 172.288 292.863432 172.288 
+" style="fill: none; stroke: #555960; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 288.063432 169.888 
+L 292.863432 172.288 
+L 288.063432 174.688 
+z
+" style="fill: #555960; stroke: #555960; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 21.801869 170.287128 
+Q 21.801869 99.599357 21.801869 30.36503 
+" style="fill: none; stroke: #555960; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 19.401869 35.16503 
+L 21.801869 30.36503 
+L 24.201869 35.16503 
+z
+" style="fill: #555960; stroke: #555960; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 12px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #555960" x="296.317009" y="186.790975" transform="rotate(-0 296.317009 186.790975)">matrix runs</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 12px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #555960" x="27.642617" y="22.063" transform="rotate(-0 27.642617 22.063)">concepts</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 12px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #8e6f3e" x="106.49271" y="78.594375" transform="rotate(-0 106.49271 78.594375)">added hybrids</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 12px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #8e6f3e" x="229.148411" y="122.946375" transform="rotate(-0 229.148411 122.946375)">winner emerges</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pf66088e739">
+   <rect x="7.2" y="7.2" width="312.48" height="199.584"/>
+  </clipPath>
+ </defs>
+</svg>

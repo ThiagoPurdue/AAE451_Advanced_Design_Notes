@@ -5,6 +5,9 @@ title: Glossary
 Terms the notes use in a fixed sense. In the text, a term with a dotted underline opens its definition.
 
 :::{glossary}
+ASORT
+: Authoritative source of truth. One parameter file that every script of the sizing code reads, so that no constant is duplicated in code.
+
 Certification basis
 : The airworthiness document, and the sections of it that apply to the aircraft, against which compliance is shown. In this course the Navy Jet Trainer uses MIL-HDBK-516C.
 
@@ -19,6 +22,9 @@ Configuration
 
 CONOPS
 : Concept of operations. A description of how the system will be operated during its life-cycle phases to meet stakeholder expectations.
+
+Datum
+: The reference concept in a Pugh matrix. Every other concept is scored against it, criterion by criterion. At the first run it is often an existing aircraft.
 
 Design mission
 : The most demanding mission the aircraft must fly. It sizes the fuel. The operating mission is the one flown on an ordinary day.
@@ -82,4 +88,10 @@ Trade study
 
 TRL
 : Technology readiness level. A scale from 1, basic principles observed, to 9, proven in operation.
+
+Waiver
+: A written record of a change to a baselined requirement, with the reason for the change. Kept in the deck appendix.
+
+Weighted objectives
+: A selection method that scores each concept against each objective and sums weight times score. The weights and the scores are both judgments, so the total is a shortlist aid, not a measurement.
 :::

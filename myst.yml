@@ -50,10 +50,14 @@ project:
     - title: "Lecture 3: Aircraft Configuration"
       children:
         - file: notes/lecture-03/configuration.md
+    - title: "Lecture 4: Concept Generation and Selection"
+      children:
+        - file: notes/lecture-04/concept-selection.md
     - title: Assignments
       children:
         - file: notes/assignments/a01.md
         - file: notes/assignments/a02.md
+        - file: notes/assignments/a03.md
     - file: notes/glossary.md
     - file: notes/accessibility.md
 site:

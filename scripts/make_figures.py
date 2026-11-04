@@ -30,6 +30,8 @@ FOLDER = {
     "design-mission-profile": "lecture-02",
     "empty-weight-trends": "lecture-02",
     "trend-honesty": "assignments",
+    "pugh-controlled-convergence": "lecture-04",
+    "pugh-matrix-runs": "lecture-04",
 }
 DEFAULT_FOLDER = "lecture-01"
 PREVIEW = os.environ.get("FIG_PREVIEW")  # optional PNG copies for checking
@@ -639,6 +641,82 @@ def trend_honesty():
     save(fig, "trend-honesty")
 
 
+# ---------------------------------------------------------------------------
+STEEL = "#555960"
+
+
+def pugh_controlled_convergence():
+    """Controlled convergence, after the diagram in Pugh (1991) reproduced on
+    the concept-selection lecture's source slide: the set of concepts narrows
+    at each convergence step and widens at each generation step, until one
+    concept is left."""
+    fig, ax = plt.subplots(figsize=(7.8, 9.4))
+    ax.set_xlim(-6.5, 5.0)
+    ax.set_ylim(-0.9, 11.2)
+    ax.axis("off")
+    # (y, half-width) of the funnel at each level, top to bottom
+    levels = [(9.0, 3.6), (7.6, 1.9), (7.0, 2.5), (5.4, 1.5), (4.8, 1.9),
+              (3.2, 1.0), (2.6, 1.3), (1.2, 0.6), (0.8, 0.8), (0.0, 0.0)]
+
+    def edge(y):
+        """Half-width of the funnel at height y, by linear interpolation."""
+        for (y0, w0), (y1, w1) in zip(levels[:-1], levels[1:]):
+            if y1 <= y <= y0:
+                return w1 + (w0 - w1) * (y - y1) / (y0 - y1)
+        return 0.0
+    for sign in (-1, 1):
+        for (y0, w0), (y1, w1) in zip(levels[:-1], levels[1:]):
+            ax.annotate("", xy=(sign * w1, y1), xytext=(sign * w0, y0),
+                        arrowprops=dict(arrowstyle="-|>", color=INK, lw=1.4,
+                                        mutation_scale=12, shrinkA=0, shrinkB=0))
+    # the specification feeds concept generation, which spreads the first set
+    ax.annotate("", xy=(0, 9.9), xytext=(0, 10.75),
+                arrowprops=dict(arrowstyle="-|>", color=INK, lw=1.4, mutation_scale=12))
+    ax.text(0, 10.85, "Specification (PDS)", ha="center", va="bottom", fontsize=12)
+    ax.text(0, 9.75, "Concept generation", ha="center", va="top", fontsize=12)
+    ax.annotate("", xy=(-3.6, 9.0), xytext=(0, 9.0),
+                arrowprops=dict(arrowstyle="-|>", color=INK, lw=1.2, mutation_scale=12))
+    ax.annotate("", xy=(3.6, 9.0), xytext=(0, 9.0),
+                arrowprops=dict(arrowstyle="-|>", color=INK, lw=1.2, mutation_scale=12))
+    ax.text(0, 8.9, "Initial number of\nconcepts, from the PDS", ha="center", va="top",
+            fontsize=11, bbox=dict(fc="white", ec="none", pad=1.5))
+    centre = [(7.6, "Initial number reduced"), (7.0, "New ones added"),
+              (5.4, "Further reduction (FR)"), (4.8, "Further addition (FA)"),
+              (3.2, "FR"), (2.6, "FA"), (1.2, "FR"), (0.8, "FA")]
+    for y, s in centre:
+        ax.text(0, y, s, ha="center", va="center", fontsize=11,
+                bbox=dict(fc="white", ec="none", pad=1.0))
+    ax.text(0, -0.25, "Concept selected", ha="center", va="top", fontsize=12)
+    # what is applied at each step, on the left
+    side = [(8.3, "Apply controlled\nconvergence (CC)"), (7.3, "Apply concept\ngeneration (CG)"),
+            (6.2, "CC"), (5.1, "CG"), (4.0, "CC"), (2.9, "CG"), (1.9, "CC"), (1.0, "CG"), (0.45, "CC")]
+    for y, s in side:
+        ax.annotate(s, xy=(-edge(y), y), xytext=(-6.4, y), ha="left", va="center", fontsize=11,
+                    color=STEEL,
+                    arrowprops=dict(arrowstyle="-|>", color=STEEL, lw=1.0, mutation_scale=10,
+                                    shrinkA=4, shrinkB=2))
+    save(fig, "pugh-controlled-convergence")
+
+
+def pugh_matrix_runs():
+    """The sketch on the lecture slide: the number of concepts over successive
+    matrix runs. Eliminations dominate; hybrids add columns briefly."""
+    fig, ax = plt.subplots(figsize=(5.6, 3.6))
+    ax.set_xlim(-0.25, 5.1)
+    ax.set_ylim(-0.7, 3.35)
+    ax.axis("off")
+    for xy in ((4.7, 0), (0, 2.95)):
+        ax.annotate("", xy=xy, xytext=(0, 0),
+                    arrowprops=dict(arrowstyle="-|>", color=STEEL, lw=1.3, mutation_scale=12))
+    ax.text(4.7, -0.12, "matrix runs", ha="right", va="top", fontsize=12, color=STEEL)
+    ax.text(0.1, 3.0, "concepts", ha="left", va="bottom", fontsize=12, color=STEEL)
+    ax.plot([0.3, 1.2, 1.5, 2.4, 2.7, 3.6, 4.2], [2.5, 1.5, 1.75, 0.95, 1.15, 0.55, 0.45],
+            color=AGED, lw=2.8, solid_capstyle="round", solid_joinstyle="round")
+    ax.text(1.45, 1.85, "added hybrids", ha="left", va="bottom", fontsize=12, color=AGED)
+    ax.text(3.55, 0.95, "winner emerges", ha="left", va="bottom", fontsize=12, color=AGED)
+    save(fig, "pugh-matrix-runs")
+
+
 if __name__ == "__main__":
     design_phases()
     design_process_flow()
@@ -651,3 +729,5 @@ if __name__ == "__main__":
     design_mission_profile()
     empty_weight_trends()
     trend_honesty()
+    pugh_controlled_convergence()
+    pugh_matrix_runs()
