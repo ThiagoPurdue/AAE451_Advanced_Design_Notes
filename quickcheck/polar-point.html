@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quick check: a point on the polar</title>
+<style>
+  :root {
+    --bg: #ffffff; --fg: #1f2937; --muted: #4b5563; --card: #ffffff; --border: #c9ced6;
+    --head-bg: #ede9f6; --head-fg: #2f1f5e; --accent: #5a3e9c; --accent-border: #5a3e9c;
+    --input-bg: #ffffff; --input-border: #6b7280; --ok: #0a6b3d; --bad: #b42318;
+    --button: #1d4ed8; --button-fg: #ffffff; --sol-bg: #f3f0fa;
+  }
+  html.dark {
+    --bg: #1b1b1b; --fg: #e5e7eb; --muted: #b7bcc6; --card: #2b2b2b; --border: #4b5563;
+    --head-bg: #2e2250; --head-fg: #ffffff; --accent: #c4b5fd; --accent-border: #8b74d6;
+    --input-bg: #1f1f1f; --input-border: #9ca3af; --ok: #6ee7b7; --bad: #fca5a5;
+    --button: #3b82f6; --button-fg: #ffffff; --sol-bg: #241c3d;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg);
+         font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .card { border: 1px solid var(--border); border-left: 5px solid var(--accent-border); border-radius: 8px;
+          background: var(--card); overflow: hidden; }
+  .head { background: var(--head-bg); color: var(--head-fg); padding: 10px 16px; font-weight: 700; font-size: 1.15em;
+          display: flex; align-items: center; gap: 10px; }
+  .head svg { width: 22px; height: 22px; }
+  .body { padding: 16px; }
+  .given { display: flex; flex-wrap: wrap; gap: 8px 28px; margin: 6px 0 14px; font-size: 1.05em; }
+  .given span { white-space: nowrap; }
+  i { font-style: italic; }
+  .row { display: grid; grid-template-columns: minmax(6em, 11em) minmax(6em, 11em) 1fr; align-items: center; gap: 10px; margin: 8px 0; }
+  .row label { font-size: 1.05em; }
+  input[type="text"] { width: 100%; padding: 8px 10px; font: inherit; background: var(--input-bg); color: var(--fg);
+                       border: 1px solid var(--input-border); border-radius: 6px; }
+  input[type="text"]:focus { outline: 3px solid #93c5fd; outline-offset: 1px; }
+  .mark { font-weight: 600; }
+  .mark.ok { color: var(--ok); }
+  .mark.bad { color: var(--bad); }
+  .buttons { display: flex; gap: 12px; margin: 16px 0 14px; }
+  button { font: inherit; font-weight: 600; padding: 9px 20px; border-radius: 6px; cursor: pointer; }
+  button:focus-visible { outline: 3px solid #93c5fd; outline-offset: 2px; }
+  .primary { background: var(--button); color: var(--button-fg); border: 1px solid var(--button); }
+  .secondary { background: transparent; color: var(--fg); border: 1px solid var(--input-border); }
+  details { border: 1px solid var(--border); border-left: 4px solid var(--accent-border); border-radius: 6px;
+            background: var(--sol-bg); }
+  summary { cursor: pointer; padding: 10px 14px; font-weight: 700; color: var(--head-fg); font-size: 1.05em; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: "▸ "; }
+  details[open] summary::before { content: "▾ "; }
+  .solution { padding: 4px 16px 14px; }
+  .solution p { margin: 6px 0; }
+  .status { margin: 4px 0 0; color: var(--muted); min-height: 1.5em; }
+  sub { font-size: 0.75em; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="head">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>
+    Quick check: a point on the polar
+  </div>
+  <div class="body">
+    <p>An invented aircraft has the values below. In level flight, compute the lift coefficient and the drag coefficient, then the maximum lift-to-drag ratio of its parabolic polar. Take <i>C<sub>LminD</sub></i> = 0. Three decimals for <i>C<sub>L</sub></i>, four for <i>C<sub>D</sub></i>, one for the ratio.</p>
+    <div class="given" aria-live="polite">
+      <span><i>C<sub>D0</sub></i> = <strong id="gCD0"></strong></span>
+      <span><i>AR</i> = <strong id="gAR"></strong></span>
+      <span><i>e</i> = <strong id="gE"></strong></span>
+      <span><i>W/S</i> = <strong id="gWS"></strong> lb/ft²</span>
+      <span><i>q</i> = <strong id="gQ"></strong> lb/ft²</span>
+    </div>
+    <form id="qc" novalidate>
+      <div class="row"><label for="cl"><i>C<sub>L</sub></i> =</label><input type="text" id="cl" inputmode="decimal" autocomplete="off"><span class="mark" id="mcl" aria-live="polite"></span></div>
+      <div class="row"><label for="cd"><i>C<sub>D</sub></i> =</label><input type="text" id="cd" inputmode="decimal" autocomplete="off"><span class="mark" id="mcd" aria-live="polite"></span></div>
+      <div class="row"><label for="ld">(<i>L/D</i>)<sub>max</sub> =</label><input type="text" id="ld" inputmode="decimal" autocomplete="off"><span class="mark" id="mld" aria-live="polite"></span></div>
+      <div class="buttons">
+        <button type="submit" class="primary">Check answers</button>
+        <button type="button" class="secondary" id="shuffle">Shuffle</button>
+      </div>
+      <p class="status" id="status" aria-live="polite"></p>
+    </form>
+    <details id="sol">
+      <summary>Solution</summary>
+      <div class="solution" id="solution"></div>
+    </details>
+  </div>
+</div>
+<script>
+(function () {
+  function syncTheme() {
+    var dark = false;
+    try { dark = window.parent.document.documentElement.classList.contains("dark"); }
+    catch (e) { dark = window.matchMedia("(prefers-color-scheme: dark)").matches; }
+    document.documentElement.classList.toggle("dark", dark);
+  }
+  syncTheme();
+  try { new MutationObserver(syncTheme).observe(window.parent.document.documentElement, { attributes: true }); } catch (e) {}
+  function fit() {
+    try {
+      var fe = window.frameElement;
+      if (fe && fe.parentElement) fe.parentElement.style.height = (Math.ceil(document.body.getBoundingClientRect().height) + 2) + "px";
+    } catch (e) {}
+  }
+  try { new ResizeObserver(fit).observe(document.body); } catch (e) {}
+  window.addEventListener("load", fit);
+
+  var CD0, AR, E, WS, Q, ans;
+  function pick(min, max, step) { var n = Math.round((max - min) / step); return min + step * Math.floor(Math.random() * (n + 1)); }
+  function fmt(x, d) { return Number(x).toFixed(d); }
+  function setProblem() {
+    CD0 = pick(0.016, 0.030, 0.002);
+    AR = pick(4, 10, 1);
+    E = pick(0.70, 0.85, 0.05);
+    WS = pick(40, 90, 10);
+    Q = pick(100, 400, 20);
+    var k = 1 / (Math.PI * AR * E);
+    var cl = WS / Q;
+    var cdi = k * cl * cl;
+    var cd = CD0 + cdi;
+    var ld = 1 / (2 * Math.sqrt(CD0 * k));
+    ans = { cl: cl, cd: cd, ld: ld };
+    document.getElementById("gCD0").textContent = fmt(CD0, 3);
+    document.getElementById("gAR").textContent = AR;
+    document.getElementById("gE").textContent = fmt(E, 2);
+    document.getElementById("gWS").textContent = WS;
+    document.getElementById("gQ").textContent = Q;
+    ["cl", "cd", "ld"].forEach(function (x) {
+      document.getElementById(x).value = "";
+      var m = document.getElementById("m" + x); m.textContent = ""; m.className = "mark";
+    });
+    document.getElementById("status").textContent = "";
+    document.getElementById("sol").open = false;
+    document.getElementById("solution").innerHTML =
+      "<p><i>K</i> = 1 / (π <i>AR e</i>) = 1 / (π × " + AR + " × " + fmt(E, 2) + ") = " + fmt(k, 4) + "</p>" +
+      "<p><i>C<sub>L</sub></i> = (<i>W/S</i>) / <i>q</i> = " + WS + " / " + Q + " = <strong>" + fmt(cl, 3) + "</strong></p>" +
+      "<p><i>C<sub>D</sub></i> = <i>C<sub>D0</sub></i> + <i>K C<sub>L</sub></i>² = " + fmt(CD0, 3) + " + " + fmt(cdi, 4) + " = <strong>" + fmt(cd, 4) + "</strong></p>" +
+      "<p>(<i>L/D</i>)<sub>max</sub> = 1 / (2 √(<i>C<sub>D0</sub> K</i>)) = 1 / (2 √(" + fmt(CD0, 3) + " × " + fmt(k, 4) + ")) = <strong>" + fmt(ld, 1) + "</strong></p>" +
+      "<p>The point flown has <i>L/D</i> = " + fmt(cl / cd, 1) + ". The maximum occurs only at <i>C<sub>L</sub></i> = √(<i>C<sub>D0</sub> / K</i>) = " + fmt(Math.sqrt(CD0 / k), 2) + ".</p>";
+  }
+  function check(e) {
+    e.preventDefault();
+    var right = 0, blank = 0;
+    [["cl", 0.012, 0.003], ["cd", 0.006, 0.00015], ["ld", 0.012, 0.15]].forEach(function (spec) {
+      var k = spec[0], raw = document.getElementById(k).value.trim().replace(",", ".");
+      var m = document.getElementById("m" + k);
+      if (raw === "") { blank++; m.textContent = "no answer"; m.className = "mark bad"; return; }
+      var v = parseFloat(raw), a = ans[k];
+      var ok = isFinite(v) && Math.abs(v - a) <= Math.max(spec[1] * a, spec[2]);
+      if (ok) right++;
+      m.textContent = ok ? "✓ correct" : "✗ try again";
+      m.className = "mark " + (ok ? "ok" : "bad");
+    });
+    document.getElementById("status").textContent =
+      right === 3 ? "All three correct." : right + " of 3 correct" + (blank ? ", " + blank + " blank" : "") + ". Open the solution if you are stuck.";
+  }
+  document.getElementById("qc").addEventListener("submit", check);
+  document.getElementById("shuffle").addEventListener("click", setProblem);
+  setProblem();
+})();
+</script>
+</body>
+</html>

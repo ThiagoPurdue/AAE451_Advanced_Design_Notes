@@ -343,7 +343,7 @@ Take the T-45 from your A02 database: its wing area, its published approach spee
 :::
 
 :::{seealso} Reading
-Gudmundsson (2022), Chapter 10. The next lecture covers drag: the parasite drag build-up and the polar, with the takeoff and landing polars from the flap settings and increments of this lecture. [](../assignments/a04.md) states what Deliverable 3 asks for.
+Gudmundsson (2022), Chapter 10. [Lecture 7](../lecture-07/parasite-drag.md) covers drag: the parasite drag build-up and the polar, with the takeoff and landing polars from the flap settings and increments of this lecture. [](../assignments/a04.md) states what Deliverable 3 asks for.
 :::
 
 ## References

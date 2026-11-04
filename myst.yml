@@ -63,6 +63,10 @@ project:
       children:
         - file: notes/lecture-06/high-lift-devices.md
         - file: notes/lecture-06/high-lift-wing-and-field.md
+    - title: "Lecture 7: Drag Prediction"
+      children:
+        - file: notes/lecture-07/parasite-drag.md
+        - file: notes/lecture-07/drag-polar.md
     - title: Assignments
       children:
         - file: notes/assignments/a01.md

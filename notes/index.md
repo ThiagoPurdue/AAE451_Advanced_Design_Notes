@@ -76,7 +76,17 @@ The RFP field lengths and their MIL-STD-3013B definitions, what high lift does, 
 
 :::{card} Lecture 6, part 2: High lift, the wing and the field length
 :link: lecture-06/high-lift-wing-and-field.md
-Partial-span flaps, the partition method, trim and attitude, the FCLP approach, the drag penalty, climb, the takeoff and landing segments, and the required maximum lift.
+Partial-span flaps, the partition method, trim and deck angle, the FCLP approach, the drag penalty, climb, the takeoff and landing segments, and the required maximum lift.
+:::
+
+:::{card} Lecture 7, part 1: Parasite drag
+:link: lecture-07/parasite-drag.md
+The three types of drag, the parasite drag build-up, skin friction and transition, wetted area, form and interference factors, miscellaneous drag, and the SR22 example.
+:::
+
+:::{card} Lecture 7, part 2: Drag due to lift and the polar
+:link: lecture-07/drag-polar.md
+Span efficiency, the SR22 polar, the polar at high lift, ground effect, compressibility drag, the three polars, and the checks against existing aircraft.
 :::
 
 :::{card} Assignment A01: RFP breakdown and system requirements

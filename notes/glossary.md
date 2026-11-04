@@ -17,6 +17,9 @@ Certification basis
 Compliance matrix
 : A table with one row per requirement: its threshold, its objective or target, and the current value of the design.
 
+Compressibility drag
+: $C_{D_c}$, the drag added by shock waves and shock-induced separation as the flight Mach number passes the critical Mach number.
+
 Conceptual design
 : Phase 1 of an aircraft program. It selects the configuration, sizes it, and shows that the requirements can be met. Its output is a feasible design.
 
@@ -41,8 +44,14 @@ Deck angle
 Design mission
 : The most demanding mission the aircraft must fly. The operating mission is the one it usually flies, and it is shorter. The RFP prescribes two missions and the briefs call each a design mission; which one sizes the fuel is known only after both are computed.
 
+Drag count
+: A drag coefficient of 0.0001.
+
 Drag divergence Mach number
 : $M_{dd}$, the Mach number at which the drag starts to rise steeply with Mach. Boeing: the section drag 0.002 above its incompressible value. Douglas: the slope $dC_d/dM$ reaching 0.10.
+
+Drag polar
+: The drag coefficient of an airfoil or aircraft against its lift coefficient, in one configuration at one Mach number.
 
 Engine deck
 : Thrust and fuel flow against altitude, speed, ambient temperature, and rating.
@@ -55,6 +64,21 @@ Fixed engine
 
 Flap
 : A trailing-edge device that adds camber and, for the Fowler type, chord. It raises the maximum lift coefficient and lowers the stall angle.
+
+Flat-plate area
+: $f = C_{D_0} S_{ref}$, the parasite drag of an aircraft or a component written as an area with a drag coefficient of 1.
+
+Form factor
+: $FF$, the factor on skin friction drag that accounts for the pressure drag of a component.
+
+Ground effect
+: The drop in induced drag and the rise in lift of a wing close to the ground.
+
+Induced drag
+: $C_{D_i}$, the drag due to lift: $K C_L^2$ with $K = 1/(\pi\,AR\,e)$.
+
+Interference factor
+: $Q$, the factor on the drag of a component that accounts for the flow around its neighbors.
 
 Mean geometric chord
 : $c_{MGC}$, the chord-weighted mean chord, $(2/S)\int_0^{b/2} c^2\,dy$; for a trapezoidal wing it is the chord at the spanwise centroid of the half-wing. A04 calls it the mean aerodynamic chord. The subsonic aerodynamic center sits near its quarter chord.
@@ -80,6 +104,9 @@ Need
 Objective
 : The value of a requirement that the customer would like to reach. In the lecture example it is called the target.
 
+Parasite drag
+: $C_{D_0}$, the drag at zero lift: skin friction, form, interference, and the miscellaneous items.
+
 PDR
 : Preliminary Design Review. The review at the end of this course, where the converged conceptual design is judged against the requirements.
 
@@ -96,7 +123,7 @@ Requirement
 : An obligation on the system, written as "The system shall...", with a verification method.
 
 Reynolds number
-: $Re = \rho V c_{MGC}/\mu$, the ratio of inertial to viscous forces, on the mean geometric chord. It decides which airfoil data apply.
+: $Re = \rho V l/\mu$, the ratio of inertial to viscous forces, on a reference length: the mean geometric chord for wing and airfoil data, the component length in the drag build-up.
 
 RFP
 : Request for proposal. The document in which a customer states what it needs and the limits a bidder's design must meet.
@@ -104,8 +131,14 @@ RFP
 Rubber engine
 : An engine that scales with the aircraft during sizing. It implies new engine development.
 
+Skin friction coefficient
+: $C_f$, the viscous drag of a surface per unit of wetted area and dynamic pressure.
+
 Slat
 : A leading-edge device that moves forward and down to open a slot ahead of the wing. It delays separation and raises both the maximum lift coefficient and the stall angle.
+
+Span efficiency
+: $e$, the ratio of the induced drag of an elliptic wing to the induced drag of the wing or aircraft at the same lift and aspect ratio.
 
 Specific excess power
 : The rate at which the aircraft can gain energy height, (T − D)V/W, in ft/s. It measures the thrust available beyond the drag at a given speed, altitude, and weight.
@@ -139,6 +172,9 @@ Washout
 
 Weighted objectives
 : A selection method that scores each concept against each objective and sums weight times score. The weights and the scores are both judgments, so the total can only shortlist.
+
+Wetted area
+: $S_{wet}$, the surface area of a component exposed to the flow.
 
 Wing loading
 : $W/S$, the weight per unit wing area, in lb/ft². With the takeoff weight it gives the wing area; with the maximum lift coefficient it gives the stall speed.
