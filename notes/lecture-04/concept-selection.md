@@ -3,7 +3,7 @@ title: Concept generation and selection
 short_title: Concept generation and selection
 ---
 
-This is Lecture 4, *Concept Generation and Selection*. Lecture 3 listed the arrangement options. It covers producing many candidate configurations from those options and narrowing them to one, with methods that leave a record: brainstorming, the morphological chart, Pugh's controlled convergence and weighted objectives. The reading is Clausing, "Selecting a Winning Concept," on Brightspace.
+This is Lecture 4, *Concept Generation and Selection*. Lecture 3 listed the arrangement options. This lecture covers building many candidates from those options and narrowing them to one, with methods that leave a record: brainstorming, the morphological chart, Pugh's controlled convergence, and weighted objectives. The reading is Clausing, "Selecting a Winning Concept," on Brightspace.
 
 :::{note} What to take from this lecture
 - Generate many concepts before analyzing any of them.
@@ -15,7 +15,7 @@ This is Lecture 4, *Concept Generation and Selection*. Lecture 3 listed the arra
 ## Purpose
 
 - Concept generation sets the overall arrangement: what the aircraft looks like and where the major components go.
-- Geometry affects performance, size and weight.
+- Geometry affects performance, size, and weight.
 - Generate many concepts. Missing a promising one costs more than sketching a weak one.
 - Select the most promising few with little analysis. Detailed analysis comes after the down-select.
 
@@ -70,7 +70,7 @@ Photos via Wikimedia Commons.
 - A moderator who does not take part runs the session.
 - Members write or sketch ideas first, individually. One idea per card.
 - Present one idea at a time. Build on and combine the ideas of others.
-- Session length: about thirty minutes. Run it before the Pugh sessions.
+- Session length: about 30 minutes. Run it before the Pugh sessions.
 
 :::{tip} Rules, enforced by the moderator
 1. No criticism during the session.
@@ -87,8 +87,6 @@ A problem statement that fits the RFP: "What should the Navy's next land-based j
 :::
 
 ## Generation failure modes
-
-Common failure modes:
 
 - Only one or two alternatives considered, proposed by the most assertive members.
 - Other builders' concepts, in related and unrelated products, not examined.
@@ -121,7 +119,7 @@ Lecture 3 introduced the {term}`morphological chart` ([illustration](#tbl-morpho
 :::{admonition} Navy Jet Trainer
 :class: navy
 
-A03 Deliverable 2: choose the rows from your requirements and CONOPS, then compose at least three distinct configurations. Distinct means different arrangement decisions, not resized copies of one concept.
+A03 Deliverable 2: choose the rows from your requirements and CONOPS, then compose at least three distinct configurations. Distinct means different arrangement decisions; resizing one concept does not count.
 :::
 
 ## Pugh's method
@@ -129,7 +127,7 @@ A03 Deliverable 2: choose the rows from your requirements and CONOPS, then compo
 :::{prf:definition} Pugh's method
 :label: def-pugh-method
 
-Controlled convergence (Pugh 1991; Clausing 1994). A {term}`Pugh matrix` scores every concept against a {term}`datum`, criterion by criterion, as better, worse or the same. The method runs in ten steps over two or three sessions, and it generates new concepts while it narrows the field.
+Controlled convergence (Pugh 1991; Clausing 1994) scores every concept against a {term}`datum`, criterion by criterion, as better, worse, or the same, in a {term}`Pugh matrix`. The method runs in ten steps over two or three sessions, and it generates new concepts while it narrows the field.
 :::
 
 ### Steps 1 and 2: criteria and the matrix
@@ -157,9 +155,9 @@ Controlled convergence (Pugh 1991; Clausing 1994). A {term}`Pugh matrix` scores 
 
 - **Step 3, clarify concepts.** Each member presents theirs. The team takes ownership of all of them.
 - **Step 4, choose the datum.** One of the better concepts, or an existing aircraft. Vote if needed.
-- **Step 5, run the matrix.** Score each concept against the datum: plus for better, minus for worse, S when it is not clearly either. Use engineering judgment and set a time limit per cell. Record new concepts in added columns.
-- **Step 6, evaluate.** Total the plus, S and minus counts separately. Never compress them into one score.
-- **Step 7, attack the negatives, enhance the positives.** Remove minus ratings by modifying concepts. Carry plus features across to other concepts. Add hybrids as new columns.
+- **Step 5, run the matrix.** Score each concept against the datum: plus for better, minus for worse, and S when it is not clearly either. Use engineering judgment and set a time limit per cell. Record new concepts in added columns.
+- **Step 6, evaluate.** Total the plus, S, and minus counts separately. Never compress them into one score.
+- **Step 7, attack the negatives, build on the positives.** Remove minus ratings by modifying concepts. Carry plus features across to other concepts. Add hybrids as new columns.
 
 Clausing: "The major advance is the new insight gained by team members."
 
@@ -185,8 +183,8 @@ A03 Deliverable 3 requires one re-score with a new datum. State whether the lead
 
 ## Limits of Pugh's method
 
-- Used across engineering design. Less common in aircraft design practice.
-- Organizes qualitative judgment into a defensible record.
+- It is used across engineering design, less often in aircraft design practice.
+- It organizes qualitative judgment into a defensible record.
 - Not a quantitative trade study. Scores are comparisons against a datum, not measurements.
 - Surviving concepts are compared by engineering analysis: sizing, constraints, layout.
 
@@ -221,7 +219,7 @@ The arithmetic multiplies subjective weights by subjective scores. The result lo
 :::
 
 :::{important} Summary
-- Generate many concepts. The method keeps creativity on the design objective and forces fair technical critique.
+- Generate many concepts. Pugh's method keeps creativity on the design objective and forces fair technical critique.
 - Pugh's controlled convergence compares concepts and produces new ones. Do not overemphasize the numbers.
 - A03 Deliverable 2 is the morphological chart and at least three distinct configurations. Deliverable 3 is the Pugh selection with one datum re-score.
 :::

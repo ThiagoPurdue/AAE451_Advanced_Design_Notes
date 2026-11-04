@@ -2,32 +2,35 @@
 title: Glossary
 ---
 
-Terms the notes use in a fixed sense. In the text, a term with a dotted underline opens its definition.
+The notes use these terms in a fixed sense. In the text, a term with a dotted underline opens its definition.
 
 :::{glossary}
 ASORT
 : Authoritative source of truth. One parameter file that every script of the sizing code reads, so that no constant is duplicated in code.
 
 Certification basis
-: The airworthiness document, and the sections of it that apply to the aircraft, against which compliance is shown. In this course the Navy Jet Trainer uses MIL-HDBK-516C.
+: The airworthiness document and the sections of it that apply to the aircraft, against which compliance is shown. In this course the Navy Jet Trainer uses MIL-HDBK-516C.
 
 Compliance matrix
 : A table with one row per requirement: its threshold, its objective or target, and the current value of the design.
 
 Conceptual design
-: Phase 1 of an aircraft program. It selects the configuration, sizes it and shows that the requirements can be met. Its output is a feasible design.
+: Phase 1 of an aircraft program. It selects the configuration, sizes it, and shows that the requirements can be met. Its output is a feasible design.
 
 Configuration
-: The type, location and count of each major component of the aircraft: wing, fuselage, engines, tail and landing gear.
+: The type, location, and count of each major component of the aircraft: wing, fuselage, engines, tail, and landing gear.
 
 CONOPS
 : Concept of operations. A description of how the system will be operated during its life-cycle phases to meet stakeholder expectations.
+
+Critical field length
+: The runway length at which, after an engine failure at the critical speed, continuing the takeoff and stopping take the same distance. Defined for the Navy Jet Trainer in MIL-STD-3013B.
 
 Datum
 : The reference concept in a Pugh matrix. Every other concept is scored against it, criterion by criterion. At the first run it is often an existing aircraft.
 
 Design mission
-: The most demanding mission the aircraft must fly. It sizes the fuel. The operating mission is the one flown on an ordinary day.
+: The most demanding mission the aircraft must fly. The operating mission is the one it usually flies, and it is shorter. The RFP prescribes two missions and the briefs call each a design mission; which one sizes the fuel is known only after both are computed.
 
 FCLP
 : Field Carrier Landing Practice. Carrier approaches and landings flown to a land runway marked as a carrier deck.
@@ -36,7 +39,7 @@ Fixed engine
 : An engine selected off the shelf, with known thrust and fuel flow, that does not change during sizing.
 
 Measure of merit
-: A quantity used to rank concepts, such as life cycle cost or takeoff weight. Trade studies report the change in a measure of merit.
+: A quantity used to rank concepts, such as life-cycle cost or takeoff weight. Trade studies report the change in a measure of merit.
 
 Mission profile
 : One mission drawn as altitude against distance or time, divided into numbered segments, each with a stated condition.
@@ -60,7 +63,7 @@ PDR
 : Preliminary Design Review. The review at the end of this course, where the converged conceptual design is judged against the requirements.
 
 Pugh matrix
-: A selection matrix that scores each concept against a reference concept, criterion by criterion.
+: A selection matrix that scores each concept against a datum, criterion by criterion.
 
 Requirement
 : An obligation on the system, written as "The system shall...", with a verification method.
@@ -71,14 +74,17 @@ RFP
 Rubber engine
 : An engine that scales with the aircraft during sizing. It implies new engine development.
 
+Specific excess power
+: The rate at which the aircraft can gain energy height, (T − D)V/W, in ft/s. It measures the thrust available beyond the drag at a given speed, altitude, and weight.
+
 SRR
-: System Requirements Review. The review at which the mission statement, the needs and the requirements are baselined.
+: System Requirements Review. The review at which the mission statement, the needs, and the requirements are baselined.
 
 Stakeholder
-: Anyone with an interest in the project: customers, operators, maintainers, investors, regulators, suppliers and end users.
+: Anyone with an interest in the project: customers, operators, maintainers, investors, regulators, suppliers, and end users.
 
 Technology factor
-: A factor applied to a regression result to account for a technology the database never saw.
+: A factor applied to a regression result to account for a technology the database never saw, such as a composite structure.
 
 Threshold
 : The minimum acceptable value of a requirement. A design that meets every threshold is acceptable.
@@ -93,5 +99,5 @@ Waiver
 : A written record of a change to a baselined requirement, with the reason for the change. Kept in the deck appendix.
 
 Weighted objectives
-: A selection method that scores each concept against each objective and sums weight times score. The weights and the scores are both judgments, so the total is a shortlist aid, not a measurement.
+: A selection method that scores each concept against each objective and sums weight times score. The weights and the scores are both judgments, so the total can only shortlist.
 :::

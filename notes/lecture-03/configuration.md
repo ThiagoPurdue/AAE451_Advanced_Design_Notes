@@ -3,7 +3,7 @@ title: Aircraft configuration
 short_title: Aircraft configuration
 ---
 
-This is Lecture 3, *Aircraft Configuration*. It covers the major arrangement choices: wing, fuselage, engines, tail and landing gear. For each one, what type, where and how many, with the advantages and disadvantages of each option. Each choice is a candidate row in the A03 morphological matrix. Your team chooses the rows.
+This is Lecture 3, *Aircraft Configuration*. It covers the major arrangement choices: wing, fuselage, engines, tail, and landing gear. For each one: what type, where, and how many, and what each option gains and costs. Each choice is a candidate row in the A03 morphological chart. Your team chooses the rows.
 
 :::{note} What to take from this lecture
 - The major arrangement choices, and the options for each.
@@ -16,20 +16,20 @@ This is Lecture 3, *Aircraft Configuration*. It covers the major arrangement cho
 :::{prf:definition} Configuration
 :label: def-configuration
 
-The {term}`configuration` is the type, location and count of each major component: wing, fuselage, engines, tail and landing gear.
+The {term}`configuration` is the type, location, and count of each major component: wing, fuselage, engines, tail, and landing gear.
 :::
 
-Requirements drive the choices: cabin size, speed, range, field length. Every choice is a compromise. Engineering judgment makes the initial choice, and the analysis has to confirm it.
+Requirements drive the choices: cabin size, speed, range, and field length. Every choice is a compromise. Engineering judgment makes the initial choice, and the analysis has to confirm it.
 
 :::{admonition} Navy Jet Trainer
 :class: navy
 
-The configuration answers your A01 requirements and CONOPS. Each box below points to the RFP content the choice has to answer.
+The configuration answers your A01 requirements and CONOPS. Each box below names the RFP content the choice must meet.
 :::
 
 ## Wing placement
 
-The schematics are front views: fuselage, wing and fin.
+The schematics are front views: fuselage, wing, and fin.
 
 ::::{grid} 1 3 3 3
 
@@ -116,7 +116,7 @@ Examples: SR-71, blended-wing-body concepts.
 :::{admonition} Navy Jet Trainer
 :class: navy
 
-The cockpit section must fit the pilot size range the RFP states: heights from 62 in to 77 in, sitting heights from 31 in to 40.9 in and sitting eye heights from 26 in to 31.4 in, in two ejection seats. The eye height drives the over-the-nose view.
+The cockpit section must fit the pilot size range the RFP states: heights from 62 in to 77 in, sitting heights from 31 in to 40.9 in, and sitting eye heights from 26 in to 31.4 in, in two ejection seats. The eye height drives the over-the-nose view.
 :::
 
 ## Jet engine and inlet placement
@@ -131,7 +131,7 @@ The schematics are side views, nose to the left.
 
 Gains: lower drag, less wetted area, no nacelles.
 
-Costs: uses internal volume. Inlet design is critical, with pressure loss in turns and at angle of attack.
+Costs: uses internal volume; the inlet duct loses pressure in turns and at angle of attack.
 
 Examples: fighters, jet trainers.
 :::
@@ -185,7 +185,7 @@ Costs: propeller wash over the fuselage, noise, nose length.
 :header: Pusher
 ![Side view of a fuselage with a propeller disc at the tail.](figures/prop-pusher.svg)
 
-Gains: clean fuselage flow, forward view, allows a canard.
+Gains: clean fuselage flow, forward view, room for a canard.
 
 Costs: rotation clearance, dirty inflow, cooling.
 :::
@@ -212,7 +212,7 @@ Costs: noise, rear propeller clearance.
 
 ## Tail arrangement
 
-The schematics are rear views: fuselage, fin and horizontal tail.
+The schematics are rear views: fuselage, fin, and horizontal tail.
 
 ::::{grid} 1 2 3 3
 
@@ -220,35 +220,35 @@ The schematics are rear views: fuselage, fin and horizontal tail.
 :header: Conventional
 ![Rear view with the horizontal tail at the base of the fin.](figures/tail-conventional.svg)
 
-Simple, light, well placed for downwash. Trim drag.
+Gains: simple, light, well placed for downwash. Costs: trim drag.
 :::
 
 :::{card}
 :header: T-tail
 ![Rear view with the horizontal tail on top of the fin.](figures/tail-t.svg)
 
-Suits high wings and aft engines. Heavier; deep stall possible.
+Gains: suits high wings and aft engines. Costs: heavier; deep stall possible.
 :::
 
 :::{card}
 :header: Cruciform
 ![Rear view with the horizontal tail part way up the fin.](figures/tail-cruciform.svg)
 
-Compromise placement out of the wing wake. Deep stall still possible.
+Gains: clears the wing wake. Costs: deep stall still possible.
 :::
 
 :::{card}
 :header: V-tail
 ![Rear view with two surfaces in a V.](figures/tail-v.svg)
 
-Less area and drag; ruddervators. Needs more area than the projection suggests.
+Gains: less area and drag. Costs: ruddervators; needs more area than the projection suggests.
 :::
 
 :::{card}
 :header: H-tail
 ![Rear view with a horizontal tail and a fin at each end of it.](figures/tail-h.svg)
 
-Short verticals, endplate effect, shields the exhaust. Heavier horizontal.
+Gains: short verticals, endplate effect, shields the exhaust. Costs: heavier horizontal.
 :::
 
 ::::
@@ -264,7 +264,7 @@ Spin entry and recovery are certified behaviors. Tail position relative to the w
 ::::{grid} 1 1 2 2
 
 :::{card}
-![Photograph of a Piaggio P.180 Avanti in flight, seen from below, with a small foreplane at the nose, the main wing aft and two pusher propellers.](figures/piaggio.png)
+![Photograph of a Piaggio P.180 Avanti in flight, seen from below, with a small foreplane at the nose, the main wing aft, and two pusher propellers.](figures/piaggio.png)
 
 Piaggio P.180 Avanti, a three-surface aircraft. Photo by Ximeg, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Piaggio_P.180_Avanti_above_Jena.jpg).
 :::
@@ -283,7 +283,7 @@ Unconventional options enter the Pugh matrix like any other. Each claimed advant
 
 ## Landing gear arrangement
 
-The gear surrounds the center of gravity and allows rotation. The schematics are top views: fuselage, wing line and wheels.
+The gear surrounds the center of gravity and allows rotation. The schematics are top views: fuselage, wing line, and wheels.
 
 ::::{grid} 2 3 3 3
 
@@ -291,42 +291,42 @@ The gear surrounds the center of gravity and allows rotation. The schematics are
 :header: Tricycle
 ![Top view with a nose wheel and two main wheels behind the center.](figures/gear-tricycle.svg)
 
-Ground stability, good rotation. The nose gear is heavy.
+Gains: ground stability, good rotation. Costs: heavy nose gear.
 :::
 
 :::{card}
 :header: Tail-dragger
 ![Top view with two main wheels ahead of the center and a tail wheel.](figures/gear-taildragger.svg)
 
-Light, propeller clearance, rough fields. Ground handling.
+Gains: light, propeller clearance, rough fields. Costs: ground handling.
 :::
 
 :::{card}
 :header: Bicycle
 ![Top view with wheels on the centerline fore and aft and outriggers at the wing tips.](figures/gear-bicycle.svg)
 
-Narrow fuselage. Outriggers, hard rotation.
+Gains: narrow fuselage. Costs: outriggers, hard rotation.
 :::
 
 :::{card}
 :header: Single main
 ![Top view with one wheel on the centerline and a tail wheel.](figures/gear-single.svg)
 
-Least weight and volume. Skids, no rotation.
+Gains: least weight and volume. Costs: skids, no rotation.
 :::
 
 :::{card}
 :header: Quadricycle
 ![Top view with two pairs of wheels, one forward and one aft.](figures/gear-quadricycle.svg)
 
-Narrow body, short gear. Difficult rotation.
+Gains: narrow body, short gear. Costs: difficult rotation.
 :::
 
 :::{card}
 :header: Multi-bogey
 ![Top view with a nose wheel and two clusters of four wheels behind the center.](figures/gear-bogey.svg)
 
-Spreads heavy weights. Size and complexity.
+Gains: spreads heavy weights. Costs: size and complexity.
 :::
 
 ::::
@@ -412,7 +412,7 @@ The eight aircraft of the A02 database. Photos via Wikimedia Commons.
 :::
 
 :::{card}
-![KAI T-50 Golden Eagle in a demonstration flight, a mid-wing jet with side inlets and a single fin.](figures/t50.jpg)
+![Three KAI T-50 Golden Eagles in formation on a demonstration flight; the nearest is banked and shows a mid-wing jet with side inlets and a single fin.](figures/t50.jpg)
 
 **KAI T-50 Golden Eagle.** Photo by Korea Aerospace Industries, [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:KAI_T-50_Golden_Eagle_Demo_flight.jpg).
 :::
@@ -428,13 +428,13 @@ The eight aircraft of the A02 database. Photos via Wikimedia Commons.
 :::{exercise} Read the cohort
 :label: ex-cohort-configuration
 
-For each of the eight trainers, identify the wing placement, the inlet placement, the tail arrangement and the landing gear. Which options does the cohort share, and where does it differ?
+For each of the eight trainers, identify the wing placement, the inlet placement, the tail arrangement, and the landing gear. Which options does the cohort share, and where does it differ?
 :::
 
 :::{important} Summary
 - Wing placement, cross-section, engine placement, tail, gear: one pick per row is a configuration.
 - Every option trades something. Record the trade.
-- A03 Deliverable 2: the matrix and at least three distinct configurations. Your team chooses the rows.
+- A03 Deliverable 2: the chart and at least three distinct configurations. Your team chooses the rows.
 :::
 
 :::{seealso} Reading

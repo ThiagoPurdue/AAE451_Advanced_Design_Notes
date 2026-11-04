@@ -53,6 +53,9 @@ project:
     - title: "Lecture 4: Concept Generation and Selection"
       children:
         - file: notes/lecture-04/concept-selection.md
+    - title: "Lecture 5: Design Missions and Energy Reserves"
+      children:
+        - file: notes/lecture-05/design-missions.md
     - title: Assignments
       children:
         - file: notes/assignments/a01.md

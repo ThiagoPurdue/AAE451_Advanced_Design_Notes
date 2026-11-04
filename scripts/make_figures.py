@@ -32,6 +32,7 @@ FOLDER = {
     "trend-honesty": "assignments",
     "pugh-controlled-convergence": "lecture-04",
     "pugh-matrix-runs": "lecture-04",
+    "training-flight-profile": "lecture-05",
 }
 DEFAULT_FOLDER = "lecture-01"
 PREVIEW = os.environ.get("FIG_PREVIEW")  # optional PNG copies for checking
@@ -717,6 +718,39 @@ def pugh_matrix_runs():
     save(fig, "pugh-matrix-runs")
 
 
+def training_flight_profile():
+    """The training flight as drawn on the design-missions slide: the ten
+    RFP segments with the conditions the RFP states written on the profile."""
+    GRAY = "#6F727B"
+    fig, ax = plt.subplots(figsize=(11.5, 3.9))
+    ax.set_xlim(-1.3, 14.2)
+    ax.set_ylim(-1.15, 3.0)
+    ax.axis("off")
+    for y, s in ((1.0, "10,000 ft"), (2.0, "20,000 ft")):
+        ax.plot([0, 13.3], [y, y], ls="--", color=GRAY, lw=0.9)
+        ax.text(-0.15, y, s, ha="right", va="center", color=GRAY, fontsize=11)
+    ax.annotate("", xy=(13.7, 0), xytext=(0, 0),
+                arrowprops=dict(arrowstyle="-|>", color=STEEL, lw=1.3, mutation_scale=12))
+    xs = [0, 1.2, 2.6, 4.6, 5.4, 7.4, 8.2, 10.2, 11.0, 11.2, 11.45, 11.7, 11.95, 12.2, 12.45, 12.7]
+    ys = [0, 0, 2, 2, 1, 1, 2, 2, 0, 0, 0.3, 0, 0.3, 0, 0.3, 0]
+    ax.plot(xs, ys, color=AGED, lw=3, solid_joinstyle="round", solid_capstyle="round")
+    ax.text(0.6, -0.12, "Segments 1 and 2: 15 min idle,\n1 min takeoff thrust",
+            ha="center", va="top", color=STEEL, fontsize=11)
+    ax.text(3.6, 2.12, "Segments 3 and 4: climb at 250 KCAS, cruise to 50 nmi",
+            ha="center", va="bottom", color=STEEL, fontsize=11)
+    ax.text(5.55, 1.42, "Segment 5: descent, idle", ha="left", va="bottom", color=STEEL, fontsize=11)
+    ax.text(6.4, 0.88, "Segment 6: 30 min at military thrust, M 0.60",
+            ha="center", va="top", color=STEEL, fontsize=11)
+    ax.text(9.2, 2.12, "Segments 7 and 8: climb, return", ha="center", va="bottom",
+            color=STEEL, fontsize=11)
+    ax.text(11.15, 0.72, "Segment 9: descent, idle", ha="left", va="bottom", color=STEEL, fontsize=11)
+    ax.text(11.95, -0.12, "Segment 10: FCLP, 30 min at approach\nspeed, landing configuration",
+            ha="center", va="top", color=STEEL, fontsize=11)
+    ax.text(11.3, 1.75, "Reserve: 30 min at\nmaximum endurance", ha="left", va="center",
+            color=AGED, fontsize=11)
+    save(fig, "training-flight-profile")
+
+
 if __name__ == "__main__":
     design_phases()
     design_process_flow()
@@ -731,3 +765,4 @@ if __name__ == "__main__":
     trend_honesty()
     pugh_controlled_convergence()
     pugh_matrix_runs()
+    training_flight_profile()

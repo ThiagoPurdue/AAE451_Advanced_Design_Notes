@@ -16,32 +16,37 @@ What the Navy asks for: performance, cockpit, missions, the analyses and data th
 
 :::{card} Lecture 1, part 1: The aircraft design process
 :link: lecture-01/design-process.md
-Phases of a program, what happens in conceptual design, the market and business case, the feasibility study and the systems view.
+Phases of a program, what happens in conceptual design, the market and business case, the feasibility study, and the systems view.
 :::
 
-:::{card} Lecture 1, part 2: Needs, mission statement and CONOPS
+:::{card} Lecture 1, part 2: Needs, mission statement, and CONOPS
 :link: lecture-01/needs-and-conops.md
-Customer needs and stakeholders, the mission statement, the concept of operations and the mission profile.
+Customer needs and stakeholders, the mission statement, the concept of operations, and the mission profile.
 :::
 
 :::{card} Lecture 1, part 3: Requirements
 :link: lecture-01/requirements.md
-SMART requirements, the tests for one requirement and for the set, the checklist, the compliance matrix and trade studies.
+SMART requirements, the tests for one requirement and for the set, the checklist, the compliance matrix, and trade studies.
 :::
 
 :::{card} Lecture 2, part 1: Starting from weight and the empty weight
 :link: lecture-02/weight-estimation.md
-Why takeoff weight comes first, the empty-weight trend lines and regression, how good they are, and fixed against rubber engines.
+Why takeoff weight comes first, the empty-weight trend lines and regression, how good they are, and fixed and rubber engines.
 :::
 
-:::{card} Lecture 2, part 2: The design mission, fuel weight and the sizing loop
+:::{card} Lecture 2, part 2: The design mission, fuel weight, and the sizing loop
 :link: lecture-02/mission-fuel.md
-The design mission, the fuel weight fraction, historical segment fractions, the Breguet equations and the sizing iteration.
+The design mission, the fuel weight fraction, historical segment fractions, the Breguet equations, and the sizing iteration.
+:::
+
+:::{card} Lecture 2, part 3: The sizing loop in MATLAB
+:link: lecture-02/sizing-loop.ipynb
+The sizing iteration run cell by cell on an invented small transport. The cells can be edited and rerun in the browser.
 :::
 
 :::{card} Lecture 3: Aircraft configuration
 :link: lecture-03/configuration.md
-Wing placement, fuselage cross-section, engine placement, tail and landing gear arrangements, the morphological chart and the trainer cohort.
+Wing placement, fuselage cross-section, engine placement, tail and landing gear arrangements, the morphological chart, and the trainer cohort.
 :::
 
 :::{card} Lecture 4: Concept generation and selection
@@ -49,9 +54,14 @@ Wing placement, fuselage cross-section, engine placement, tail and landing gear 
 Brainstorming, the morphological chart, Pugh's controlled convergence in ten steps, its limits, and weighted objectives.
 :::
 
+:::{card} Lecture 5: Design missions and energy reserves
+:link: lecture-05/design-missions.md
+The two prescribed missions, which one sizes the fuel, point performance, what FCLP drives, and the seven questions each team answers before the SRR.
+:::
+
 :::{card} Assignment A01: RFP breakdown and system requirements
 :link: assignments/a01.md
-The first assignment: deconstruct the RFP, write the needs, the concept of operations and the requirements, and trace them together.
+The first assignment: deconstruct the RFP, write the needs, the concept of operations, and the requirements, and trace them together.
 :::
 
 :::{card} Assignment A02: Aircraft sizing and certification requirements
@@ -61,7 +71,7 @@ The second assignment: the certification basis, the team aircraft database, the 
 
 :::{card} Assignment A03: Sizing II, configuration selection and mission analysis
 :link: assignments/a03.md
-The third assignment: the refined sizing, the morphological matrix and the Pugh selection, the mission analysis, and the SRR baseline.
+The third assignment: the refined sizing, the morphological chart and the Pugh selection, the mission analysis, and the SRR baseline.
 :::
 
 ::::
@@ -74,12 +84,12 @@ Each lecture is one chapter. A chapter follows the slides shown in class and add
 
 ## Boxes used in the notes
 
-The notes use five kinds of box. Each has one meaning.
+The notes use eight kinds of box. Each has one meaning.
 
 :::{admonition} Navy Jet Trainer
 :class: navy
 
-Connects the lecture to the RFP. It points to the RFP sections that matter and to the questions your team has to answer. It does not give design answers. The configuration, the engine and the design point are your team's decisions.
+Connects the lecture to the RFP. It points to the RFP sections that matter and to the questions your team has to answer. It does not give design answers. The configuration, the engine, and the design point are your team's decisions.
 :::
 
 :::{prf:definition} Example of a definition box
@@ -100,6 +110,18 @@ A working method, or a habit that saves rework later.
 
 :::{warning}
 A common mistake, and how to avoid it.
+:::
+
+:::{note} What to take from this lecture
+Three or four points the lecture is about.
+:::
+
+:::{important} Summary
+The lecture's summary, or on an assignment page, its dates and what to submit.
+:::
+
+:::{seealso}
+A reading, a resource, or the lecture page that teaches a method.
 :::
 
 ## Using the notes with the assignments

@@ -3,7 +3,7 @@ title: The Navy Jet Trainer RFP
 short_title: Navy Jet Trainer RFP
 ---
 
-Teams in this course design to one of two AIAA 2026-27 RFPs. These notes follow the Undergraduate Team Aircraft Design Competition {term}`RFP`, *Design of a Navy Jet Training Aircraft*, issued by the AIAA Aircraft Design Technical Committee. This page summarizes it. Read the full RFP on the [AIAA design competitions page](https://aiaa.org/get-involved/university-students/design-competitions/).
+Teams in this course design to the AIAA 2026-27 Undergraduate Team Aircraft Design Competition {term}`RFP`, *Design of a Navy Jet Training Aircraft*, issued by the AIAA Aircraft Design Technical Committee. This page summarizes it. Read the full RFP on the [AIAA design competitions page](https://aiaa.org/get-involved/university-students/design-competitions/).
 
 :::{important}
 Where this summary and the RFP differ, the RFP governs. The RFP states that its attributes and constraints come from open-source material, tailored for a student design. They are not official Navy requirements.
@@ -15,7 +15,7 @@ The Navy uses the T-45 Goshawk for intermediate and advanced pilot training. The
 
 The new trainer is land based. It is not required to land on carriers or to meet carrier suitability requirements. It must perform full-stop Field Carrier Landing Practice ({term}`FCLP`) on land runways.
 
-The objective is a preliminary design of an affordable, effective land-based trainer for naval aviators. It must meet the airworthiness criteria of MIL-HDBK-516C. The RFP writes this as "MIL-HDB-516C". Speeds and performance parameters are defined in MIL-STD-3013B.
+The goal is a preliminary design of an affordable, effective land-based trainer for naval aviators. It must meet the airworthiness criteria of MIL-HDBK-516C. The RFP writes this as "MIL-HDB-516C." Speeds and performance parameters are defined in MIL-STD-3013B.
 
 ## Performance requirements
 
@@ -25,7 +25,7 @@ The objective is a preliminary design of an affordable, effective land-based tra
 A {term}`threshold` is the minimum acceptable value of a requirement. An {term}`objective` is the value the customer would like to reach. A design that meets every threshold is acceptable. Trade studies cover the range between them.
 :::
 
-The RFP gives three performance requirements a threshold (T) and an objective (O). The three field lengths are single required values. The RFP asks for design and cost trade studies between the threshold and objective values. All calculations use the International Standard Atmosphere.
+Three performance requirements have a threshold (T) and an objective (O). The three field lengths are single required values. The RFP asks for design and cost trade studies between the threshold and objective values. All calculations use the International Standard Atmosphere.
 
 ::::{grid} 1 1 3 3
 
@@ -85,9 +85,9 @@ The cockpit seats two pilots and must fit the full range of pilot sizes in {numr
 
 The RFP adds these cockpit requirements:
 
-- Flight suit, equipment and survival kit weigh 35 lb per pilot.
+- Flight suit, equipment, and survival kit weigh 35 lb per pilot.
 - The cockpit accommodates two Martin-Baker Mk 14 ejection seats, or similar.
-- Oxygen comes from an On-Board Oxygen Generating System (OBOGS) or from bottles.
+- Oxygen comes from an On Board Oxygen Generation System (OBOGS) or from bottles.
 - Cockpit altitude is no greater than 8,000 ft.
 - During FCLP, the view over the nose keeps the whole carrier stern in sight on a 3.5° glide slope at landing approach speed.
 
@@ -99,7 +99,7 @@ Internal fuel must cover two missions. Each has its own fuel reserve.
 
 ```{figure} figures/navy-training-mission.svg
 :label: fig-navy-training
-:alt: Altitude against distance for the training flight. The aircraft starts at 0 ft for segments 1 and 2, climbs to 20,000 ft in segment 3, cruises in segment 4, descends to 10,000 ft in segment 5, maneuvers at 10,000 ft in segment 6, climbs back to 20,000 ft in segment 7, cruises home in segment 8, descends to sea level in segment 9 and flies touch-and-go landings in segment 10. Arrows mark 50 nm from the start of the climb to the start of the maneuvers, and 50 nm from the end of the maneuvers to the end of the descent.
+:alt: Altitude against distance for the training flight. The aircraft starts at sea level for segments 1 and 2, climbs to 20,000 ft in segment 3, cruises in segment 4, descends to 10,000 ft in segment 5, maneuvers at 10,000 ft in segment 6, climbs back to 20,000 ft in segment 7, cruises home in segment 8, descends to sea level in segment 9, and flies touch-and-go landings in segment 10. Arrows mark 50 nmi from the start of the climb to the start of the maneuvers, and 50 nmi from the end of the maneuvers to the end of the descent.
 :width: 100%
 
 Training flight profile, redrawn from the Navy Jet Trainer RFP. Segment numbers match {numref}`tbl-training-mission`. Distance is not to scale.
@@ -110,10 +110,10 @@ Training flight profile, redrawn from the Navy Jet Trainer RFP. Segment numbers 
 
 | Segment | Description |
 | ---: | --- |
-| 1 | Engine start, warm-up and taxi: 15 minutes at idle thrust |
+| 1 | Engine start, warm-up, and taxi: 15 minutes at idle thrust |
 | 2 | Takeoff and acceleration to climb speed: 1 minute at takeoff thrust |
 | 3 | Cruise climb to 20,000 ft at 250 KCAS |
-| 4 | Cruise to 50 nm from the departure airport, speed and thrust not specified |
+| 4 | Cruise to 50 nmi from the departure airport, speed and thrust not specified |
 | 5 | Descent to 10,000 ft at idle thrust |
 | 6 | Basic maneuvers at 10,000 ft: 30 minutes at military thrust at Mach 0.60 |
 | 7 | Climb to 20,000 ft at 250 KCAS |
@@ -129,7 +129,7 @@ The fuel reserve for the training flight is 30 minutes at maximum endurance spee
 
 ```{figure} figures/navy-ferry-mission.svg
 :label: fig-navy-ferry
-:alt: Altitude against distance for the ferry flight. Segments 1 and 2 are at 0 ft. Segment 3 climbs to a cruise altitude chosen by the team, segment 4 cruises, segment 5 descends to sea level and segment 6 is the approach and landing. An arrow marks 600 nm across segments 3 to 5.
+:alt: Altitude against distance for the ferry flight. Segments 1 and 2 are at sea level. Segment 3 climbs to a cruise altitude chosen by the team, segment 4 cruises, segment 5 descends to sea level, and segment 6 is the approach and landing. An arrow marks 600 nmi across segments 3 to 5.
 :width: 100%
 
 Ferry flight profile, redrawn from the Navy Jet Trainer RFP. Segment numbers match {numref}`tbl-ferry-mission`. Distance is not to scale.
@@ -140,7 +140,7 @@ Ferry flight profile, redrawn from the Navy Jet Trainer RFP. Segment numbers mat
 
 | Segment | Description |
 | ---: | --- |
-| 1 | Engine start, warm-up and taxi: 15 minutes at idle thrust |
+| 1 | Engine start, warm-up, and taxi: 15 minutes at idle thrust |
 | 2 | Takeoff and acceleration to climb speed: 1 minute at takeoff thrust |
 | 3 | Cruise climb to the cruise altitude you choose |
 | 4 | Cruise at the altitude and speed you choose |
@@ -149,12 +149,12 @@ Ferry flight profile, redrawn from the Navy Jet Trainer RFP. Segment numbers mat
 
 :::
 
-Segments 3 to 5 together cover 600 nm. The fuel reserve for the ferry flight is 45 minutes at maximum endurance speed in cruise configuration.
+Segments 3 to 5 together cover 600 nmi. The fuel reserve for the ferry flight is 45 minutes at maximum endurance speed in cruise configuration.
 
 :::{exercise} What the RFP leaves to you
 :label: ex-rfp-assumptions
 
-List every value in the two missions that the RFP leaves to your team. Start with the segments marked "speed and thrust not specified" and the ferry cruise altitude. Each one becomes an assumption your team states and defends.
+List every value in the two missions that the RFP leaves to your team. Start with the segments marked "speed/thrust not specified" and the ferry cruise altitude. Each one becomes an assumption your team states and defends.
 :::
 
 ## Analyses the RFP requires
@@ -165,7 +165,7 @@ The RFP lists the analyses a proposal must contain.
 
 :::{card}
 :header: Mass properties
-An empty weight estimate with component breakdowns. At least these groups: propulsion; airframe structure (wing, empennage, landing gear with wheels, tires and brakes, fuselage); systems (instruments and avionics, fuel and oil, hydraulic, pneumatic and electrical systems if chosen). A center of gravity calculation for all loading cases. An operational weight roll-up to MTOW with empty weight, pilots, payload and fuel.
+An empty-weight estimate with component breakdowns. At least these groups: propulsion; airframe structure (wing, empennage, landing gear with wheels, tires and brakes, fuselage); systems (instruments and avionics, fuel and oil, hydraulic, pneumatic, and electrical systems if chosen). A center of gravity calculation for all loading cases. An operational weight roll-up to MTOW with empty weight, pilots, payload, and fuel.
 :::
 
 :::{card}
@@ -175,27 +175,27 @@ A conceptual structural layout. The material of each major component. The streng
 
 :::{card}
 :header: Propulsion
-The RFP gives no engine data. Identify the engine type, manufacturer and model, and document the data sources. Document the installed thrust and fuel flow models.
+The RFP gives no engine data. Identify the engine type, manufacturer, and model. Document the data sources and the installed thrust and fuel flow models.
 :::
 
 :::{card}
 :header: Aerodynamics
-Lift and drag for climb, cruise, maneuvering, takeoff and landing. The wing planform and airfoil selection. The derivation of the lift and drag models.
+Lift and drag for climb, cruise, maneuvering, takeoff, and landing. The wing planform and airfoil selection. The derivation of the lift and drag models.
 :::
 
 :::{card}
 :header: Aircraft systems
-Description, function, location and layout of the major systems: propulsion, landing gear, electrical, hydraulics, fuel, pressurization with air conditioning and oxygen, avionics, control system actuators and flight control computers.
+Description, function, location, and layout of the major systems: propulsion, landing gear, electrical, hydraulics, fuel, pressurization with air conditioning and oxygen, avionics, control system actuators and flight control computers.
 :::
 
 :::{card}
 :header: Stability and control
-Analysis for climb, cruise, maneuvering, takeoff and landing. The aircraft may be statically stable or unstable. Specify the flight control system architecture and its major components. Give the criteria for horizontal and vertical tail sizing, the longitudinal static stability and trim analysis, and the longitudinal and lateral-directional dynamic stability analysis.
+Analysis for climb, cruise, maneuvering, takeoff, and landing. The aircraft may be statically stable or unstable. Specify the flight control system architecture and its major components. Give the criteria for horizontal and vertical tail sizing, the longitudinal static stability and trim analysis, and the longitudinal and lateral-directional dynamic stability analysis.
 :::
 
 :::{card}
 :header: Cost
-The cost of engineering and manufacturing development, testing and certification, in 2030 dollars. Two production phases: Low Rate Initial Production of 10 aircraft and Full Rate Production of 500 aircraft. Unit flyaway cost for Full Rate Production and the full program life cycle cost. Direct operating cost per flight hour, including fuel, oil, tires, brakes, batteries and other consumables, and maintenance cost per flight hour. Explain the design features and processes that raise or lower cost. Discuss cost trades between threshold and objective requirements.
+The cost of engineering and manufacturing development, testing, and certification, in 2030 dollars. Two production phases: Low Rate Initial Production of 10 aircraft and Full Rate Production of 500 aircraft. Unit flyaway cost for Full Rate Production and the full program life-cycle cost. Direct operating cost per flight hour, including fuel, oil, tires, brakes, batteries, and other consumables, and maintenance cost per flight hour. Explain the design features and processes that raise or lower cost. Discuss cost trades between threshold and objective requirements.
 :::
 
 :::{card}
@@ -212,17 +212,17 @@ The aircraft meets MIL-HDBK-516C. Definitions of speeds and performance paramete
 
 | No. | Design data |
 | ---: | --- |
-| 1 | Dimensioned three-view drawing with the neutral point, the tail moment arms and a table of aircraft areas |
+| 1 | Dimensioned three-view drawing with the neutral point, the tail moment arms, and a table of aircraft areas |
 | 2 | 3-D model imagery |
-| 3 | Cockpit layout drawing with pilots, equipment and controls |
+| 3 | Cockpit layout drawing with pilots, equipment, and controls |
 | 4 | Location and volume of the fuel tanks |
 | 5 | Inboard profile |
 | 6 | Landing gear drawing, extended and retracted |
 | 7 | Weight statement, including minimum and maximum crew weights and single-pilot operation |
 | 8 | Center of gravity envelope |
-| 9 | Wing and empennage geometry: aspect ratio, taper ratio, thickness, sweep and a description of the high-lift devices |
+| 9 | Wing and empennage geometry: aspect ratio, taper ratio, thickness, sweep, and a description of the high-lift devices |
 | 10 | Control surface sizes |
-| 11 | Drag polars for cruise, takeoff and landing configurations |
+| 11 | Drag polars for cruise, takeoff, and landing configurations |
 | 12 | Structural materials |
 
 :::
@@ -235,14 +235,14 @@ The aircraft meets MIL-HDBK-516C. Definitions of speeds and performance paramete
 | 1 | Trade study results that find the minimum weight aircraft |
 | 2 | Flight envelope (altitude against speed) and V-n diagram |
 | 3 | Maximum dive speed |
-| 4 | Segment-by-segment results for each mission: weight, fuel used, time, distance, altitude and speed |
+| 4 | Segment-by-segment results for each mission: weight, fuel used, time, distance, altitude, and speed |
 | 5 | Takeoff field length at MTOW and landing field length at MLW |
 | 6 | Summary of the stability and control analyses |
 | 7 | Breakdown of development and manufacturing costs. Life cycle cost is optional here |
 
 :::
 
-The proposal must also show the alternative concepts the team considered and the method used to select one. Present the method and rationale for the down-select. At a minimum, give a qualitative assessment of the strengths and weaknesses of each alternative. A quantitative comparison against the measures of merit makes the case stronger. Include the major trade studies behind the optimization, sizing, arrangement and integration of the selected concept. Quantitative data must show that the selected concept works and best meets the requirements.
+The proposal must also show the alternative concepts the team considered, and the method and rationale used to select one. At a minimum, give a qualitative assessment of the strengths and weaknesses of each alternative. A quantitative comparison against the measures of merit makes the case stronger. Include the major trade studies behind the optimization, sizing, arrangement, and integration of the selected concept. Quantitative data must show that the selected concept works and best meets the requirements.
 
 ## How proposals are judged
 
@@ -262,13 +262,12 @@ The AIAA rules that apply to every design competition give the approximate judgi
 
 :::{note} Report rules
 
-The same rules limit the report to 100 double-spaced pages on letter paper, with type no smaller than 10 pt Times New Roman and 1 in margins. Pages with other spacing are counted at 1.75 pages each. Every computer code used must be listed with the URL where it can be obtained. The rules discourage generative AI. If any AI tool was used for the design or the report, a one-page disclosure must be attached outside the page count.
+The same rules limit the report to 100 double-spaced pages on letter paper, with type no smaller than 10 pt Times New Roman and 1 in margins. Pages with other spacing are counted at 1.75 pages each. Every computer code used must be listed with the URL where it can be obtained. The rules discourage AI tools. If one was used for the design or the report, a one-page disclosure must be attached outside the page count.
 :::
 
 :::{tip} Reading the RFP
 
-- Separate thresholds from objectives. Meeting every threshold gives an acceptable design. Trade studies cover the range between threshold and objective.
+- Separate thresholds from objectives.
 - Read the notes under each table. A requirement without its weight and altitude cannot be checked.
-- Mark anything the RFP leaves to you, such as the ferry cruise altitude. Your choice becomes an assumption and must be stated.
 - Assignment A01 turns this RFP into stakeholder needs and system requirements. [](../lecture-01/requirements.md) explains how.
 :::

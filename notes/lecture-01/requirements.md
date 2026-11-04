@@ -31,7 +31,7 @@ Traceable
 :::
 
 :::{note} Two versions of SMART
-The lecture slide spells SMART as simple, measurable, attainable, realistic and time-bound. That version comes from goal setting, where T is time-bound. For requirements this course uses specific, measurable, achievable, relevant and traceable, as in assignment A01.
+The lecture slide spells SMART as simple, measurable, attainable, realistic, and time-bound. That version comes from goal setting. For requirements this course uses specific, measurable, achievable, relevant, and traceable, as in assignment A01.
 :::
 
 Compare two requirements from the slide.
@@ -41,13 +41,13 @@ Compare two requirements from the slide.
 :::{tip} A good requirement
 > The system shall provide a means of communication between the transport and the dispatch station to exchange health and status data of the transport system, exchanged every 15 minutes.
 
-It names the two ends of the link, the data exchanged and a rate that a test can check.
+It names the two ends of the link, the data exchanged, and a rate that a test can check.
 :::
 
 :::{warning} A poor requirement
 > The system shall be able to operate in all weather.
 
-"All weather" has no limit, so no test can show it is met. It also uses "be able to", which the checklist below rejects. A better version states the conditions: wind, visibility, icing, temperature and precipitation, each with a value.
+"All weather" has no limit, so no test can show it is met. It also uses "be able to," which the checklist below rejects. A better version states the conditions: wind, visibility, icing, temperature, and precipitation, each with a value.
 :::
 
 ::::
@@ -62,7 +62,7 @@ It names the two ends of the link, the data exchanged and a rate that a test can
 1. Is it traceable to a user need or an operational requirement?
 2. Is it redundant with another requirement?
 3. Is it consistent with the other requirements?
-4. Is it unambiguous, and not open to interpretation?
+4. Is it unambiguous?
 5. Is it technologically feasible?
 6. Is it affordable?
 7. Is it verifiable?
@@ -72,13 +72,13 @@ It names the two ends of the link, the data exchanged and a rate that a test can
 :header: The set as a whole
 
 1. Does the set cover all the user needs and operational requirements?
-2. Is the set feasible in cost, schedule and technology?
+2. Is the set feasible in cost, schedule, and technology?
 3. Can the set be verified as a whole?
 :::
 
 ::::
 
-A set can fail even when every requirement in it passes. Two feasible requirements can be infeasible together, for example a short field length, a high cruise speed and a low unit cost.
+A set can fail even when every requirement in it passes. Feasible requirements can be infeasible together, for example a short field length, a high cruise speed, and a low unit cost.
 
 ## Checklist: is this a requirement?
 
@@ -90,14 +90,14 @@ A set can fail even when every requirement in it passes. Two feasible requiremen
 | Check | What to look for |
 | --- | --- |
 | Dependent | The requirement depends on a need and traces to it |
-| Verifiable | A test, analysis, demonstration or inspection can show it is met |
+| Verifiable | A test, analysis, demonstration, or inspection can show it is met |
 | Free of ambiguous terms | No "as appropriate", "etc.", "and/or", "support", "but not limited to", "be able to", "be capable of" |
-| Free of indefinite pronouns | No "this" or "these" without a clear subject |
+| Free of indefinite pronouns | No "this" or "these" without a clear referent |
 | Free of unverifiable terms | No "flexible", "user-friendly", "robust", "lightweight", "maximize", "adequate", "small", "portable", "easily", or other words ending in -ly or -ize |
-| Free of implementation | It states what is needed, not how to provide it. State the problem, not the solution |
+| Free of implementation | It states what is needed, not how to provide it |
 | Necessary | Ask why the requirement is needed. The answer may lead to the real requirement |
 | Free of descriptions of operations | Ask whether the developer controls it, and whether it is a need the product must satisfy or an activity involving the product |
-| Free of TBDs | Avoid "to be determined". Use a best estimate marked TBR, to be resolved, with its rationale |
+| Free of TBDs | Avoid "to be determined." Use a best estimate marked TBR, to be resolved, with its rationale |
 
 :::
 
@@ -115,7 +115,7 @@ Which one is a verifiable requirement as written? Which one contains an ambiguou
 
 ## Setting requirements for aerospace systems
 
-You show that your aircraft meets the customer's needs by showing that it meets the requirements. Customers such as the Department of Defense and NASA have traditionally stated their needs in a request for proposal. The RFP gives the requirements, and the bidders propose designs that meet them.
+Meeting the requirements is how you show that the aircraft meets the customer's needs. Customers such as the Department of Defense and NASA have traditionally stated their needs in a request for proposal. The RFP gives the requirements, and the bidders propose designs that meet them.
 
 :::{seealso}
 The lecture recommends the video [System engineering requirements: aircraft system development process](https://www.youtube.com/watch?v=3afHlAwBudM), a talk from the EASA Rotorcraft and VTOL Symposium 2019. It shows how requirements are organized from the aircraft down to the functional elements.
@@ -126,7 +126,7 @@ The lecture recommends the video [System engineering requirements: aircraft syst
 :::{prf:definition} Compliance matrix
 :label: def-compliance-matrix
 
-A {term}`compliance matrix` lists each requirement with its threshold, its target and the current value of the design.
+A {term}`compliance matrix` lists each requirement with its threshold, its target, and the current value of the design.
 :::
 
 {numref}`tbl-compliance-example` is the example from the lecture, a small general aviation aircraft. The status column is added here so the result does not depend on color.
@@ -145,7 +145,7 @@ A {term}`compliance matrix` lists each requirement with its threshold, its targe
 
 :::
 
-Read the matrix row by row. For seats and range a larger value is better. For field lengths, noise and flight time a smaller value is better. This design meets four thresholds, fails two and meets no target. The takeoff field length and the noise are the next design problems.
+Read the matrix row by row. For seats and range a larger value is better. For field lengths, noise, and flight time a smaller value is better. This design meets four thresholds, fails two, and meets no target. The takeoff field length and the noise are the next design problems.
 
 :::{admonition} Navy Jet Trainer
 :class: navy
@@ -157,7 +157,7 @@ The RFP uses threshold and objective instead of threshold and target. Keep a com
 
 Build a database of existing aircraft similar to yours. It shows what has been achieved, and it gives the statistics used in initial sizing. {numref}`tbl-comparator-example` is the lecture example, a set of very light jets.
 
-:::{table} Example database of very light jets, values as shown on the lecture slide. MTOW is maximum takeoff weight, OEW is operating empty weight and PAX is the number of passengers.
+:::{table} Example database of very light jets, values compiled for this course. MTOW is maximum takeoff weight, OEW is operating empty weight, and PAX is the number of passengers.
 :label: tbl-comparator-example
 
 | Aircraft | Crew | PAX | MTOW (kg) | OEW (kg) | Cruise speed (km/h) | Range (km) | Engines and rated thrust |
@@ -173,13 +173,13 @@ Build a database of existing aircraft similar to yours. It shows what has been a
 :::
 
 :::{tip} Record the source of every value
-Manufacturer brochures, type certificate data sheets and Jane's often give different values for the same aircraft. Note which one you used.
+Manufacturer brochures, type certificate data sheets, and Jane's often give different values for the same aircraft. Note which one you used.
 :::
 
 :::{admonition} Navy Jet Trainer
 :class: navy
 
-For the Navy trainer, the database holds jet trainers that are in service or in development, starting with the T-45 the RFP names. Use the same columns where they apply. Add the columns your RFP makes important, such as maximum operating Mach number and sustained load factor.
+For the Navy Jet Trainer, the database holds jet trainers that are in service or in development, starting with the T-45 the RFP names. Use the same columns where they apply. Add the columns your RFP makes important, such as maximum operating Mach number and sustained load factor.
 :::
 
 ## Initial requirements trade studies
@@ -187,10 +187,10 @@ For the Navy trainer, the database holds jet trainers that are in service or in 
 :::{prf:definition} Requirements trade study
 :label: def-trade-study
 
-A requirements {term}`trade study` changes one requirement and measures the effect on the size, weight and cost of the aircraft.
+A requirements {term}`trade study` changes one requirement and measures the effect on the size, weight, and cost of the aircraft.
 :::
 
-Payload, range and speed have a large effect on takeoff weight, total fuel and cost. Run these trades early, while the customer can still change the requirements. This is the loop through the customer in [](design-process.md#fig-design-process-flow).
+Payload, range, and speed have a large effect on takeoff weight, total fuel, and cost. Run these trades early, while the customer can still change the requirements. This is the loop through the customer in [](design-process.md#fig-design-process-flow).
 
 :::{admonition} Navy Jet Trainer
 :class: navy

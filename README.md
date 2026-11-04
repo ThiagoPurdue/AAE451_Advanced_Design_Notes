@@ -11,14 +11,16 @@ Site: https://thiagopurdue.github.io/AAE451_Advanced_Design_Notes/
 | Path | Contents |
 |---|---|
 | `myst.yml` | Book configuration and table of contents |
-| `notes/` | All Markdown pages of the book: `index.md`, `accessibility.md` and one folder per chapter |
+| `notes/` | All Markdown pages of the book: `index.md`, `glossary.md`, `accessibility.md`, and one folder per chapter |
 | `notes/navy-rfp/` | The RFP summary page and its figures |
 | `notes/lecture-NN/` | One folder per lecture: its pages and a `figures/` folder. Diagrams drawn in draw.io keep their `.drawio` source there |
 | `notes/_static/site.css` | Accessibility overrides for the theme |
 | `notes/_parts/` | Sidebar footer text |
 | `scripts/make_figures.py` | Draws every figure except the draw.io diagrams |
 | `scripts/export_drawio.py` | Exports every `.drawio` file under `notes/` to SVG (needs the draw.io desktop app) |
-| `scripts/fix_theme_a11y.py` | Post-build fix for two theme labelling issues (WCAG 2.5.3) |
+| `scripts/extract_schematics.py` | Crops the TikZ schematics out of a lecture deck PDF as SVG |
+| `scripts/execute_notebooks.sh` | Runs the MATLAB-kernel notebooks and stores their outputs |
+| `scripts/fix_theme_a11y.py` | Post-build fix for two theme labeling issues (WCAG 2.5.3) |
 | `scripts/check_accessibility.mjs` | Runs the axe accessibility engine on the built site |
 | `.github/workflows/deploy.yml` | Builds and publishes the site to GitHub Pages on every push to `main` |
 
