@@ -69,6 +69,16 @@ What the RFP asks of the wing, the airfoil families, reading section data, Reyno
 Planform, wing volume and height, aspect ratio, taper, sweep and drag divergence, twist, incidence, the lift-curve slope, clean maximum lift, and stall speed.
 :::
 
+:::{card} Lecture 6, part 1: High lift, requirements and devices
+:link: lecture-06/high-lift-devices.md
+The RFP field lengths and their MIL-STD-3013B definitions, what high lift does, the trailing-edge and leading-edge devices, their increments, and how to select a system.
+:::
+
+:::{card} Lecture 6, part 2: High lift, the wing and the field length
+:link: lecture-06/high-lift-wing-and-field.md
+Partial-span flaps, the partition method, trim and attitude, the FCLP approach, the drag penalty, climb, the takeoff and landing segments, and the required maximum lift.
+:::
+
 :::{card} Assignment A01: RFP breakdown and system requirements
 :link: assignments/a01.md
 The first assignment: deconstruct the RFP, write the needs, the concept of operations, and the requirements, and trace them together.

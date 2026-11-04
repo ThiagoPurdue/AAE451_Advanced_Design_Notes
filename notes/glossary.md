@@ -35,11 +35,14 @@ Critical Mach number
 Datum
 : The reference concept in a Pugh matrix. Every other concept is scored against it, criterion by criterion. At the first run it is often an existing aircraft.
 
-Drag divergence Mach number
-: $M_{dd}$, the Mach number at which the drag starts to rise steeply with Mach. Boeing: the section drag 0.002 above its incompressible value. Douglas: the slope $dC_d/dM$ reaching 0.10.
+Deck angle
+: The pitch attitude of the fuselage on the approach, the angle of attack less the glide-slope angle. Flaps lower it; slats raise it.
 
 Design mission
 : The most demanding mission the aircraft must fly. The operating mission is the one it usually flies, and it is shorter. The RFP prescribes two missions and the briefs call each a design mission; which one sizes the fuel is known only after both are computed.
+
+Drag divergence Mach number
+: $M_{dd}$, the Mach number at which the drag starts to rise steeply with Mach. Boeing: the section drag 0.002 above its incompressible value. Douglas: the slope $dC_d/dM$ reaching 0.10.
 
 Engine deck
 : Thrust and fuel flow against altitude, speed, ambient temperature, and rating.
@@ -49,6 +52,9 @@ FCLP
 
 Fixed engine
 : An engine selected off the shelf, with known thrust and fuel flow, that does not change during sizing.
+
+Flap
+: A trailing-edge device that adds camber and, for the Fowler type, chord. It raises the maximum lift coefficient and lowers the stall angle.
 
 Mean geometric chord
 : $c_{MGC}$, the chord-weighted mean chord, $(2/S)\int_0^{b/2} c^2\,dy$; for a trapezoidal wing it is the chord at the spanwise centroid of the half-wing. A04 calls it the mean aerodynamic chord. The subsonic aerodynamic center sits near its quarter chord.
@@ -97,6 +103,9 @@ RFP
 
 Rubber engine
 : An engine that scales with the aircraft during sizing. It implies new engine development.
+
+Slat
+: A leading-edge device that moves forward and down to open a slot ahead of the wing. It delays separation and raises both the maximum lift coefficient and the stall angle.
 
 Specific excess power
 : The rate at which the aircraft can gain energy height, (T − D)V/W, in ft/s. It measures the thrust available beyond the drag at a given speed, altitude, and weight.

@@ -102,7 +102,7 @@
   function fit() {
     try {
       var fe = window.frameElement;
-      if (fe && fe.parentElement) fe.parentElement.style.height = (document.documentElement.scrollHeight + 2) + "px";
+      if (fe && fe.parentElement) fe.parentElement.style.height = (Math.ceil(document.body.getBoundingClientRect().height) + 2) + "px";
     } catch (e) {}
   }
   try { new ResizeObserver(fit).observe(document.body); } catch (e) {}

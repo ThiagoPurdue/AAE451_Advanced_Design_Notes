@@ -59,6 +59,10 @@ project:
       children:
         - file: notes/lecture-05/airfoil.md
         - file: notes/lecture-05/wing-geometry-and-lift.md
+    - title: "Lecture 6: High-Lift Systems"
+      children:
+        - file: notes/lecture-06/high-lift-devices.md
+        - file: notes/lecture-06/high-lift-wing-and-field.md
     - title: Assignments
       children:
         - file: notes/assignments/a01.md

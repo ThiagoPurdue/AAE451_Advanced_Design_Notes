@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="572.4pt" height="191.808pt" viewBox="0 0 572.4 191.808" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-04T08:51:34.909852</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 191.808 
+L 572.4 191.808 
+L 572.4 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 95.771429 53.851733 
+L 266.36 53.851733 
+L 266.36 26.254933 
+L 95.771429 26.254933 
+z
+" clip-path="url(#p19a50a8af2)" style="fill: #8e6f3e; stroke: #ffffff; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 266.36 53.851733 
+L 287.44 53.851733 
+L 287.44 26.254933 
+L 266.36 26.254933 
+z
+" clip-path="url(#p19a50a8af2)" style="fill: #ebd99f; stroke: #ffffff; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 287.44 53.851733 
+L 359.36 53.851733 
+L 359.36 26.254933 
+L 287.44 26.254933 
+z
+" clip-path="url(#p19a50a8af2)" style="fill: #555960; stroke: #ffffff; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 359.36 53.851733 
+L 377.782857 53.851733 
+L 377.782857 26.254933 
+L 359.36 26.254933 
+z
+" clip-path="url(#p19a50a8af2)" style="fill: #9d9795; stroke: #ffffff; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 95.771429 119.5584 
+L 257.68 119.5584 
+L 257.68 91.9616 
+L 95.771429 91.9616 
+z
+" clip-path="url(#p19a50a8af2)" style="fill: #555960; stroke: #ffffff; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 257.68 119.5584 
+L 271.674286 119.5584 
+L 271.674286 91.9616 
+L 257.68 91.9616 
+z
+" clip-path="url(#p19a50a8af2)" style="fill: #9d9795; stroke: #ffffff; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 271.674286 119.5584 
+L 291.16 119.5584 
+L 291.16 91.9616 
+L 271.674286 91.9616 
+z
+" clip-path="url(#p19a50a8af2)" style="fill: #ebd99f; stroke: #ffffff; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 291.16 119.5584 
+L 471.668571 119.5584 
+L 471.668571 91.9616 
+L 291.16 91.9616 
+z
+" clip-path="url(#p19a50a8af2)" style="fill: #8e6f3e; stroke: #ffffff; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 95.771429 174.094933 
+L 108.171429 174.094933 
+L 108.171429 162.267733 
+L 95.771429 162.267733 
+z
+" clip-path="url(#p19a50a8af2)" style="fill: #8e6f3e"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 109.942857 174.094933 
+L 122.342857 174.094933 
+L 122.342857 162.267733 
+L 109.942857 162.267733 
+z
+" clip-path="url(#p19a50a8af2)" style="fill: #ebd99f"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 255.2 174.094933 
+L 267.6 174.094933 
+L 267.6 162.267733 
+L 255.2 162.267733 
+z
+" clip-path="url(#p19a50a8af2)" style="fill: #555960"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 269.371429 174.094933 
+L 281.771429 174.094933 
+L 281.771429 162.267733 
+L 269.371429 162.267733 
+z
+" clip-path="url(#p19a50a8af2)" style="fill: #9d9795"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: end" x="85.142857" y="43.163958" transform="rotate(-0 85.142857 43.163958)">Takeoff</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 9.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #555960" x="181.065714" y="20.784469" transform="rotate(-0 181.065714 20.784469)">ground run 963</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 9.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #555960" x="276.9" y="64.849498" transform="rotate(-0 276.9 64.849498)">rotation 119</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 9.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #555960" x="323.4" y="20.826032" transform="rotate(-0 323.4 20.826032)">transition 406</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 9.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #555960" x="368.571429" y="64.849498" transform="rotate(-0 368.571429 64.849498)">climb 104</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="384.868571" y="37.648206" transform="rotate(-0 384.868571 37.648206)">1,592 ft</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 10px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #555960" x="384.868571" y="51.837423" transform="rotate(-0 384.868571 51.837423)">handbook 1,594</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: end" x="85.142857" y="108.791875" transform="rotate(-0 85.142857 108.791875)">Landing</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 9.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #555960" x="176.725714" y="86.5468" transform="rotate(-0 176.725714 86.5468)">approach 914</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 9.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #555960" x="264.677143" y="130.556165" transform="rotate(-0 264.677143 130.556165)">flare 79</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 9.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #555960" x="281.417143" y="86.532698" transform="rotate(-0 281.417143 86.532698)">free roll 110</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 9.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #555960" x="381.414286" y="86.491136" transform="rotate(-0 381.414286 86.491136)">braking 1,019</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="478.754286" y="103.354873" transform="rotate(-0 478.754286 103.354873)">2,122 ft</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 10px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #555960" x="478.754286" y="117.54409" transform="rotate(-0 478.754286 117.54409)">handbook 2,344</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 10px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #555960" x="125.885714" y="170.707896" transform="rotate(-0 125.885714 170.707896)">on the ground</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 10px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #555960" x="285.314286" y="170.76649" transform="rotate(-0 285.314286 170.76649)">in the air</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 10px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #555960" x="556.342857" y="170.76649" transform="rotate(-0 556.342857 170.76649)">distances in ft</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p19a50a8af2">
+   <rect x="7.2" y="7.2" width="558" height="177.408"/>
+  </clipPath>
+ </defs>
+</svg>
