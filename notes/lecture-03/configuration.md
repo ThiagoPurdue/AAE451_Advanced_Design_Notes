@@ -24,7 +24,7 @@ Requirements drive the choices: cabin size, speed, range, field length. Every ch
 :::{admonition} Navy Jet Trainer
 :class: navy
 
-The configuration answers your A01 requirements and CONOPS. Each box below names the requirement the choice has to satisfy.
+The configuration answers your A01 requirements and CONOPS. Each box below points to the RFP content the choice has to answer.
 :::
 
 ## Wing placement
@@ -71,7 +71,7 @@ Examples: Boeing 737, CRJ, most trainers.
 :::{admonition} Navy Jet Trainer
 :class: navy
 
-Wing height sets the cockpit sightlines, which the RFP constrains through the over-the-nose view at the {term}`FCLP` glide slope, and the gear length, which the FCLP sink rates load.
+Wing height affects the cockpit sightlines and the gear length. The RFP constrains the sightlines through the over-the-nose view on the 3.5° {term}`FCLP` glide slope. The gear carries the FCLP touchdown loads. The RFP gives no sink rate.
 :::
 
 ## Fuselage cross-section
@@ -116,7 +116,7 @@ Examples: SR-71, blended-wing-body concepts.
 :::{admonition} Navy Jet Trainer
 :class: navy
 
-The cockpit section must fit the pilot size range the RFP states, from 62 in to 77 in tall with sitting heights from 31 in to 40.9 in, in two ejection seats.
+The cockpit section must fit the pilot size range the RFP states: heights from 62 in to 77 in, sitting heights from 31 in to 40.9 in and sitting eye heights from 26 in to 31.4 in, in two ejection seats. The eye height drives the over-the-nose view.
 :::
 
 ## Jet engine and inlet placement
@@ -163,12 +163,12 @@ Examples: business jets, CRJ.
 :::{admonition} Navy Jet Trainer
 :class: navy
 
-The trainer cohort splits between buried and podded engines. Inlet placement must work at high angle of attack across the training envelope.
+Every trainer in the cohort buries its engine. The inlets differ. Inlet placement must work at high angle of attack across the training envelope.
 :::
 
 ## Propeller and motor placement
 
-The RFP asks for a jet trainer. These options are here for completeness, and for the morphological matrix.
+The RFP title says jet trainer. Decide from your A01 deconstruction whether that closes the propulsion row.
 
 ::::{grid} 1 2 4 4
 
@@ -334,7 +334,7 @@ Spreads heavy weights. Size and complexity.
 :::{admonition} Navy Jet Trainer
 :class: navy
 
-FCLP sink rates size the gear. The arrangement decides where that weight goes.
+FCLP sink rates size the gear. The RFP gives no sink rate, so state the value you assume and its source. The arrangement decides where that weight goes.
 :::
 
 ## The morphological chart
@@ -381,7 +381,7 @@ The eight aircraft of the A02 database. Photos via Wikimedia Commons.
 :::
 
 :::{card}
-![McDonnell Douglas T-45 Goshawk in flight, a low-wing jet with side inlets and a single fin.](figures/t45.jpg)
+![T-45 Goshawk in flight, a low-wing jet with side inlets and a single fin.](figures/t45.jpg)
 
 **Boeing T-45 Goshawk.** U.S. Navy photo by Lt. j.g. John A. Ivancic, public domain.
 :::
@@ -395,7 +395,7 @@ The eight aircraft of the A02 database. Photos via Wikimedia Commons.
 :::{card}
 ![BAE Systems Hawk in flight, a low-wing jet with side inlets and a single fin.](figures/hawk.jpg)
 
-**BAE Systems Hawk.** Photo by Tim Felce, [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/).
+**BAE Systems Hawk.** Photo by Tim Felce, [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Hawk_-_RIAT_2011_%286122004254%29.jpg).
 :::
 
 :::{card}
@@ -407,19 +407,19 @@ The eight aircraft of the A02 database. Photos via Wikimedia Commons.
 :::{card}
 ![Aero L-39 Albatros in flight, a low-wing jet with wing-tip tanks and a single fin.](figures/l39.jpg)
 
-**Aero L-39 Albatros.** Photo by Milan Nykodym, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+**Aero L-39 Albatros.** Photo by Milan Nykodym, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:L-39ZA_Albatros_%28cropped%29.jpg).
 :::
 
 :::{card}
 ![KAI T-50 Golden Eagle in a demonstration flight, a mid-wing jet with side inlets and a single fin.](figures/t50.jpg)
 
-**KAI T-50 Golden Eagle.** Photo by Korea Aerospace Industries, [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/).
+**KAI T-50 Golden Eagle.** Photo by Korea Aerospace Industries, [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:KAI_T-50_Golden_Eagle_Demo_flight.jpg).
 :::
 
 :::{card}
 ![Aermacchi MB-339 in flight, a low-wing jet with wing-tip tanks and a single fin.](figures/mb339.jpg)
 
-**Aermacchi MB-339.** Photo by Tim Felce, [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/).
+**Aermacchi MB-339.** Photo by Tim Felce, [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:MB339_-_RIAT_2008_%282674540983%29.jpg).
 :::
 
 ::::
