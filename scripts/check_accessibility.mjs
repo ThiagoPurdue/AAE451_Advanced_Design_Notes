@@ -53,7 +53,8 @@ for (const scheme of ["light", "dark"]) {
     const page = await browser.newPage();
     await page.setViewport({ width: 1280, height: 900 });
     await page.emulateMediaFeatures([{ name: "prefers-color-scheme", value: scheme }]);
-    await page.goto(base + baseUrl + p, { waitUntil: "networkidle0" });
+    await page.goto(base + baseUrl + p, { waitUntil: "load", timeout: 120000 });
+    await new Promise((r) => setTimeout(r, 1500));   // let the page hydrate; the site is static
     await page.evaluate(axeSource);
     const result = await page.evaluate(async () =>
       await window.axe.run(document, {

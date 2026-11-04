@@ -45,11 +45,29 @@ if missing:
 caption_label = re.compile(
     r'(<a [^>]*title="Link to this [A-Za-z ]+") aria-label="Link to this [A-Za-z ]+"(>(?!¶))')
 footer_label = re.compile(r' aria-label="(?:Next|Previous): [^"]*"')
+# The {iframe} directive writes no title attribute (WCAG 4.1.2). Quick-check
+# widgets get the <title> of their own HTML file; anything else a plain name.
+iframe_tag = re.compile(r'<iframe(?![^>]*\btitle=)([^>]*\bsrc="[^"]*?([^"/]+)\.html"[^>]*)>')
+title_tag = re.compile(r"<title>(.*?)</title>", re.S)
+
+
+def iframe_title(m):
+    name = m.group(2)
+    src = Path("quickcheck") / f"{name}.html"
+    title = "Embedded content"
+    if src.exists():
+        found = title_tag.search(src.read_text(encoding="utf-8"))
+        if found:
+            title = found.group(1).strip()
+    return f'<iframe title="{title}"{m.group(1)}>'
+
+
 pages = 0
 for html in root.glob("**/*.html"):
     text = html.read_text(encoding="utf-8")
     new = caption_label.sub(r"\1\2", text)
     new = footer_label.sub("", new)
+    new = iframe_tag.sub(iframe_title, new)
     if new != text:
         html.write_text(new, encoding="utf-8")
         pages += 1

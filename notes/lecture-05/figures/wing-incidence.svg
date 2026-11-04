@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="471.462674pt" height="113.193443pt" viewBox="0 0 471.462674 113.193443" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="477.877455pt" height="420.203672pt" viewBox="0 0 477.877455 420.203672" xmlns="http://www.w3.org/2000/svg" version="1.1">
  <metadata>
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-11-03T22:57:53.362428</dc:date>
+    <dc:date>2026-11-03T23:44:39.759787</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -21,102 +21,134 @@
  </defs>
  <g id="figure_1">
   <g id="patch_1">
-   <path d="M 0 113.193443 
-L 471.462674 113.193443 
-L 471.462674 0 
+   <path d="M 0 420.203672 
+L 477.877455 420.203672 
+L 477.877455 0 
 L 0 0 
 z
 " style="fill: #ffffff"/>
   </g>
   <g id="axes_1">
    <g id="patch_2">
-    <path d="M 111.481967 85.868852 
-L 312.727869 85.868852 
-Q 329.193443 85.868852 329.193443 69.403279 
-L 329.193443 69.403279 
-Q 329.193443 52.937705 312.727869 52.937705 
-L 111.481967 52.937705 
-Q 95.016393 52.937705 95.016393 69.403279 
-L 95.016393 69.403279 
-Q 95.016393 85.868852 111.481967 85.868852 
+    <path d="M 129.057085 92.190672 
+L 334.013745 106.522637 
+Q 352.098156 107.787223 353.362741 89.702811 
+L 353.362741 89.702811 
+Q 354.627326 71.6184 336.542915 70.353815 
+L 131.586255 56.021849 
+Q 113.501844 54.757264 112.237259 72.841675 
+L 112.237259 72.841675 
+Q 110.972674 90.926086 129.057085 92.190672 
 z
-" clip-path="url(#p1e2aaca467)" style="fill: #f5efdc; stroke: #000000; stroke-width: 1.4; stroke-linejoin: miter"/>
+" clip-path="url(#pf3a7a49dae)" style="fill: #f5efdc; stroke: #000000; stroke-width: 1.4; stroke-linejoin: miter"/>
    </g>
    <g id="line2d_1">
-    <path d="M 73.062295 69.403279 
-L 351.147541 69.403279 
-" clip-path="url(#p1e2aaca467)" style="fill: none; stroke-dasharray: 3.33,1.44; stroke-dashoffset: 0; stroke: #555960; stroke-width: 0.9"/>
-   </g>
-   <g id="line2d_2">
-    <path d="M 157.274832 67.296799 
-L 237.662873 71.509758 
-" clip-path="url(#p1e2aaca467)" style="fill: none; stroke: #8e6f3e; stroke-width: 3.5; stroke-linecap: square"/>
-   </g>
-   <g id="line2d_3">
-    <path d="M 18.177049 36.198452 
-L 84.039344 36.198452 
-" clip-path="url(#p1e2aaca467)" style="fill: none; stroke-dasharray: 0.8,1.32; stroke-dashoffset: 0; stroke: #555960; stroke-width: 0.8"/>
-   </g>
-   <g id="text_1">
-    <text style="font-size: 11px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #555960" x="352.977049" y="72.249529" transform="rotate(-0 352.977049 72.249529)">fuselage reference line</text>
-   </g>
-   <g id="text_2">
-    <text style="font-size: 11px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #8e6f3e" x="201.127869" y="49.278689" transform="rotate(-0 201.127869 49.278689)">wing chord line</text>
-   </g>
-   <g id="text_3">
-    <!-- $i_W$ -->
-    <g style="fill: #8e6f3e" transform="translate(243.206557 82.569098)">
-     <text>
-      <tspan x="0" y="-0.875" style="font-style: oblique; font-size: 12px; font-family: 'DejaVu Sans'; fill: #8e6f3e">i</tspan>
-      <tspan x="3.333984" y="1.09375" style="font-style: oblique; font-size: 8.4px; font-family: 'DejaVu Sans'; fill: #8e6f3e">W</tspan>
-     </text>
-    </g>
+    <path d="M 176.498134 84.082433 
+L 256.873295 78.462054 
+" clip-path="url(#pf3a7a49dae)" style="fill: none; stroke: #8e6f3e; stroke-width: 4; stroke-linecap: round"/>
    </g>
    <g id="patch_3">
-    <path d="M 20.166907 36.372542 
-Q 51.107068 39.079455 79.81967 41.591482 
+    <path d="M 17.253233 40.986529 
+Q 51.51163 40.986529 83.533959 40.986529 
 " style="fill: none; stroke: #d55e00; stroke-width: 2; stroke-linecap: round"/>
-    <path d="M 75.247109 38.782267 
-L 79.81967 41.591482 
-L 74.828762 43.564002 
+    <path d="M 78.733959 38.586529 
+L 83.533959 40.986529 
+L 78.733959 43.386529 
 z
 " style="fill: #d55e00; stroke: #d55e00; stroke-width: 2; stroke-linecap: round"/>
    </g>
+   <g id="text_1">
+    <text style="font-size: 10px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #d55e00" x="15.257143" y="34.943672" transform="rotate(-0 15.257143 34.943672)">flight path</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 10.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="7.2" y="14.843672" transform="rotate(-0 7.2 14.843672)">Too large an incidence: the fuselage flies nose down, high fuselage drag</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_4">
+    <path d="M 132.042351 247.965215 
+L 336.717667 230.058445 
+Q 354.777254 228.478436 353.197245 210.418849 
+L 353.197245 210.418849 
+Q 351.617236 192.359263 333.557649 193.939272 
+L 128.882333 211.846042 
+Q 110.822746 213.426051 112.402755 231.485637 
+L 112.402755 231.485637 
+Q 113.982764 249.545224 132.042351 247.965215 
+z
+" clip-path="url(#pce5b59bab0)" style="fill: #f5efdc; stroke: #000000; stroke-width: 1.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 176.498134 223.762433 
+L 256.873295 218.142054 
+" clip-path="url(#pce5b59bab0)" style="fill: none; stroke: #8e6f3e; stroke-width: 4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 17.253233 180.666529 
+Q 51.51163 180.666529 83.533959 180.666529 
+" style="fill: none; stroke: #d55e00; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 78.733959 178.266529 
+L 83.533959 180.666529 
+L 78.733959 183.066529 
+z
+" style="fill: #d55e00; stroke: #d55e00; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 10px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #d55e00" x="15.257143" y="174.623672" transform="rotate(-0 15.257143 174.623672)">flight path</text>
+   </g>
    <g id="text_4">
-    <!-- $V_\infty$ at angle of attack $\alpha$ -->
-    <g style="fill: #d55e00" transform="translate(18.177049 30.983607)">
-     <text>
-      <tspan x="0" y="-0.984375" style="font-style: oblique; font-size: 11px; font-family: 'DejaVu Sans'; fill: #d55e00">V</tspan>
-      <tspan x="104.130469" y="-0.984375" style="font-style: oblique; font-size: 11px; font-family: 'DejaVu Sans'; fill: #d55e00">α</tspan>
-      <tspan x="7.524902" y="0.820312" style="font-size: 7.7px; font-family: 'DejaVu Sans'; fill: #d55e00">∞</tspan>
-      <tspan x="14.239844" y="-0.984375" style="font-size: 11px; font-family: 'Arial'; fill: #d55e00"> </tspan>
-      <tspan x="17.295996" y="-0.984375" style="font-size: 11px; font-family: 'Arial'; fill: #d55e00">a</tspan>
-      <tspan x="23.413672" y="-0.984375" style="font-size: 11px; font-family: 'Arial'; fill: #d55e00">t</tspan>
-      <tspan x="26.469824" y="-0.984375" style="font-size: 11px; font-family: 'Arial'; fill: #d55e00"> </tspan>
-      <tspan x="29.525977" y="-0.984375" style="font-size: 11px; font-family: 'Arial'; fill: #d55e00">a</tspan>
-      <tspan x="35.643652" y="-0.984375" style="font-size: 11px; font-family: 'Arial'; fill: #d55e00">n</tspan>
-      <tspan x="41.761328" y="-0.984375" style="font-size: 11px; font-family: 'Arial'; fill: #d55e00">g</tspan>
-      <tspan x="47.879004" y="-0.984375" style="font-size: 11px; font-family: 'Arial'; fill: #d55e00">l</tspan>
-      <tspan x="50.322852" y="-0.984375" style="font-size: 11px; font-family: 'Arial'; fill: #d55e00">e</tspan>
-      <tspan x="56.440527" y="-0.984375" style="font-size: 11px; font-family: 'Arial'; fill: #d55e00"> </tspan>
-      <tspan x="59.49668" y="-0.984375" style="font-size: 11px; font-family: 'Arial'; fill: #d55e00">o</tspan>
-      <tspan x="65.614355" y="-0.984375" style="font-size: 11px; font-family: 'Arial'; fill: #d55e00">f</tspan>
-      <tspan x="68.670508" y="-0.984375" style="font-size: 11px; font-family: 'Arial'; fill: #d55e00"> </tspan>
-      <tspan x="71.72666" y="-0.984375" style="font-size: 11px; font-family: 'Arial'; fill: #d55e00">a</tspan>
-      <tspan x="77.844336" y="-0.984375" style="font-size: 11px; font-family: 'Arial'; fill: #d55e00">t</tspan>
-      <tspan x="80.900488" y="-0.984375" style="font-size: 11px; font-family: 'Arial'; fill: #d55e00">t</tspan>
-      <tspan x="83.956641" y="-0.984375" style="font-size: 11px; font-family: 'Arial'; fill: #d55e00">a</tspan>
-      <tspan x="90.074316" y="-0.984375" style="font-size: 11px; font-family: 'Arial'; fill: #d55e00">c</tspan>
-      <tspan x="95.574316" y="-0.984375" style="font-size: 11px; font-family: 'Arial'; fill: #d55e00">k</tspan>
-      <tspan x="101.074316" y="-0.984375" style="font-size: 11px; font-family: 'Arial'; fill: #d55e00"> </tspan>
-     </text>
-    </g>
+    <text style="font-size: 10.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="7.2" y="154.523672" transform="rotate(-0 7.2 154.523672)">Too small an incidence: the fuselage flies nose up, high fuselage drag</text>
+   </g>
+  </g>
+  <g id="axes_3">
+   <g id="patch_6">
+    <path d="M 130.071429 378.760815 
+L 335.528571 378.760815 
+Q 353.657143 378.760815 353.657143 360.632243 
+L 353.657143 360.632243 
+Q 353.657143 342.503672 335.528571 342.503672 
+L 130.071429 342.503672 
+Q 111.942857 342.503672 111.942857 360.632243 
+L 111.942857 360.632243 
+Q 111.942857 378.760815 130.071429 378.760815 
+z
+" clip-path="url(#pabfc370092)" style="fill: #f5efdc; stroke: #000000; stroke-width: 1.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 176.498134 363.442433 
+L 256.873295 357.822054 
+" clip-path="url(#pabfc370092)" style="fill: none; stroke: #8e6f3e; stroke-width: 4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 17.253233 320.346529 
+Q 51.51163 320.346529 83.533959 320.346529 
+" style="fill: none; stroke: #d55e00; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 78.733959 317.946529 
+L 83.533959 320.346529 
+L 78.733959 322.746529 
+z
+" style="fill: #d55e00; stroke: #d55e00; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 10px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #d55e00" x="15.257143" y="314.303672" transform="rotate(-0 15.257143 314.303672)">flight path</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 10px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #8e6f3e" x="297.257143" y="406.960815" transform="rotate(-0 297.257143 406.960815)">wing chord at the cruise angle of attack</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 10.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="7.2" y="294.203672" transform="rotate(-0 7.2 294.203672)">Correct incidence: the fuselage follows the flight path, least drag</text>
    </g>
   </g>
  </g>
  <defs>
-  <clipPath id="p1e2aaca467">
-   <rect x="7.2" y="7.2" width="446.4" height="98.793443"/>
+  <clipPath id="pf3a7a49dae">
+   <rect x="7.2" y="20.843672" width="386.742857" height="112.8"/>
+  </clipPath>
+  <clipPath id="pce5b59bab0">
+   <rect x="7.2" y="160.523672" width="386.742857" height="112.8"/>
+  </clipPath>
+  <clipPath id="pabfc370092">
+   <rect x="7.2" y="300.203672" width="386.742857" height="112.8"/>
   </clipPath>
  </defs>
 </svg>

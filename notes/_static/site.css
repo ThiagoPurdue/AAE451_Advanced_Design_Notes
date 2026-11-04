@@ -57,3 +57,11 @@ html.dark article table td {
 html.dark article table tr:nth-child(even) td {
   background-color: rgba(255, 255, 255, 0.07);
 }
+
+/* Quick-check widgets (quickcheck/*.html in an iframe): the theme's iframe
+   wrapper keeps a fixed aspect ratio, which cuts the widget off. Give these
+   frames a fixed height instead. */
+figure:has(iframe[src*="quickcheck/"]) div.relative.inline-block {
+  padding-bottom: 0 !important;
+  height: 580px;
+}

@@ -39,7 +39,9 @@ jobs:
       - name: Build the HTML site
         run: jupyter-book build --html
       - name: Fix theme accessibility issues
-        run: python scripts/fix_theme_a11y.py _build/html
+        run: |
+          python scripts/fix_theme_a11y.py _build/html
+          cp -R quickcheck _build/html/quickcheck
       - name: Check accessibility (WCAG 2.1 AA, axe-core)
         run: |
           mkdir -p /tmp/a11y && cd /tmp/a11y

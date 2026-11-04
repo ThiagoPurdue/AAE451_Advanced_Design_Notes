@@ -3,11 +3,11 @@ title: "Aerodynamics, part 1: The airfoil"
 short_title: The airfoil
 ---
 
-This is the first part of Lecture 5, *Aerodynamics: Airfoil and Wing*. It covers what the RFP asks of the wing and how an airfoil is read and chosen: the families, the airfoil data, the Reynolds and Mach effects, the stall classes, and the comparison that ends in a selection. The second part, [](wing-geometry-and-lift.md), covers the planform and the lift model. The lecture follows Gudmundsson (2022), Chapters 8 and 9 and Section 16.3.3, and Nicolai and Carichner (2010), Chapter 2.
+This is the first part of Lecture 5, *Aerodynamics: Airfoil and Wing*: from the requirement to the airfoil, the planform, and the lift model. The lecture has four parts: the requirements, the airfoil, the wing geometry, and the lift model. This page covers the first two: what the RFP asks of the wing, and how an airfoil is read and chosen, the families, the airfoil data, the Reynolds and Mach effects, the stall classes, and the comparison that ends in a selection. The second part, [](wing-geometry-and-lift.md), covers the planform and the lift model. The sources are Gudmundsson (2022), Chapters 8, 9, and 16, and Nicolai and Carichner (2010), Chapter 2. The figures are redrawn after the figures on the slides and reduced to the point each slide makes; the captions name the source figure.
 
 :::{note} What to take from this lecture
 - Every wing choice traces to a requirement: speed, field length, maneuver, or low speed.
-- Airfoil data come from published curves. An AI tool does not produce them.
+- Airfoil data come from published curves, not from a model.
 - The Reynolds number and the Mach number decide which data apply.
 - The airfoil is chosen by a comparison on traced criteria, with the runner-up recorded.
 :::
@@ -58,12 +58,12 @@ Flaps: high lift. Dihedral: lateral stability. Ailerons: control sizing.
 
 ::::
 
-:::{figure} figures/wing-planform.svg
-:label: fig-wing-planform
-:alt: Top view of a tapered, swept wing. Arrows mark the span b across both halves, the root chord at the centerline, the tip chord at the right tip, the leading-edge sweep angle at the root, and on the right half the mean geometric chord drawn as a thick bar at the spanwise station y MGC, with its leading edge set back by x MGC. A dashed line runs along the quarter chord.
-:width: 90%
+:::{figure} figures/wing-airfoil-nomenclature.svg
+:label: fig-wing-nomenclature
+:alt: Left, a swept and tapered wing planform in top view with the datum line, the span b, the root chord, the tip chord, the leading-edge sweep angle, a dashed quarter-chord line, and the mean geometric chord drawn as a thick bar at its spanwise station y MGC, set back by x MGC. Right, an airfoil with its chord line, dashed mean camber line, the maximum thickness and the maximum camber marked by arrows, and the leading edge, trailing edge, upper surface, and lower surface labeled.
+:width: 100%
 
-Wing planform nomenclature. The quantities the lecture uses: span $b$, root and tip chords $c_r$ and $c_t$, leading-edge sweep $\Lambda_{LE}$, and the {term}`mean geometric chord` $c_{MGC}$ at its station $y_{MGC}$. Drawn with example values, $AR$ = 6, $\lambda$ = 0.4, $\Lambda_{LE}$ = 25°.
+Wing and airfoil nomenclature. After Nicolai and Carichner (2010), Figure 2.1.
 :::
 
 :::{admonition} Navy Jet Trainer
@@ -79,7 +79,7 @@ A04: each choice is traced to a requirement and entered in {term}`ASORT`.
 :alt: Three airfoil outlines side by side with their camber lines dashed. NACA 0012, symmetric and 12 percent thick, has a straight camber line. NACA 2412 has a gently arched camber line with its peak at 40 percent of the chord. NACA 23012 has its camber concentrated near the leading edge, at 15 percent of the chord.
 :width: 100%
 
-Three NACA airfoils computed from the published shape equations. The 4-digit and 5-digit numbers encode camber and thickness; the 6-series and the newer laminar and supercritical families are defined by their pressure distributions and have no simple formula.
+Three NACA airfoils computed from the published shape equations. The 4-digit and 5-digit numbers encode camber and thickness; the 6-series and the newer laminar and supercritical families are defined by their pressure distributions and have no simple formula. Gudmundsson (2022), Figure 8-39, shows the measured lift curves and polars of five such airfoils from NACA Report 824.
 :::
 
 :::{table} Airfoil families and what each trades. After Gudmundsson (2022), Tables 8-7 and 8-12, and Nicolai and Carichner (2010).
@@ -98,17 +98,17 @@ Three NACA airfoils computed from the published shape equations. The 4-digit and
 :::{admonition} Navy Jet Trainer
 :class: navy
 
-A04 accepts only cited, published data. Start with NACA Report 824 and Gudmundsson (2022), Table 8-10. A polar produced by an AI tool is not data.
+A04 accepts only cited, published data. Start with NACA Report 824 and Gudmundsson (2022), Table 8-10. A polar a model produced is not data.
 :::
 
 ## Reading airfoil data
 
-:::{figure} figures/section-data-schematic.svg
+:::{figure} figures/section-data.svg
 :label: fig-section-data
-:alt: Two schematic plots. Left, section lift coefficient against angle of attack: a straight line through the zero-lift angle, marked, with its slope labeled, bending over to a maximum lift coefficient at the stall angle, marked, then falling. Right, section lift coefficient against drag coefficient: a polar with its minimum drag marked at a lift coefficient of about 0.3 and a shaded band labeled low-drag range, the drag bucket, around it.
+:alt: Two schematic plots. Left, section lift coefficient against angle of attack: a straight line through the zero-lift angle, marked, with its linear range and slope labeled, bending over to the maximum lift coefficient at the stall angle, marked, then falling. Right, section lift coefficient against drag coefficient: a polar with its minimum drag marked at a lift coefficient of about 0.3 and a shaded band labeled drag bucket, the low-drag range, around it.
 :width: 100%
 
-What to read from an airfoil's lift curve and drag polar. Schematic curves; the labels are what matter.
+What to read from an airfoil's lift curve and drag polar. Schematic, after Gudmundsson (2022), Figure 8-5, which shows the measured NACA 4415 data from NACA Report 824.
 :::
 
 Read from the curves:
@@ -126,6 +126,14 @@ A04 Deliverable 1: the lift curve and polar of the selected airfoil, from publis
 :::
 
 ## Camber and thickness
+
+:::{figure} figures/camber-effect.svg
+:label: fig-camber
+:alt: Left, lift coefficient against angle of attack for a cambered airfoil, solid, and a symmetric airfoil, dashed. The cambered curve is shifted up and to the left, crosses zero lift at a negative angle, marked alpha ZL, and reaches a higher maximum lift coefficient. Right, the drag polars: the cambered airfoil's polar is shifted to a higher lift coefficient, so its low-drag range sits at a positive lift coefficient.
+:width: 100%
+
+The effect of camber on the lift curve and the drag polar. Schematic, after Gudmundsson (2022), Figure 8-54; trends from Table 8-4.
+:::
 
 ::::{grid} 1 1 2 2
 
@@ -146,9 +154,15 @@ A04 Deliverable 1: the lift curve and polar of the selected airfoil, from publis
 
 ::::
 
-Trends from Gudmundsson (2022), Table 8-4.
-
 ## Reynolds number
+
+:::{figure} figures/reynolds-effect.svg
+:label: fig-reynolds
+:alt: Left, lift coefficient against angle of attack at three Reynolds numbers, Re 1 less than Re 2 less than Re 3: the same slope in the linear range, with the maximum lift coefficient and the stall angle increasing with Reynolds number. Right, the drag polars: the minimum drag coefficient falls as the Reynolds number rises.
+:width: 100%
+
+The effect of Reynolds number on the lift curve and the drag polar. Schematic, after Gudmundsson (2022), Figure 8-55.
+:::
 
 - Higher {term}`Reynolds number`: higher $C_{l_{max}}$ and $\alpha_{stall}$, lower $C_{d_{min}}$. $C_{l_\alpha}$ does not change.
 - $Re = \rho V c_{MGC} / \mu$, on the mean geometric chord.
@@ -164,11 +178,13 @@ Candidates must be credible at the maximum operating Mach number of the RFP. Whi
 
 :::{figure} figures/stall-classes.svg
 :label: fig-stall-classes
-:alt: Three schematic lift curves. Class A rounds over gently past its peak. Class B peaks sharply and falls at a moderate rate. Class C rises to a peak and drops suddenly.
+:alt: Three schematic lift curves with the same peak. Class A, trailing-edge stall, rounds over gently past its peak. Class B, between A and C, peaks and falls at a moderate rate. Class C, leading-edge stall, rises to a peak and drops suddenly.
 :width: 100%
 
-The three stall classes as schematic lift curves. Class A: separation grows forward from the trailing edge. Class C: a leading-edge separation bubble bursts. Class B lies between them. After Gudmundsson (2022), Figure 8-72.
+The three stall classes. Schematic, after Gudmundsson (2022), Figure 8-72.
 :::
+
+Class A: separation grows forward from the trailing edge. Class C: a leading-edge separation bubble bursts. Class B lies between them.
 
 :::{admonition} Navy Jet Trainer
 :class: navy
@@ -178,17 +194,17 @@ Decide whether "basic maneuvers" include stalls. Stall class is a selection crit
 
 ## Compressibility
 
-:::{figure} figures/drag-divergence.svg
-:label: fig-drag-divergence
-:alt: Section drag coefficient against Mach number, schematic. The curve is flat at the incompressible level, then rises steeply above about Mach 0.75. A dashed vertical line marks the critical Mach number. A marker on the curve shows the Boeing definition of drag divergence, where the drag is 0.002 above the incompressible level, and a second marker further along shows the Douglas definition, where the slope reaches 0.10 per unit Mach.
-:width: 75%
+:::{figure} figures/mach-effects.svg
+:label: fig-mach-effects
+:alt: Left, lift coefficient against angle of attack at Mach 0.2, 0.6, 0.7, and 0.8: the slope steepens with Mach number, and at 0.7 and 0.8 the curves peak lower and earlier. Right, section drag coefficient against Mach number: flat at the incompressible level, then rising steeply. A dashed vertical line marks the critical Mach number at the start of the rise; a marker shows the Boeing definition of drag divergence, where the drag is 0.002 above the incompressible level, and a second marker further along shows the Douglas definition, where the slope reaches 0.10 per unit Mach.
+:width: 100%
 
-Drag rise with Mach number, schematic, with the two common definitions of the {term}`drag divergence Mach number`.
+Mach number effects on the lift curve and the drag coefficient, with the critical and drag divergence Mach numbers. Schematic, after Gudmundsson (2022), Figure 8-67.
 :::
 
 - $M_{crit}$, the {term}`critical Mach number`: the first sonic point on the airfoil.
-- $M_{dd}$: drag divergence. Boeing: $C_d$ 0.002 above the incompressible level. Douglas: $dC_d/dM = 0.10$.
-- The Korn relation for an airfoil:
+- $M_{dd}$, the {term}`drag divergence Mach number`. Boeing: $C_d$ 0.002 above the incompressible level. Douglas: $dC_d/dM = 0.10$.
+- The Korn relation for an airfoil (Gudmundsson 2022, Eq. 8-67):
 
 :::{math}
 :label: eq-korn-section
@@ -205,20 +221,42 @@ Mach 0.78 (T) and Mach 0.90 (O) at 25,000 ft. Thickness, sweep, and airfoil are 
 
 ## Transonic flow and the supercritical airfoil
 
+:::{figure} figures/transonic-flow.svg
+:label: fig-transonic
+:alt: Three sketches of an airfoil in a flow from the left. At Mach 0.72 a dot marks the first point where the local Mach number reaches 1. At Mach 0.82 a shaded supersonic region on the upper surface ends in a normal shock, with separated flow drawn behind it. At Mach 1.05 a curved bow wave stands ahead of the leading edge and two shocks trail from the trailing edge.
+:width: 100%
+
+Transonic flow over an airfoil as the Mach number rises. Schematic, after Nicolai and Carichner (2010), Figure 2.19.
+:::
+
+:::{figure} figures/supercritical-airfoil.svg
+:label: fig-supercritical
+:alt: Two columns. Left, a conventional airfoil at Mach 0.72 with a strong shock on the upper surface and separated flow behind it; below it, the pressure coefficient along the chord, upper surface solid and lower surface dashed, with a sharp jump at the shock near mid-chord. Right, a supercritical airfoil at Mach 0.80, flatter on top, with a weak shock far aft; below it, a flat pressure plateau on the upper surface, a small step at the shock, and aft loading from the lower surface near the trailing edge.
+:width: 90%
+
+A conventional and a supercritical airfoil at the same lift coefficient. Schematic, after Nicolai and Carichner (2010), Figure 2.22.
+:::
+
 - A flatter upper surface gives a weaker shock and less separation.
 - Aft camber recovers the lift and adds nose-down $C_m$.
 - At the same $t/c$, a higher $M_{dd}$. At the same $M_{dd}$, a thicker and lighter wing.
 
-Nicolai and Carichner (2010), Figures 2.19 and 2.22, show the flow over a conventional and a supercritical airfoil through the transonic range.
-
 ## Design lift coefficient and the drag bucket
+
+:::{figure} figures/drag-bucket.svg
+:label: fig-drag-bucket
+:alt: Three schematic drag polars, drag coefficient against lift coefficient, each with the cruise and climb lift coefficients marked by dashed vertical lines. Left, undesirable: no drag bucket and a high minimum drag at a high lift coefficient. Center, desirable: a wide flat bucket with the cruise and climb lift coefficients inside it. Right, undesirable: a narrow bucket with both lift coefficients outside it.
+:width: 100%
+
+Where the cruise and climb lift coefficients should sit on the polar. Schematic, after Gudmundsson (2022), Figure 8-71.
+:::
 
 :::{math}
 :label: eq-design-cl
 C_{L_C} = \frac{2W}{\rho V_C^{2} S} \qquad \text{at the start and at the end of cruise}
 :::
 
-Keep cruise and climb $C_l$ inside the drag bucket of {numref}`fig-section-data`.
+Keep cruise and climb $C_l$ inside the drag bucket.
 
 :::{admonition} Navy Jet Trainer
 :class: navy
@@ -240,6 +278,14 @@ $W/S$ is the ASORT value. The design $C_L$ is provisional until the constraint d
 | $M_{dd}$, $Re$ range | Speed envelope |
 | Surface sensitivity | Contamination, icing |
 
+:::
+
+:::{figure} figures/airfoil-comparison.svg
+:label: fig-airfoil-comparison
+:alt: Two schematic plots comparing candidate A, solid, and candidate B, dashed. Left, the drag polars with horizontal dotted lines at the cruise and climb lift coefficients: candidate A has the lower drag at both. Right, the lift curves: candidate B reaches the higher maximum lift coefficient and stalls more sharply.
+:width: 100%
+
+How two candidates are compared: at the lift coefficients you fly on the polar, and at $C_{l_{max}}$ on the lift curve. Schematic; Gudmundsson (2022), Figure 8-74, shows the comparison with measured data for NACA 23015 and 65$_2$-415.
 :::
 
 :::{admonition} Navy Jet Trainer
@@ -274,5 +320,5 @@ A04: the rows and their weights are your criteria. Trace each one to a requireme
 :::
 
 :::{seealso}
-Continue with [](wing-geometry-and-lift.md): the planform, wing volume and height, aspect ratio, taper, sweep, twist, incidence, and the lift model.
+Continue with [](wing-geometry-and-lift.md): the planform, wing volume and height, aspect ratio, taper, sweep, twist, incidence, and the lift model. The references for both parts are at the end of that page.
 :::

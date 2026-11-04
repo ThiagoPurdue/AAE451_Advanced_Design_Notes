@@ -31,6 +31,7 @@ project:
   exclude:
     - README.md
     - binder/**
+    - quickcheck/**
     - scripts/**
     - notes/_parts/**
     - notes/_static/**
