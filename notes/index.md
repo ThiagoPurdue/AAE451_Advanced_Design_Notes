@@ -89,6 +89,21 @@ The three types of drag, the parasite drag build-up, skin friction and transitio
 Span efficiency, the SR22 polar, the polar at high lift, ground effect, compressibility drag, the three polars, and the checks against existing aircraft.
 :::
 
+:::{card} Lecture 8, part 1: Engine selection
+:link: lecture-08/engine-selection.md
+What the RFP asks of the propulsion model, where each engine class operates, propulsive efficiency, published engine data, and the number and location of the engines.
+:::
+
+:::{card} Lecture 8, part 2: Engine models and the engine deck
+:link: lecture-08/engine-models.md
+The thrust lapse, TSFC with altitude and Mach number, a published engine deck, installed performance, thrust sizing, rubber-engine scaling, and the engine trade.
+:::
+
+:::{card} Lecture 8, part 3: Inlet, nozzle, and the design sequence
+:link: lecture-08/engine-integration.md
+The capture area, pressure recovery, the diffuser, the nozzle, and the propulsion design sequence.
+:::
+
 :::{card} Assignment A01: RFP breakdown and system requirements
 :link: assignments/a01.md
 The first assignment: deconstruct the RFP, write the needs, the concept of operations, and the requirements, and trace them together.

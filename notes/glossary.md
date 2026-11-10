@@ -11,6 +11,12 @@ Aspect ratio
 ASORT
 : Authoritative source of truth. One parameter file that every script of the sizing code reads, so that no constant is duplicated in code.
 
+Bypass ratio
+: The bypass mass flow of a turbofan divided by its core mass flow.
+
+Capture area
+: The free-stream cross-section of the streamtube that the engine and the secondary systems take in, $A_{\infty E}$. Also called the demand capture area. The cowl capture area of Nicolai and Carichner (2010) is the opening of the inlet at the lip, which these notes call the lip area.
+
 Certification basis
 : The airworthiness document and the sections of it that apply to the aircraft, against which compliance is shown. In this course the Navy Jet Trainer uses MIL-HDBK-516C.
 
@@ -77,6 +83,9 @@ Ground effect
 Induced drag
 : $C_{D_i}$, the drag due to lift: $K C_L^2$ with $K = 1/(\pi\,AR\,e)$.
 
+Installed thrust
+: The thrust of the engine in the aircraft, after the inlet and nozzle losses, the power extraction, and the bleed.
+
 Interference factor
 : $Q$, the factor on the drag of a component that accounts for the flow around its neighbors.
 
@@ -101,6 +110,9 @@ MTOW
 Need
 : What a stakeholder wants to be able to do, stated independently of any solution.
 
+Nozzle pressure ratio
+: The total pressure at the nozzle exit divided by the ambient pressure.
+
 Objective
 : The value of a requirement that the customer would like to reach. In the lecture example it is called the target.
 
@@ -112,6 +124,9 @@ PDR
 
 Performance condition
 : A point requirement the RFP states at a weight, altitude, and day, outside the mission profiles.
+
+Pressure recovery
+: The total pressure at the compressor face of an inlet divided by the total pressure of the free stream.
 
 Pugh matrix
 : A selection matrix that scores each concept against a datum, criterion by criterion.
@@ -158,11 +173,20 @@ Technology factor
 Threshold
 : The minimum acceptable value of a requirement. A design that meets every threshold is acceptable.
 
+Throttle ratio
+: The value of $\theta_0$, the free-stream total temperature over the sea-level standard temperature, at which the turbine entry temperature reaches its limit. The engine maker sets the throttle ratio.
+
+Thrust lapse
+: The available thrust at an altitude and Mach number, as a fraction of the sea-level static thrust.
+
 Trade study
 : An analysis that changes one requirement or one assumption and measures the effect on the design, usually as a change in a measure of merit.
 
 TRL
 : Technology readiness level. A scale from 1, basic principles observed, to 9, proven in operation.
+
+TSFC
+: Thrust-specific fuel consumption. The fuel weight flow divided by the thrust, in lb per hour per lb, written 1/h.
 
 Waiver
 : A written record of a change to a baselined requirement, with the reason for the change. Kept in the deck appendix.

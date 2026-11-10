@@ -67,6 +67,11 @@ project:
       children:
         - file: notes/lecture-07/parasite-drag.md
         - file: notes/lecture-07/drag-polar.md
+    - title: "Lecture 8: Propulsion Selection and Integration"
+      children:
+        - file: notes/lecture-08/engine-selection.md
+        - file: notes/lecture-08/engine-models.md
+        - file: notes/lecture-08/engine-integration.md
     - title: Assignments
       children:
         - file: notes/assignments/a01.md

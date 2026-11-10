@@ -54,7 +54,7 @@ The same mission produced several different aircraft. One of them is often the f
 :::
 
 :::{card}
-![Boeing T-7A Red Hawk in flight, a low-wing jet with a single fin.](../lecture-03/figures/t7a.jpg)
+![Boeing T-7A Red Hawk in flight, a jet with a high wing and twin fins.](../lecture-03/figures/t7a.jpg)
 
 **Boeing T-7A Red Hawk.** U.S. Air Force photo by Bryce Bennett, public domain.
 :::

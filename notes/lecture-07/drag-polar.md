@@ -271,7 +271,7 @@ At cruise speed the SR22 flies well below its $(L/D)_{max}$, and parasite drag i
 :::
 
 :::{seealso} Reading
-Gudmundsson (2022), Chapter 16, and Nicolai and Carichner (2010), Chapter 2. In class, build the cruise, takeoff, and landing polars for your configuration.
+Gudmundsson (2022), Chapter 16, and Nicolai and Carichner (2010), Chapter 2. In class, build the cruise, takeoff, and landing polars for your configuration. [Lecture 8](../lecture-08/engine-selection.md) covers propulsion: the engine class, the thrust and fuel-flow models, and the inlet.
 :::
 
 ## References

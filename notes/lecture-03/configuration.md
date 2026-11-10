@@ -376,7 +376,7 @@ The eight aircraft of the A02 database. Photos via Wikimedia Commons.
 ::::{grid} 2 2 4 4
 
 :::{card}
-![Boeing T-7A Red Hawk in flight, a low-wing jet with a single fin.](figures/t7a.jpg)
+![Boeing T-7A Red Hawk in flight, a jet with a high wing and twin fins.](figures/t7a.jpg)
 
 **Boeing T-7A Red Hawk.** U.S. Air Force photo by Bryce Bennett, public domain.
 :::
