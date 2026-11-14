@@ -21,24 +21,29 @@ from pathlib import Path
 
 root = Path(sys.argv[1] if len(sys.argv) > 1 else "_build/html")
 
+# Regular expressions, not literal strings: the minifier renames variables and
+# switches between "..." and `...` quotes from one theme release to the next.
+# The bundle sits in build/ (themes before November 2026) or _assets/ (after).
 JS_PATCHES = [
-    ('title:r,"aria-label":r,children:n})',
-     'title:r,"aria-label":n==="\\xB6"?r:void 0,children:n})'),
-    ('"aria-label":`${o?"Previous: ":"Next: "}${a}`,', ""),
+    ("caption link label",
+     re.compile(r'title:(\w+),"aria-label":\1,children:(\w+)\}\)'),
+     r'title:\1,"aria-label":\2==="\\xB6"?\1:void 0,children:\2})'),
+    ("footer link label",
+     re.compile(r'"aria-label":`\$\{\w+\?["`]Previous: ["`]:["`]Next: ["`]\}\$\{\w+\}`,'),
+     ""),
 ]
 
-applied = {old: 0 for old, _ in JS_PATCHES}
-for js in root.glob("build/**/*.js"):
+applied = {name: 0 for name, _, _ in JS_PATCHES}
+for js in [*root.glob("build/**/*.js"), *root.glob("_assets/**/*.js")]:
     text = js.read_text(encoding="utf-8")
     new = text
-    for old, rep in JS_PATCHES:
-        if old in new:
-            applied[old] += new.count(old)
-            new = new.replace(old, rep)
+    for name, pattern, rep in JS_PATCHES:
+        new, n = pattern.subn(rep, new)
+        applied[name] += n
     if new != text:
         js.write_text(new, encoding="utf-8")
 
-missing = [old for old, n in applied.items() if n == 0]
+missing = [name for name, n in applied.items() if n == 0]
 if missing:
     sys.exit("Theme code changed; patch not applied: " + "; ".join(missing))
 

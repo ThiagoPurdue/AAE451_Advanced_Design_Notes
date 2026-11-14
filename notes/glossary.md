@@ -5,6 +5,9 @@ title: Glossary
 The notes use these terms in a fixed sense. In the text, a term with a dotted underline opens its definition.
 
 :::{glossary}
+Active boundary
+: A boundary of the constraint diagram that closes the feasible region. Its requirement is a driving requirement.
+
 Aspect ratio
 : $AR = b^2/S$, the span squared over the wing area. High aspect ratio lowers the induced drag and raises the wing weight.
 
@@ -19,6 +22,9 @@ Capture area
 
 Certification basis
 : The airworthiness document and the sections of it that apply to the aircraft, against which compliance is shown. In this course the Navy Jet Trainer uses MIL-HDBK-516C.
+
+CG envelope
+: The CG of every loading state against weight, drawn with the forward and aft CG limits.
 
 Compliance matrix
 : A table with one row per requirement: its threshold, its objective or target, and the current value of the design.
@@ -35,8 +41,11 @@ Configuration
 CONOPS
 : Concept of operations. A description of how the system will be operated during its life-cycle phases to meet stakeholder expectations.
 
+Constraint diagram
+: The thrust-to-weight ratio against the wing loading, with one boundary for each requirement.
+
 Critical field length
-: The runway length at which, after an engine failure at the critical speed, continuing the takeoff and stopping take the same distance. Defined for the Navy Jet Trainer in MIL-STD-3013B.
+: The runway length at which, after an engine failure at the engine-failure speed, continuing the takeoff and stopping take the same distance. Defined for the Navy Jet Trainer in MIL-STD-3013B.
 
 Critical Mach number
 : $M_{crit}$, the flight Mach number at which the flow first reaches sonic speed somewhere on the airfoil.
@@ -47,8 +56,14 @@ Datum
 Deck angle
 : The pitch attitude of the fuselage on the approach, the angle of attack less the glide-slope angle. Flaps lower it; slats raise it.
 
+Density altitude
+: The altitude in the standard atmosphere at which the density equals the actual air density.
+
 Design mission
 : The most demanding mission the aircraft must fly. The operating mission is the one it usually flies, and it is shorter. The RFP prescribes two missions and the briefs call each a design mission; which one sizes the fuel is known only after both are computed.
+
+Design point
+: The wing loading and the thrust-to-weight ratio selected for the aircraft, inside the feasible region of the constraint diagram.
 
 Drag count
 : A drag coefficient of 0.0001.
@@ -59,11 +74,17 @@ Drag divergence Mach number
 Drag polar
 : The drag coefficient of an airfoil or aircraft against its lift coefficient, in one configuration at one Mach number.
 
+Energy height
+: $z_e = h + V^2/2g$, the potential plus the kinetic energy of the aircraft per unit weight. The altitude it would reach if all its kinetic energy became altitude.
+
 Engine deck
 : Thrust and fuel flow against altitude, speed, ambient temperature, and rating.
 
 FCLP
 : Field Carrier Landing Practice. Carrier approaches and landings flown to a land runway marked as a carrier deck.
+
+Feasible region
+: The part of the constraint diagram that meets every requirement.
 
 Fixed engine
 : An engine selected off the shelf, with known thrust and fuel flow, that does not change during sizing.
@@ -89,6 +110,9 @@ Installed thrust
 Interference factor
 : $Q$, the factor on the drag of a component that accounts for the flow around its neighbors.
 
+Master equation
+: The thrust-to-weight ratio that a condition requires at each wing loading, from the energy of the aircraft. Mattingly et al. (2002), Eq. 2.11.
+
 Mean geometric chord
 : $c_{MGC}$, the chord-weighted mean chord, $(2/S)\int_0^{b/2} c^2\,dy$; for a trapezoidal wing it is the chord at the spanwise centroid of the half-wing. A04 calls it the mean aerodynamic chord. The subsonic aerodynamic center sits near its quarter chord.
 
@@ -109,6 +133,9 @@ MTOW
 
 Need
 : What a stakeholder wants to be able to do, stated independently of any solution.
+
+Neutral point
+: The CG position at which the pitching moment does not change with angle of attack, $C_{M\alpha} = 0$.
 
 Nozzle pressure ratio
 : The total pressure at the nozzle exit divided by the ambient pressure.
@@ -146,6 +173,9 @@ RFP
 Rubber engine
 : An engine that scales with the aircraft during sizing. It implies new engine development.
 
+Scissor plot
+: The tail area ratio that each stability and control requirement needs, against the CG position. Its cut at the chosen area gives the CG limits.
+
 Skin friction coefficient
 : $C_f$, the viscous drag of a surface per unit of wetted area and dynamic pressure.
 
@@ -164,6 +194,12 @@ SRR
 Stakeholder
 : Anyone with an interest in the project: customers, operators, maintainers, investors, regulators, suppliers, and end users.
 
+Static margin
+: $SM = \bar x_n - \bar x_{cg}$, the distance from the CG to the neutral point in mean chords. Positive for a statically stable aircraft.
+
+Tail volume coefficient
+: $V_H = S_t l_t/(S\bar c)$ for the horizontal tail and $V_v = S_v l_v/(S b)$ for the fin: tail area times arm, over wing area times chord or span. The arms run from the wing aerodynamic center, near the quarter chord of $\bar c$, to the aerodynamic center of the horizontal tail or the fin.
+
 Taper ratio
 : $\lambda = c_t/c_r$, the tip chord over the root chord.
 
@@ -177,10 +213,16 @@ Throttle ratio
 : The value of $\theta_0$, the free-stream total temperature over the sea-level standard temperature, at which the turbine entry temperature reaches its limit. The engine maker sets the throttle ratio.
 
 Thrust lapse
-: The available thrust at an altitude and Mach number, as a fraction of the sea-level static thrust.
+: The thrust available at an altitude, Mach number, and rating, as a fraction of the sea-level static thrust at that rating.
+
+Thrust-to-weight ratio
+: $T_{SL}/W_{TO}$ on the constraint diagram: the sea-level static thrust over the takeoff weight. At a flight condition, $T/W$ is the thrust and the weight there: $T/W = (\alpha/\beta)\,T_{SL}/W_{TO}$.
 
 Trade study
 : An analysis that changes one requirement or one assumption and measures the effect on the design, usually as a change in a measure of merit.
+
+Trim
+: The state in which the moment about the CG is zero and the lift equals the weight.
 
 TRL
 : Technology readiness level. A scale from 1, basic principles observed, to 9, proven in operation.

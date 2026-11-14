@@ -104,6 +104,41 @@ The thrust lapse, TSFC with altitude and Mach number, a published engine deck, i
 The capture area, pressure recovery, the diffuser, the nozzle, and the propulsion design sequence.
 :::
 
+:::{card} Lecture 9, part 1: The master equation
+:link: lecture-09/constraint-method.md
+The constraint diagram, energy height and specific excess power, the master equation and its cases, the field and stall boundaries, and how to read the diagram.
+:::
+
+:::{card} Lecture 9, part 2: The trainer boundaries and the design point
+:link: lecture-09/trainer-boundaries.md
+The RFP requirements as boundaries, the threshold and the objective, the choice of the design point, rubber and fixed engines, and the loop with the sizing code.
+:::
+
+:::{card} Lecture 9, part 3: Worked examples
+:link: lecture-09/constraint-examples.md
+The Cessna 162 of Gudmundsson's Example 3-1 and the T-45C, with their inputs and the values to reproduce.
+:::
+
+:::{card} Lecture 10, part 1: The method and the center of gravity
+:link: lecture-10/cg-and-envelope.md
+What the RFP asks, the eight steps of the method, the symbols, the CG table, and the CG envelope.
+:::
+
+:::{card} Lecture 10, part 2: Longitudinal stability and the tail
+:link: lecture-10/longitudinal-stability.md
+The pitching moment about the CG, the neutral point and the static margin, the scissor plot, and the tail geometry and incidence.
+:::
+
+:::{card} Lecture 10, part 3: Trim
+:link: lecture-10/trim.md
+The trim equations, the elevator derivatives, the trim diagram, trim with thrust, the conditions to check, and the trim drag.
+:::
+
+:::{card} Lecture 10, part 4: Lateral-directional stability and controls
+:link: lecture-10/lateral-and-controls.md
+The fin and its three checks, the dihedral, the control surfaces and the roll requirement, and the check with a vortex-lattice tool.
+:::
+
 :::{card} Assignment A01: RFP breakdown and system requirements
 :link: assignments/a01.md
 The first assignment: deconstruct the RFP, write the needs, the concept of operations, and the requirements, and trace them together.

@@ -72,6 +72,17 @@ project:
         - file: notes/lecture-08/engine-selection.md
         - file: notes/lecture-08/engine-models.md
         - file: notes/lecture-08/engine-integration.md
+    - title: "Lecture 9: Constraint Analysis and the Design Point"
+      children:
+        - file: notes/lecture-09/constraint-method.md
+        - file: notes/lecture-09/trainer-boundaries.md
+        - file: notes/lecture-09/constraint-examples.md
+    - title: "Lecture 10: Stability and Control"
+      children:
+        - file: notes/lecture-10/cg-and-envelope.md
+        - file: notes/lecture-10/longitudinal-stability.md
+        - file: notes/lecture-10/trim.md
+        - file: notes/lecture-10/lateral-and-controls.md
     - title: Assignments
       children:
         - file: notes/assignments/a01.md

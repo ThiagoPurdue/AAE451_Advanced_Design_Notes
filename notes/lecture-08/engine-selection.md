@@ -6,12 +6,12 @@ short_title: Engine selection
 This is the first part of Lecture 8, *Propulsion Selection and Integration*. The lecture has three parts: engine selection, engine models, and integration. This page covers what the RFP asks of the propulsion model, the engine classes, published engine data, and the number and location of the engines. The second part, [](engine-models.md), covers the thrust and fuel-flow models and the engine deck. The third part, [](engine-integration.md), covers the inlet, the nozzle, and the design sequence. The sources are Gudmundsson (2022), Chapters 7 and 14; Nicolai and Carichner (2010), Chapters 15 and 18 and Appendix J; Mattingly et al. (2002); and Raymer (2018). The figures are redrawn after the figures on the slides and reduced to the point each slide makes.
 
 :::{note} What to take from this lecture
-- The speed and altitude requirements narrow the engine class.
+- The speed, altitude, and field requirements narrow the engine class.
 - Published engine data are uninstalled, sea-level static values. The sizing code needs installed thrust and fuel flow over the whole envelope.
 - The number and location of the engines follow from the requirements and the failure cases.
 :::
 
-## Requirements the propulsion model answers
+## Requirements on the propulsion model
 
 :::{table} What the RFP asks of the propulsion model. Every value comes from the RFP; T is the threshold, O the objective.
 :label: tbl-propulsion-requirements
@@ -29,7 +29,7 @@ This is the first part of Lecture 8, *Propulsion Selection and Integration*. The
 :::{admonition} Navy Jet Trainer
 :class: navy
 
-The RFP provides no propulsion data. Which published sources will you cite for the engine and for its installed thrust and fuel flow?
+Which published sources will you cite for the engine, and which for its installed thrust and fuel flow?
 :::
 
 ## What the sizing code needs
@@ -44,19 +44,20 @@ The initial sizing of [Lecture 2](../lecture-02/mission-fuel.md) used one $C$ pe
 
 - Thrust against altitude, Mach number, and throttle setting.
 - Fuel flow at the same points.
-- Installed values, which include the inlet and nozzle losses, the power extraction, and the bleed.
+- Installed values: thrust and fuel flow after the inlet and nozzle losses, the power extraction, and the bleed.
 
 ## Where each engine class operates
 
+Each engine class covers a band of altitude and Mach number ({numref}`fig-operational-map`).
+
 :::{figure} figures/operational-map.svg
 :label: fig-operational-map
-:alt: Altitude against Mach number, with one closed outline per engine class. Each outline starts at a low Mach number at sea level, rises to a ceiling, and returns to a higher Mach number at sea level. The outlines grow in order: light sport pistons reach about 10,000 feet and Mach 0.24; normally aspirated single pistons 16,000 feet and Mach 0.38; turbo-normalized pistons 25,000 feet and Mach 0.47; single turboprops 31,000 feet and Mach 0.58; twin turboprops 42,000 feet and Mach 0.80; high-bypass turbofan airliners 42,000 feet and Mach 0.92; high-bypass turbofan business jets 51,000 feet and Mach 0.97. At 25,000 feet the high-speed side of the outlines lies at Mach 0.56 for single turboprops, 0.73 for twin turboprops, and 0.90 for both turbofan classes, which share one line below that altitude. Two dotted lines bound the fighters, which extend past Mach 2 and 60,000 feet.
+:alt: Altitude against Mach number, with one closed outline per engine class that rises from sea level to a ceiling and returns at a higher Mach number. The piston classes reach: light sport, about 10,000 feet and Mach 0.24; normally aspirated singles, 16,000 feet and 0.38; turbo-normalized, 25,000 feet and 0.47. The turbine classes reach: single turboprops, 31,000 feet and 0.58; twin turboprops, 42,000 feet and 0.80; high-bypass turbofan airliners, 42,000 feet and 0.92; high-bypass turbofan business jets, 51,000 feet and 0.97. At 25,000 feet the outlines end at Mach 0.56 for single turboprops, 0.73 for twin turboprops, and 0.90 for both turbofan classes. Dotted lines bound the fighters, past Mach 2 and 60,000 feet.
 :width: 100%
 
 Where each engine class operates. Outlines read from Gudmundsson (2022), Figure 7-1.
 :::
 
-- Each class covers a band of altitude and Mach number.
 - Normally aspirated pistons fly low and slow. Their power falls with altitude.
 - Single turboprops reach about Mach 0.6, and twin turboprops about Mach 0.8.
 - Turbofans cover high subsonic speeds and high altitudes.
@@ -70,7 +71,7 @@ Place the speed and altitude requirements of the RFP on this map before you choo
 
 ## Propulsive efficiency
 
-An engine produces thrust by accelerating a mass flow $\dot{m}$ from the flight speed $V_\infty$ to the exit speed $V_e$:
+An engine produces thrust by accelerating a mass flow $\dot{m}$ from the flight speed $V_\infty$ to the exit speed $V_e$. The thrust and the propulsive efficiency $\eta_{prop}$ are
 
 :::{math}
 :label: eq-propulsive-efficiency
@@ -79,10 +80,10 @@ T = \dot{m}\,(V_e - V_\infty), \qquad \eta_{prop} = \frac{2}{1 + V_e/V_\infty}
 
 :::{figure} figures/propulsive-efficiency.svg
 :label: fig-propulsive-efficiency
-:alt: Propulsive efficiency against Mach number for five engine classes. The constant-speed propeller rises fastest, peaks near 0.84 around Mach 0.35, and falls to 0.68 by Mach 0.58. The turboprop peaks near 0.84 around Mach 0.5 and falls to 0.73 by Mach 0.74. The high-bypass turbofan rises more slowly and reaches 0.85 at Mach 1. The low-bypass turbofan lies below it and reaches 0.85 at Mach 1.3. The turbojet is lowest at every subsonic Mach number and reaches 0.94 at Mach 2.
+:alt: Propulsive efficiency against Mach number for the engine classes, under a strip that names the class used in each Mach range: fixed-pitch propeller to Mach 0.25, constant-speed propeller to 0.43, turboprop to 0.65, high-bypass to low-bypass turbofan to 1.0, and low-bypass turbofan with afterburner or turbojet above. The constant-speed propeller peaks near 0.84 around Mach 0.35 and falls to 0.68 by Mach 0.58. The turboprop peaks near 0.84 around Mach 0.5 and falls to 0.73 by Mach 0.74. The high-bypass turbofan reaches 0.85 at Mach 1, the low-bypass turbofan 0.85 at Mach 1.3, and the turbojet 0.94 at Mach 2. Four fixed-pitch propeller curves peak lower and earlier: general aviation 0.76 near Mach 0.25, self-launch sailplane 0.70, large and small RC models 0.56 and 0.44.
 :width: 85%
 
-Propulsive efficiency by engine class. Schematic, after Gudmundsson (2022), Figure 7-2.
+Propulsive efficiency by engine class, and the class used in each Mach range. Schematic, after Gudmundsson (2022), Figure 7-2.
 :::
 
 - A large mass flow with a small velocity change gives high efficiency. The propeller and the high-bypass fan work this way.
@@ -103,6 +104,24 @@ Propulsive efficiency by engine class. Schematic, after Gudmundsson (2022), Figu
 | High-bypass turbofan | Lowest TSFC at Mach 0.7 to 0.85 | Diameter; thrust falls with speed and altitude | FJ44 (bypass ratio 3.2 to 4.1), CFM56 (5 to 6.6) |
 
 :::
+
+The Cessna 208 flies on one PT6A of the turboprop row, and the DHC-6 on two. Photos via Wikimedia Commons.
+
+::::{grid} 1 2 2 2
+
+:::{card}
+![A Cessna 208 Caravan in flight over open country, a high-wing single with one turboprop engine in the nose and fixed gear.](figures/caravan.jpg)
+
+**Cessna 208 Caravan.** One PT6A. U.S. Air Force photo by Lt. Col. Scott Voskovitch, public domain.
+:::
+
+:::{card}
+![A DHC-6 Twin Otter landing over a beach, a high-wing aircraft with a turboprop engine on each wing.](../lecture-10/figures/dhc6.jpg)
+
+**DHC-6 Twin Otter.** Two PT6A. Photo by Timo Breidenstein, [GFDL 1.2](https://www.gnu.org/licenses/old-licenses/fdl-1.2.html), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:WinAir_De_Havilland_Canada_DHC-6-300_Twin_Otter_Breidenstein.jpg).
+:::
+
+::::
 
 ## Engines in the trainer cohort
 
@@ -140,7 +159,7 @@ Four aircraft of the [trainer cohort](#trainer-cohort) carry these engines. The 
 
 :::{figure} figures/turbojet-turbofan.svg
 :label: fig-turbojet-turbofan
-:alt: Two engines in section, flow from left to right. The turbojet has one stream: air enters at the flight speed, passes the compressor, the burner, the turbine, and the nozzle, and leaves at the exit speed. The turbofan adds a fan at the front and a duct around the core. Part of the air entering the fan goes through the core. The rest, the bypass air, flows around the core through the duct.
+:alt: Two engines in section, flow from left to right, with the stations numbered 1 to 7 below. The turbojet has one stream: air enters at the flight speed through the inlet, passes the compressor, the diffuser, the burner, and the turbine, and leaves through the exhaust nozzle at the exit speed. The turbofan adds a fan behind the inlet and a duct around the core. Part of the inlet air goes through the core; the rest, the bypass air, flows around the core through the duct.
 :width: 80%
 
 A turbojet has one stream. A turbofan splits the air between the core and the bypass duct. Schematic, after Gudmundsson (2022), Figures 7-30 and 7-33.
@@ -219,6 +238,12 @@ The RFP asks for models of the installed thrust and fuel flow. What separates th
 :::
 
 [Lecture 3](../lecture-03/configuration.md) shows the locations as schematics.
+
+With two engines, the engine-out case adds three items (Gudmundsson 2022, Section 15.2.5, shows them on a propeller twin):
+
+1. The thrust left after the failure, and the climb it gives.
+2. The drag of the failed engine, windmilling or stopped, and the trim drag of the yawed aircraft.
+3. The yawing moment of the live engine's thrust and the failed engine's drag. It sizes the fin and the rudder for the minimum control speed $V_{mc}$ ([Lecture 10](../lecture-10/lateral-and-controls.md)).
 
 :::{admonition} Navy Jet Trainer
 :class: navy

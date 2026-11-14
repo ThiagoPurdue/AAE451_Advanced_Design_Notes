@@ -144,7 +144,7 @@
   function check(e) {
     e.preventDefault();
     var right = 0, blank = 0;
-    [["sf", 0.012, 0.003], ["we", 0, 2], ["de", 0.012, 0.15]].forEach(function (spec) {
+    [["sf", 0.012, 0.003], ["we", 0, 2], ["de", 0, 0.08]].forEach(function (spec) {
       var k = spec[0], raw = document.getElementById(k).value.trim();
       raw = k === "we" ? raw.replace(/,(?=\d{3}\b)/g, "") : raw;
       raw = raw.replace(",", ".");
