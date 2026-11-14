@@ -294,7 +294,7 @@ The neutral point and the tail moment arms on your three-view, the CG limits, an
 7. Draw the dimensioned three-view with the neutral point, the tail moment arms, and a table of the aircraft areas. Give the control surface sizes.
 
 :::{tip}
-Assignment A07, on Brightspace, asks for these seven items. The trimmed polar goes into the performance analysis.
+[Assignment A07](../assignments/a07.md) asks for these seven items. The trimmed polar goes into the performance analysis.
 :::
 
 :::{important} Summary

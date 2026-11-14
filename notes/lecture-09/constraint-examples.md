@@ -182,7 +182,7 @@ Where do the other aircraft of your A02 cohort lie on these axes, and what does 
 6. Enter $W_{TO}/S$ and $T_{SL}/W_{TO}$ in ASORT and run the sizing code again.
 
 :::{tip}
-Assignment A06, on Brightspace, asks for the boundaries and their inputs, the code checked on the two examples, the diagram, the design point, and the sizing run again there. The performance analysis starts from this design point.
+[Assignment A06](../assignments/a06.md) asks for the boundaries and their inputs, the code checked on the two examples, the diagram, the design point, and the sizing run again there. The performance analysis starts from this design point.
 :::
 
 :::{important} Summary

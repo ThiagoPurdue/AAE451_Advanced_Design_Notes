@@ -164,6 +164,21 @@ The fourth assignment: the airfoil selection, the wing geometry, the high-lift e
 The fifth assignment: propulsion requirements and engine class, candidates and selection, the installed engine deck in the sizing code, and the inlet.
 :::
 
+:::{card} Assignment A06: Constraint diagram and design point
+:link: assignments/a06.md
+The sixth assignment: the boundaries and their inputs, the constraint code checked on two published examples, the diagram, the design point, and the converged sizing.
+:::
+
+:::{card} Assignment A07: Stability and control
+:link: assignments/a07.md
+The seventh assignment: the weight statement and the CG envelope, the scissor plot and the CG limits, trim, the vertical tail and dihedral, the control surfaces, and the vortex-lattice check.
+:::
+
+:::{card} Assignment A08: Performance assessment and V-n diagram
+:link: assignments/a08.md
+The eighth assignment: the speed limits, both design missions, climb and the flight envelope, turns, field performance, the maneuver V-n diagram, and the compliance table.
+:::
+
 ::::
 
 More lectures will be added during the semester.

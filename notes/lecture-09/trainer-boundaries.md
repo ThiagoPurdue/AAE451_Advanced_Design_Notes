@@ -106,6 +106,7 @@ This boundary moves with (Mattingly et al. 2002, Case 3):
 Compare the thrust required for +4.0 g and for +6.0 g. Is either turn limited by lift at your wing loading?
 :::
 
+(trainer-field-lengths)=
 ## Field lengths at 5,000 ft density altitude
 
 The takeoff distance and the critical field length give boundaries in $T_{SL}/W_{TO}$. The landing distance gives a limit on $W_{TO}/S$.
