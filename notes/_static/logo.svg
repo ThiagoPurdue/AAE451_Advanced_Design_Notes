@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Site mark: top view of the book's tandem-seat jet trainer (outline from
+       scripts/make_stability_figures.py, nose up), gold on a black square. -->
+  <rect width="64" height="64" rx="12" fill="#000000"/>
+  <g fill="#CFB991">
+    <path d="M32 7 L32.8 9.5 L33.5 14 L34 20 L34.25 27 L34.2 44 L33.8 52 L33.4 56.75 L30.6 56.75 L30.2 52 L29.8 44 L29.75 27 L30 20 L30.5 14 L31.2 9.5 Z"/>
+    <path d="M32 27.5 L34.25 27.5 L50 35.75 L50 40.25 L34.25 41.25 L32 41.25 Z"/>
+    <path d="M32 27.5 L29.75 27.5 L14 35.75 L14 40.25 L29.75 41.25 L32 41.25 Z"/>
+    <path d="M32 48.75 L33.8 48.75 L39.75 53.25 L39.75 56 L33.5 56.5 L32 56.5 Z"/>
+    <path d="M32 48.75 L30.2 48.75 L24.25 53.25 L24.25 56 L30.5 56.5 L32 56.5 Z"/>
+  </g>
+</svg>

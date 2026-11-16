@@ -98,7 +98,12 @@ project:
 site:
   template: book-theme
   options:
+    logo: notes/_static/logo.svg
+    logo_dark: notes/_static/logo.svg
+    # The mark is decorative: the link already reads the course name.
+    logo_alt: ""
     logo_text: AAE 451 Advanced Aircraft Design
+    favicon: notes/_static/favicon.ico
     hide_authors: true
     style: notes/_static/site.css
   parts:

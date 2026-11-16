@@ -1,5 +1,11 @@
-/* Accessibility overrides for the MyST book theme.
-   The sidebar footer fades in over 0.7 s; show it at once so its text always
+/* Site stylesheet for the AAE 451 lecture notes, layered on the MyST book theme.
+   Purdue black and gold for the site chrome, navy only for the Navy Jet Trainer
+   boxes, flat surfaces with hairline borders. Every text and background pair
+   below is at least 4.5:1 in light and in dark mode. */
+
+/* ---------- Accessibility overrides (keep) ---------- */
+
+/* The sidebar footer fades in over 0.7 s; show it at once so its text always
    meets the 4.5:1 contrast ratio, and respect readers who turn off motion. */
 .myst-primary-sidebar-footer {
   opacity: 1 !important;
@@ -13,55 +19,416 @@
   }
 }
 
-/* "Navy Jet Trainer" boxes: the admonitions that tie a lecture to the RFP.
-   Navy header with white text in both color modes (contrast 14:1). */
-.myst-admonition.navy {
-  border-color: #0B2545 !important;
-}
-.myst-admonition.navy > .myst-admonition-header,
-.myst-admonition.navy > .myst-admonition-header * {
-  background-color: #0B2545 !important;
-  color: #FFFFFF !important;
-}
-
-/* Tables: navy header row, ruled cells, zebra rows. Numeric columns are
-   right-aligned in the Markdown source. */
-article table {
-  border-collapse: collapse;
-  width: 100%;
-}
-article table th {
-  background-color: #0B2545 !important;
-  color: #FFFFFF !important;
-  font-weight: 600;
-  text-align: left;
-  vertical-align: bottom;
-  padding: 0.5rem 0.65rem !important;
-  border: 1px solid #0B2545 !important;
-}
-article table td {
-  padding: 0.45rem 0.65rem !important;
-  border: 1px solid #C9CED6 !important;
-  vertical-align: top;
-}
-article table th[align="right"], article table td[align="right"],
-article table th[style*="text-align: right"], article table td[style*="text-align: right"] {
-  text-align: right;
-}
-article table tr:nth-child(even) td {
-  background-color: #F5EFDC;
-}
-html.dark article table td {
-  border-color: #4B5563 !important;
-}
-html.dark article table tr:nth-child(even) td {
-  background-color: rgba(255, 255, 255, 0.07);
-}
-
 /* Quick-check widgets (quickcheck/*.html in an iframe): the theme's iframe
    wrapper keeps a fixed aspect ratio, which cuts the widget off. Give these
    frames a fixed height instead. */
 figure:has(iframe[src*="quickcheck/"]) div.relative.inline-block {
   padding-bottom: 0 !important;
   height: 580px;
+}
+
+/* ---------- Tokens ---------- */
+
+:root {
+  --aae-gold: #CFB991;        /* rules, borders, markers; never text on white */
+  --aae-gold-text: #6F5630;   /* accent text, 6.9:1 on white */
+  --aae-navy: #0B2545;        /* Navy Jet Trainer header, white text 15.4:1 */
+  --aae-ink: #111827;
+  --aae-muted: #555960;       /* captions and footer, 7.0:1 on white */
+  --aae-hairline: #D9D6CE;
+  --aae-tint: #F7F5F0;
+  --aae-th-bg: #F7F5F0;
+  --aae-th-rule: #111827;
+}
+html.dark {
+  --aae-gold-text: #CFB991;   /* 9.2:1 on the dark page */
+  --aae-navy: #16335C;        /* white text 12.6:1 */
+  --aae-ink: #FFFFFF;
+  --aae-muted: #B7BCC6;       /* 9.2:1 on the dark page */
+  --aae-hairline: #44403C;
+  --aae-tint: rgba(255, 255, 255, 0.06);
+  --aae-th-bg: rgba(255, 255, 255, 0.08);
+  --aae-th-rule: #D6D3D1;
+}
+
+::selection { background-color: #EADFC6; color: #111827; }
+html.dark ::selection { background-color: rgba(207, 185, 145, 0.35); color: #FFFFFF; }
+
+/* ---------- A. Top bar ---------- */
+
+/* Black bar with a gold rule in both modes. The rule is an inset shadow so the
+   bar keeps the 60 px height the sidebar is positioned against. */
+.myst-top-nav {
+  background-color: #000000 !important;
+  backdrop-filter: none !important;
+  box-shadow: inset 0 -3px 0 var(--aae-gold) !important;
+}
+.myst-top-nav .myst-home-link,
+.myst-top-nav .myst-home-link span {
+  color: #FFFFFF !important;
+}
+.myst-top-nav .myst-home-link-logo { padding: 0 !important; }
+.myst-top-nav .myst-home-link-logo img { height: 2.25rem; width: 2.25rem; }
+/* Phone and small tablet widths: the mark, the title, the search field and
+   the theme button do not fit on one line, so the title may wrap to two
+   lines instead of pushing the buttons off the screen. */
+@media (max-width: 819px) {
+  .myst-top-nav-bar > div:first-child {
+    flex-shrink: 1;
+    min-width: 0;
+  }
+  .myst-top-nav .myst-home-link {
+    min-width: 0;
+  }
+  .myst-top-nav .myst-home-link-logo {
+    margin-right: 0.5rem !important;
+    flex-shrink: 0;
+  }
+  .myst-top-nav .myst-home-link span {
+    white-space: normal;
+    font-size: 0.95rem;
+    line-height: 1.15;
+  }
+}
+.myst-top-nav-menu-button { color: #E5E5E5 !important; }
+.myst-top-nav-menu-button:hover { color: #FFFFFF !important; }
+.myst-top-nav .myst-search-bar {
+  background-color: #1A1A1A !important;
+  border-color: #5C5C5C !important;
+  color: #D9D9D9 !important;
+}
+.myst-top-nav .myst-search-bar:hover,
+.myst-top-nav .myst-search-bar:focus-visible {
+  border-color: var(--aae-gold) !important;
+}
+.myst-top-nav .myst-search-bar .myst-search-text-placeholder,
+.myst-top-nav .myst-search-shortcut {
+  color: #D9D9D9 !important;
+}
+.myst-top-nav .myst-search-shortcut kbd {
+  border-color: #5C5C5C !important;
+  box-shadow: none !important;
+}
+.myst-top-nav .myst-theme-button {
+  background-color: transparent !important;
+  border-color: #5C5C5C !important;
+  color: #E5E5E5 !important;
+}
+.myst-top-nav .myst-theme-button:hover,
+.myst-top-nav .myst-theme-button:focus-visible {
+  background-color: #262626 !important;
+  border-color: var(--aae-gold) !important;
+  color: #FFFFFF !important;
+}
+
+/* ---------- B. Headings and rhythm ---------- */
+
+/* The article is a CSS grid, so vertical margins add instead of collapsing.
+   A paragraph ends with 1.25rem; the margins below give 2.5rem above an H2
+   and 1.75rem above an H3. */
+.myst-fm-block-title {
+  letter-spacing: -0.02em;
+}
+.myst-fm-block-title::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 4px;
+  margin-top: 0.9rem;
+  background-color: var(--aae-gold);
+}
+article.article h2 {
+  margin-top: 1.25rem !important;
+  margin-bottom: 0.75rem !important;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--aae-hairline);
+}
+article.article h3 {
+  margin-top: 0.5rem !important;
+}
+
+/* One block margin for boxes, card grids, figures, tables and equations. */
+article.article > aside,
+article.article > .myst-grid,
+article.article > figure,
+article.article > div.flex.group[id],
+article.article > .myst-code,
+.myst-jp-nb-block > aside,
+.myst-jp-nb-block > figure,
+.myst-jp-nb-block > .myst-code {
+  margin-top: 0 !important;
+  margin-bottom: 1.5rem !important;
+}
+.myst-grid > * {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* ---------- C. Tables ---------- */
+
+article table {
+  border-collapse: collapse;
+  width: 100%;
+  font-variant-numeric: tabular-nums;
+}
+figure.fig-table table {
+  margin: 0 !important;
+}
+article table tr {
+  border: 0 !important;
+}
+article table th {
+  background-color: var(--aae-th-bg) !important;
+  color: var(--aae-ink) !important;
+  font-weight: 600;
+  text-align: left;
+  vertical-align: bottom;
+  padding: 0.5rem 0.75rem !important;
+  border: 0 !important;
+  border-bottom: 2px solid var(--aae-th-rule) !important;
+}
+article table td {
+  padding: 0.45rem 0.75rem !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--aae-hairline) !important;
+  vertical-align: top;
+}
+article table th[align="right"], article table td[align="right"],
+article table th[style*="text-align: right"], article table td[style*="text-align: right"] {
+  text-align: right;
+}
+/* Caption sits just above its table. */
+figure.fig-table > figcaption {
+  margin: 0 0 0.5rem !important;
+}
+
+/* ---------- Captions (tables and figures) ---------- */
+
+article figcaption,
+article figcaption p {
+  color: var(--aae-muted) !important;
+}
+article figcaption p {
+  margin: 0 !important;
+}
+article figcaption a[title^="Link to"] {
+  color: var(--aae-ink) !important;
+  font-weight: 600;
+}
+
+/* ---------- D. Admonitions, definitions and exercises ---------- */
+
+aside.myst-admonition,
+aside.myst-proof,
+aside.myst-exercise {
+  border-style: solid !important;
+  border-width: 1px 1px 1px 4px !important;
+  border-top-color: var(--aae-hairline) !important;
+  border-right-color: var(--aae-hairline) !important;
+  border-bottom-color: var(--aae-hairline) !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+aside.myst-exercise {
+  border-left-color: var(--myst-color-info) !important;
+}
+.myst-proof-header,
+.myst-exercise-header {
+  border-top-width: 0 !important;
+  border-bottom-width: 0 !important;
+}
+.myst-proof-title,
+.myst-exercise-title {
+  color: var(--aae-ink) !important;
+}
+/* Dark mode: each header on a faint tint of its own color. */
+html.dark .bg-myst-info-bg { background-color: rgba(96, 165, 250, 0.14) !important; }
+html.dark .bg-myst-tip-bg,
+html.dark .bg-myst-success-bg { background-color: rgba(34, 197, 94, 0.14) !important; }
+html.dark .bg-myst-warning-bg { background-color: rgba(245, 158, 11, 0.14) !important; }
+html.dark .bg-myst-danger-bg,
+html.dark .bg-myst-error-bg { background-color: rgba(239, 68, 68, 0.14) !important; }
+
+/* "Navy Jet Trainer" boxes: the admonitions that tie a lecture to the RFP.
+   Navy header with white text, gold left accent. */
+aside.myst-admonition.navy {
+  border-left-color: var(--aae-gold) !important;
+}
+.myst-admonition.navy > .myst-admonition-header,
+.myst-admonition.navy > .myst-admonition-header * {
+  background-color: var(--aae-navy) !important;
+  color: #FFFFFF !important;
+}
+
+/* ---------- E. Cards ---------- */
+
+.myst-card {
+  border: 1px solid var(--aae-hairline) !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+.myst-card-header {
+  background-color: var(--aae-tint) !important;
+  border-bottom: 1px solid var(--aae-hairline) !important;
+  color: var(--aae-ink);
+  font-weight: 600;
+  padding: 0.5rem 1rem !important;
+}
+.myst-card-header p {
+  margin: 0;
+  color: inherit;
+}
+.myst-card-body {
+  font-size: 0.925rem;
+  line-height: 1.55;
+}
+.myst-card-body p {
+  margin-top: 0.6em;
+  margin-bottom: 0.6em;
+}
+.myst-card-body ul,
+.myst-card-body ol {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+.myst-card-body li {
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+.myst-card-body li > p {
+  margin: 0;
+}
+/* Linked cards: gold border and aged-gold title on hover and keyboard focus. */
+a.myst-card {
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+a.myst-card .myst-card-title {
+  color: var(--aae-ink);
+  transition: color 0.15s;
+}
+a.myst-card:hover,
+a.myst-card:focus-visible {
+  border-color: var(--aae-gold) !important;
+}
+a.myst-card:hover .myst-card-title,
+a.myst-card:focus-visible .myst-card-title {
+  color: var(--aae-gold-text);
+}
+/* Photo cards: the photo runs to the card edges in one 3:2 frame, so a
+   gallery row lines up; the credit line is small and muted. Cropping to
+   fill the frame cut the nose off the M-346 and the MB-339, so the whole
+   photo is shown on a tint. */
+.myst-card-body > picture:first-child {
+  display: block;
+  margin: -0.5rem -1rem 0.75rem;
+  background-color: var(--aae-tint);
+}
+.myst-card-body > picture:first-child img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: contain;
+  margin: 0 !important;
+}
+.myst-card-body > picture:first-child ~ p {
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--aae-muted);
+}
+.myst-card-body > picture:first-child ~ p strong {
+  color: var(--aae-ink);
+}
+
+/* ---------- F. Figures ---------- */
+
+figure.fig-figure > figcaption {
+  width: fit-content;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+figure.fig-figure img[src$=".jpg"],
+figure.fig-figure img[src$=".jpeg"] {
+  border-radius: 6px;
+}
+/* Dark mode: drawings keep their white background on a plate. */
+html.dark figure.fig-figure img:not([src$=".jpg"]):not([src$=".jpeg"]),
+html.dark .myst-card-body > img {
+  background-color: #FFFFFF;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+/* ---------- G. Sidebar, outline, footer links ---------- */
+
+.myst-toc .myst-toc-item-exact,
+.myst-toc a[aria-current="page"] {
+  background-color: var(--aae-tint) !important;
+  box-shadow: inset 3px 0 0 var(--aae-gold);
+  border-radius: 0 8px 8px 0 !important;
+  color: var(--aae-ink) !important;
+  font-weight: 600;
+}
+/* The open lecture folder: ink instead of the theme's blue. */
+.myst-toc .text-myst-accent-text {
+  color: var(--aae-ink) !important;
+}
+.myst-outline-item:hover {
+  border-left-color: var(--aae-gold) !important;
+}
+.myst-outline-item-active {
+  border-left-color: var(--aae-gold) !important;
+  background-color: var(--aae-tint) !important;
+}
+.myst-outline-item-active > a {
+  color: var(--aae-ink) !important;
+  font-weight: 600;
+}
+.myst-primary-sidebar-footer > .myst-primary-sidebar-footer {
+  margin-left: 0.25rem;
+  padding: 0.75rem 0 0 0.5rem;
+  border-top: 1px solid var(--aae-hairline);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+.myst-primary-sidebar-footer > .myst-primary-sidebar-footer p {
+  margin: 0;
+  color: var(--aae-muted) !important;
+}
+.myst-footer-link {
+  border: 1px solid var(--aae-hairline) !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  transition: border-color 0.15s, color 0.15s;
+}
+.myst-footer-link:hover,
+.myst-footer-link:focus-visible {
+  border-color: var(--aae-gold) !important;
+  color: var(--aae-gold-text) !important;
+}
+
+/* ---------- I. Glossary and code ---------- */
+
+/* Glossary terms in ink at weight 600 instead of the theme's blue. */
+article.article > div > dl > dt,
+article.article > div > dl > dt strong {
+  color: var(--aae-ink);
+  font-weight: 600;
+}
+
+
+.article :not(pre) > code {
+  background-color: var(--aae-tint);
+  border: 1px solid var(--aae-hairline);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+}
+.myst-code {
+  border: 1px solid var(--aae-hairline) !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  background-color: var(--aae-tint) !important;
+  overflow: hidden;
 }
