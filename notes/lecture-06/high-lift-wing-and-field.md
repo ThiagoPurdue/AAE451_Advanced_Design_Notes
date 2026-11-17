@@ -158,7 +158,7 @@ The drag increment of a flap of 60% span and 25% chord at two deflections. Value
 
 :::
 
-Takeoff: partial deflection, for the climb $L/D$. Landing: full deflection, for the steeper approach.
+Takeoff: partial deflection, for the climb $L/D$. Landing: full deflection, for the highest $C_{L_{max}}$ and the steeper approach.
 
 :::{admonition} Navy Jet Trainer
 :class: navy

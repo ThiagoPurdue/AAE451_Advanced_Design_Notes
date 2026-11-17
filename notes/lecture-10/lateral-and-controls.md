@@ -90,7 +90,7 @@ Here the arm $l_{v,cg}$ runs from the CG to the fin aerodynamic center, because 
 
 Three checks can size the fin (Gudmundsson 2022, Sections 11.2.4 and 25.5.3):
 
-1. The engine-out case at the minimum control speed $V_{mc}$, at the aft CG, within the rudder deflection you allow.
+1. The engine-out case at the minimum control speed $V_{mc}$ and the aft CG, where the arm $l_{v,cg}$ is shortest, within the rudder deflection you allow.
 2. A crosswind landing with the crosswind your certification basis requires, inside the rudder limit, and a sideslip of at least 15° without excessive rudder (Gudmundsson 2022, Section 11.1.2).
 3. Spin recovery, with the rudder outside the wake of the horizontal tail in the spin.
 
@@ -228,7 +228,7 @@ C_{\ell p} \approx -\frac{C_{L\alpha}^{W}}{12}\,\frac{1 + 3\lambda}{1 + \lambda}
 C_{\ell\delta_a} = \frac{2\, C_{L\alpha}^{W}\,\tau}{S\, b}\int_{b_1}^{b_2} c\, y\, dy
 :::
 
-$C_{\ell p}$ is the roll damping, $\lambda$ the taper ratio of the wing, and $c$ the local chord at the spanwise station $y$. Targets are $pb/2V$ above 0.07 for cargo or heavy-lift aircraft and 0.09 for fighters, or the time to bank of MIL-STD-1797. Size the ailerons at the slowest condition, with $\delta_a$ at 75% of its travel. Put $b_2$ at the tip and solve for $b_1$.
+$C_{\ell p}$ is the roll damping, $\lambda$ the taper ratio of the wing, and $c$ the local chord at the spanwise station $y$. Targets are $pb/2V$ above 0.07 for cargo or heavy-lift aircraft and 0.09 for fighters, or the time to bank of MIL-STD-1797. Size the ailerons at the slowest condition, with $\delta_a$ at 75% of its travel. A given $pb/2V$ gives the lowest roll rate $p$ there. Put $b_2$ at the tip and solve for $b_1$.
 
 The sources are Gudmundsson (2022), Eqs. 25-72 and 25-78 and Table 25-4, and Nelson (1998), Chapter 2.
 

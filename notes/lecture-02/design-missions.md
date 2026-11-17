@@ -82,7 +82,7 @@ Fly both missions in the sizing code. State which one sizes the fuel and by how 
 
 ## Point performance
 
-The altitude points set the thrust class.
+{numref}`tbl-point-performance` lists the point performance of the RFP.
 
 :::{table} Point performance requirements of the RFP, all in the International Standard Atmosphere. T is the threshold, O the objective.
 :label: tbl-point-performance
@@ -117,7 +117,7 @@ The 30 min FCLP allowance at approach speed in landing configuration couples fue
 
 :::{card}
 :header: Nose geometry
-Over-the-nose visibility: the whole carrier stern in view on a 3.5° glide slope at approach speed. This sets nose geometry, seat height, and approach attitude together.
+Over-the-nose visibility: the whole carrier stern in view on a 3.5° glide slope at approach speed. This sets nose geometry, seat height, and the {term}`deck angle` together.
 :::
 
 :::{card}

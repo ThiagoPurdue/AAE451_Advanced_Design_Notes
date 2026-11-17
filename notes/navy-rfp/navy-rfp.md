@@ -22,7 +22,7 @@ The goal is a preliminary design of an affordable, effective land-based trainer 
 :::{prf:definition} Threshold and objective
 :label: def-threshold-objective
 
-A {term}`threshold` is the minimum acceptable value of a requirement. An {term}`objective` is the value the customer would like to reach. A design that meets every threshold is acceptable. Trade studies cover the range between them.
+A {term}`threshold` is the worst acceptable value of a requirement. An {term}`objective` is the value the customer would like to reach. A design that meets every threshold is acceptable. Trade studies cover the range between them.
 :::
 
 Three performance requirements have a threshold (T) and an objective (O). The three field lengths are single required values. The RFP asks for design and cost trade studies between the threshold and objective values. All calculations use the International Standard Atmosphere.

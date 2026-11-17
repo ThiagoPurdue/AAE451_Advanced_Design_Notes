@@ -42,7 +42,7 @@ The induced drag factor of an unswept, untwisted wing. Computed with lifting-lin
 | Weight | 2,750 lb |
 | Dynamic pressure, $q$ | 91.6 lb/ft² |
 | $C_L = W/(qS)$ | 0.207 |
-| $e$, Raymer, $AR$ 10 (Gudmundsson 2022, Example 9-4) | 0.76 |
+| $e$, Raymer, $AR$ 10 (Gudmundsson 2022, Example 9-4) | 0.7566 |
 | $K = 1/(\pi\,AR\,e)$ | 0.0421 |
 | $C_{D_i} = K\,C_L^{2}$ | 0.0018 |
 | $C_D = C_{D_0} + C_{D_i}$ | 0.0280 |

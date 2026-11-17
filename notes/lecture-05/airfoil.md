@@ -171,7 +171,7 @@ The effect of Reynolds number on the lift curve and the drag polar. Schematic, a
 :::{admonition} Navy Jet Trainer
 :class: navy
 
-Candidates must be credible at the maximum operating Mach number of the RFP. Which published data sets reach it?
+Candidates must be credible at your Reynolds numbers and at the maximum operating Mach number of the RFP. Which published data sets reach them?
 :::
 
 ## Stall behavior
@@ -189,7 +189,7 @@ Class A: separation grows forward from the trailing edge. Class C: a leading-edg
 :::{admonition} Navy Jet Trainer
 :class: navy
 
-Decide whether "basic maneuvers" include stalls. Stall class is a selection criterion either way.
+Decide whether "basic maneuvers" include stalls. Either way, find the stall class of each candidate.
 :::
 
 ## Compressibility
@@ -211,7 +211,7 @@ Mach number effects on the lift curve and the drag coefficient, with the critica
 M_{dd} = \kappa - \frac{t}{c} - 0.1\,C_l, \qquad \kappa = 0.87 \text{ conventional}, \ 0.95 \text{ supercritical}
 :::
 
-- To raise $M_{crit}$: lower $t/c$, sweep, lower $AR$. A supercritical airfoil raises $M_{dd}$ only.
+- To raise $M_{crit}$: lower $t/c$, sweep, lower $AR$. A supercritical airfoil raises $M_{dd}$ by weakening the shock.
 
 :::{admonition} Navy Jet Trainer
 :class: navy
@@ -296,7 +296,7 @@ A04: at least three candidates with published data, every curve cited. Select on
 
 ### The comparison table
 
-:::{table} Comparison table for three candidate airfoils A, B, and C. Score 1 for the best on a row, 0 for the worst, and prorate the others. After Gudmundsson (2022), Table 8-13.
+:::{table} Comparison table for three candidate airfoils A, B, and C. Score 1 for the best on a row, 0 for the worst, and interpolate linearly for the others. After Gudmundsson (2022), Table 8-13.
 :label: tbl-airfoil-comparison
 
 | Group | Parameter | Best is | A | B | C |

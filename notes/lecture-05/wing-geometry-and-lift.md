@@ -154,7 +154,7 @@ Sustained g is paid for in induced drag. What does the +4.0 g (T) to +6.0 g (O) 
 
 :::{figure} figures/taper-lift-distribution.svg
 :label: fig-taper
-:alt: Two plots against spanwise station for taper ratios 1.0, 0.6, and 0.2. Left, the section lift coefficient for a wing lift coefficient of 1: the untapered wing is highest at the root and falls toward the tip; the 0.2 taper rises from the root to a peak near 80 percent of the span, so it is tip loaded. Right, the lift per unit span: the 0.2 taper carries the most lift near the root and the least near the tip, and the untapered wing the reverse.
+:alt: Two plots against spanwise station for taper ratios 1.0, 0.6, and 0.2. Left, the section lift coefficient for a wing lift coefficient of 1: the untapered wing is highest at the root and falls toward the tip; the 0.2 taper rises from the root to a peak near 80 percent of the span. Right, the lift per unit span: the 0.2 taper carries the most lift near the root and the least near the tip, and the untapered wing the reverse.
 :width: 100%
 
 Spanwise section lift coefficient and lift per unit span for three taper ratios, by Schrenk's approximation. Computed; after Gudmundsson (2022), Figure 9-18.
@@ -167,7 +167,7 @@ Spanwise section lift coefficient and lift per unit span for three taper ratios,
 | ---: | --- |
 | 1.0 | Stall starts at the root. Simple to build. High induced drag and bending moment. |
 | 0.5 | Balances induced drag against stall behavior. Moderate washout. |
-| 0.3 | Near-elliptical loading. Tip loaded, so large washout. The lowest usable value. |
+| 0.3 | Near-elliptical loading. The section lift coefficient peaks outboard, so large washout. The lowest usable value. |
 
 :::
 
@@ -210,7 +210,7 @@ The Korn relation for the wing, with $\Lambda$ the sweep of the mid-chord line:
 M_{DD} = \frac{\kappa}{\cos\Lambda} - \frac{t/c}{\cos^{2}\Lambda} - \frac{C_L}{10\cos^{3}\Lambda}, \qquad M_{crit} = M_{DD} - 0.108
 :::
 
-$\kappa$ = 0.87 for a conventional airfoil and 0.95 for a supercritical one (Gudmundsson 2022, Section 16.3.3, Eqs. 16-95 to 16-106, with Figure 16-38). Gudmundsson writes $M_{DD}$ for the wing and $M_{dd}$ for the airfoil; the notes follow him.
+$\kappa$ = 0.87 for a conventional airfoil and 0.95 for a supercritical one (Gudmundsson 2022, Section 16.3.3, Eqs. 16-95 to 16-106, with Figure 16-38). Gudmundsson writes $M_{DD}$ for the wing and $M_{dd}$ for the airfoil; the notes follow him. In {eq}`eq-korn-wing`, $M_{crit}$ is the Mach number at which the wave drag starts, set 0.108 below $M_{DD}$. Use it as the $M_{crit}$ of the drag-rise spline in [Lecture 7](../lecture-07/drag-polar.md). It lies well below a first-sonic $M_{crit}$ read from airfoil data.
 
 :::{figure} figures/korn-sweep.svg
 :label: fig-korn-sweep
@@ -273,10 +273,10 @@ Where the stall starts on four planforms. Schematic, after Gudmundsson (2022), F
 :alt: Three side views of a fuselage flying to the right along a flight path arrow, each with the wing chord drawn at the same cruise angle of attack. Top, too large an incidence: the fuselage flies nose down, high fuselage drag. Middle, too small an incidence: the fuselage flies nose up, high fuselage drag. Bottom, the correct incidence: the fuselage follows the flight path, least drag.
 :width: 80%
 
-The wing incidence sets the fuselage attitude in cruise. Schematic, after Gudmundsson (2022), Figure 9-28.
+The wing incidence sets the fuselage angle of attack in cruise. Schematic, after Gudmundsson (2022), Figure 9-28.
 :::
 
-- Set $i_W$ so the fuselage flies at its minimum-drag attitude in cruise.
+- Set $i_W$ so the fuselage flies at its minimum-drag angle of attack in cruise.
 - The cruise angle of attack at the mid-cruise weight:
 
 :::{math}
@@ -289,7 +289,7 @@ The wing incidence sets the fuselage attitude in cruise. Schematic, after Gudmun
 :::{admonition} Navy Jet Trainer
 :class: navy
 
-Incidence and $C_{L_\alpha}$ set the approach attitude. Check the view over the nose on the 3.5° glide slope.
+Incidence and $C_{L_\alpha}$ set the {term}`deck angle` on the approach. Check the view over the nose on the 3.5° glide slope.
 :::
 
 ## Lift-curve slope
@@ -298,6 +298,8 @@ Incidence and $C_{L_\alpha}$ set the approach attitude. Check the view over the 
 :label: eq-lift-curve-slope
 C_{L_\alpha} = \frac{2\pi\,AR}{2+\sqrt{\left(\dfrac{AR\,\beta}{\kappa}\right)^{2}\left(1+\dfrac{\tan^{2}\Lambda_{c/2}}{\beta^{2}}\right)+4}}, \qquad \beta = \sqrt{1-M^{2}}, \quad \kappa = \frac{C_{l_\alpha}}{2\pi}
 :::
+
+Here $\kappa$ is the airfoil lift-curve slope divided by $2\pi$. It is not the $\kappa$ of {eq}`eq-korn-wing`.
 
 :::{figure} figures/lift-curve-slope.svg
 :label: fig-lift-curve-slope
@@ -308,7 +310,7 @@ Lift-curve slope from {eq}`eq-lift-curve-slope` at $M$ = 0 and $\kappa$ = 1 (Gud
 :::
 
 - Valid for straight and swept wings to $M$ = 0.8.
-- A lower slope means a higher approach attitude and a softer gust response.
+- A lower slope means a higher deck angle on the approach and a softer gust response.
 
 ## Maximum lift of the clean wing
 
@@ -369,7 +371,7 @@ V_S = \sqrt{\frac{2\,(W/S)}{\rho\,C_{L_{max}}}}
 
 :::{figure} figures/stall-speed.svg
 :label: fig-stall-speed
-:alt: Stall speed in knots equivalent airspeed against wing loading from 0 to 120 pounds per square foot, four rising curves for maximum lift coefficients 1.2, 1.6, 2.0, and 2.4, the lowest lift coefficient giving the highest stall speed. Two horizontal lines mark 61 knots, the former Part 23 single-engine limit, and 45 knots, the light-sport limit.
+:alt: Stall speed in knots equivalent airspeed against wing loading from 0 to 120 pounds per square foot, four rising curves for maximum lift coefficients 1.2, 1.6, 2.0, and 2.4, the lowest lift coefficient giving the highest stall speed.
 :width: 80%
 
 Stall speed against wing loading at sea level from {eq}`eq-stall-speed`. Computed; after Gudmundsson (2022), Figure 9-61, which places general aviation aircraft on these curves.

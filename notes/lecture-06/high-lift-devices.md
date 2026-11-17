@@ -202,7 +202,7 @@ A04: the increment comes from published data for the device type, with the sourc
 
 ## Typical maximum lift by system
 
-:::{table} Typical wing maximum lift coefficients by high-lift system, divided by the cosine of the wing sweep. Complexity rises down the table. After Anderson (1999), Table 5.3.
+:::{table} Typical wing maximum lift coefficients by high-lift system, divided by the cosine of the wing sweep. Complexity rises down the table. The values are as printed in the source, where the double-slotted Fowler flap without a slat is lower than the single-slotted one. After Anderson (1999), Table 5.3.
 :label: tbl-typical-clmax
 
 | Trailing edge | Leading edge | Takeoff flap | Landing flap | $C_{L_{max}}/\cos\Lambda$, takeoff | $C_{L_{max}}/\cos\Lambda$, landing |

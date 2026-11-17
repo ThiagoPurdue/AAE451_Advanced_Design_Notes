@@ -52,6 +52,7 @@
   .solution p { margin: 6px 0; }
   .status { margin: 4px 0 0; color: var(--muted); min-height: 1.5em; }
   sub { font-size: 0.75em; }
+  .ov { text-decoration: overline; }
 </style>
 </head>
 <body>
@@ -63,8 +64,8 @@
   <div class="body">
     <p>An invented aircraft has the values below, with the fuselage term dropped. Positions are in chords from the leading edge of the mean chord, and the slopes are per radian. Compute the lift-curve slope of the aircraft, the neutral point, and the static margin. Two decimals for the slope, three for the other two.</p>
     <div class="given" aria-live="polite">
-      <span><i>x̄<sub>ac</sub></i> = <strong id="gXac"></strong></span>
-      <span><i>x̄<sub>cg</sub></i> = <strong id="gXcg"></strong></span>
+      <span><i><span class='ov'>x</span><sub>ac</sub></i> = <strong id="gXac"></strong></span>
+      <span><i><span class='ov'>x</span><sub>cg</sub></i> = <strong id="gXcg"></strong></span>
       <span><i>V<sub>H</sub></i> = <strong id="gVH"></strong></span>
       <span><i>S<sub>t</sub></i>/<i>S</i> = <strong id="gSt"></strong></span>
       <span><i>η<sub>H</sub></i> = <strong id="gEta"></strong></span>
@@ -74,7 +75,7 @@
     </div>
     <form id="qc" novalidate>
       <div class="row"><label for="cla">Aircraft slope <i>C<sub>Lα</sub></i> =</label><input type="text" id="cla" inputmode="decimal" autocomplete="off"><span class="mark" id="mcla" aria-live="polite"></span></div>
-      <div class="row"><label for="xn">Neutral point <i>x̄<sub>n</sub></i> =</label><input type="text" id="xn" inputmode="decimal" autocomplete="off"><span class="mark" id="mxn" aria-live="polite"></span></div>
+      <div class="row"><label for="xn">Neutral point <i><span class='ov'>x</span><sub>n</sub></i> =</label><input type="text" id="xn" inputmode="decimal" autocomplete="off"><span class="mark" id="mxn" aria-live="polite"></span></div>
       <div class="row"><label for="sm">Static margin <i>SM</i> =</label><input type="text" id="sm" inputmode="decimal" autocomplete="off"><span class="mark" id="msm" aria-live="polite"></span></div>
       <div class="buttons">
         <button type="submit" class="primary">Check answers</button>
@@ -145,8 +146,8 @@
     document.getElementById("solution").innerHTML =
       "<p>Tail term: <i>η<sub>H</sub></i> × tail slope × (1 − ∂<i>ε</i>/∂<i>α</i>) = " + fmt(ETA, 2) + " × " + fmt(CLT, 1) + " × " + fmt(1 - DE, 2) + " = " + fmt(tail, 3) + "</p>" +
       "<p>Aircraft slope: <i>C<sub>Lα</sub></i> = wing slope + (<i>S<sub>t</sub></i>/<i>S</i>) × tail term = " + fmt(CLW, 1) + " + " + fmt(ST, 2) + " × " + fmt(tail, 3) + " = <strong>" + fmt(cla, 2) + "</strong></p>" +
-      "<p>Neutral point: <i>x̄<sub>n</sub></i> = <i>x̄<sub>ac</sub></i> + <i>V<sub>H</sub></i> × tail term / <i>C<sub>Lα</sub></i> = " + fmt(XAC, 2) + " + " + fmt(VH, 2) + " × " + fmt(tail, 4) + " / " + fmt(cla, 3) + " = <strong>" + fmt(xn, 3) + "</strong></p>" +
-      "<p>Static margin: <i>SM</i> = <i>x̄<sub>n</sub></i> − <i>x̄<sub>cg</sub></i> = " + fmt(xn, 3) + " − " + fmt(XCG, 2) + " = <strong>" + fmt(sm, 3) + "</strong></p>" +
+      "<p>Neutral point: <i><span class='ov'>x</span><sub>n</sub></i> = <i><span class='ov'>x</span><sub>ac</sub></i> + <i>V<sub>H</sub></i> × tail term / <i>C<sub>Lα</sub></i> = " + fmt(XAC, 2) + " + " + fmt(VH, 2) + " × " + fmt(tail, 4) + " / " + fmt(cla, 3) + " = <strong>" + fmt(xn, 3) + "</strong></p>" +
+      "<p>Static margin: <i>SM</i> = <i><span class='ov'>x</span><sub>n</sub></i> − <i><span class='ov'>x</span><sub>cg</sub></i> = " + fmt(xn, 3) + " − " + fmt(XCG, 2) + " = <strong>" + fmt(sm, 3) + "</strong></p>" +
       "<p>The pitch stiffness is <i>C<sub>Mα</sub></i> = −<i>C<sub>Lα</sub></i> × <i>SM</i> = " + fmt(-cla * sm, 2) + " per rad.</p>";
   }
   function check(e) {

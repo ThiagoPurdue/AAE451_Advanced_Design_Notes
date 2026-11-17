@@ -163,7 +163,7 @@ Examples: business jets, CRJ.
 :::{admonition} Navy Jet Trainer
 :class: navy
 
-Every trainer in the cohort buries its engine. The inlets differ. Inlet placement must work at high angle of attack across the training envelope.
+Where does each trainer in the cohort place its engine, and where are its inlets? The inlet has to work at high angle of attack across the training envelope.
 :::
 
 ## Propeller and motor placement
@@ -256,7 +256,7 @@ Gains: short verticals, endplate effect, shields the exhaust. Costs: heavier hor
 :::{admonition} Navy Jet Trainer
 :class: navy
 
-Spin entry and recovery are certified behaviors. Tail position relative to the wing wake at high angle of attack is a selection criterion.
+Spin entry and recovery are certified behaviors. Where does the tail of each of your configurations sit relative to the wing wake at high angle of attack?
 :::
 
 ## Canard and tail-less
@@ -305,7 +305,7 @@ Gains: light, propeller clearance, rough fields. Costs: ground handling.
 :header: Bicycle
 ![Top view with wheels on the centerline fore and aft and outriggers at the wing tips.](figures/gear-bicycle.svg)
 
-Gains: narrow fuselage. Costs: outriggers, hard rotation.
+Gains: narrow fuselage. Costs: outriggers, difficult rotation.
 :::
 
 :::{card}

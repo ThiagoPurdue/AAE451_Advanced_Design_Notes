@@ -78,7 +78,7 @@ The cruise at $W/S$ = 10 lb/ft² needs 69.5 hp at 8,000 ft, or 91.8 hp at sea le
 The Cessna 162 in thrust-to-weight ratio and in sea-level power. Recomputed from {numref}`tbl-c162-inputs`; after Gudmundsson (2022), Figure 3-2.
 :::
 
-The lowest point differs between the two diagrams. In $T/W$, the climb and the landing boundary set it. In power, the turn and the climb set it. The ceiling boundary here follows Eq. 3-11, with $V_Y$ changing with the wing loading. The book's figure holds the dynamic pressure fixed for that curve, and the two agree only at $W/S$ = 10 lb/ft².
+The lowest point differs between the two diagrams, because each boundary is converted to power with its own speed, propeller efficiency, and density ratio. In $T/W$, the climb and the landing boundary set it. In power, the turn and the climb set it. The ceiling boundary here follows Eq. 3-11, with $V_Y$ changing with the wing loading. The book's figure holds the dynamic pressure fixed for that curve, and the two agree only at $W/S$ = 10 lb/ft².
 
 :::{figure} figures/c162-design-point.svg
 :label: fig-c162-design-point
@@ -164,7 +164,7 @@ The constraint diagram of the T-45C from the inputs of {numref}`tbl-t45-publishe
 
 :::
 
-The T-45C at 0.38 is about 16% above the highest boundary, the ceiling, and the landing boundary is 23 lb/ft² to its right. The two highest boundaries rest on estimates: $\alpha$ at altitude and $C_{D_c}$. Check them first. With $k_{TD}$ = 1.10 in place of 1.23, the landing boundary moves right by a factor of about $(1.23/1.10)^{2}$.
+The T-45C at 0.381 is about 16% above the highest boundary, the ceiling at 0.328. The landing boundary is 23 lb/ft² to its right. The two highest boundaries rest on estimates: $\alpha$ at altitude and $C_{D_c}$. Check them first. With $k_{TD}$ = 1.10 in place of 1.23, the landing boundary moves right by a factor of about $(1.23/1.10)^{2}$.
 
 :::{admonition} Navy Jet Trainer
 :class: navy

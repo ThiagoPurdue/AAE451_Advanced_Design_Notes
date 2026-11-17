@@ -172,7 +172,7 @@ Check four things:
 
 1. A subsonic aircraft without afterburner uses a fixed convergent nozzle (Nicolai and Carichner 2010, Figure 15.12). Take the exit area from the engine data.
 2. Read the NPR at the maximum Mach number from the deck. The pressure term of {eq}`eq-net-thrust` is already in the deck thrust. Do not add it again.
-3. The nozzle coefficient multiplies the gross thrust, not the net thrust. The FJ44-3E deck already includes 0.997 for a podded engine. State the value you use, and apply it only to an uninstalled deck.
+3. The nozzle coefficient multiplies the gross thrust, $\dot{m}\,V_e + (p_e - p_\infty)\,A_e$. This is {eq}`eq-net-thrust` before the ram drag $\dot{m}\,V_\infty$ is subtracted. The FJ44-3E deck already includes 0.997 for a podded engine. State the value you use, and apply it only to an uninstalled deck.
 4. Boattail drag belongs to the drag build-up of [Lecture 7](../lecture-07/parasite-drag.md), not to the deck. Count it once.
 
 :::{admonition} Navy Jet Trainer

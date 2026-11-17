@@ -852,10 +852,6 @@ def stall_speed():
     rho = 0.002377
     for clmax, ls, c in ((1.2, "-", BLUE), (1.6, "--", VERM), (2.0, "-.", GREEN), (2.4, ":", AGED)):
         ax.plot(ws, np.sqrt(2 * ws / (rho * clmax)) / 1.6878, ls=ls, color=c, lw=2.2, label=f"$C_{{L_{{max}}}}$ = {clmax}")
-    ax.axhline(61, color=STEEL, lw=1.0, ls="--")
-    ax.text(118, 63, "61 kt: former Part 23 single-engine limit", fontsize=10, color=STEEL, ha="right")
-    ax.axhline(45, color=STEEL, lw=1.0, ls=":")
-    ax.text(118, 47, "45 kt: light-sport limit", fontsize=10, color=STEEL, ha="right")
     ax.set_xlabel("Wing loading $W/S$ (lb/ft²)")
     ax.set_ylabel("Stall speed $V_S$ (KEAS)")
     ax.set_xlim(0, 120)

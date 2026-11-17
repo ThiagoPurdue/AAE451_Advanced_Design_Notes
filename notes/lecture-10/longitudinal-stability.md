@@ -173,7 +173,7 @@ Start from existing aircraft: {numref}`tbl-static-margins` gives their static ma
 Check three criteria:
 
 - $C_{M\alpha} < 0$ at the aft limit, that is, $SM > 0$.
-- $C_{M0} > 0$. The aircraft then trims at a positive $C_L$ with the elevator near neutral at the design cruise.
+- $C_{M0} > 0$ for the complete aircraft, with the tail. The aircraft then trims at a positive $C_L$ with the elevator near neutral at the design cruise.
 - The trim $C_L$ and $\alpha$ lie inside the usable range at both CG limits.
 
 In flight the CG moves as the fuel burns; between flights it changes with the loading case. The neutral point moves with the Mach number, the flaps, the ground effect, and the power.

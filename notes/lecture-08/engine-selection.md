@@ -198,7 +198,7 @@ The {term}`bypass ratio` is the bypass mass flow divided by the core mass flow, 
 
 :::
 
-- TSFC is lowest at sea-level static conditions. The cruise value is higher.
+- For a given engine, TSFC at sea-level static conditions is below its value at the cruise Mach number, and the difference grows with the bypass ratio ([part 2](engine-models.md)). {numref}`tbl-tsfc-initial` gives class values; {numref}`tbl-tsfc-published` gives three engines.
 - The installed value is higher still: inlet and nozzle losses, power extraction, and bleed.
 - Engine makers rarely publish cruise and loiter values.
 

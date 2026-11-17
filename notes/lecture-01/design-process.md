@@ -50,7 +50,7 @@ Read the chart in four steps:
 
 Requirements are not fixed at the start. A trade study can show that one requirement costs far more than it is worth, and the customer may then change it.
 
-{numref}`tbl-design-phases-detail` shows what is known, what is produced, and how mature the technology is at the end of each design phase.
+{numref}`tbl-design-phases-detail` shows what is known, what is produced, and how mature the technology is in each design phase.
 
 :::{table} What is known and what is produced in each design phase, after Nicolai and Carichner (2010). TRL is the technology readiness level.
 :label: tbl-design-phases-detail
@@ -63,6 +63,8 @@ Requirements are not fixed at the start. A trade study can show that one require
 | {term}`TRL` | 2 to 3 | 4 to 5 | 6 to 7 |
 
 :::
+
+The table gives TRL 2 to 3 for conceptual design. The flow chart gives 3 to 4 for the point design that leaves it ({numref}`fig-design-process-flow`).
 
 The slide illustrates each phase with a sketch. Phase 1 compares two wing planforms. Phase 2 compares two airfoil sections and two incidence angles, 3° and 5°. Phase 3 shows the internal structure of a wing box.
 

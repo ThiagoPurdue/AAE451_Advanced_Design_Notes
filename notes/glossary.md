@@ -207,7 +207,7 @@ Technology factor
 : A factor applied to a regression result to account for a technology the database never saw, such as a composite structure.
 
 Threshold
-: The minimum acceptable value of a requirement. A design that meets every threshold is acceptable.
+: The worst acceptable value of a requirement. A design that meets every threshold is acceptable.
 
 Throttle ratio
 : The value of $\theta_0$, the free-stream total temperature over the sea-level standard temperature, at which the turbine entry temperature reaches its limit. The engine maker sets the throttle ratio.

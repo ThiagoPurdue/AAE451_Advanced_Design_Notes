@@ -131,7 +131,7 @@ A {term}`compliance matrix` lists each requirement with its threshold, its targe
 
 {numref}`tbl-compliance-example` is the example from the lecture, a small general aviation aircraft. The status column is added here so the result does not depend on color.
 
-:::{table} Example requirements compliance matrix. A threshold is the minimum acceptable value and a target is the desired value.
+:::{table} Example requirements compliance matrix. A threshold is the worst acceptable value and a target is the desired value.
 :label: tbl-compliance-example
 
 | Requirement | Unit | Threshold | Target | Current value | Status |

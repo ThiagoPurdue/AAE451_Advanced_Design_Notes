@@ -41,7 +41,7 @@ The method has eight steps, and step 8 returns to step 1: the steps iterate with
 The eight steps of the method. Schematic.
 :::
 
-The inputs are the A04 loft, the high-lift increments, the thrust line, and the weight statement. The loft gives $S$, $AR$, $\bar c$, $x_{LEMAC}$, $x_{ac}$, and $C_{M,ac}^{W}$. Steps 1 and 2 depend on each other: the CG envelope needs the CG limits, and the CG limits need the loading cases. Plan two passes.
+The inputs are the A04 loft, the high-lift increments, the thrust line, and the weight statement. The loft gives $S$, $AR$, $\bar c$, $x_{LEMAC}$, $x_{ac}$, and $C_{M,ac}^{W}$. Steps 1 and 2 depend on each other. The CG envelope of step 1 needs the CG limits from the scissor plot of step 2. The scissor plot needs the CG range of the loading cases from step 1. Plan two passes.
 
 :::{admonition} Navy Jet Trainer
 :class: navy

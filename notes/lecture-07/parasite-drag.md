@@ -255,9 +255,9 @@ The wing's wetted area uses $S$ less the part the fuselage covers, about $D$ tim
 | Nose gear | Strut 1.8 ft², faired wheel 0.49 ft², $Q$ 1.2 | 0.18 |
 | Main gear | Two legs, each strut 2.12 ft², faired wheel 0.63 ft², $Q$ 1.2 | 0.45 |
 | Windscreen | Given | 0.45 |
+| Leakage and protuberance | 8% of the wing, fuselage, tails, gear, and windscreen rows. Before rounding they sum to $C_{D_0}$ 0.0229 | 0.27 |
 | Engine cooling | Given | 0.15 |
 | Engine installation | Given | 0.06 |
-| Leakage and protuberance | 8% of the sum of the components above | 0.27 |
 
 :::
 
