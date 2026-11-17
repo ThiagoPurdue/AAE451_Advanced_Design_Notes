@@ -146,6 +146,14 @@ def nose_split(x_up, x_low, bulge=0.05):
     return main, slat
 
 
+def swing(pts, pivot):
+    """Length and direction (degrees, counterclockwise from +x) of a hinged part as drawn: the
+    vector from the pivot to its farthest point."""
+    v = np.asarray(pts) - pivot
+    far = v[np.argmax((v ** 2).sum(1))]
+    return float(np.hypot(*far)), float(np.degrees(np.arctan2(far[1], far[0])))
+
+
 def draw_device(ax, kind):
     ax.set_aspect("equal")
     ax.axis("off")
@@ -162,23 +170,27 @@ def draw_device(ax, kind):
         arc = h + r * np.column_stack([np.cos(th), np.sin(th)])
         flap = np.vstack([arc[::-1], surf(xh, 1.0, upper=False), surf(1.0, xh)])
         add(np.vstack([nose_contour(xh - 0.2 * r, xh - 0.2 * r), (arc + [0.004, 0])[::-1][3:-3]]), main_face)
-        add(move(flap, h, -d), flap_face)
+        out = move(flap, h, -d)
+        add(out, flap_face)
         pin(h)
-        assert abs((1 - xh) - 0.20) < 1e-9 and d <= 45
+        (c0, a0), (c1, a1) = swing(flap, h), swing(out, h)                   # the flap stowed and as drawn
+        assert abs(c1 - 0.20) < 0.005 and abs((a0 - a1) - 45.0) < 0.5        # 20% chord, 45 deg down
     elif kind == "split":
         # 20% chord plate on the lower surface; the upper surface does not move
         xh, d = 0.80, 60.0
         add(np.vstack([nose_contour(1.0, 1.0)]), main_face)
         h = np.array([xh, lo(xh)])
         plate = np.vstack([surf(xh, 1.0, upper=False, n=12), surf(1.0, xh, upper=False, n=12) - [0, 0.010]])
-        add(move(plate, h, -d), flap_face)
+        out = move(plate, h, -d)
+        add(out, flap_face)
         pin(h)
-        assert d <= 60
+        (c0, a0), (c1, a1) = swing(plate, h), swing(out, h)
+        assert abs(c1 - 0.20) < 0.005 and abs((a0 - a1) - 60.0) < 0.5        # 20% chord plate, 60 deg down
     elif kind in ("single", "fowler"):
         # 30% chord flap; the single-slotted flap swings on a bracket below the wing, the Fowler
         # flap runs aft on tracks until its nose is under the end of the shroud
         x0, d = 0.70, 40.0
-        x_lip, nose_at = (0.84, (-0.035, -0.030)) if kind == "single" else (0.92, (-0.012, -0.030))
+        x_lip, nose_at = (0.84, (-0.012, -0.030)) if kind == "single" else (0.92, (-0.012, -0.030))
         main, flap = slotted_flap(x0, x_lip)
         le = flap[0]
         out = move(flap, le, -d, np.array([x_lip, up(x_lip)]) + nose_at - le)
@@ -192,19 +204,24 @@ def draw_device(ax, kind):
             ax.plot([0.66, hinge[0]], [lo(0.66), hinge[1]], color=INK, lw=1.0)
             ax.plot([hinge[0], out[len(out) // 2 + 30][0]], [hinge[1], out[len(out) // 2 + 30][1]], color=INK, lw=1.0)
             pin(hinge)
+            assert 1.05 < out[:, 0].max() < 1.10                             # the chord grows by 5 to 10%
         else:
             assert out[:, 0].max() > 1.12                                    # the chord grows by more than 12%
     elif kind == "double":
         # fixed vane and flap that move together: the vane at about 30 deg, the flap at 55 deg
         x0, x_lip, dv, df = 0.70, 0.82, 30.0, 55.0
         main, flap = slotted_flap(x0, x_lip)
-        s = _aero.naca4(0.08, 0.4, 0.18, n=60)                              # the vane: a small cambered section, 14% chord
-        vane = 0.14 * np.column_stack([np.r_[s[2], s[4][::-1]], np.r_[s[3], s[5][::-1]]])
-        vane = move(vane, (0, 0), -dv, np.array([x_lip, up(x_lip)]) + (-0.04, -0.036))
-        aft = flap * [0.80, 0.80] + [0.2, 0.0]                               # the flap behind the vane: 24% chord
+        # the vane is a separate small cambered section of 9% chord, not cut from the 23012; with the
+        # flap of 21% chord behind it, the two stow in the 30% of the chord aft of the cut
+        cv, cf = 0.09, 0.21
+        s = _aero.naca4(0.08, 0.4, 0.18, n=60)
+        vane = cv * np.column_stack([np.r_[s[2], s[4][::-1]], np.r_[s[3], s[5][::-1]]])
+        vane = move(vane, (0, 0), -dv, np.array([x_lip, up(x_lip)]) + (-0.035, -0.034))
+        aft = flap * [cf / 0.30, cf / 0.30] + [1 - cf, 0.0]
+        assert abs(np.ptp(aft[:, 0]) - cf) < 1e-6 and np.ptp(aft[:, 0]) + cv <= (1 - x0) + 1e-9   # they fit the wing
         le = aft[0]
         vte = vane[np.argmax(vane[:, 0])]
-        aft = move(aft, le, -df, vte + (-0.02, -0.02) - le)
+        aft = move(aft, le, -df, vte + (-0.012, -0.024) - le)
         add(main, main_face)
         add(vane, flap_face)
         add(aft, flap_face)
@@ -218,19 +235,23 @@ def draw_device(ax, kind):
         th = np.radians(np.linspace(90, 90 + d, 12))
         knuckle = h + r * np.column_stack([np.cos(th), np.sin(th)])
         add(np.vstack([knuckle[::-1], surf(xh, 1.0), surf(1.0, xh, upper=False), [h]]), main_face)
-        add(move(np.vstack([nose_contour(xh, xh), [h]]), h, d), flap_face)
+        nose = np.vstack([nose_contour(xh, xh), [h]])
+        out = move(nose, h, d)
+        add(out, flap_face)
         pin(h)
-        assert xh == 0.15 and d <= 40
+        (c0, a0), (c1, a1) = swing(nose, h), swing(out, h)
+        assert abs((a1 - a0) % 360 - 25.0) < 0.5 and abs(xh - nose[:, 0].min() - 0.15) < 0.002   # 15% chord nose, drooped 25 deg
     elif kind in ("slot", "slat"):
-        # slot: a 12% chord nose piece fixed 2% chord ahead of the main body
+        # slot: a 15% chord nose piece fixed 2% chord ahead of the main body
         # slat: a 16% chord nose piece moved forward and down and turned 25 deg nose down
-        x_up, x_low, bulge, d, shift = (0.12, 0.06, 0.025, 0.0, (-0.04, 0.0)) if kind == "slot" else (0.16, 0.08, 0.03, 25.0, (-0.075, -0.02))
+        x_up, x_low, bulge, d, shift = (0.15, 0.06, 0.025, 0.0, (-0.045, 0.0)) if kind == "slot" else (0.16, 0.08, 0.03, 25.0, (-0.075, -0.02))
         main, slat = nose_split(x_up, x_low, bulge)
         out = move(slat, np.array([x_up, up(x_up)]), d, shift)
         add(main, main_face)
         add(out, flap_face)
         g = gap_between(main, out)
         assert (0.015 < g < 0.025) if kind == "slot" else (0.012 < g < 0.035 and d <= 30), (kind, g)
+        assert abs(np.ptp(slat[:, 0]) - x_up) < 0.003                         # nose piece of 15% (slot) or 16% (slat) chord
     elif kind == "kruger":
         # a panel of 10% chord from the lower surface, swung 125 deg forward about a hinge at the
         # nose, with a bullnose of radius 0.167 of its chord; no gap to the leading edge
@@ -241,9 +262,11 @@ def draw_device(ax, kind):
         th = np.radians(np.linspace(-90, 90, 20))
         bull = np.array([cs - rb, 0.0]) + rb * np.column_stack([np.cos(th), np.sin(th)])
         panel = np.vstack([[0, -0.006], [cs - rb, -0.006], bull * [1, 0.6] + [0, -0.006 * 0], [cs - rb, 0.006], [0, 0.006]])
-        add(move(panel + h, h, -d), flap_face)
+        out = move(panel + h, h, -d)
+        add(out, flap_face)
         pin(h)
-        assert 0.07 <= cs <= 0.10 and 110 <= d <= 140
+        c1, a1 = swing(out, h)                                               # the panel as drawn
+        assert 0.07 <= c1 <= 0.105 and 110 <= -a1 <= 140, (c1, a1)           # chord and swing from the stowed position
     # show the half of the airfoil that carries the device, with a break line where the rest is cut off
     lead = kind in ("droop", "slot", "slat", "kruger")
     xa, xb = (-0.16, 0.50) if lead else (0.46, 1.24)
@@ -288,10 +311,13 @@ def flap_lift_curve():
     # schematic: a flap moves the zero-lift angle and raises the peak; a slat extends the clean curve
     curves = [("clean", -2, 15, 1.5, "-", INK), ("trailing-edge flap", -12, 12, 2.3, "--", VERM),
               ("slat", -2, 24, 2.1, ":", BLUE), ("flap and slat", -12, 21, 2.9, "-.", GREEN)]
+    drawn = []
     for lab, a0, ast, clmax, ls, c in curves:
         show = a <= ast + 5
-        ax.plot(a[show], lift_curve(a, a0, ast, clmax, drop=0.4, width=4.0)[show], ls=ls, color=c, lw=2.2, label=lab)
-    (_, _, s0, c0, _, _), (_, _, s1, c1, _, _), (_, _, s2, c2, _, _), (_, _, s3, c3, _, _) = curves
+        cl = lift_curve(a, a0, ast, clmax, drop=0.4, width=4.0)
+        drawn.append((a[np.argmax(cl)], cl.max()))                           # stall angle and peak as drawn
+        ax.plot(a[show], cl[show], ls=ls, color=c, lw=2.2, label=lab)
+    (s0, c0), (s1, c1), (s2, c2), (s3, c3) = drawn
     assert c1 > c0 and s1 < s0 and c2 > c0 and s2 > s0 and c3 > max(c1, c2) and s1 < s3 < s2
     ax.axhline(0, color=STEEL, lw=0.7)
     ax.axvline(0, color=STEEL, lw=0.7)

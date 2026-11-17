@@ -86,10 +86,10 @@ One flapped segment carries 62% of the sum. Flap span matters as much as flap ty
 
 :::{figure} figures/slot-lift-curve.svg
 :label: fig-slot-lift-curve
-:alt: Lift coefficient against angle of attack for a Clark Y without a slot, peaking at 1.30 at 15 degrees and then falling to 1.0 by 23 degrees, and for the same airfoil with a fixed slot, which lies a little lower at small angles, meets the plain curve near 14 degrees, and continues to a higher peak of 1.75 at 24 degrees before dropping sharply. An arrow marks the 9 degrees between the two stall angles.
+:alt: Lift coefficient against angle of attack for a Clark Y without a slot, peaking at 1.30 at 15 degrees and then falling to 1.0 by 23 degrees, and for the same airfoil with a fixed slot, which lies a little lower at small angles, crosses the first curve near 14 degrees, and continues to a higher peak of 1.75 at 24 degrees before dropping sharply. An arrow marks the 9 degrees between the two stall angles.
 :width: 75%
 
-A fixed slot delays the stall. The curves are a Clark Y wing model with and without a fixed slot, measured at a Reynolds number of 0.63 million (NACA Report 407) and read from Gudmundsson (2022), Figure 10-9: the maximum lift coefficient rises by 0.45 and the stall angle by 9°, the increments his Table 10-2 lists for the fixed slot.
+A fixed slot delays the stall: a Clark Y wing model with and without a fixed slot at a Reynolds number of 0.63 million (NACA Report 407). Values read from Gudmundsson (2022), Figure 10-9. The slot adds 0.45 to the maximum lift coefficient and 9° to $\alpha_{stall}$, the increments of his Table 10-2. The model is a finite wing, so its slope is lower than a section's.
 :::
 
 ::::{grid} 1 1 2 2
