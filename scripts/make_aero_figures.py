@@ -105,7 +105,7 @@ def thickness(shape):
 
 
 def measured(key):
-    """A curve read from Gudmundsson (2022), Figure 8-74 (NACA Report 824, Re = 6e6)."""
+    """A curve read from Gudmundsson (2022), Figure 8-74 (data of NACA Report 824)."""
     import json
     return np.array(json.loads((AIRFOILS / "gudmundsson-fig-8-74.json").read_text())[key])
 
@@ -229,7 +229,7 @@ def naca_families():
              (naca4(0.02, 0.4, 0.12), "NACA 2412", "4-digit: 2% camber at 40% chord", 0.12),
              (naca230(0.12), "NACA 23012", "5-digit: camber forward, at 15% chord", 0.12),
              (airfoil_file("naca652415"), "NACA 65$_2$-415", "6-series: thickest at 40% chord", 0.15),
-             (airfoil_file("nlf416"), "NASA NLF(1)-0416", "laminar: 16% thick, cambered aft", 0.16),
+             (airfoil_file("nlf416"), "NASA NLF(1)-0416", "laminar: 16% thick, lower surface concave aft", 0.16),
              (airfoil_file("sc20714"), "NASA SC(2)-0714", "supercritical: flat top, aft camber, blunt trailing edge", 0.14)]
     for shape, name, _, t in items:
         assert abs(thickness(shape) - t) < 0.002, name                      # each outline has the thickness of its name
@@ -259,7 +259,7 @@ def naca_families():
 
 # ------------------------------------------------------------ section data
 def section_data():
-    """The measured NACA 65(2)-415 at Re = 6e6 (NACA Report 824), read from Gudmundsson (2022),
+    """The measured NACA 65(2)-415 (NACA Report 824), read from Gudmundsson (2022),
     Figure 8-74, with what is read from the two curves marked."""
     a, cl, slope, a0, clmax, amax = _read_lift("lift_652415")
     pcl, pcd, cdmin, lo, hi = _read_polar("polar_652415")
@@ -279,7 +279,7 @@ def section_data():
     ax1.annotate(r"$C_{l_{max}}$ at $\alpha_{stall}$", xy=(amax, clmax), xytext=(3.5, 1.78), color=VERM, fontsize=12,
                  arrowprops=dict(arrowstyle="-|>", color=VERM, lw=1))
     ax1.text(5.5, 0.38, "linear range,\nslope $C_{l_\\alpha}$", color=STEEL, fontsize=11)
-    ax1.text(-9.6, 1.78, "NACA 65$_2$-415\n$Re$ = 6 × 10$^6$", fontsize=10, color=STEEL, va="center")
+    ax1.text(-9.6, 1.78, "NACA 65$_2$-415\nNACA Report 824", fontsize=10, color=STEEL, va="center")
     ax1.set_xlabel(r"Angle of attack $\alpha$ (deg)")
     ax1.set_ylabel("Section lift coefficient $C_l$")
     ax1.set_xlim(-10, 24)
@@ -313,8 +313,11 @@ def camber_effect():
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.2))
     a = np.linspace(-10, 19, 500)
     cl = np.linspace(-0.6, 1.5, 600)
+    drawn = []
     for name, a0, slope, clmax, ast, cld, cds, c, ls, mk in tab:
-        ax1.plot(a, lift_curve(a, a0, ast, clmax, slope=slope, drop=0.25, width=3.5), color=c, lw=2.2, ls=ls, label=name)
+        curve = lift_curve(a, a0, ast, clmax, slope=slope, drop=0.25, width=3.5)
+        drawn.append((curve.max(), float(np.interp(0.0, curve[a < 5], a[a < 5]))))     # peak and zero-lift angle as drawn
+        ax1.plot(a, curve, color=c, lw=2.2, ls=ls, label=name)
         ax1.plot([a0, ast], [0, clmax], mk, color=c, ms=6)
         # outside the bucket: c0 + k (cl - cc)^2 through the values at cl = 0 and 0.8 (cambered) or 0.4 and 0.8 (symmetric)
         if cld:
@@ -330,7 +333,8 @@ def camber_effect():
         assert 0.0010 < depth < 0.0020
         ax2.plot(cd, cl, color=c, lw=2.2, ls=ls, label=name)
         ax2.plot(cds, (0.0, 0.4, 0.8), mk, color=c, ms=6)
-    assert tab[0][3] > tab[1][3] and tab[0][1] < tab[1][1]                  # camber raises C_lmax and lowers alpha_ZL
+    assert abs(drawn[0][0] - 1.67) < 0.005 and abs(drawn[1][0] - 1.44) < 0.005 and abs(drawn[0][1] + 2.6) < 0.05
+    assert drawn[0][0] > drawn[1][0] and drawn[0][1] < drawn[1][1]          # camber raises C_lmax and lowers alpha_ZL
     ax1.axhline(0, color=STEEL, lw=0.7)
     ax1.axvline(0, color=STEEL, lw=0.7)
     ax1.text(-2.9, 0.07, r"$\alpha_{ZL}$", color=BLUE, ha="right", va="bottom", fontsize=11)
@@ -359,9 +363,13 @@ def reynolds_effect():
     a = np.linspace(-6, 22, 500)
     # schematic: the differences are drawn larger than a factor of two or three in Re gives, as in the source
     sets = ((13.5, 1.30, 0.0078, ":", "$Re_1$"), (15.0, 1.45, 0.0068, "--", "$Re_2$"), (16.5, 1.58, 0.0060, "-", "$Re_3$"))
+    drawn = []
     for amax, clmax, cdmin, ls, lab in sets:
-        ax1.plot(a, lift_curve(a, -2, amax, clmax, drop=0.35, width=4.5), color=BLUE, lw=2.0, ls=ls, label=lab)
-    assert all(s1[0] < s2[0] and s1[1] < s2[1] and s1[2] > s2[2] for s1, s2 in zip(sets, sets[1:]))
+        curve = lift_curve(a, -2, amax, clmax, drop=0.35, width=4.5)
+        lin = (a > -4) & (a < 4)
+        drawn.append((a[np.argmax(curve)], curve.max(), np.polyfit(a[lin], curve[lin], 1)[0]))
+        ax1.plot(a, curve, color=BLUE, lw=2.0, ls=ls, label=lab)
+    assert all(d1[0] < d2[0] and d1[1] < d2[1] and abs(d1[2] - d2[2]) < 1e-6 for d1, d2 in zip(drawn, drawn[1:]))   # same slope, later and higher stall
     ax1.text(-5.5, 1.85, "$Re_1 < Re_2 < Re_3$: same slope,\nhigher $C_{l_{max}}$ and $\\alpha_{stall}$", fontsize=11, color=STEEL, va="center")
     ax1.axhline(0, color=STEEL, lw=0.7)
     ax1.set_xlabel(r"$\alpha$ (deg)")
@@ -371,8 +379,12 @@ def reynolds_effect():
     ax1.legend(frameon=False, fontsize=10, loc="lower right")
     clean(ax1)
     cl = np.linspace(-0.4, 1.5, 300)
+    mins = []
     for amax, clmax, cdmin, ls, lab in sets:
-        ax2.plot(bucket_polar(cl, cdmin, 0.003, 0.3, k4=0.004), cl, color=BLUE, lw=2.0, ls=ls, label=lab)
+        cd = bucket_polar(cl, cdmin, 0.003, 0.3, k4=0.004)
+        mins.append(cd.min())
+        ax2.plot(cd, cl, color=BLUE, lw=2.0, ls=ls, label=lab)
+    assert mins[0] > mins[1] > mins[2]                                       # lower minimum drag at higher Re
     ax2.text(0.0105, 0.3, "lower $C_{d_{min}}$\nat higher $Re$", fontsize=11, color=STEEL, va="center")
     ax2.set_xlabel("$C_d$")
     ax2.set_ylabel("$C_l$")
@@ -412,13 +424,23 @@ def stall_classes():
 
 def mach_effects():
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.4))
-    a = np.linspace(-4, 20, 600)
-    # left, schematic: Prandtl-Glauert slope; C_lmax rises a little at first, then falls with shock-induced separation
-    for M, amax, clmax, drop, width, ls, c in ((0.2, 15, 1.50, 0.30, 5.0, "-", BLUE), (0.6, 13, 1.58, 0.35, 4.0, "--", BLUE),
-                                              (0.7, 9, 1.25, 0.45, 3.0, "-.", VERM), (0.8, 5, 0.90, 0.30, 3.0, ":", VERM)):
+    a = np.linspace(-4, 22, 700)
+    # left, schematic after Gudmundsson (2022), Figure 8-67: up to Mach 0.7 the slope follows Prandtl-Glauert and
+    # the stall comes earlier at about the same C_lmax; at Mach 0.8, above the drag rise, the curve is a shallow line
+    peaks = []
+    for M, amax, clmax, drop, width, ls, c in ((0.2, 16, 1.55, 0.30, 5.0, "-", BLUE), (0.6, 14, 1.60, 0.35, 4.0, "--", BLUE),
+                                              (0.7, 11, 1.55, 0.45, 3.0, "-.", VERM)):
+        cl = lift_curve(a, -2, amax, clmax, slope=0.1 / np.sqrt(1 - M ** 2), drop=drop, width=width)
         show = a <= amax + 5                         # each curve is drawn to 5 degrees past its peak
-        ax1.plot(a[show], lift_curve(a, -2, amax, clmax, slope=0.1 / np.sqrt(1 - M ** 2), drop=drop, width=width)[show],
-                 color=c, lw=2.0, ls=ls, label=f"$M$ = {M}")
+        ax1.plot(a[show], cl[show], color=c, lw=2.0, ls=ls, label=f"$M$ = {M}")
+        lin = (a > -1) & (a < 3)
+        peaks.append((a[np.argmax(cl)], cl.max(), np.polyfit(a[lin], cl[lin], 1)[0]))
+    a8, cl8 = np.array([-3.0, 12.5]), np.array([-0.21, 0.875])
+    ax1.plot(a8, cl8, color=VERM, lw=2.0, ls=":", label="$M$ = 0.8")
+    slope8 = (cl8[1] - cl8[0]) / (a8[1] - a8[0])
+    assert all(p1[0] > p2[0] and p1[2] < p2[2] for p1, p2 in zip(peaks, peaks[1:]))     # earlier stall, steeper slope
+    assert max(p[1] for p in peaks) - min(p[1] for p in peaks) < 0.06                   # at about the same C_lmax
+    assert slope8 < peaks[0][2] and abs(np.interp(0.0, cl8, a8)) < 0.1                  # Mach 0.8: shallower, zero lift near 0 deg
     ax1.text(-3.5, 1.9, "compressibility steepens the slope;\nabove $M_{crit}$ the curve changes shape", fontsize=11, color=STEEL, va="center")
     ax1.axhline(0, color=STEEL, lw=0.7)
     ax1.set_xlabel(r"$\alpha$ (deg)")
@@ -428,23 +450,25 @@ def mach_effects():
     ax1.legend(frameon=False, fontsize=10, loc="lower right")
     clean(ax1)
     # right, schematic with the sizes of a 12% conventional section near C_l = 0.4: the wave drag grows as the
-    # fourth power of the Mach number past M_crit, which puts the Douglas point 0.108 above M_crit
-    # (Gudmundsson 2022, Eq. 16-106, the relation the wing page uses). M_crit here is where the wave drag starts.
-    M = np.linspace(0.4, 0.78, 600)
+    # fourth power of the Mach number past the M_crit of the Korn relation, 0.108 below the Douglas M_dd
+    # (Gudmundsson 2022, Eq. 16-106, the relation the wing page uses). This M_crit is where the wave drag
+    # starts; the first-sonic M_crit of such a section is about 0.70 (Table 8-9).
+    M = np.linspace(0.4, 0.78, 4000)
     cd0, mcrit = 0.006, 0.60
     cd = cd0 + 20.0 * np.clip(M - mcrit, 0, None) ** 4
-    m_boeing = mcrit + (0.002 / 20.0) ** 0.25
-    m_douglas = mcrit + (0.10 / 80.0) ** (1 / 3)
-    assert abs(m_boeing - 0.70) < 0.001 and abs(m_douglas - 0.708) < 0.001 and mcrit < m_boeing < m_douglas
+    m_boeing = float(np.interp(0.002, cd - cd0, M))                   # read from the drawn curve
+    m_douglas = float(np.interp(0.10, np.gradient(cd, M), M))
+    korn = 0.87 - 0.12 - 0.1 * 0.4
+    assert abs(m_boeing - 0.70) < 0.001 and abs(m_douglas - (mcrit + 0.108)) < 0.001 and abs(m_douglas - korn) < 0.005
     ax2.plot(M, cd, color=BLUE, lw=2.4)
     ax2.axhline(cd0, color=STEEL, lw=0.8, ls=":")
     ax2.text(0.405, cd0 + 0.0002, "incompressible level", fontsize=10, color=STEEL, va="bottom")
     ax2.axvline(mcrit, color=STEEL, lw=0.8, ls="--")
-    ax2.text(mcrit + 0.005, 0.0048, "$M_{crit}$: the rise starts", va="center", ha="left", fontsize=10, color=STEEL)
+    ax2.text(mcrit + 0.005, 0.0049, "$M_{crit}$ of the Korn relation:\nthe wave drag starts", va="center", ha="left", fontsize=10, color=STEEL)
     ax2.plot([m_boeing], [cd0 + 0.002], "o", color=VERM, ms=7)
     ax2.annotate("Boeing: $C_d$ 0.002 above\nthe incompressible level", xy=(m_boeing, cd0 + 0.002), xytext=(0.42, 0.0092),
                  fontsize=10, color=VERM, arrowprops=dict(arrowstyle="-|>", color=VERM, lw=1))
-    cd_d = cd0 + 20.0 * (m_douglas - mcrit) ** 4
+    cd_d = float(np.interp(m_douglas, M, cd))
     ax2.plot([m_douglas], [cd_d], "s", color=GREEN, ms=7)
     ax2.annotate("Douglas: $dC_d/dM = 0.10$", xy=(m_douglas, cd_d), xytext=(0.44, 0.0118),
                  fontsize=10, color=GREEN, arrowprops=dict(arrowstyle="-|>", color=GREEN, lw=1))
@@ -594,7 +618,7 @@ def drag_bucket_trio():
 
 
 def airfoil_comparison():
-    """The measured NACA 65(2)-415 and NACA 23015 at Re = 6e6 (NACA Report 824), read from
+    """The measured NACA 65(2)-415 and NACA 23015 (NACA Report 824), read from
     Gudmundsson (2022), Figure 8-74, compared at example cruise and climb lift coefficients."""
     cruise, climb = 0.3, 0.7
     A = dict(name="NACA 65$_2$-415", c=BLUE, ls="-", lift=_read_lift("lift_652415"), polar=_read_polar("polar_652415"))
@@ -628,7 +652,7 @@ def airfoil_comparison():
     ax2.set_ylim(-0.6, 2.1)
     ax2.legend(frameon=False, fontsize=10, loc="lower right")
     clean(ax2)
-    fig.text(0.5, -0.02, "Measured at $Re$ = 6 × 10$^6$, NACA Report 824.", ha="center", fontsize=10, color=STEEL)
+    fig.text(0.5, -0.02, "Measured, NACA Report 824.", ha="center", fontsize=10, color=STEEL)
     fig.tight_layout()
     save(fig, "airfoil-comparison")
 
@@ -795,7 +819,7 @@ def sweepback_effects():
     # and makes the peak lower and broader
     M = np.linspace(0.3, 3.0, 800)
     peaks = []
-    for sw, Mr, w, amp, tau, ls, c in ((0, 0.95, 0.045, 1.15, 0.55, "-", BLUE), (30, 1.07, 0.055, 0.95, 0.60, "--", VERM),
+    for sw, Mr, w, amp, tau, ls, c in ((0, 1.0, 0.045, 1.15, 0.55, "-", BLUE), (30, 1.07, 0.055, 0.95, 0.60, "--", VERM),
                                        (45, 1.24, 0.085, 0.70, 0.75, "-.", GREEN), (60, 1.68, 0.16, 0.44, 1.3, ":", AGED)):
         rise = amp / (1 + np.exp(-(M - Mr) / w)) / (1 + np.clip(M - Mr, 0, None) / tau) ** 1.5
         i = int(np.argmax(rise))
@@ -876,7 +900,7 @@ def stall_progression():
     # leading edge, chord, and the height of the stalled region above the trailing edge, along the half span
     plan = [(0 * x + cr / 2, 0 * x + cr, 0.55 * cr * np.sqrt(np.clip(1 - (x / 0.45) ** 2, 0, None)), "root stalls first"),
             (cr / 2 * np.sqrt(1 - x ** 2), cr * np.sqrt(1 - x ** 2), 0.35 * cr * np.sqrt(1 - x ** 2), "whole span at once"),
-            (cr / 2 - 0.25 * 0.6 * cr * x, cr * (1 - 0.6 * x), 0.5 * cr * (1 - 0.6 * x) * np.exp(-((x - 0.66) / 0.2) ** 2), "tip stalls first"),
+            (cr / 2 - 0.25 * 0.6 * cr * x, cr * (1 - 0.6 * x), 0.5 * cr * (1 - 0.6 * x) * np.exp(-((x - 0.66) / 0.2) ** 2), "outboard stalls first"),
             (cr / 2 - np.tan(np.radians(35)) * x, cr * (1 - 0.45 * x), 0.6 * cr * (1 - 0.45 * x) * np.exp(-((x - 0.92) / 0.2) ** 2), "tip stalls first")]
     for ax, (le, chord, h, label) in zip(axes[1], plan):
         ax.set_aspect("equal")
@@ -991,20 +1015,22 @@ def stall_speed():
 
 
 def wing_height():
-    """Front views of a jet with the wing on top of the fuselage and under it, on its landing gear."""
+    """Front views of a jet with the wing high and low on the fuselage, on its landing gear. The
+    height h is measured to the wing at the spanwise station of the mean geometric chord."""
     fig, axes = plt.subplots(1, 2, figsize=(8, 2.9))
     th = np.linspace(0, 2 * np.pi, 80)
-    ground = -1.25
+    ground, root, tipx, lam = -1.25, 0.38, 2.9, 0.4
+    xm = root + (1 + 2 * lam) / (3 * (1 + lam)) * (tipx - root)       # station of the MGC of the exposed half wing
+    assert abs((xm - root) / (tipx - root) - 0.4286) < 0.001
     for ax, hw, gamma, title in zip(axes, (0.38, -0.30), (-2.0, 4.0), ("High wing", "Low wing")):
         ax.set_aspect("equal")
         ax.axis("off")
         ax.plot([-3.3, 3.3], [ground, ground], color=STEEL, lw=1.2)
         g = np.tan(np.radians(gamma))
-        ty = 0.0 if hw > 0 else 0.34                    # tailplane, kept clear of the wing in this view
+        ty = 0.0 if hw > 0 else 0.34                    # horizontal tail, kept clear of the wing in this view
         ax.add_patch(Polygon([(-1.2, ty), (1.2, ty), (1.2, ty + 0.05), (-1.2, ty + 0.05)], closed=True, fc=LIGHT, ec=AGED, lw=1.0, zorder=1))
         ax.add_patch(Polygon([(-0.06, 0.4), (-0.03, 1.55), (0.03, 1.55), (0.06, 0.4)], closed=True, fc=LIGHT, ec=AGED, lw=1.0, zorder=1))   # fin
         for sgn in (1, -1):
-            root, tipx = 0.38, 2.9
             ytip = hw + g * (tipx - root)
             ax.add_patch(Polygon([(sgn * root, hw + 0.09), (sgn * tipx, ytip + 0.03), (sgn * tipx, ytip - 0.03), (sgn * root, hw - 0.09)],
                                  closed=True, fc=GOLD, ec=AGED, lw=1.2, zorder=3 if hw > 0 else 2))
@@ -1015,8 +1041,9 @@ def wing_height():
             ax.add_patch(FancyBboxPatch((foot[0] - 0.07, ground), 0.14, 0.4, boxstyle="round,pad=0,rounding_size=0.06", fc=STEEL, ec=STEEL, zorder=1.6))
         ax.add_patch(Polygon(np.column_stack([0.27 * np.cos(th[:41]), 0.40 + 0.34 * np.sin(th[:41])]), closed=True, fc="#C9D5E1", ec=AGED, lw=1.0, zorder=2.5))
         ax.add_patch(Polygon(np.column_stack([0.5 * np.cos(th), 0.52 * np.sin(th)]), closed=True, fc=DUST, ec=AGED, lw=1.5, zorder=2.6))
-        ax.annotate("", xy=(3.05, hw + g * (2.9 - 0.38)), xytext=(3.05, ground), arrowprops=dict(arrowstyle="<->", color=STEEL, lw=1))
-        ax.text(3.15, (hw + g * (2.9 - 0.38) + ground) / 2, "$h$", fontsize=12, color=STEEL, va="center")
+        ym = hw + g * (xm - root)                        # the wing at the mean geometric chord
+        ax.annotate("", xy=(xm, ym), xytext=(xm, ground), arrowprops=dict(arrowstyle="<->", color=INK, lw=1, shrinkA=0, shrinkB=0), zorder=4)
+        ax.text(xm + 0.1, (ym + ground) / 2, "$h$", fontsize=12, color=INK, va="center")
         ax.set_xlim(-3.4, 3.6)
         ax.set_ylim(ground - 0.1, 1.7)
         ax.set_title(title, fontsize=12)

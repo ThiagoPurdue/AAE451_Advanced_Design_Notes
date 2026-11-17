@@ -76,11 +76,15 @@ A04: each choice is traced to a requirement and entered in {term}`ASORT`.
 
 :::{figure} figures/naca-families.svg
 :label: fig-naca-families
-:alt: Six airfoil outlines in two rows with their mean camber lines dashed. Top row: NACA 0012, symmetric and 12 percent thick, with a straight camber line; NACA 2412, with a gently arched camber line that peaks at 40 percent of the chord; NACA 23012, with its camber concentrated near the leading edge, at 15 percent of the chord. Bottom row: NACA 65 2-415, a 6-series section 15 percent thick, thickest at 40 percent of the chord, with a thin cusped rear; NASA NLF(1)-0416, a laminar section 16 percent thick with a concave lower surface near the trailing edge; NASA SC(2)-0714, a supercritical section 14 percent thick with a blunt nose, a nearly flat upper surface, a lower surface that curves up over the last third of the chord, and a blunt trailing edge that droops below the chord line.
+:alt: Six airfoil outlines in two rows with their mean camber lines dashed. Top row: NACA 0012, symmetric and 12 percent thick, with a straight mean camber line; NACA 2412, with a gently arched one that peaks at 40 percent of the chord; NACA 23012, with its camber concentrated near the leading edge, at 15 percent of the chord. Bottom row: NACA 65 2-415, a 6-series airfoil, thickest at 40 percent of the chord, with a thin cusped rear; NASA NLF(1)-0416, a laminar airfoil 16 percent thick, concave under the trailing edge; NASA SC(2)-0714, a supercritical airfoil with a blunt nose, a nearly flat upper surface, aft camber, and a blunt trailing edge.
 :width: 100%
 
-Six airfoils, at least one from each family in the table below. The NACA 0012, 2412, and 23012 are computed from the published shape equations: the 4-digit and 5-digit numbers encode camber and thickness. The 6-series and the newer laminar and supercritical families are defined by their pressure distributions and have no simple formula; the NACA 65$_2$-415 (NACA Report 824), the NASA NLF(1)-0416 (NASA TP-1861), and the NASA SC(2)-0714 (NASA TP-2969) are drawn from their published coordinates, as listed in the UIUC Airfoil Coordinates Database. Gudmundsson (2022), Figure 8-39, shows the measured lift curves and polars of five such airfoils from NACA Report 824.
+Six airfoils, at least one from each family in {numref}`tbl-airfoil-families`. The NACA 0012, 2412, and 23012 are computed from the published shape equations. The NACA 65$_2$-415 (NACA Report 824), the NASA NLF(1)-0416 (NASA TP-1861), and the NASA SC(2)-0714 (NASA TP-2969) are drawn from their published coordinates, as listed in the UIUC Airfoil Coordinates Database.
 :::
+
+- The 4-digit and 5-digit numbers encode camber and thickness.
+- The 6-series and the newer laminar and supercritical families are defined by their pressure distributions and have no simple formula.
+- Gudmundsson (2022), Figure 8-39, shows the measured lift curves and polars of five such airfoils.
 
 :::{table} Airfoil families and what each trades. After Gudmundsson (2022), Tables 8-7 and 8-12, and Nicolai and Carichner (2010).
 :label: tbl-airfoil-families
@@ -105,10 +109,10 @@ A04 accepts only cited, published data. Start with NACA Report 824 and Gudmundss
 
 :::{figure} figures/section-data.svg
 :label: fig-section-data
-:alt: Two plots of the measured NACA 65 2-415 at a Reynolds number of 6 million. Left, section lift coefficient against angle of attack: a straight line through the zero-lift angle, marked at about minus 2.6 degrees, with its linear range and slope labeled and a dashed extension of the straight line; the curve leaves the line near 9 degrees, bends over to the maximum lift coefficient of about 1.6 at the stall angle near 18 degrees, marked, then falls to about 1.1 at 23 degrees. Right, section lift coefficient against drag coefficient: a polar whose drag coefficient stays near 0.0043 between lift coefficients of about 0.1 and 0.65, a shaded band labeled drag bucket, the low-drag range, with the minimum drag marked inside it; outside the band the drag rises quickly, to about 0.008 at a lift coefficient of 0.8 and 0.02 at 1.4.
+:alt: Two plots of measured data for the NACA 65 2-415. Left, section lift coefficient against angle of attack: a straight line through the zero-lift angle, marked at about minus 2.6 degrees, with its linear range and slope labeled. The curve bends over to the maximum lift coefficient, marked at about 1.6 near 18 degrees, the stall angle, then falls to about 1.1 at 23 degrees. Right, section lift coefficient against drag coefficient: the drag stays near 0.0043 for lift coefficients from 0.1 to 0.65, a shaded band labeled drag bucket, the low-drag range, with the minimum drag marked inside it. Above the band the drag rises to about 0.02 at a lift coefficient of 1.4.
 :width: 100%
 
-What to read from an airfoil's lift curve and drag polar. The curves are the NACA 65$_2$-415 measured at a Reynolds number of 6 million (NACA Report 824), read from Gudmundsson (2022), Figure 8-74; his Figure 8-5 marks the same quantities on the NACA 4415.
+What to read from an airfoil's lift curve and drag polar. NACA 65$_2$-415 (NACA Report 824); values read from Gudmundsson (2022), Figure 8-74. His Figure 8-5 marks the same quantities on the NACA 4415.
 :::
 
 Read from the curves:
@@ -129,10 +133,10 @@ A04 Deliverable 1: the lift curve and polar of the selected airfoil, from publis
 
 :::{figure} figures/camber-effect.svg
 :label: fig-camber
-:alt: Left, lift coefficient against angle of attack for the cambered NACA 64 1-412, solid, and the symmetric NACA 64 1-012, dashed, with markers at the tabulated values. The cambered curve is shifted up and to the left: it crosses zero lift at minus 2.6 degrees, marked alpha ZL, against 0 degrees for the symmetric airfoil, and reaches a maximum lift coefficient of 1.67 against 1.44, both at 15 degrees. Right, the drag polars with markers at lift coefficients of 0, 0.4, and 0.8. The symmetric airfoil has its low-drag bucket around zero lift, with a drag coefficient of 0.0042; the cambered airfoil has it around a lift coefficient of 0.4, with 0.0046. At zero lift the cambered airfoil is at 0.0058, at 0.4 the symmetric one is at 0.0062, and at 0.8 the two are close, 0.0076 and 0.0081.
+:alt: Left, lift coefficient against angle of attack for the cambered NACA 64 1-412, solid, and the symmetric NACA 64 1-012, dashed, with markers at the tabulated values. The cambered curve is shifted up and to the left: it crosses zero lift at minus 2.6 degrees, marked alpha ZL, against 0 degrees, and reaches a maximum lift coefficient of 1.67 against 1.44, both at 15 degrees. Right, the drag polars with markers at lift coefficients of 0, 0.4, and 0.8. The symmetric airfoil has its drag bucket around zero lift; the cambered airfoil has it around 0.4. Drag coefficients, symmetric then cambered: 0.0042 and 0.0058 at zero lift, 0.0062 and 0.0046 at 0.4, 0.0081 and 0.0076 at 0.8.
 :width: 100%
 
-The effect of camber on the lift curve and the drag polar, shown by the NACA 64$_1$-012 and the NACA 64$_1$-412: the same thickness form without and with camber. The markers are the values of Gudmundsson (2022), Table 8-9 (NACA Report 824, Reynolds number about 9 million); the lines are smooth curves through them, after his Figure 8-54. Trends from Table 8-4.
+The effect of camber on the lift curve and the drag polar: the NACA 64$_1$-012 and the NACA 64$_1$-412, the same thickness without and with camber. Markers: values from Gudmundsson (2022), Table 8-9 (NACA Report 824, Reynolds number about 9 million). Lines: smooth curves through them, after his Figure 8-54 and Table 8-4.
 :::
 
 ::::{grid} 1 1 2 2
@@ -196,13 +200,14 @@ Decide whether "basic maneuvers" include stalls. Either way, find the stall clas
 
 :::{figure} figures/mach-effects.svg
 :label: fig-mach-effects
-:alt: Left, lift coefficient against angle of attack at Mach 0.2, 0.6, 0.7, and 0.8: the slope steepens with Mach number, and at 0.7 and 0.8 the curves peak lower and earlier. Right, section drag coefficient against Mach number: flat at the incompressible level, then rising steeply. A dashed vertical line marks the critical Mach number at the start of the rise, drawn at Mach 0.60; a marker at Mach 0.70 shows the Boeing definition of drag divergence, where the drag is 0.002 above the incompressible level of 0.006, and a second marker just after it, at Mach 0.71, shows the Douglas definition, where the slope reaches 0.10 per unit Mach.
+:alt: Left, lift coefficient against angle of attack at Mach 0.2, 0.6, 0.7, and 0.8: from 0.2 to 0.7 the slope steepens and the stall comes earlier at about the same maximum lift coefficient; at Mach 0.8 the curve is a shallower line through zero lift near 0 degrees. Right, section drag coefficient against Mach number: flat at the incompressible level of 0.006, then rising steeply. A dashed line at Mach 0.60 marks where the wave drag starts, labeled the M crit of the Korn relation. A marker at Mach 0.70 shows the Boeing definition of drag divergence, 0.002 above the incompressible level; a second marker at Mach 0.71 shows the Douglas definition, a slope of 0.10 per unit Mach.
 :width: 100%
 
-Mach number effects on the lift curve and the drag coefficient, with the critical and drag divergence Mach numbers. Schematic, after Gudmundsson (2022), Figure 8-67. The drag rise is drawn with the Mach numbers of a conventional airfoil 12 percent thick at a lift coefficient of 0.4, for which {eq}`eq-korn-section` gives $M_{dd}$ = 0.71.
+Mach number effects on the lift curve and the drag coefficient, with the critical and drag divergence Mach numbers. Schematic, after Gudmundsson (2022), Figure 8-67. The drag rise is drawn for a conventional airfoil with $t/c$ = 0.12 at $C_l$ = 0.4: {eq}`eq-korn-section` gives $M_{dd}$ = 0.71, and the wave drag starts 0.108 below it.
 :::
 
-- $M_{crit}$, the {term}`critical Mach number`: the first sonic point on the airfoil.
+- $M_{crit}$, the {term}`critical Mach number`: the first sonic point on the airfoil. Airfoil data list it: 0.70 for the NACA 64$_1$-412 (Gudmundsson 2022, Table 8-9).
+- Drag-rise models use the same symbol for the Mach number at which the wave drag starts, 0.108 below $M_{dd}$ in the Korn relation of [part 2](wing-geometry-and-lift.md). {numref}`fig-mach-effects` marks that value.
 - $M_{dd}$, the {term}`drag divergence Mach number`. Boeing: $C_d$ 0.002 above the incompressible level. Douglas: $dC_d/dM = 0.10$.
 - The Korn relation for an airfoil (Gudmundsson 2022, Eq. 8-67):
 
@@ -231,10 +236,10 @@ Transonic flow over an airfoil as the Mach number rises. Schematic, after Nicola
 
 :::{figure} figures/supercritical-airfoil.svg
 :label: fig-supercritical
-:alt: Two columns. Left, a conventional airfoil, the NACA 64A410, at Mach 0.72 with a shaded supersonic region on the upper surface that ends in a strong shock at mid-chord and separated flow behind it; below it, the pressure coefficient along the chord, upper surface solid and lower surface dashed: the upper-surface suction grows to about minus 1.25, well beyond the sonic value of minus 0.70 marked by a dotted line, and jumps to about minus 0.3 at the shock. Right, a supercritical airfoil, the NASA SC(2)-0710, at Mach 0.80, flatter on top, with a longer and lower supersonic region that ends in a weak shock at about 72 percent of the chord; below it, a flat pressure plateau near minus 0.75 on the upper surface, just beyond the sonic value of minus 0.43, a small step at the shock, and aft loading: the lower-surface pressure rises to about plus 0.45 near 85 percent of the chord. In both plots the two surfaces meet at the trailing edge.
+:alt: Left, the conventional NACA 64A410 at Mach 0.72: a supersonic region on the upper surface ends in a strong shock at mid-chord, with separated flow behind it. Below, the pressure coefficient, upper surface solid, lower dashed: the upper surface reaches about minus 1.25, past the sonic value of minus 0.70, and jumps to about minus 0.3 at the shock. Right, the supercritical NASA SC(2)-0710 at Mach 0.80, flatter on top: a longer, lower supersonic region ends in a weak shock near 72 percent of the chord. Below, the upper surface holds a plateau near minus 0.75, past the sonic value of minus 0.43, with a small step at the shock; the lower surface rises to about plus 0.45 near 85 percent, the aft loading.
 :width: 90%
 
-A conventional airfoil (NACA 64A410) and a supercritical airfoil (NASA SC(2)-0710) of the same thickness, 10 percent, at the same lift coefficient. The outlines are the published coordinates. The flow and the pressure distributions are schematic, after Nicolai and Carichner (2010), Figure 2.22, with the sonic pressure coefficient computed for each Mach number.
+A conventional airfoil (NACA 64A410) and a supercritical airfoil (NASA SC(2)-0710), both with $t/c$ = 0.10, at the same lift coefficient. Outlines from the published coordinates (NACA Report 903 and NASA TP-2969, as listed in the UIUC Airfoil Coordinates Database). Flow and pressure distributions schematic, after Nicolai and Carichner (2010), Figure 2.22; the sonic pressure coefficient is computed for each Mach number.
 :::
 
 - A flatter upper surface gives a weaker shock and less separation.
@@ -282,10 +287,10 @@ $W/S$ is the ASORT value. The design $C_L$ is provisional until the constraint d
 
 :::{figure} figures/airfoil-comparison.svg
 :label: fig-airfoil-comparison
-:alt: Two plots comparing the NACA 65 2-415, solid, and the NACA 23015, dashed, both measured at a Reynolds number of 6 million. Left, the drag polars with horizontal dotted lines at an example cruise lift coefficient of 0.3 and an example climb lift coefficient of 0.7. The 65 2-415 has a drag bucket: at the cruise line its drag coefficient is about 0.0043 against 0.0065 for the 23015. The climb line sits at the upper edge of the bucket, where the 65 2-415 is still lower, about 0.0054 against 0.0073; above a lift coefficient of about 0.8 the 23015 has the lower drag. Right, the lift curves: the 23015 reaches the higher maximum lift coefficient, 1.69 against 1.62, and then drops abruptly to about 1.1 within 2 degrees, while the 65 2-415 rounds over and falls gradually.
+:alt: Two plots comparing measured data for the NACA 65 2-415, solid, and the NACA 23015, dashed. Left, the drag polars with dotted lines at example cruise and climb lift coefficients of 0.3 and 0.7. At cruise, inside the drag bucket of the NACA 65 2-415, its drag coefficient is about 0.0043 against 0.0065 for the NACA 23015. At climb, the upper edge of the bucket, about 0.0054 against 0.0073. Above a lift coefficient of about 0.8 the NACA 23015 has the lower drag. Right, the lift curves: the NACA 23015 reaches the higher maximum lift coefficient, 1.69 against 1.62, then drops to 1.1 within 2 degrees; the NACA 65 2-415 rounds over and falls gradually.
 :width: 100%
 
-How two candidates are compared: at the lift coefficients you fly on the polar, and at $C_{l_{max}}$ on the lift curve. The curves are the NACA 65$_2$-415 and the NACA 23015 measured at a Reynolds number of 6 million (NACA Report 824), read from Gudmundsson (2022), Figure 8-74. The cruise and climb lift coefficients, 0.3 and 0.7, are examples.
+How two candidates are compared: at the lift coefficients you fly on the polar, and at $C_{l_{max}}$ on the lift curve. NACA 65$_2$-415 and NACA 23015 (NACA Report 824); values read from Gudmundsson (2022), Figure 8-74. The cruise and climb lift coefficients, 0.3 and 0.7, are examples.
 :::
 
 :::{admonition} Navy Jet Trainer

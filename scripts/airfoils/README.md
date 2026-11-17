@@ -17,13 +17,20 @@ and Gudmundsson (2022), Table 8-10, give; the ordinates were not checked against
 reports themselves.
 
 `gudmundsson-fig-8-74.json`: the lift curves and drag polars of the NACA 23015 and the
-NACA 65(2)-415 at a Reynolds number of 6 million (data of NACA Report 824), read from the
-plotted curves of Gudmundsson (2022), Figure 8-74, by color segmentation of the figure
-image. The dashed NACA 23015 curves are medians over bins (1 degree of angle of attack on the
-lift curve, 0.03 in lift coefficient on the polar). Reading accuracy is about 0.01 in lift
-coefficient, 0.0002 in drag coefficient and 0.2 degrees in angle of attack. The read curves
-reproduce the values Table 8-9 lists for the two airfoils (slope, zero-lift angle, drag at
-lift coefficients of 0, 0.4 and 0.8) within that accuracy; `section_data` asserts it.
+NACA 65(2)-415 (data of NACA Report 824), read from the plotted curves of Gudmundsson
+(2022), Figure 8-74, by color segmentation of the figure image. The figure and its text
+give no Reynolds number, so none is stated here or on the page. The dashed NACA 23015
+curves are medians over bins (1 degree of angle of attack on the lift curve, 0.03 in lift
+coefficient on the polar). Reading accuracy is about 0.01 in lift coefficient, 0.0002 in
+drag coefficient and 0.2 degrees in angle of attack.
+
+What the scripts assert about the read curves: `section_data` checks the NACA 65(2)-415
+against Gudmundsson's Table 8-9 (lift-curve slope 0.107 per degree, zero-lift angle -2.6
+degrees, minimum drag 0.0042, drag 0.0084 at a lift coefficient of 0.8) and against the
+maximum lift coefficient of 1.62 printed on Figure 8-74; `airfoil_comparison` checks the
+1.62 and the 1.69 printed on the figure for the two airfoils. The NACA 23015 curves are not
+checked against Table 8-9, and they differ from it (the table lists a maximum lift
+coefficient of 1.72 and a drag coefficient of 0.0072 at lift coefficients of 0 and 0.8).
 
 `gudmundsson-fig-10-9.json`: the lift curves of a Clark Y wing model with and without a
 fixed slot at a Reynolds number of 0.63 million (Weick and Wenzinger 1933, NACA Report 407),
