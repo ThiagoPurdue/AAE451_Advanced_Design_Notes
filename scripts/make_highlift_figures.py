@@ -56,136 +56,227 @@ def clean(ax):
     ax.grid(True, color="#DDDDDD", lw=0.6)
 
 
-def lift_curve(a, a0, a_stall, clmax, post=0.04, slope=0.1):
-    x = np.clip(a - a0, 0, None)
-    k = slope / clmax
-    pre = clmax * np.tanh(k * x)
-    cl_stall = clmax * np.tanh(k * (a_stall - a0))
-    pre = pre * clmax / cl_stall
-    pre = np.where(a < a0, slope * (a - a0), pre)
-    post_curve = clmax - post * (a - a_stall) - 0.01 * (a - a_stall) ** 2
-    return np.where(a <= a_stall, pre, post_curve)
+import make_aero_figures as _aero          # the airfoil equations and the lift-curve shape of Lecture 5
+
+lift_curve = _aero.lift_curve
 
 
 # ------------------------------------------------------------ airfoil pieces
-def naca4(m, p, t, n=160):
-    x = 0.5 * (1 - np.cos(np.linspace(0, np.pi, n)))
-    yt = 5 * t * (0.2969 * np.sqrt(x) - 0.1260 * x - 0.3516 * x ** 2 + 0.2843 * x ** 3 - 0.1015 * x ** 4)
-    if p > 0:
-        yc = np.where(x < p, m / p ** 2 * (2 * p * x - x ** 2), m / (1 - p) ** 2 * (1 - 2 * p + 2 * p * x - x ** 2))
-        dyc = np.where(x < p, 2 * m / p ** 2 * (p - x), 2 * m / (1 - p) ** 2 * (p - x))
-    else:
-        yc, dyc = 0 * x, 0 * x
-    th = np.arctan(dyc)
-    return x - yt * np.sin(th), yc + yt * np.cos(th), x + yt * np.sin(th), yc - yt * np.cos(th)
+# Every device is cut from one contour, the NACA 23012 of the NACA slotted-flap reports, computed
+# from the 5-digit equations. Chord fractions, deflections and gaps are in the ranges of
+# Gudmundsson (2022), Chapter 10, and each sketch asserts its own.
+_S = _aero.naca230(0.12, n=400)
+XU, YU, XL, YL = _S[2], _S[3], _S[4], _S[5]
+_I0 = int(np.argmin(XU))                     # the upper surface doubles back by 0.001 c at the nose
+up = lambda x: np.interp(x, XU[_I0:], YU[_I0:])
+lo = lambda x: np.interp(x, XL, YL)
 
 
-XU, YU, XL, YL = naca4(0.02, 0.4, 0.14)
+def surf(x0, x1, upper=True, n=80):
+    """Points of the upper or lower surface from station x0 to x1 (either order)."""
+    x = np.linspace(x0, x1, n)
+    return np.column_stack([x, up(x) if upper else lo(x)])
 
 
-def piece(x0, x1):
-    """Closed polygon of the airfoil between chordwise stations x0 and x1."""
-    mu = (XU >= x0) & (XU <= x1)
-    ml = (XL >= x0) & (XL <= x1)
-    xs = np.concatenate([[x0], XU[mu], [x1], XL[ml][::-1], [x0]])
-    ys = np.concatenate([[np.interp(x0, XU, YU)], YU[mu], [np.interp(x1, XU, YU)], YL[ml][::-1], [np.interp(x0, XL, YL)]])
-    # close the cut faces with straight lines through the interpolated points
-    return np.column_stack([xs, ys])
+def nose_contour(xl, xu_):
+    """The contour around the leading edge, from the lower surface at xl to the upper surface at xu_."""
+    low = np.column_stack([XL, YL])[XL <= xl][::-1]
+    upp = np.column_stack([XU, YU])[_I0:][XU[_I0:] <= xu_]
+    return np.vstack([[xl, lo(xl)], low, np.column_stack([XU, YU])[:_I0][::-1][-1:], upp, [xu_, up(xu_)]])
 
 
-def rotate(pts, pivot, deg):
+def move(pts, pivot, deg, shift=(0.0, 0.0)):
+    """Rotate about the pivot (counterclockwise positive), then translate."""
     th = np.radians(deg)
     R = np.array([[np.cos(th), -np.sin(th)], [np.sin(th), np.cos(th)]])
-    return (pts - pivot) @ R.T + pivot
+    return (np.asarray(pts) - pivot) @ R.T + pivot + np.asarray(shift)
 
 
-def shrouded(x_cut, x_lip, t=0.012):
-    """Main body cut at x_cut whose upper skin runs on to x_lip as a thin shroud lip."""
-    mu = (XU >= 0) & (XU <= x_lip)
-    ml = (XL >= 0) & (XL <= x_cut)
-    y_lip, y_cut = np.interp(x_lip, XU, YU), np.interp(x_cut, XU, YU)
-    xs = np.concatenate([XU[mu], [x_lip, x_lip, x_cut], XL[ml][::-1]])
-    ys = np.concatenate([YU[mu], [y_lip, y_lip - t, y_cut - t], YL[ml][::-1]])
-    return np.column_stack([xs, ys])
+def gap_between(a, b):
+    """Smallest distance between two outlines (dense point sets), in chords."""
+    a, b = _dense(a), _dense(b)
+    return float(np.sqrt(((a[:, None, :] - b[None, :, :]) ** 2).sum(-1)).min())
+
+
+def _dense(p, n=6):
+    p = np.asarray(p)
+    t = np.linspace(0, 1, n, endpoint=False)[:, None]
+    return np.vstack([p[i] + t * (p[i + 1] - p[i]) for i in range(len(p) - 1)] + [p[-1:]])
+
+
+def slotted_flap(x0, x_lip, lip=0.006, clear=0.008, nose_dx=0.04):
+    """A slotted flap of chord 1 - x0 with a rounded nose, stowed under a shroud that ends at
+    x_lip, and the main body with the cove the flap nose fits in. Returns (main, flap)."""
+    xs = np.linspace(x0, x_lip, 50)
+    y_le = lo(x0) + 0.40 * (up(x0) - lo(x0))
+    m = (up(x_lip + 0.005) - up(x_lip - 0.005)) / 0.01
+    u = (x_lip - xs) / (x_lip - x0)
+    top = y_le + (up(x_lip) - y_le) * np.sqrt(1 - u ** 2) + m * (xs - x_lip) * (1 - u)
+    xb = np.linspace(x0, x0 + nose_dx, 25)
+    v = (xb - x0) / nose_dx
+    bot = y_le - (y_le - lo(x0 + nose_dx)) * np.sqrt(1 - (1 - v) ** 2)
+    flap = np.vstack([np.column_stack([xs, top]), surf(x_lip, 1.0), surf(1.0, x0 + nose_dx, upper=False), np.column_stack([xb, bot])[::-1]])
+    cove = np.column_stack([xs - clear, top - 0.5 * clear])[::-1]
+    cove[:, 1] = np.minimum(cove[:, 1], up(x_lip) - lip)
+    main = np.vstack([nose_contour(x0 - clear, x_lip), [x_lip, up(x_lip) - lip], cove, [x0 - clear, lo(x0 - clear)]])
+    return main, flap
+
+
+def hinge_of(stowed, deployed):
+    """The fixed point of the rigid motion that takes the stowed flap to the deployed one: the
+    hinge a simple flap bracket would need. Returns (point, rotation in degrees)."""
+    a0, a1, b0, b1 = stowed[0], stowed[len(stowed) // 2], deployed[0], deployed[len(deployed) // 2]
+    th = np.arctan2(*(b1 - b0)[::-1]) - np.arctan2(*(a1 - a0)[::-1])
+    R = np.array([[np.cos(th), -np.sin(th)], [np.sin(th), np.cos(th)]])
+    return np.linalg.solve(np.eye(2) - R, b0 - R @ a0), float(np.degrees(th))
+
+
+def nose_split(x_up, x_low, bulge=0.05):
+    """Cut the nose off along a curve from the upper surface at x_up to the lower surface at
+    x_low that bulges forward: the fixed leading edge of the main body behind a slat. Returns
+    (main, slat), stowed, the slat's concave back resting on the main body's nose."""
+    U, Lw = np.array([x_up, up(x_up)]), np.array([x_low, lo(x_low)])
+    tu = np.array([0.01, up(x_up + 0.005) - up(x_up - 0.005)])
+    tl = np.array([0.01, lo(x_low + 0.005) - lo(x_low - 0.005)])
+    P1, P2 = U - bulge * 1.6 * tu / np.linalg.norm(tu), Lw - bulge * tl / np.linalg.norm(tl)
+    t = np.linspace(0, 1, 60)[:, None]
+    cut = (1 - t) ** 3 * U + 3 * (1 - t) ** 2 * t * P1 + 3 * (1 - t) * t ** 2 * P2 + t ** 3 * Lw      # upper to lower
+    slat = np.vstack([nose_contour(x_low, x_up), cut[1:-1]])
+    main = np.vstack([cut[::-1], surf(x_up, 1.0), surf(1.0, x_low, upper=False)])
+    return main, slat
 
 
 def draw_device(ax, kind):
     ax.set_aspect("equal")
     ax.axis("off")
-    main_face = dict(fc=LIGHT, ec=INK, lw=1.3)
-    flap_face = dict(fc=DUST, ec=INK, lw=1.3)
+    main_face = dict(fc=LIGHT, ec=INK, lw=1.2, joinstyle="round")
+    flap_face = dict(fc=DUST, ec=INK, lw=1.2, joinstyle="round")
+    add = lambda pts, face: ax.add_patch(Polygon(pts, closed=True, **face))
+    pin = lambda p: ax.plot(*p, "o", color=INK, ms=3.5, zorder=7)
     if kind == "plain":
-        ax.add_patch(Polygon(piece(0, 0.7), closed=True, **main_face))
-        h = np.array([0.7, np.interp(0.7, XU, YU) - 0.5 * (np.interp(0.7, XU, YU) - np.interp(0.7, XL, YL))])
-        ax.add_patch(Polygon(rotate(piece(0.7, 1.0), h, -30), closed=True, **flap_face))
-        ax.plot(*h, "o", color=INK, ms=3)
+        # 20% chord, hinged on the mean line; the flap nose is an arc about the hinge, sealed in the cove
+        xh, d = 0.80, 45.0
+        h = np.array([xh, 0.5 * (up(xh) + lo(xh))])
+        r = 0.5 * (up(xh) - lo(xh))
+        th = np.radians(np.linspace(90, 270, 30))
+        arc = h + r * np.column_stack([np.cos(th), np.sin(th)])
+        flap = np.vstack([arc[::-1], surf(xh, 1.0, upper=False), surf(1.0, xh)])
+        add(np.vstack([nose_contour(xh - 0.2 * r, xh - 0.2 * r), (arc + [0.004, 0])[::-1][3:-3]]), main_face)
+        add(move(flap, h, -d), flap_face)
+        pin(h)
+        assert abs((1 - xh) - 0.20) < 1e-9 and d <= 45
     elif kind == "split":
-        ax.add_patch(Polygon(piece(0, 1.0), closed=True, **main_face))
-        h = np.array([0.7, np.interp(0.7, XL, YL)])
-        plate = np.array([[0.7, h[1]], [1.0, np.interp(1.0, XL, YL)], [1.0, np.interp(1.0, XL, YL) - 0.012], [0.7, h[1] - 0.012]])
-        ax.add_patch(Polygon(rotate(plate, h, -45), closed=True, **flap_face))
-        ax.plot(*h, "o", color=INK, ms=3)
-    elif kind == "single":
-        # the flap nose sits just below and behind the shroud lip, leaving a narrow slot
-        ax.add_patch(Polygon(shrouded(0.72, 0.84), closed=True, **main_face))
-        f = piece(0.72, 1.0) + np.array([0.06, -0.05])
-        ax.add_patch(Polygon(rotate(f, f[0], -35), closed=True, **flap_face))
+        # 20% chord plate on the lower surface; the upper surface does not move
+        xh, d = 0.80, 60.0
+        add(np.vstack([nose_contour(1.0, 1.0)]), main_face)
+        h = np.array([xh, lo(xh)])
+        plate = np.vstack([surf(xh, 1.0, upper=False, n=12), surf(1.0, xh, upper=False, n=12) - [0, 0.010]])
+        add(move(plate, h, -d), flap_face)
+        pin(h)
+        assert d <= 60
+    elif kind in ("single", "fowler"):
+        # 30% chord flap; the single-slotted flap swings on a bracket below the wing, the Fowler
+        # flap runs aft on tracks until its nose is under the end of the shroud
+        x0, d = 0.70, 40.0
+        x_lip, nose_at = (0.84, (-0.035, -0.030)) if kind == "single" else (0.92, (-0.012, -0.030))
+        main, flap = slotted_flap(x0, x_lip)
+        le = flap[0]
+        out = move(flap, le, -d, np.array([x_lip, up(x_lip)]) + nose_at - le)
+        add(main, main_face)
+        add(out, flap_face)
+        g = gap_between(main, out)
+        hinge, turned = hinge_of(flap, out)
+        assert abs(turned + d) < 0.5 and 0.015 < g < 0.035, (kind, g)       # slot gap of 1.5% to 3.5% chord
+        if kind == "single":
+            assert 0.6 < hinge[0] < 0.9 and lo(hinge[0]) - 0.20 < hinge[1] < lo(hinge[0]) - 0.03, hinge   # a bracket below the wing
+            ax.plot([0.66, hinge[0]], [lo(0.66), hinge[1]], color=INK, lw=1.0)
+            ax.plot([hinge[0], out[len(out) // 2 + 30][0]], [hinge[1], out[len(out) // 2 + 30][1]], color=INK, lw=1.0)
+            pin(hinge)
+        else:
+            assert out[:, 0].max() > 1.12                                    # the chord grows by more than 12%
     elif kind == "double":
-        ax.add_patch(Polygon(shrouded(0.72, 0.80), closed=True, **main_face))
-        v = piece(0.72, 0.85) + np.array([0.04, -0.04])
-        v = rotate(v, v[0], -18)
-        ax.add_patch(Polygon(v, closed=True, **flap_face))
-        f = piece(0.85, 1.0) + np.array([0.085, -0.10])
-        ax.add_patch(Polygon(rotate(f, f[0], -50), closed=True, **flap_face))
-    elif kind == "fowler":
-        # the flap runs aft on tracks: its nose clears the shroud lip, so the chord grows
-        ax.add_patch(Polygon(shrouded(0.72, 0.85), closed=True, **main_face))
-        f = piece(0.72, 1.0) + np.array([0.13, -0.055])
-        ax.add_patch(Polygon(rotate(f, f[0], -30), closed=True, **flap_face))
+        # fixed vane and flap that move together: the vane at about 30 deg, the flap at 55 deg
+        x0, x_lip, dv, df = 0.70, 0.82, 30.0, 55.0
+        main, flap = slotted_flap(x0, x_lip)
+        s = _aero.naca4(0.08, 0.4, 0.18, n=60)                              # the vane: a small cambered section, 14% chord
+        vane = 0.14 * np.column_stack([np.r_[s[2], s[4][::-1]], np.r_[s[3], s[5][::-1]]])
+        vane = move(vane, (0, 0), -dv, np.array([x_lip, up(x_lip)]) + (-0.04, -0.036))
+        aft = flap * [0.80, 0.80] + [0.2, 0.0]                               # the flap behind the vane: 24% chord
+        le = aft[0]
+        vte = vane[np.argmax(vane[:, 0])]
+        aft = move(aft, le, -df, vte + (-0.02, -0.02) - le)
+        add(main, main_face)
+        add(vane, flap_face)
+        add(aft, flap_face)
+        g1, g2 = gap_between(main, vane), gap_between(vane, aft)
+        assert 0.012 < g1 < 0.035 and 0.010 < g2 < 0.035, (g1, g2)
     elif kind == "droop":
-        ax.add_patch(Polygon(piece(0.15, 1.0), closed=True, **main_face))
-        h = np.array([0.15, 0.5 * (np.interp(0.15, XU, YU) + np.interp(0.15, XL, YL))])
-        ax.add_patch(Polygon(rotate(piece(0, 0.15), h, -22), closed=True, **flap_face))
-        ax.plot(*h, "o", color=INK, ms=3)
-    elif kind == "slot":
-        ax.add_patch(Polygon(piece(0.14, 1.0), closed=True, **main_face))
-        ax.add_patch(Polygon(piece(0, 0.11) + np.array([-0.025, -0.012]), closed=True, **flap_face))
+        # 15% chord nose hinged near the lower surface, drooped 25 deg; the upper skin slides on a knuckle
+        xh, d = 0.15, 25.0
+        h = np.array([xh, lo(xh) + 0.25 * (up(xh) - lo(xh))])
+        r = up(xh) - h[1]
+        th = np.radians(np.linspace(90, 90 + d, 12))
+        knuckle = h + r * np.column_stack([np.cos(th), np.sin(th)])
+        add(np.vstack([knuckle[::-1], surf(xh, 1.0), surf(1.0, xh, upper=False), [h]]), main_face)
+        add(move(np.vstack([nose_contour(xh, xh), [h]]), h, d), flap_face)
+        pin(h)
+        assert xh == 0.15 and d <= 40
+    elif kind in ("slot", "slat"):
+        # slot: a 12% chord nose piece fixed 2% chord ahead of the main body
+        # slat: a 16% chord nose piece moved forward and down and turned 25 deg nose down
+        x_up, x_low, bulge, d, shift = (0.12, 0.06, 0.025, 0.0, (-0.04, 0.0)) if kind == "slot" else (0.16, 0.08, 0.03, 25.0, (-0.075, -0.02))
+        main, slat = nose_split(x_up, x_low, bulge)
+        out = move(slat, np.array([x_up, up(x_up)]), d, shift)
+        add(main, main_face)
+        add(out, flap_face)
+        g = gap_between(main, out)
+        assert (0.015 < g < 0.025) if kind == "slot" else (0.012 < g < 0.035 and d <= 30), (kind, g)
     elif kind == "kruger":
-        # hinged at the leading edge, swung forward to stand ahead of and below the nose
-        ax.add_patch(Polygon(piece(0, 1.0), closed=True, **main_face))
-        h = np.array([0.02, np.interp(0.02, XL, YL)])
-        plate = np.array([[0.02, h[1]], [0.02 - 0.17, h[1]], [0.02 - 0.17, h[1] - 0.012], [0.02, h[1] - 0.012]])
-        ax.add_patch(Polygon(rotate(plate, h, 35), closed=True, **flap_face))
-        ax.plot(*h, "o", color=INK, ms=3)
-    elif kind == "slat":
-        ax.add_patch(Polygon(piece(0.15, 1.0), closed=True, **main_face))
-        s = piece(0, 0.14) + np.array([-0.08, -0.05])
-        ax.add_patch(Polygon(rotate(s, s[0], -12), closed=True, **flap_face))
-    ax.set_xlim(-0.25, 1.25)
-    ax.set_ylim(-0.33, 0.2)
+        # a panel of 10% chord from the lower surface, swung 125 deg forward about a hinge at the
+        # nose, with a bullnose of radius 0.167 of its chord; no gap to the leading edge
+        cs, d, xh = 0.10, 125.0, 0.012
+        h = np.array([xh, lo(xh)])
+        add(nose_contour(1.0, 1.0), main_face)
+        rb = 0.167 * cs
+        th = np.radians(np.linspace(-90, 90, 20))
+        bull = np.array([cs - rb, 0.0]) + rb * np.column_stack([np.cos(th), np.sin(th)])
+        panel = np.vstack([[0, -0.006], [cs - rb, -0.006], bull * [1, 0.6] + [0, -0.006 * 0], [cs - rb, 0.006], [0, 0.006]])
+        add(move(panel + h, h, -d), flap_face)
+        pin(h)
+        assert 0.07 <= cs <= 0.10 and 110 <= d <= 140
+    # show the half of the airfoil that carries the device, with a break line where the rest is cut off
+    lead = kind in ("droop", "slot", "slat", "kruger")
+    xa, xb = (-0.16, 0.50) if lead else (0.46, 1.24)
+    xc = xb - 0.03 if lead else xa + 0.03
+    zz = np.linspace(lo(xc), up(xc), 7)
+    ax.plot(xc + 0.012 * np.array([0, 1, -1, 1, -1, 1, 0]), zz, color=STEEL, lw=0.9, zorder=6)
+    ax.add_patch(Polygon([(xc, -0.5), (xc, 0.5), (xc + (0.2 if lead else -0.2), 0.5), (xc + (0.2 if lead else -0.2), -0.5)],
+                         closed=True, fc="white", ec="none", zorder=5.5))
+    ax.set_xlim(xa, xb)
+    ax.set_ylim(*((-0.20, 0.13) if lead else (-0.31, 0.12)))
 
 
 def trailing_edge_devices():
-    fig, axes = plt.subplots(1, 5, figsize=(12, 2.6))
+    fig, axes = plt.subplots(1, 5, figsize=(12, 2.3))
     names = [("plain", "Plain", "+0.66 at 45°"), ("split", "Split", "+0.89 at 60°"),
              ("single", "Single-slotted", "+1.32 at 40°"), ("double", "Double-slotted", "+1.40 at 55° to 60°"),
              ("fowler", "Fowler", "+2.24 at 40°")]
     for ax, (k, n, inc) in zip(axes, names):
         draw_device(ax, k)
         ax.set_title(n, fontsize=12)
-        ax.text(0.5, -0.3, inc, ha="center", va="top", fontsize=11, color=STEEL)
+        ax.text(0.5, -0.02, inc, ha="center", va="top", fontsize=11, color=STEEL, transform=ax.transAxes)
     fig.tight_layout()
     save(fig, "trailing-edge-devices")
 
 
 def leading_edge_devices():
-    fig, axes = plt.subplots(1, 4, figsize=(11, 2.6))
+    fig, axes = plt.subplots(1, 4, figsize=(11, 2.3))
     names = [("droop", "Droop nose", "+0.58, stall +7.8°"), ("slot", "Fixed slot", "+0.45, stall +9.0°"),
              ("kruger", "Krüger flap", "+0.30, stall +5.0°"), ("slat", "Slat", "+0.84, stall +11.0°")]
     for ax, (k, n, inc) in zip(axes, names):
         draw_device(ax, k)
         ax.set_title(n, fontsize=12)
-        ax.text(0.5, -0.3, inc, ha="center", va="top", fontsize=11, color=STEEL)
+        ax.text(0.5, -0.02, inc, ha="center", va="top", fontsize=11, color=STEEL, transform=ax.transAxes)
     fig.tight_layout()
     save(fig, "leading-edge-devices")
 
@@ -193,38 +284,53 @@ def leading_edge_devices():
 # ------------------------------------------------------------ lift curves
 def flap_lift_curve():
     fig, ax = plt.subplots(figsize=(8, 4.6))
-    a = np.linspace(-14, 28, 500)
-    curves = [("clean", -2, 15, 1.5, "-", INK), ("trailing-edge flap", -10, 11, 2.3, "--", VERM),
-              ("slat", -2, 24, 2.1, ":", BLUE), ("flap and slat", -10, 20, 2.9, "-.", GREEN)]
+    a = np.linspace(-16, 28, 600)
+    # schematic: a flap moves the zero-lift angle and raises the peak; a slat extends the clean curve
+    curves = [("clean", -2, 15, 1.5, "-", INK), ("trailing-edge flap", -12, 12, 2.3, "--", VERM),
+              ("slat", -2, 24, 2.1, ":", BLUE), ("flap and slat", -12, 21, 2.9, "-.", GREEN)]
     for lab, a0, ast, clmax, ls, c in curves:
-        ax.plot(a, lift_curve(a, a0, ast, clmax, post=0.05), ls=ls, color=c, lw=2.2, label=lab)
+        show = a <= ast + 5
+        ax.plot(a[show], lift_curve(a, a0, ast, clmax, drop=0.4, width=4.0)[show], ls=ls, color=c, lw=2.2, label=lab)
+    (_, _, s0, c0, _, _), (_, _, s1, c1, _, _), (_, _, s2, c2, _, _), (_, _, s3, c3, _, _) = curves
+    assert c1 > c0 and s1 < s0 and c2 > c0 and s2 > s0 and c3 > max(c1, c2) and s1 < s3 < s2
     ax.axhline(0, color=STEEL, lw=0.7)
     ax.axvline(0, color=STEEL, lw=0.7)
     # labels in the open corners: the curves run through the lower half of the plot
-    ax.text(-13.5, 3.15, "a flap shifts the curve up and left:\nhigher $C_{l_{max}}$, lower $\\alpha_{stall}$", fontsize=10.5, color=VERM, va="bottom")
-    ax.text(15.0, 3.15, "a slat extends the curve:\nhigher $C_{l_{max}}$ and $\\alpha_{stall}$", fontsize=10.5, color=BLUE, va="bottom")
+    ax.text(-15.5, 3.15, "a flap shifts the curve up and left:\nhigher $C_{l_{max}}$, lower $\\alpha_{stall}$", fontsize=10.5, color=VERM, va="bottom")
+    ax.text(13.0, 3.15, "a slat extends the curve:\nhigher $C_{l_{max}}$ and $\\alpha_{stall}$", fontsize=10.5, color=BLUE, va="bottom")
     ax.set_xlabel(r"Angle of attack $\alpha$ (deg)")
     ax.set_ylabel("Section lift coefficient $C_l$")
-    ax.set_xlim(-14, 28)
+    ax.set_xlim(-16, 28)
     ax.set_ylim(-1.0, 3.8)
-    ax.legend(frameon=False, fontsize=10, loc="upper left", bbox_to_anchor=(-14, 2.6), bbox_transform=ax.transData)
+    ax.legend(frameon=False, fontsize=10, loc="lower right")
     clean(ax)
     fig.tight_layout()
     save(fig, "flap-lift-curve")
 
 
 def slot_lift_curve():
+    """The Clark Y with and without a fixed slot, Re = 0.63e6 (NACA Report 407), read from the
+    plotted curves of Gudmundsson (2022), Figure 10-9."""
+    import json
+    data = json.loads((_aero.AIRFOILS / "gudmundsson-fig-10-9.json").read_text())
+    plain, slot = np.array(data["plain"]), np.array(data["slot"])
+    ip, js = int(np.argmax(plain[:, 1])), int(np.argmax(slot[:, 1]))
+    # the values printed on the source figure, and the increments of its Table 10-2
+    assert abs(plain[ip, 1] - 1.297) < 0.02 and abs(slot[js, 1] - 1.751) < 0.02
+    assert abs((slot[js, 1] - plain[ip, 1]) - 0.45) < 0.02 and abs((slot[js, 0] - plain[ip, 0]) - 9.0) < 1.0
     fig, ax = plt.subplots(figsize=(7, 4.2))
-    # Clark Y with and without a slot, after Gudmundsson Fig. 8-61: stall 12° -> 18°, peak 1.38 -> 1.96
-    a = np.linspace(-6, 28, 500)
-    ax.plot(a, lift_curve(a, -3, 12, 1.38, post=0.05), color=INK, lw=2.2, label="clean airfoil")
-    ax.plot(a, lift_curve(a, -3, 18, 1.96, post=0.05), color=BLUE, lw=2.2, ls="--", label="with a fixed slot")
+    ax.plot(plain[:, 0], plain[:, 1], color=INK, lw=2.2, label="Clark Y")
+    ax.plot(slot[:, 0], slot[:, 1], color=BLUE, lw=2.2, ls="--", label="Clark Y with a fixed slot")
     ax.axhline(0, color=STEEL, lw=0.7)
-    ax.text(10.0, 2.12, "the slot delays the stall\nby about 6 degrees", fontsize=10.5, color=BLUE, va="bottom")
+    ax.annotate("", xy=(slot[js, 0], 0.55), xytext=(plain[ip, 0], 0.55), arrowprops=dict(arrowstyle="<->", color=BLUE, lw=1.1))
+    for x, y in ((plain[ip, 0], plain[ip, 1]), (slot[js, 0], slot[js, 1])):
+        ax.plot([x, x], [0.5, y], color=STEEL, lw=0.8, ls=":")
+    ax.text(0.5 * (plain[ip, 0] + slot[js, 0]), 0.5, "the slot delays the\nstall by 9 degrees", fontsize=10.5, color=BLUE, va="top", ha="center")
+    ax.text(27.5, -0.3, "$Re$ = 0.63 × 10$^6$, NACA Report 407", fontsize=10, color=STEEL, ha="right")
     ax.set_xlabel(r"Angle of attack $\alpha$ (deg)")
     ax.set_ylabel("$C_l$")
     ax.set_xlim(-6, 28)
-    ax.set_ylim(-0.5, 2.6)
+    ax.set_ylim(-0.5, 2.2)
     ax.legend(frameon=False, fontsize=10, loc="upper left")
     clean(ax)
     fig.tight_layout()

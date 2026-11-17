@@ -25,5 +25,10 @@ coefficient, 0.0002 in drag coefficient and 0.2 degrees in angle of attack. The 
 reproduce the values Table 8-9 lists for the two airfoils (slope, zero-lift angle, drag at
 lift coefficients of 0, 0.4 and 0.8) within that accuracy; `section_data` asserts it.
 
+`gudmundsson-fig-10-9.json`: the lift curves of a Clark Y wing model with and without a
+fixed slot at a Reynolds number of 0.63 million (Weick and Wenzinger 1933, NACA Report 407),
+read the same way from Gudmundsson (2022), Figure 10-9. The peaks reproduce the values
+printed on that figure (1.297 and 1.751) within 0.01.
+
 The NACA 4-digit and 5-digit sections are not stored here: `make_aero_figures.py`
 computes them from the NACA equations (`naca4`, `naca230`).

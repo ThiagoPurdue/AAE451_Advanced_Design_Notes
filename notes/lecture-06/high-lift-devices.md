@@ -92,10 +92,10 @@ Lower speeds and shorter fields. $L/D$ for the takeoff climb. Drag for a steeper
 
 :::{figure} figures/trailing-edge-devices.svg
 :label: fig-trailing-edge-devices
-:alt: Five airfoil sketches with the trailing-edge device deployed. Plain: the aft part of the airfoil hinged down. Split: a plate on the lower surface hinged down, the upper surface unchanged. Single-slotted: the flap moved down and back with a gap to the wing. Double-slotted: a vane and a flap, each with its own gap. Fowler: the flap moved well back, extending the chord, and deflected.
+:alt: Five sketches of the aft half of a NACA 23012 airfoil with the trailing-edge device deployed. Plain: the last 20 percent of the chord hinged down 45 degrees about a hinge on the mean line. Split: a plate over the last 20 percent of the lower surface hinged down 60 degrees, the upper surface unchanged. Single-slotted: a flap of 30 percent chord with a rounded nose, swung down 40 degrees on a bracket hinged below the wing, with a gap of about 2 percent of the chord under the shroud. Double-slotted: a small vane at 30 degrees and a flap at 55 degrees, each with its own gap. Fowler: the 30 percent flap moved back until its nose is under the end of the shroud, extending the chord by about 14 percent, and deflected 40 degrees.
 :width: 100%
 
-The trailing-edge devices, with the section increment $\Delta C_{l_{max}}$ at the stated deflection. After Gudmundsson (2022), Figures 10-22, 10-28, 10-33, 10-37, and 10-40.
+The trailing-edge devices, with the section increment $\Delta C_{l_{max}}$ at the stated deflection. After Gudmundsson (2022), Figures 10-22, 10-28, 10-33, 10-37, and 10-40. Each device is cut from the NACA 23012 contour and drawn at the stated deflection.
 :::
 
 :::{table} Trailing-edge devices. The increment is the section $\Delta C_{l_{max}}$ at the stated deflection, with a flap chord of 0.2 $c$ for the plain and split flaps and 0.3 $c$ for the slotted and Fowler flaps. After Gudmundsson (2022), Table 10-4.
@@ -121,10 +121,10 @@ A04 Deliverable 3: choose from these types and from the leading-edge devices.
 
 :::{figure} figures/leading-edge-devices.svg
 :label: fig-leading-edge-devices
-:alt: Four airfoil sketches with the leading-edge device deployed. Droop nose: the nose hinged down. Fixed slot: the nose piece separated from the wing by a permanent gap. Krüger flap: a plate hinged from the lower surface and swung forward under the nose. Slat: the nose piece moved forward and down, opening a slot.
+:alt: Four sketches of the nose of a NACA 23012 airfoil with the leading-edge device deployed. Droop nose: the first 15 percent of the chord hinged down 25 degrees. Fixed slot: a nose piece of 12 percent chord separated from the wing by a permanent gap of 2 percent of the chord. Krüger flap: a panel of 10 percent chord with a rounded bullnose, hinged at the lower surface of the nose and swung forward and down. Slat: a nose piece of 16 percent chord moved forward and down and turned 25 degrees nose down, opening a slot over the fixed leading edge.
 :width: 90%
 
-The leading-edge devices, with the section increments $\Delta C_{l_{max}}$ and $\Delta\alpha_{stall}$. After Gudmundsson (2022), Figures 10-2, 10-8, 10-10, and 10-14.
+The leading-edge devices, with the section increments $\Delta C_{l_{max}}$ and $\Delta\alpha_{stall}$. After Gudmundsson (2022), Figures 10-2, 10-8, 10-10, and 10-14. Each device is cut from the NACA 23012 contour, with chords, deflections, and gaps in the ranges of his Chapter 10.
 :::
 
 :::{table} Leading-edge devices. The numbers are the section $\Delta C_{l_{max}}$ and $\Delta\alpha_{stall}$. After Gudmundsson (2022), Table 10-2.
