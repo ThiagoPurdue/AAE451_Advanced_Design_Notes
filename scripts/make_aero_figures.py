@@ -302,32 +302,54 @@ def section_data():
 
 
 def camber_effect():
+    """NACA 64(1)-012 and 64(1)-412: the same thickness form without and with camber. Markers are
+    the values of Gudmundsson (2022), Table 8-9 (NACA Report 824, Re about 9e6); the lines are
+    smooth curves through them. The low-drag range is 0.1 either side of the design C_l, which
+    is what the subscript 1 of the designation means."""
+    #        name                 a0   slope  clmax a_st  cld  cd at cl = 0, 0.4, 0.8
+    tab = (("NACA 64$_1$-412, cambered", -2.6, 0.112, 1.67, 15.0, 0.4, (0.0058, 0.0046, 0.0076), BLUE, "-", "o"),
+           ("NACA 64$_1$-012, symmetric", 0.0, 0.110, 1.44, 15.0, 0.0, (0.0042, 0.0062, 0.0081), STEEL, "--", "s"))
+    k = (0.0081 - 0.0062) / (0.8 ** 2 - 0.4 ** 2)        # curvature outside the bucket, from the symmetric section
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.2))
-    a = np.linspace(-10, 20, 400)
-    for a0, amax, clmax, c, ls, lab in ((-4, 15, 1.6, BLUE, "-", "cambered"), (0, 14, 1.3, STEEL, "--", "symmetric")):
-        ax1.plot(a, lift_curve(a, a0, amax, clmax), color=c, lw=2.2, ls=ls, label=lab)
+    a = np.linspace(-10, 19, 500)
+    cl = np.linspace(-0.6, 1.5, 600)
+    for name, a0, slope, clmax, ast, cld, cds, c, ls, mk in tab:
+        ax1.plot(a, lift_curve(a, a0, ast, clmax, slope=slope, drop=0.25, width=3.5), color=c, lw=2.2, ls=ls, label=name)
+        ax1.plot([a0, ast], [0, clmax], mk, color=c, ms=6)
+        # outside the bucket: c0 + k (cl - cc)^2 through the values at cl = 0 and 0.8 (cambered) or 0.4 and 0.8 (symmetric)
+        if cld:
+            cc = (0.64 - (cds[2] - cds[0]) / k) / 1.6
+            c0 = cds[0] - k * cc ** 2
+            depth = c0 + k * (0.4 - cc) ** 2 - cds[1]
+        else:
+            cc, c0 = 0.0, cds[1] - k * 0.16
+            depth = c0 - cds[0]
+        cd = bucket_polar(cl, c0, k, cc, depth, cld - 0.1, cld + 0.1)
+        for v, d in zip((0.0, 0.4, 0.8), cds):
+            assert abs(np.interp(v, cl, cd) - d) < 0.00012, (name, v)       # the curve passes through the table
+        assert 0.0010 < depth < 0.0020
+        ax2.plot(cd, cl, color=c, lw=2.2, ls=ls, label=name)
+        ax2.plot(cds, (0.0, 0.4, 0.8), mk, color=c, ms=6)
+    assert tab[0][3] > tab[1][3] and tab[0][1] < tab[1][1]                  # camber raises C_lmax and lowers alpha_ZL
     ax1.axhline(0, color=STEEL, lw=0.7)
     ax1.axvline(0, color=STEEL, lw=0.7)
-    ax1.plot([-4], [0], "o", color=VERM, ms=6)
-    ax1.text(-4.3, -0.2, r"$\alpha_{ZL}$", color=VERM, ha="right", fontsize=11)
-    ax1.text(5, 1.75, "camber raises $C_{l_{max}}$\nand moves the curve left", fontsize=11, color=STEEL)
+    ax1.text(-2.9, 0.07, r"$\alpha_{ZL}$", color=BLUE, ha="right", va="bottom", fontsize=11)
+    ax1.text(-9.5, 1.78, "camber raises $C_{l_{max}}$\nand moves the curve left", fontsize=11, color=STEEL, va="center")
     ax1.set_xlabel(r"$\alpha$ (deg)")
     ax1.set_ylabel("$C_l$")
     ax1.set_xlim(-10, 20)
     ax1.set_ylim(-1.0, 2.1)
     ax1.legend(frameon=False, fontsize=10, loc="lower right")
     clean(ax1)
-    cl = np.linspace(-0.8, 1.5, 300)
-    for cl0, c, ls, lab in ((0.4, BLUE, "-", "cambered"), (0.0, STEEL, "--", "symmetric")):
-        cd = 0.0065 + 0.012 * (cl - cl0) ** 2
-        ax2.plot(cd, cl, color=c, lw=2.2, ls=ls, label=lab)
-    ax2.text(0.013, 0.75, "the low-drag range moves\nto a higher $C_l$", fontsize=11, color=STEEL)
+    ax2.text(0.0088, 0.38, "the low-drag range moves\nto a higher $C_l$", fontsize=11, color=STEEL, va="center")
     ax2.set_xlabel("$C_d$")
     ax2.set_ylabel("$C_l$")
-    ax2.set_xlim(0, 0.03)
-    ax2.set_ylim(-1.0, 1.6)
+    ax2.set_xlim(0, 0.016)
+    ax2.set_ylim(-0.6, 1.5)
     ax2.legend(frameon=False, fontsize=10, loc="lower right")
     clean(ax2)
+    fig.text(0.5, -0.02, "Markers: values tabulated from NACA Report 824, $Re$ ≈ 9 × 10$^6$. Lines: smooth curves through them.",
+             ha="center", fontsize=10, color=STEEL)
     fig.tight_layout()
     save(fig, "camber-effect")
 

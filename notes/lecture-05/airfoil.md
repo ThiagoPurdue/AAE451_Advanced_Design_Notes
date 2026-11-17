@@ -129,10 +129,10 @@ A04 Deliverable 1: the lift curve and polar of the selected airfoil, from publis
 
 :::{figure} figures/camber-effect.svg
 :label: fig-camber
-:alt: Left, lift coefficient against angle of attack for a cambered airfoil, solid, and a symmetric airfoil, dashed. The cambered curve is shifted up and to the left, crosses zero lift at a negative angle, marked alpha ZL, and reaches a higher maximum lift coefficient. Right, the drag polars: the cambered airfoil's polar is shifted to a higher lift coefficient, so its low-drag range sits at a positive lift coefficient.
+:alt: Left, lift coefficient against angle of attack for the cambered NACA 64 1-412, solid, and the symmetric NACA 64 1-012, dashed, with markers at the tabulated values. The cambered curve is shifted up and to the left: it crosses zero lift at minus 2.6 degrees, marked alpha ZL, against 0 degrees for the symmetric airfoil, and reaches a maximum lift coefficient of 1.67 against 1.44, both at 15 degrees. Right, the drag polars with markers at lift coefficients of 0, 0.4, and 0.8. The symmetric airfoil has its low-drag bucket around zero lift, with a drag coefficient of 0.0042; the cambered airfoil has it around a lift coefficient of 0.4, with 0.0046. At zero lift the cambered airfoil is at 0.0058, at 0.4 the symmetric one is at 0.0062, and at 0.8 the two are close, 0.0076 and 0.0081.
 :width: 100%
 
-The effect of camber on the lift curve and the drag polar. Schematic, after Gudmundsson (2022), Figure 8-54; trends from Table 8-4.
+The effect of camber on the lift curve and the drag polar, shown by the NACA 64$_1$-012 and the NACA 64$_1$-412: the same thickness form without and with camber. The markers are the values of Gudmundsson (2022), Table 8-9 (NACA Report 824, Reynolds number about 9 million); the lines are smooth curves through them, after his Figure 8-54. Trends from Table 8-4.
 :::
 
 ::::{grid} 1 1 2 2
