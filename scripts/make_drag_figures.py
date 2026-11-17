@@ -96,22 +96,31 @@ def polar_types():
 
 
 def drag_components():
-    fig, ax = plt.subplots(figsize=(7.4, 3.3))
+    """The split of Nicolai and Carichner's Figure 2.18 (nose cone, fuselage, wing panels, tail
+    panels), drawn with the planform of the Lecture 10 jet trainer instead of blocks."""
+    import make_stability_figures as msf
+    fig, ax = plt.subplots(figsize=(7.4, 3.6))
     ax.set_aspect("equal")
     ax.axis("off")
-    body = dict(fc="#C9DCEE", ec=INK, lw=1.2)
-    wing = dict(fc=DUST, ec=INK, lw=1.2)
-    ax.add_patch(Polygon([(0, 0), (2.0, 0.55), (2.0, -0.55)], closed=True, fc=LIGHT, ec=INK, lw=1.2))
-    ax.add_patch(Polygon([(2.2, 0.6), (7.2, 0.6), (7.2, -0.6), (2.2, -0.6)], closed=True, **body))
+    body = dict(fc="#C9DCEE", ec=INK, lw=1.2, joinstyle="round")
+    wing = dict(fc=DUST, ec=INK, lw=1.2, joinstyle="round")
+    half = msf._smooth(msf.FUS_TOP, closed=False)
+    x_cut, gap = 2.0, 0.3
+    w_cut = float(np.interp(x_cut, half[:, 0], half[:, 1]))
+    nose = np.vstack([half[half[:, 0] < x_cut], [x_cut, w_cut]])
+    aft = np.vstack([[x_cut, w_cut], half[half[:, 0] > x_cut]]) + [gap, 0]
+    ax.add_patch(Polygon(np.vstack([nose, nose[::-1] * [1, -1]]), closed=True, fc=LIGHT, ec=INK, lw=1.2, joinstyle="round"))
+    ax.add_patch(Polygon(np.vstack([aft, aft[::-1] * [1, -1]]), closed=True, **body))
     for s in (1, -1):
-        ax.add_patch(Polygon([(3.8, s * 0.7), (5.4, s * 0.7), (5.4, s * 2.0), (4.9, s * 2.0)], closed=True, **wing))
-        ax.add_patch(Polygon([(6.3, s * 0.7), (7.2, s * 0.7), (7.2, s * 1.4), (6.8, s * 1.4)], closed=True, **wing))
-        ax.text(4.85, s * 1.2, "$S_{wing}$", ha="center", va="center", fontsize=11)
-        ax.text(6.92, s * 0.98, "$S_{tail}$", ha="center", va="center", fontsize=11)
-    ax.text(1.35, 0, "$S_{nose}$", ha="center", va="center", fontsize=11)
-    ax.text(4.7, 0, "$S_{fuselage}$", ha="center", va="center", fontsize=11)
-    ax.set_xlim(-0.2, 7.5)
-    ax.set_ylim(-2.2, 2.2)
+        ax.add_patch(Polygon([(x + gap, s * (y + 0.28)) for x, y in msf.WING_TOP], closed=True, **wing))
+        ax.add_patch(Polygon([(x + gap, s * (y + 0.28)) for x, y in msf.HT_TOP], closed=True, **wing))
+        ax.text(5.95 + gap, s * 1.75, "$S_{wing}$", ha="center", va="center", fontsize=11)
+        ax.text(9.42 + gap, s * 1.12, "$S_{tail}$", ha="center", va="center", fontsize=10)
+    ax.text(1.2, -1.15, "$S_{nose}$", ha="center", va="center", fontsize=11)
+    ax.plot([1.2, 1.2], [-0.85, -0.08], color=STEEL, lw=0.8)
+    ax.text(5.6 + gap, 0, "$S_{fuselage}$", ha="center", va="center", fontsize=11)
+    ax.set_xlim(-0.2, 10.6)
+    ax.set_ylim(-4.1, 4.1)
     save(fig, "drag-components")
 
 
@@ -230,24 +239,26 @@ def interference():
 
 
 def upsweep():
-    fig, ax = plt.subplots(figsize=(6.6, 1.9))
+    """Side view of a fuselage with an upswept aft body: rounded nose, windscreen, constant
+    section, and an aft lower surface that rises at the angle u to a small tail cone."""
+    import make_stability_figures as msf
+    fig, ax = plt.subplots(figsize=(6.6, 2.1))
     ax.set_aspect("equal")
     ax.axis("off")
-    u = np.degrees(np.arctan(0.72 / 2.0))
-    verts = [(0, 0.35), (0.25, 0.80), (0.7, 0.95), (1.3, 0.95), (5.6, 0.95), (5.6, 0.72), (3.6, 0), (0.7, 0), (0.35, 0.02), (0.1, 0.15), (0, 0.35)]
-    codes = [MPath.MOVETO, MPath.CURVE4, MPath.CURVE4, MPath.CURVE4, MPath.LINETO, MPath.LINETO, MPath.LINETO, MPath.LINETO, MPath.CURVE4, MPath.CURVE4, MPath.CURVE4]
-    ax.add_patch(PathPatch(MPath(verts, codes), fc=DUST, ec=AGED, lw=1.6))
-    ax.plot([3.6, 6.0], [0, 0], color=STEEL, lw=0.9, ls="--")
-    ax.add_patch(Arc((3.6, 0), 3.2, 3.2, theta1=0, theta2=u, color=STEEL, lw=1.0))
-    ax.text(5.33, 0.22, "$u$", fontsize=12, color=STEEL, va="center")
-    ax.set_xlim(-0.1, 6.2)
-    ax.set_ylim(-0.1, 1.05)
+    x_k, x_end, y_top, y_end = 3.9, 5.9, 0.95, 0.80
+    u = np.degrees(np.arctan((y_end - 0.12) / (x_end - x_k)))
+    assert 15 < u < 20                                   # upsweep angles of rear-loading and tail-low aft bodies
+    nose = msf._smooth([(0.75, 0.0), (0.3, 0.06), (0.03, 0.30), (0.12, 0.52), (0.55, 0.78), (1.15, 0.93), (1.6, y_top)], closed=False)
+    outline = np.vstack([nose[::-1][:0], [(x_k, 0.0)], nose, [(x_end, y_top), (x_end, y_end)]])
+    ax.add_patch(Polygon(outline, closed=True, fc=DUST, ec=AGED, lw=1.6, joinstyle="round"))
+    ax.add_patch(Polygon(msf._smooth([(0.42, 0.66), (0.62, 0.60), (1.0, 0.72), (1.05, 0.86), (0.72, 0.80)]), closed=True,
+                         fc="#C9D5E1", ec=AGED, lw=1.0))
+    ax.plot([x_k, 6.3], [0, 0], color=STEEL, lw=0.9, ls="--")
+    ax.add_patch(Arc((x_k, 0), 3.4, 3.4, theta1=0, theta2=u, color=STEEL, lw=1.0))
+    ax.text(x_k + 1.85, 0.26, "$u$", fontsize=12, color=STEEL, va="center")
+    ax.set_xlim(-0.1, 6.5)
+    ax.set_ylim(-0.12, 1.08)
     save(fig, "upsweep")
-
-
-SR22_F = [("Wing", 1.14), ("Fuselage", 0.72), ("Main gear", 0.45), ("Windscreen", 0.45), ("Leakage and protuberance", 0.27),
-          ("Horizontal tail", 0.23), ("Nose gear", 0.18), ("Engine cooling", 0.15), ("Vertical tail", 0.14), ("Engine installation", 0.06)]
-SR22_S, SR22_W, SR22_Q, SR22_AR = 144.9, 2750.0, 91.6, 10.0  # AR as in Gudmundsson, Example 9-4
 
 
 def sr22_buildup():

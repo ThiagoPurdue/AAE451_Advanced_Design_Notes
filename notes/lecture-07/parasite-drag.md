@@ -81,7 +81,7 @@ C_{D_0} = \sum_{i}\frac{FF_i\,Q_i\,C_{f_i}\,S_{wet_i}}{S_{ref}} + C_{D_{misc}}
 
 :::{figure} figures/drag-components.svg
 :label: fig-drag-components
-:alt: An aircraft drawn in top view as separate pieces with gaps between them: a triangular nose, a rectangular fuselage, two wing panels, and two tail panels. Each piece is labeled with its own area.
+:alt: A jet trainer drawn in top view as separate pieces with gaps between them: a pointed nose, the rest of the fuselage, two swept and tapered wing panels, and two tail panels. Each piece is labeled with its own area.
 :width: 65%
 
 The aircraft split into components, each with its own wetted area. Schematic, after Nicolai and Carichner (2010), Figure 2.18.
