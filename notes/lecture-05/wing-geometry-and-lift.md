@@ -89,7 +89,7 @@ A04 Deliverable 4: required fuel volume against available volume, with the wing 
 :alt: Two front views of a jet standing on its landing gear, with the fuselage, canopy, fin, and tailplane: one with the wing on top of the fuselage and one with it under the fuselage, each with the ground line and an arrow h from the ground to the wing.
 :width: 70%
 
-High and low wing, front view, with the wing height $h$ above the ground. Redrawn from the slide.
+High and low wing, front view, with the wing height $h$ above the ground. Schematic.
 :::
 
 ::::{grid} 1 1 2 2
@@ -306,7 +306,7 @@ Here $\kappa$ is the airfoil lift-curve slope divided by $2\pi$. It is not the $
 :alt: Wing lift-curve slope in per radian against aspect ratio from 0 to 16, three rising curves for mid-chord sweeps of 0, 30, and 45 degrees, the unswept wing highest, all below a horizontal line at 2 pi labeled airfoil.
 :width: 80%
 
-Lift-curve slope from {eq}`eq-lift-curve-slope` at $M$ = 0 and $\kappa$ = 1 (Gudmundsson 2022, Eq. 9-72). Computed, as on the slide.
+Lift-curve slope from {eq}`eq-lift-curve-slope` at $M$ = 0 and $\kappa$ = 1 (Gudmundsson 2022, Eq. 9-72). Computed.
 :::
 
 - Valid for straight and swept wings to $M$ = 0.8.
@@ -422,6 +422,10 @@ Quiz on Lecture 5: eight questions, one at a time, with the explanation after ea
 - Gudmundsson, S., *General Aviation Aircraft Design: Applied Methods and Procedures*, 2nd ed., Butterworth-Heinemann, 2022. Chapter 8, The Anatomy of the Airfoil; Chapter 9, The Anatomy of the Wing; Chapter 16, Aircraft Drag Analysis, Section 16.3.3.
 - Nicolai, L. M., and Carichner, G. E., *Fundamentals of Aircraft and Airship Design, Volume 1: Aircraft Design*, AIAA Education Series, 2010. Chapter 2, Review of Practical Aerodynamics.
 - Abbott, I. H., von Doenhoff, A. E., and Stivers, L. S., "Summary of Airfoil Data," NACA Report 824, 1945.
+- Loftin, L. K., "Theoretical and Experimental Data for a Number of NACA 6A-Series Airfoil Sections," NACA Report 903, 1948.
+- Somers, D. M., "Design and Experimental Results for a Natural-Laminar-Flow Airfoil for General Aviation Applications," NASA TP-1861, 1981.
+- Harris, C. D., "NASA Supercritical Airfoils: A Matrix of Family-Related Airfoils," NASA TP-2969, 1990.
+- Selig, M. S., *UIUC Airfoil Coordinates Database*, University of Illinois at Urbana-Champaign, m-selig.ae.illinois.edu/ads/coord_database.html. Source of the coordinate files of the NACA 65$_2$-415, NACA 64A410, NASA NLF(1)-0416, and NASA SC(2) sections drawn in part 1.
 - Schrenk, O., "A Simple Approximation Method for Obtaining the Spanwise Lift Distribution," NACA TM 948, 1940.
 - Shortal, J. A., and Maggin, B., "Effect of Sweepback and Aspect Ratio on Longitudinal Stability Characteristics of Wings at Low Speeds," NACA TN 1093, 1946.
 - Furlong, G. C., and McHugh, J. G., "A Summary and Analysis of the Low-Speed Longitudinal Characteristics of Swept Wings at High Reynolds Number," NACA Report 1339, 1957.

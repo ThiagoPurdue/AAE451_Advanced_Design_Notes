@@ -359,6 +359,7 @@ Quiz on Lecture 6: eight questions, one at a time, with the explanation after ea
 
 - Gudmundsson, S., *General Aviation Aircraft Design: Applied Methods and Procedures*, 2nd ed., Butterworth-Heinemann, 2022. Chapters 8, 10, 16, 18, and 23.
 - Anderson, J. D., *Aircraft Performance and Design*, McGraw-Hill, 1999. Table 5.3.
+- Weick, F. E., and Wenzinger, C. J., "The Characteristics of a Clark Y Wing Model Equipped with Several Forms of Low-Drag Fixed Slots," NACA Report 407, 1933.
 - Department of Defense, *MIL-STD-3013, Glossary of Definitions, Ground Rules, and Mission Profiles to Define Air Vehicle Performance Capability*, 14 February 2003. The RFP cites revision B, 2022.
 - 14 CFR Part 23, *Airworthiness Standards: Normal Category Airplanes*, Amendment 23-64, for the former speed factors used in the SR22 example.
 - AIAA 2026-27 Undergraduate Team Aircraft Design Competition RFP, *Design of a Navy Jet Training Aircraft*; see [](../navy-rfp/navy-rfp.md).
