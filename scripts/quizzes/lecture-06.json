@@ -1,0 +1,109 @@
+{
+  "lecture": 6,
+  "questions": [
+    {
+      "id": "L06-q1",
+      "page": "high-lift-devices",
+      "section": "Where the definitions come from",
+      "question": "A team computes the distance from brake release to main-wheel liftoff and reports it as the total takeoff distance of MIL-STD-3013. What is missing?",
+      "options": [
+        "The air distance from liftoff to clear 50 ft",
+        "The distance to stop after an engine failure",
+        "The rotation distance before main-wheel liftoff",
+        "A correction for headwind and runway slope"
+      ],
+      "explanation": "Brake release to main-wheel liftoff is the ground run. The total takeoff distance adds the air distance to clear 50 ft; the stop after an engine failure belongs to the critical field length."
+    },
+    {
+      "id": "L06-q2",
+      "page": "high-lift-devices",
+      "section": "What high lift does",
+      "question": "A trailing-edge flap is deflected on a clean airfoil. What happens to the section lift curve?",
+      "options": [
+        "It shifts up and to the left: <i>C<sub>lmax</sub></i> rises and α<sub>stall</sub> falls",
+        "It extends along the same line: <i>C<sub>lmax</sub></i> and α<sub>stall</sub> both rise",
+        "It shifts up and to the right: <i>C<sub>lmax</sub></i> and α<sub>stall</sub> both rise",
+        "It gets steeper: <i>C<sub>lmax</sub></i> rises and α<sub>stall</sub> stays the same"
+      ],
+      "explanation": "The flap shifts the curve up and to the left, so the higher <i>C<sub>lmax</sub></i> comes at a lower α<sub>stall</sub>. Extending the curve to a higher α<sub>stall</sub> is the effect of a slot or slat."
+    },
+    {
+      "id": "L06-q3",
+      "page": "high-lift-devices",
+      "section": "Trailing-edge devices",
+      "question": "What gives the Fowler flap the largest section increment Δ<i>C<sub>lmax</sub></i> of the trailing-edge devices?",
+      "options": [
+        "It moves aft, adding chord as well as camber",
+        "It opens two slots that keep the flow attached",
+        "It deflects to a larger angle than the others",
+        "It leaves the upper surface of the wing unchanged"
+      ],
+      "explanation": "The Fowler flap moves well back before it deflects, so it adds chord and camber. The cost is tracks and a nose-down pitching moment."
+    },
+    {
+      "id": "L06-q4",
+      "page": "high-lift-devices",
+      "section": "Typical maximum lift by system",
+      "question": "A table of typical values gives <i>C<sub>Lmax</sub></i>/cos Λ = 2.0 for a high-lift system. Which <i>C<sub>Lmax</sub></i> does that imply for an invented wing with 30° of sweep?",
+      "options": [
+        "1.73",
+        "2.31",
+        "2.00",
+        "1.00"
+      ],
+      "explanation": "<i>C<sub>Lmax</sub></i> = 2.0 × cos 30° = 1.73. The table lists <i>C<sub>Lmax</sub></i> over the cosine of the wing sweep, so a swept wing reaches less than the listed number."
+    },
+    {
+      "id": "L06-q5",
+      "page": "high-lift-wing-and-field",
+      "section": "Wing partition method",
+      "question": "In the wing partition method, which lift coefficient does an unflapped segment carry in the sum?",
+      "options": [
+        "The clean section <i>C<sub>l</sub></i> at the flapped section's α<sub>stall</sub>",
+        "The clean section <i>C<sub>lmax</sub></i> at the clean section's α<sub>stall</sub>",
+        "The flapped section <i>C<sub>lmax</sub></i> with the device increment",
+        "The clean section <i>C<sub>lmax</sub></i> times cos Λ<sub>hinge</sub>"
+      ],
+      "explanation": "The flapped section stalls at a lower α than the clean section, so the unflapped segments are taken at that angle. In the SR22 example that is <i>C<sub>l</sub></i> = 1.562 at 12°, below the clean <i>C<sub>lmax</sub></i> of 1.62 at 16°."
+    },
+    {
+      "id": "L06-q6",
+      "page": "high-lift-wing-and-field",
+      "section": "The FCLP approach",
+      "question": "A slat lets an aircraft fly the FCLP approach at a lower speed. What does that do to the approach angle of attack α<sub>pa</sub> and to the view the pilot needs over the nose?",
+      "options": [
+        "α<sub>pa</sub> rises, and the view over the nose must cover a larger angle",
+        "α<sub>pa</sub> falls, and the view over the nose can cover a smaller angle",
+        "α<sub>pa</sub> rises, and the view over the nose depends on the glide slope only",
+        "α<sub>pa</sub> stays the same, and only the glide slope becomes steeper"
+      ],
+      "explanation": "Flying slower on a slat raises α<sub>pa</sub>, and the view over the nose must cover α<sub>pa</sub> plus the angle from the flight path down to the stern. Flaps do the opposite: they lower α<sub>pa</sub>."
+    },
+    {
+      "id": "L06-q7",
+      "page": "high-lift-wing-and-field",
+      "section": "The high-lift drag penalty",
+      "question": "Why is takeoff flown with partial flap deflection and landing with full deflection?",
+      "options": [
+        "Takeoff needs <i>L/D</i> to climb; landing uses drag for a steeper approach",
+        "Takeoff is at a lower weight than landing; landing needs the extra lift",
+        "Takeoff needs the highest <i>C<sub>Lmax</sub></i>; landing needs the lowest drag",
+        "Takeoff flaps separate above 15° of deflection; landing flaps do not"
+      ],
+      "explanation": "Flap drag grows with deflection. Takeoff keeps the deflection partial to hold the climb <i>L/D</i>. Landing uses full deflection: it gives the highest <i>C<sub>Lmax</sub></i>, and the drag steepens the approach."
+    },
+    {
+      "id": "L06-q8",
+      "page": "high-lift-wing-and-field",
+      "section": "Landing over an obstacle",
+      "question": "Why is the lift dumped during the braking roll?",
+      "options": [
+        "Lift unloads the wheels and cuts the braking force",
+        "Lift adds drag, and drag lengthens the braking roll",
+        "Lift raises the stall speed and with it the touchdown speed",
+        "Lift raises the flare height and lengthens the flare"
+      ],
+      "explanation": "The braking force is μ(<i>W</i> − <i>L</i>), so lift on the wing takes weight off the wheels and lengthens <i>S<sub>BR</sub></i>. Drag acts with the brakes and shortens the roll."
+    }
+  ]
+}

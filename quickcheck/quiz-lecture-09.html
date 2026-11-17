@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz: Lecture 9, Constraint Analysis and the Design Point</title>
+<style>
+  /* The color variables match the quick checks (quickcheck/*.html). Change them together. */
+  :root {
+    --bg: #ffffff; --fg: #1f2937; --muted: #4b5563; --card: #ffffff; --border: #d9d6ce;
+    --head-bg: #f7f5f0; --head-fg: #111827; --accent: #6f5630; --accent-border: #cfb991;
+    --input-bg: #ffffff; --input-border: #6b7280; --ok: #0a6b3d; --bad: #b42318;
+    --button: #111827; --button-fg: #ffffff; --sol-bg: #f7f5f0;
+    --link: #1d4ed8; --focus: #1d4ed8;
+  }
+  html.dark {
+    --bg: #1c1917; --fg: #e5e7eb; --muted: #b7bcc6; --card: #292524; --border: #44403c;
+    --head-bg: #363231; --head-fg: #ffffff; --accent: #cfb991; --accent-border: #cfb991;
+    --input-bg: #1c1917; --input-border: #9ca3af; --ok: #6ee7b7; --bad: #fca5a5;
+    --button: #cfb991; --button-fg: #000000; --sol-bg: #363231;
+    --link: #93c5fd; --focus: #93c5fd;
+  }
+  html.dark { color-scheme: dark; }   /* native radio buttons drawn for a dark page */
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg);
+         font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .card { border: 1px solid var(--border); border-left: 5px solid var(--accent-border); border-radius: 8px;
+          background: var(--card); overflow: hidden; }
+  .head { background: var(--head-bg); color: var(--head-fg); padding: 10px 16px; font-weight: 700; font-size: 1.15em;
+          display: flex; align-items: center; gap: 10px; }
+  .head svg { width: 22px; height: 22px; flex: none; }
+  .body { padding: 16px; }
+  i { font-style: italic; }
+  sub, sup { font-size: 0.75em; }
+  .ov { text-decoration: overline; }
+  .progress { margin: 0 0 6px; color: var(--muted); font-size: 0.95em; }
+  .progress:focus { outline: none; }
+  .bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; margin: 0 0 14px; }
+  .bar span { display: block; height: 100%; width: 0; background: var(--accent-border); }
+  fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+  legend { padding: 0; margin: 0 0 4px; font-size: 1.08em; font-weight: 600; color: var(--head-fg); }
+  .opt { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 4px 10px; padding: 10px 12px; margin: 8px 0 0;
+         border: 1px solid var(--input-border); border-radius: 6px; background: var(--input-bg); cursor: pointer; }
+  .opt input { flex: none; width: 1.05em; height: 1.05em; margin: 0.25em 0 0; accent-color: var(--button); }
+  .opt .text { flex: 1 1 12em; }
+  .opt .tag { flex: none; font-weight: 600; font-size: 0.92em; }
+  .opt:hover { border-color: var(--fg); }
+  .opt:has(input:checked) { border-color: var(--fg); box-shadow: inset 0 0 0 1px var(--fg); }
+  .opt:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 1px; }
+  .locked .opt { cursor: default; }
+  .locked .opt:hover { border-color: var(--input-border); }
+  .locked .opt.right, .locked .opt.right:hover { border-color: var(--ok); box-shadow: inset 0 0 0 1px var(--ok); }
+  .locked .opt.wrong, .locked .opt.wrong:hover { border-color: var(--bad); box-shadow: inset 0 0 0 1px var(--bad); }
+  .opt.right .tag { color: var(--ok); }
+  .opt.wrong .tag { color: var(--bad); }
+  .feedback { margin: 14px 0 0; }
+  .feedback.show { border: 1px solid var(--border); border-left: 4px solid var(--accent-border); border-radius: 6px;
+                   background: var(--sol-bg); padding: 10px 14px; }
+  .verdict { font-weight: 700; }
+  .verdict.ok { color: var(--ok); }
+  .verdict.bad { color: var(--bad); }
+  .buttons { display: flex; gap: 12px; margin: 16px 0 0; }
+  button { font: inherit; font-weight: 600; padding: 9px 20px; border-radius: 6px; cursor: pointer; }
+  button:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .primary { background: var(--button); color: var(--button-fg); border: 1px solid var(--button); }
+  .score { margin: 0 0 8px; font-size: 1.15em; font-weight: 700; color: var(--head-fg); }
+  .score:focus { outline: none; }
+  .result p { margin: 8px 0; }
+  .result ul { margin: 8px 0 0; padding-left: 1.3em; }
+  .result li { margin: 4px 0; }
+  a { color: var(--link); }
+  a:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="head">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4.5h6M9 10l1.5 1.5L13.5 8.5M9 16h6"/></svg>
+    Quiz: Lecture 9, Constraint Analysis and the Design Point
+  </div>
+  <div class="body">
+    <noscript><p>The quiz needs JavaScript.</p></noscript>
+    <p class="progress" id="progress" tabindex="-1"></p>
+    <div class="bar" aria-hidden="true"><span id="fill"></span></div>
+    <form id="quiz" novalidate>
+      <fieldset>
+        <legend id="legend"></legend>
+        <div id="opts"></div>
+      </fieldset>
+      <div class="feedback" id="feedback" role="status"></div>
+      <div class="buttons">
+        <button type="submit" class="primary" id="go">Check answer</button>
+      </div>
+    </form>
+    <div class="result" id="result" hidden>
+      <p class="score" id="score" tabindex="-1"></p>
+      <p id="reviewIntro">Review these sections, then start over:</p>
+      <ul id="review"></ul>
+      <div class="buttons">
+        <button type="button" class="primary" id="again">Start over</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="application/json" id="data">{"questions": [{"page": "constraint-method", "pageTitle": "The master equation", "section": "The master equation", "question": "An invented aircraft weighs 12,000 lb and flies at 400 ft/s with a thrust of 5,000 lb and a drag of 2,000 lb. What is its specific excess power <i>P<sub>s<\/sub><\/i>?", "options": ["100 ft/s", "167 ft/s", "67 ft/s", "233 ft/s"], "explanation": "<i>P<sub>s<\/sub><\/i> = (<i>T<\/i> − <i>D<\/i>) <i>V<\/i>/<i>W<\/i> = 3,000 × 400/12,000 = 100 ft/s. Only the thrust in excess of the drag is left to climb or accelerate."}, {"page": "constraint-method", "pageTitle": "The master equation", "section": "The cases", "question": "At the same altitude, speed, and weight, how does a sustained turn boundary compare with the cruise boundary?", "options": ["It lies above, and the gap grows with the wing loading", "It lies above, and the gap shrinks with the wing loading", "It lies above by the same amount at every wing loading", "It coincides, because <i>P<sub>s<\/sub><\/i> = 0 in both cases"], "explanation": "The turn multiplies the induced term by <i>n<\/i>², and that term grows with the wing loading. A shift by the same amount at every wing loading is the climb or the acceleration case."}, {"page": "constraint-method", "pageTitle": "The master equation", "section": "Normalizing to sea-level static", "question": "The field requirements of an invented aircraft move from sea level to a higher density altitude, with the same distances. How do the takeoff and landing boundaries move?", "options": ["The takeoff line steepens and the landing line moves left", "The takeoff line flattens and the landing line moves right", "The takeoff line steepens and the landing line stays in place", "The takeoff line stays in place and the landing line moves left"], "explanation": "A lower density steepens the takeoff line, through <i>ρ<\/i> and through the lower thrust lapse <i>α<\/i>, and it lowers the wing loading that the braking roll allows. The landing line is independent of the thrust and still moves with the density."}, {"page": "trainer-boundaries", "pageTitle": "The trainer boundaries and the design point", "section": "Choosing the design point", "question": "A design point is placed inside the feasible region, at a distance from the active boundaries. What does this margin cover?", "options": ["The uncertainty in inputs such as <i>C<sub>D0<\/sub><\/i>, <i>C<sub>Lmax<\/sub><\/i>, and the thrust lapse <i>α<\/i>", "The gap between the threshold and the objective boundaries", "The thrust lost between sea-level static and the condition", "The fuel burned between takeoff and the condition"], "explanation": "Each boundary is computed from estimated inputs, and an error in one of them moves the boundary. The thrust lapse and the fuel burned are already in each boundary through <i>α<\/i> and <i>β<\/i>."}, {"page": "trainer-boundaries", "pageTitle": "The trainer boundaries and the design point", "section": "Rubber engine and fixed engine", "question": "With a fixed engine, the sizing loop returns a higher <i>W<sub>TO<\/sub><\/i> than the pass before. What happens to the available <i>T<sub>SL<\/sub><\/i>/<i>W<sub>TO<\/sub><\/i>?", "options": ["It falls, because <i>T<sub>SL<\/sub><\/i> stays at the published value", "It holds, because the engine is scaled with <i>W<sub>TO<\/sub><\/i>", "It rises, because a heavier aircraft needs more thrust", "It holds, because the design point fixes the ratio"], "explanation": "A fixed engine has a published <i>T<sub>SL<\/sub><\/i>, and the ratio falls as <i>W<sub>TO<\/sub><\/i> grows. Thrust that scales with the weight describes a rubber engine."}, {"page": "constraint-examples", "pageTitle": "Worked examples", "section": "Cessna 162", "question": "For the Cessna 162, the climb and the landing boundaries set the lowest feasible <i>T/W<\/i>, and the turn and the climb set the lowest feasible sea-level power. Why do the two diagrams differ?", "options": ["Each boundary is converted with its own speed, efficiency, and density ratio", "Every boundary is divided by the same altitude factor of the piston engine", "The landing boundary moves to a lower wing loading when thrust becomes power", "The turn boundary is computed at a higher load factor on the power diagram"], "explanation": "Power is thrust times true airspeed over propeller efficiency, corrected to sea level with the density ratio of the condition. Each boundary is multiplied by a different factor, and the order of the boundaries changes."}, {"page": "constraint-examples", "pageTitle": "Worked examples", "section": "T-45C Goshawk", "question": "In the T-45C example, the ceiling and the maximum speed boundaries are the first to check. Why?", "options": ["They are the highest boundaries, and both rest on estimates", "They are vertical boundaries, and the thrust cannot move them", "They lie above the actual point, and the example fails there", "They use power-on stall speeds, and the standard uses power off"], "explanation": "The two highest boundaries rest on an estimated thrust lapse <i>α<\/i> at altitude and an estimated <i>C<sub>Dc<\/sub><\/i>. An error in either estimate changes the margin of the T-45C before any other boundary does."}, {"page": "constraint-examples", "pageTitle": "Worked examples", "section": "T-45C Goshawk", "question": "The T-45C landing boundary is <i>W<sub>TO<\/sub><\/i>/<i>S<\/i> ≤ 99 lb/ft² with <i>k<sub>TD<\/sub><\/i> = 1.23. With <i>k<sub>TD<\/sub><\/i> = 1.10 and the same braking roll, about where does the boundary lie?", "options": ["124 lb/ft²", "111 lb/ft²", "79 lb/ft²", "89 lb/ft²"], "explanation": "The limit on <i>W<sub>TO<\/sub><\/i>/<i>S<\/i> varies with 1/<i>k<sub>TD<\/sub><\/i>². A lower <i>k<sub>TD<\/sub><\/i> raises it by the factor (1.23/1.10)² = 1.25, to about 124 lb/ft²."}]}</script>
+<script>
+(function () {
+  function syncTheme() {
+    var dark = false;
+    try { dark = window.parent.document.documentElement.classList.contains("dark"); }
+    catch (e) { dark = window.matchMedia("(prefers-color-scheme: dark)").matches; }
+    document.documentElement.classList.toggle("dark", dark);
+  }
+  syncTheme();
+  try { new MutationObserver(syncTheme).observe(window.parent.document.documentElement, { attributes: true }); } catch (e) {}
+  function fit() {
+    try {
+      var fe = window.frameElement;
+      if (fe && fe.parentElement) fe.parentElement.style.height = (Math.ceil(document.body.getBoundingClientRect().height) + 2) + "px";
+    } catch (e) {}
+  }
+  try { new ResizeObserver(fit).observe(document.body); } catch (e) {}
+  window.addEventListener("load", fit);
+
+  var Q = JSON.parse(document.getElementById("data").textContent).questions;
+  var n = Q.length, i = 0, answered = false, right = [];
+  var el = {};
+  ["progress", "fill", "quiz", "legend", "opts", "feedback", "go", "result", "score", "reviewIntro", "review", "again"]
+    .forEach(function (id) { el[id] = document.getElementById(id); });
+
+  function shuffle(a) {
+    for (var j = a.length - 1; j > 0; j--) {
+      var k = Math.floor(Math.random() * (j + 1)), t = a[j]; a[j] = a[k]; a[k] = t;
+    }
+    return a;
+  }
+
+  // Show question i. The options are drawn in a new order each time; option 0 is the correct one.
+  function show(moveFocus) {
+    var q = Q[i];
+    answered = false;
+    el.progress.textContent = "Question " + (i + 1) + " of " + n;
+    el.fill.style.width = (100 * i / n) + "%";
+    el.legend.innerHTML = q.question;
+    el.opts.innerHTML = "";
+    el.opts.className = "";
+    shuffle([0, 1, 2, 3]).forEach(function (k) {
+      var label = document.createElement("label"), input = document.createElement("input"),
+          text = document.createElement("span"), tag = document.createElement("span");
+      label.className = "opt";
+      input.type = "radio"; input.name = "answer"; input.value = String(k);
+      text.className = "text"; text.innerHTML = q.options[k];
+      tag.className = "tag";
+      label.appendChild(input); label.appendChild(text); label.appendChild(tag);
+      el.opts.appendChild(label);
+    });
+    el.feedback.className = "feedback";
+    el.feedback.textContent = "";
+    el.go.textContent = "Check answer";
+    el.result.hidden = true;
+    el.quiz.hidden = false;
+    if (moveFocus) el.progress.focus();
+  }
+
+  function check() {
+    var chosen = el.quiz.querySelector("input[name=answer]:checked");
+    if (!chosen) {
+      el.feedback.className = "feedback show";
+      el.feedback.textContent = "Choose an answer first.";
+      return;
+    }
+    answered = true;
+    right[i] = chosen.value === "0";
+    Array.prototype.forEach.call(el.opts.querySelectorAll("label"), function (label) {
+      var input = label.querySelector("input"), tag = label.querySelector(".tag");
+      if (input.value === "0") { label.classList.add("right"); tag.textContent = "✓ correct answer"; }
+      else if (input.checked) { label.classList.add("wrong"); tag.textContent = "✗ your answer"; }
+      input.disabled = true;
+    });
+    el.opts.className = "locked";
+    el.feedback.className = "feedback show";
+    el.feedback.innerHTML = '<span class="verdict ' + (right[i] ? "ok" : "bad") + '">' +
+      (right[i] ? "Correct." : "Not correct.") + "</span> " + Q[i].explanation;
+    el.go.textContent = i + 1 < n ? "Next question" : "See your score";
+    el.go.focus();
+  }
+
+  function finish() {
+    var count = right.filter(Boolean).length;
+    el.progress.textContent = "Result";
+    el.fill.style.width = "100%";
+    el.score.textContent = count === n ? "All " + n + " correct." : count + " of " + n + " correct.";
+    el.review.innerHTML = "";
+    el.reviewIntro.hidden = count === n;
+    Q.forEach(function (q, j) {
+      if (right[j]) return;
+      var li = document.createElement("li"), a = document.createElement("a");
+      a.href = "../" + q.page + "/"; a.target = "_top"; a.textContent = q.pageTitle;
+      li.appendChild(document.createTextNode("Question " + (j + 1) + ": "));
+      li.appendChild(a);
+      li.appendChild(document.createTextNode(", section “" + q.section + "”"));
+      el.review.appendChild(li);
+    });
+    el.quiz.hidden = true;
+    el.result.hidden = false;
+    el.score.focus();
+  }
+
+  el.quiz.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!answered) { check(); return; }
+    i++;
+    if (i < n) show(true); else finish();
+  });
+  el.again.addEventListener("click", function () { i = 0; right = []; show(true); });
+  show(false);
+})();
+</script>
+</body>
+</html>

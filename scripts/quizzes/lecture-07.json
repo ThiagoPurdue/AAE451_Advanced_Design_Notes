@@ -1,0 +1,109 @@
+{
+  "lecture": 7,
+  "questions": [
+    {
+      "id": "L07-q1",
+      "page": "parasite-drag",
+      "section": "Parasite drag build-up",
+      "question": "Two aircraft have the same <i>C<sub>D0</sub></i>, and the second has twice the reference area. How does their parasite drag compare at the same dynamic pressure?",
+      "options": [
+        "The second has twice the drag: its flat-plate area is doubled",
+        "They have the same drag: equal <i>C<sub>D0</sub></i> means equal drag",
+        "The second has half the drag: it is spread over more area",
+        "The second has four times the drag: it grows with area squared"
+      ],
+      "explanation": "The flat-plate area <i>f</i> = <i>C<sub>D0</sub> S<sub>ref</sub></i> expresses the drag as an area, and the parasite drag is <i>q f</i>. A coefficient alone does not compare two aircraft of different size."
+    },
+    {
+      "id": "L07-q2",
+      "page": "parasite-drag",
+      "section": "Skin friction",
+      "question": "In the SR22 build-up, with fully turbulent flow, the fuselage has <i>C<sub>f</sub></i> = 0.00246 and the wing 0.00322. Why is the fuselage value lower?",
+      "options": [
+        "Its Reynolds number is higher, because <i>Re</i> uses its length",
+        "Its Mach correction is larger, because the fuselage is longer",
+        "Its flow stays laminar over more of its length than the wing's",
+        "Its shape is more slender, and <i>C<sub>f</sub></i> falls with slenderness"
+      ],
+      "explanation": "<i>Re</i> = ρ<i>V l</i>/μ uses the component length or chord: 22.42 ft for the fuselage against 3.98 ft for the wing. The turbulent <i>C<sub>f</sub></i> falls as <i>Re</i> rises."
+    },
+    {
+      "id": "L07-q3",
+      "page": "parasite-drag",
+      "section": "Laminar flow and transition",
+      "question": "A wing is analyzed with transition at 40% of the chord, and in service insects and paint chips roughen it. What happens to its skin friction?",
+      "options": [
+        "Transition moves forward and <i>C<sub>f</sub></i> rises toward the turbulent value",
+        "Transition moves aft and <i>C<sub>f</sub></i> falls toward the laminar value",
+        "Transition stays at 40% of the chord and only the form factor rises",
+        "Transition stays at 40% of the chord and <i>C<sub>f</sub></i> depends on <i>Re</i> only"
+      ],
+      "explanation": "Insects and paint chips move transition forward, so more of the chord is turbulent and <i>C<sub>f</sub></i> climbs toward the fully turbulent value. The build-up needs <i>x<sub>tr</sub></i> from the airfoil data or a stated assumption."
+    },
+    {
+      "id": "L07-q4",
+      "page": "parasite-drag",
+      "section": "Wetted area and form factor",
+      "question": "An invented wing has a reference area of 200 ft², of which the fuselage covers 20 ft². What wetted area does the first-pass formula 2(1.02)<i>S<sub>exposed</sub></i> give?",
+      "options": [
+        "367 ft²",
+        "408 ft²",
+        "184 ft²",
+        "204 ft²"
+      ],
+      "explanation": "The exposed area is 200 − 20 = 180 ft², and both surfaces are wetted: 2 × 1.02 × 180 = 367 ft². The full reference area would count the part the fuselage covers."
+    },
+    {
+      "id": "L07-q5",
+      "page": "drag-polar",
+      "section": "Drag due to lift",
+      "question": "A team takes the wing-alone span efficiency from theory, <i>e</i> = 1/(1 + δ), and uses it in the polar of the whole aircraft. What is the effect?",
+      "options": [
+        "Induced drag is underpredicted: the whole-aircraft <i>e</i> is lower",
+        "Induced drag is overpredicted: the whole-aircraft <i>e</i> is higher",
+        "Parasite drag is underpredicted: <i>e</i> also scales <i>C<sub>Dmin</sub></i>",
+        "Induced drag is unchanged: <i>K</i> depends on <i>AR</i> only"
+      ],
+      "explanation": "For the wing alone δ is small and <i>e</i> is close to 1, while 0.70 to 0.85 is typical for the whole aircraft. A higher <i>e</i> gives a lower <i>K</i> = 1/(π <i>AR e</i>) and too little induced drag."
+    },
+    {
+      "id": "L07-q6",
+      "page": "drag-polar",
+      "section": "The polar at high lift",
+      "question": "An invented aircraft flies level at <i>C<sub>L</sub></i> = 0.15 with a polar that is parabolic up to a break <i>C<sub>L</sub></i> of 0.5. What does the parabola give for the drag in a sustained turn at a load factor of 4, at the same speed and altitude?",
+      "options": [
+        "Too little drag: <i>C<sub>L</sub></i> = 0.60 is above the break",
+        "The right drag: the parabola holds up to <i>C<sub>Lmax</sub></i>",
+        "The right drag: <i>C<sub>L</sub></i> stays at 0.15 at the same speed",
+        "Too much drag: separation above the break lowers the drag"
+      ],
+      "explanation": "<i>C<sub>L</sub></i> = <i>n W</i>/(<i>q S</i>) = 4 × 0.15 = 0.60. Above the break <i>C<sub>L</sub></i>, separation adds drag, so the parabola underpredicts the thrust the sustained turn needs."
+    },
+    {
+      "id": "L07-q7",
+      "page": "drag-polar",
+      "section": "Three polars",
+      "question": "The landing polar is built from the cruise polar. Which changes does it need?",
+      "options": [
+        "Gear and flaps add <i>C<sub>D0</sub></i>, and the span efficiency changes",
+        "Gear and flaps add <i>C<sub>D0</sub></i>, and <i>K</i> keeps its cruise value",
+        "Flaps raise <i>C<sub>Lmax</sub></i>, and the drag stays on the cruise polar",
+        "Gear adds <i>C<sub>D0</sub></i>, and flaps lower the drag at every <i>C<sub>L</sub></i>"
+      ],
+      "explanation": "Gear and flaps add <i>C<sub>D0</sub></i>, and the span efficiency changes with the flap setting, so <i>K</i> changes too. Flaps raise the minimum drag and move it toward a higher <i>C<sub>L</sub></i>; a constant added to the cruise polar misses both effects."
+    },
+    {
+      "id": "L07-q8",
+      "page": "drag-polar",
+      "section": "Solvers agree on lift, not on drag",
+      "question": "On one wing and tail, three solvers agree on lift within about 1% at <i>α</i> = 5° but differ in drag by up to 18%. What does that mean for a drag model?",
+      "options": [
+        "Validate it on a known aircraft and carry a margin",
+        "Take the lowest of the three drag values as the estimate",
+        "Trust its drag once its lift matches a second solver",
+        "Average the three drag values and drop the margin"
+      ],
+      "explanation": "Agreement on lift says nothing about drag. The drag model is validated on a known aircraft, such as the SR22 build-up, and carried with a margin."
+    }
+  ]
+}

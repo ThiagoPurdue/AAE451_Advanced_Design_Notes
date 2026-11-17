@@ -1,0 +1,109 @@
+{
+  "lecture": 5,
+  "questions": [
+    {
+      "id": "L05-q1",
+      "page": "airfoil",
+      "section": "Camber and thickness",
+      "question": "The drag bucket of a candidate airfoil lies below the cruise <i>C<sub>l</sub></i>. Which change to the airfoil moves the bucket to a higher <i>C<sub>l</sub></i>, and what does it cost?",
+      "options": [
+        "More camber, at the cost of more nose-down <i>C<sub>m</sub></i> and trim drag",
+        "Less camber, at the cost of a lower <i>C<sub>lmax</sub></i> at the stall",
+        "More thickness, at the cost of a higher <i>C<sub>dmin</sub></i> in cruise",
+        "Less thickness, at the cost of a shallower spar and a heavier wing"
+      ],
+      "explanation": "More camber moves the drag bucket to a higher <i>C<sub>l</sub></i> and raises <i>C<sub>lmax</sub></i>. It costs more nose-down <i>C<sub>m</sub></i> and the trim drag that goes with it."
+    },
+    {
+      "id": "L05-q2",
+      "page": "airfoil",
+      "section": "Reynolds number",
+      "question": "A team has airfoil data measured at a Reynolds number lower than the one its wing has at the stall. If it uses the data as measured, what is the error in the stall estimate?",
+      "options": [
+        "<i>C<sub>lmax</sub></i> and <i>α<sub>stall</sub></i> are both underestimated",
+        "<i>C<sub>lmax</sub></i> and <i>α<sub>stall</sub></i> are both overestimated",
+        "<i>C<sub>lα</sub></i> is underestimated over the linear range",
+        "Only <i>C<sub>dmin</sub></i> is in error; the stall is unchanged"
+      ],
+      "explanation": "A higher Reynolds number raises <i>C<sub>lmax</sub></i> and <i>α<sub>stall</sub></i> and lowers <i>C<sub>dmin</sub></i>, while <i>C<sub>lα</sub></i> does not change. Data taken at a lower Reynolds number put the stall too early and <i>C<sub>lmax</sub></i> too low."
+    },
+    {
+      "id": "L05-q3",
+      "page": "airfoil",
+      "section": "Compressibility",
+      "question": "An invented conventional airfoil has <i>t/c</i> = 0.10 and flies at <i>C<sub>l</sub></i> = 0.4. With <i>κ</i> = 0.87 for a conventional airfoil and 0.95 for a supercritical one, what <i>M<sub>dd</sub></i> does the Korn relation give?",
+      "options": [
+        "0.73",
+        "0.77",
+        "0.81",
+        "0.37"
+      ],
+      "explanation": "<i>M<sub>dd</sub></i> = <i>κ</i> − <i>t/c</i> − 0.1 <i>C<sub>l</sub></i> = 0.87 − 0.10 − 0.04 = 0.73. The lift coefficient enters with a factor of 0.1, and 0.95 applies only to a supercritical airfoil."
+    },
+    {
+      "id": "L05-q4",
+      "page": "airfoil",
+      "section": "Airfoil selection",
+      "question": "The comparison table scores the thickness ratio with the highest value as best. What does the thicker airfoil give the aircraft?",
+      "options": [
+        "A deeper spar, so a lighter wing, and more fuel volume",
+        "A higher <i>M<sub>dd</sub></i> at the design <i>C<sub>l</sub></i>, so a faster cruise speed",
+        "A lower <i>C<sub>dmin</sub></i>, so less drag at the cruise and climb <i>C<sub>l</sub></i>",
+        "Less nose-down <i>C<sub>m</sub></i>, so less trim drag and tail load"
+      ],
+      "explanation": "The criterion <i>t/c</i> traces to spar depth and fuel volume, and a deeper spar makes a lighter wing. The costs of thickness, a higher <i>C<sub>dmin</sub></i> and a lower <i>M<sub>dd</sub></i>, are scored on their own rows."
+    },
+    {
+      "id": "L05-q5",
+      "page": "wing-geometry-and-lift",
+      "section": "Aspect ratio",
+      "question": "The horizontal tail is given an aspect ratio below the wing's. What is the reason?",
+      "options": [
+        "A low <i>AR</i> has a higher <i>α<sub>stall</sub></i>, so the tail stalls after the wing",
+        "A low <i>AR</i> has a steeper <i>C<sub>Lα</sub></i>, so the tail can be smaller",
+        "A low <i>AR</i> has less induced drag, so the trim drag is lower",
+        "A low <i>AR</i> has a lower <i>α<sub>stall</sub></i>, so the tail warns of the wing stall"
+      ],
+      "explanation": "A low aspect ratio gives a shallow <i>C<sub>Lα</sub></i> and a high <i>α<sub>stall</sub></i>. The tail then stalls after the wing, at the price of more induced drag."
+    },
+    {
+      "id": "L05-q6",
+      "page": "wing-geometry-and-lift",
+      "section": "The pitch-up boundary of swept wings",
+      "question": "A swept wing plots in Region II of the pitch-up boundary, where the nose rises at stall. Which change moves it toward Region I?",
+      "options": [
+        "A lower aspect ratio",
+        "A higher aspect ratio",
+        "A higher taper ratio <i>λ</i>",
+        "More quarter-chord sweep"
+      ],
+      "explanation": "Region I lies below the limiting aspect ratio, so a lower <i>AR</i> moves the wing toward it. More sweep or a higher <i>λ</i> lowers the limit and leaves the wing deeper in Region II."
+    },
+    {
+      "id": "L05-q7",
+      "page": "wing-geometry-and-lift",
+      "section": "Twist and stall progression",
+      "question": "A wing with a taper ratio of 0.3 is tip loaded, and it gets a large washout. What is the washout for?",
+      "options": [
+        "To make the stall start inboard, so the ailerons stay effective",
+        "To make the stall start at the tip, so the nose drops at stall",
+        "To raise the wing lift at a given <i>α</i>, so the stall speed falls",
+        "To delay the stall at the root, where a tapered wing stalls first"
+      ],
+      "explanation": "A tip-loaded wing reaches the airfoil <i>C<sub>lmax</sub></i> outboard first. Washout lowers the incidence of the tip so the stall starts inboard, and it costs lift at a given <i>α</i>."
+    },
+    {
+      "id": "L05-q8",
+      "page": "wing-geometry-and-lift",
+      "section": "Maximum lift of the clean wing",
+      "question": "An invented clean wing has <i>Λ<sub>c/4</sub></i> = 45° (cos 45° = 0.707) and an airfoil with <i>C<sub>lmax</sub></i> = 1.50 at the MGC and the stall Reynolds number. With the rapid estimate for <i>C<sub>Lmax0</sub></i> and the sweep factor <i>K<sub>Λ</sub></i>, what is the wing <i>C<sub>Lmax</sub></i>?",
+      "options": [
+        "0.95",
+        "1.35",
+        "1.06",
+        "1.50"
+      ],
+      "explanation": "<i>C<sub>Lmax0</sub></i> = 0.9 × 1.50 = 1.35, and the sweep factor <i>K<sub>Λ</sub></i> = cos <i>Λ<sub>c/4</sub></i> gives 1.35 × 0.707 = 0.95. Stopping at 1.35 leaves out the sweep."
+    }
+  ]
+}

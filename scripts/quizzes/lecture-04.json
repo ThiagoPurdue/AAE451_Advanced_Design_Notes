@@ -1,0 +1,109 @@
+{
+  "lecture": 4,
+  "questions": [
+    {
+      "id": "L04-q1",
+      "page": "concept-selection",
+      "section": "Purpose",
+      "question": "In controlled convergence, the number of concepts rises between some matrix runs. Where do the added concepts come from?",
+      "options": [
+        "New concepts that the last matrix run suggested",
+        "Eliminated concepts that are restored for another run",
+        "Resized copies of the concepts that survived the run",
+        "Reserve concepts that were held back from the first run"
+      ],
+      "explanation": "Each narrowing is a matrix run, and each widening adds the concepts that run suggested. Convergence steps remove concepts and generation steps add new ones until one is left."
+    },
+    {
+      "id": "L04-q2",
+      "page": "concept-selection",
+      "section": "Brainstorming",
+      "question": "During a brainstorming session, a member starts to explain why another member's idea cannot work. What does the moderator do?",
+      "options": [
+        "Stops the criticism and lets the session go on",
+        "Removes the idea to keep the list short",
+        "Calls a team vote on whether to keep the idea",
+        "Joins the discussion and settles it by judgment"
+      ],
+      "explanation": "The moderator enforces the rules, and the first is no criticism during the session. The moderator does not take part, and technical critique waits for the Pugh sessions."
+    },
+    {
+      "id": "L04-q3",
+      "page": "concept-selection",
+      "section": "The morphological chart",
+      "question": "While composing concepts from a morphological chart, a team finds that the picks in one combination are incompatible. What should the team do?",
+      "options": [
+        "Record the disqualifier and go on composing",
+        "Delete the combination and keep no record",
+        "Remove the row that produced the conflict",
+        "Rebuild the chart until no combination conflicts"
+      ],
+      "explanation": "Incompatible combinations are expected when concepts are composed one pick per row. The disqualifier is recorded, and the record shows why the concept was dropped."
+    },
+    {
+      "id": "L04-q4",
+      "page": "concept-selection",
+      "section": "Pugh's method",
+      "question": "In a Pugh matrix, concept B has a plus on criterion I. What does the plus say about B on that criterion?",
+      "options": [
+        "Better than the datum",
+        "Best of all the concepts",
+        "Compliant with the requirement behind it",
+        "Worth one point in a weighted total"
+      ],
+      "explanation": "Every score in a Pugh matrix compares one concept with the datum on one criterion: plus for better, minus for worse, and S for the same. It does not rank B against the other concepts or check it against the requirement."
+    },
+    {
+      "id": "L04-q5",
+      "page": "concept-selection",
+      "section": "Pugh's method",
+      "question": "Against the datum, an invented concept is rated plus, plus, S, minus, plus on five criteria. How is the result reported?",
+      "options": [
+        "Three counts: 3 plus, 1 S, and 1 minus",
+        "A net score of +2, plus count less minus count",
+        "A score of 3 out of 5, from the plus ratings",
+        "A total of 3.5 points, with S worth half a point"
+      ],
+      "explanation": "Step 6 totals the plus, S, and minus counts separately and never compresses them into one score. Step 7 then works on the minus ratings, which a single number would no longer show."
+    },
+    {
+      "id": "L04-q6",
+      "page": "concept-selection",
+      "section": "Pugh's method",
+      "question": "After the first matrix run, the team promotes a promising concept to datum and runs the matrix again. What is the second run for?",
+      "options": [
+        "To test whether the first leader holds against a new datum",
+        "To average the two runs into one firmer score per concept",
+        "To remove the first datum from the set of concepts",
+        "To confirm the first run, since scores do not depend on the datum"
+      ],
+      "explanation": "Every score is a comparison against the datum, and a different datum can change it. The second run tests whether the leader of the first run still leads."
+    },
+    {
+      "id": "L04-q7",
+      "page": "concept-selection",
+      "section": "Limits of Pugh's method",
+      "question": "A Pugh matrix leaves three concepts ahead of the rest. What has the matrix established?",
+      "options": [
+        "Which concepts to carry into engineering analysis",
+        "How much better the three perform than the datum",
+        "That the three meet every requirement in the set",
+        "Which of the three wins, from the highest plus count"
+      ],
+      "explanation": "The matrix organizes qualitative judgment and selects what to analyze. Its scores are judgments against a datum, and engineering analysis compares the surviving concepts."
+    },
+    {
+      "id": "L04-q8",
+      "page": "concept-selection",
+      "section": "Weighted objectives",
+      "question": "In a weighted objectives matrix, concept A totals 6.70 and the other two concepts total 6.45 and 6.15. What can the team do with that result?",
+      "options": [
+        "Use it to shortlist, since the totals rest on judgment",
+        "Select A, since the total measures each concept's merit",
+        "Select A, since the weights take out the subjectivity",
+        "Discard it, since subjective scores carry no information"
+      ],
+      "explanation": "The total multiplies subjective weights by subjective scores. It looks like a measurement and is not, so it shortlists and never closes a decision."
+    }
+  ]
+}

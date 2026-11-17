@@ -1,0 +1,109 @@
+{
+  "lecture": 2,
+  "questions": [
+    {
+      "id": "L02-q1",
+      "page": "weight-estimation",
+      "section": "How good a trend line is",
+      "question": "The Grumman F9F-5 trained naval aviators, but its structure is a carrier fighter's. Which empty-weight trend line should be applied to it?",
+      "options": [
+        "The fighter line, since the airframe sets the class",
+        "The trainer line, since the role sets the class",
+        "The mean of the two lines, since it belongs to both",
+        "The higher prediction of the two, to be conservative"
+      ],
+      "explanation": "The class is set by the airframe. The military jet trainer line misses the F9F-5 empty weight by 19 percent, and the multipurpose fighter line misses it by 7 percent."
+    },
+    {
+      "id": "L02-q2",
+      "page": "weight-estimation",
+      "section": "Representing the engine",
+      "question": "What does a rubber engine mean for sizing?",
+      "options": [
+        "Sea-level thrust <i>T<sub>SL</sub></i> changes each iteration",
+        "Thrust and fuel flow are known before sizing starts",
+        "An off-the-shelf engine is selected before sizing starts",
+        "A constraint is added that can make sizing difficult"
+      ],
+      "explanation": "The sea-level thrust of a rubber engine changes each iteration, which implies new engine development. Known thrust and fuel flow describe a fixed, off-the-shelf engine."
+    },
+    {
+      "id": "L02-q3",
+      "page": "mission-fuel",
+      "section": "Fuel weight fraction",
+      "question": "The segment weight fractions of an invented aircraft's design mission multiply to 0.80. The mission has no explicit reserve segments, so <i>k</i> = 0.06. What is <i>W<sub>fuel</sub>/W<sub>0</sub></i>?",
+      "options": [
+        "0.212",
+        "0.200",
+        "0.260",
+        "0.848"
+      ],
+      "explanation": "<i>W<sub>fuel</sub>/W<sub>0</sub></i> = (1 + <i>k</i>)(1 − 0.80) = 1.06 × 0.20 = 0.212. The fuel burned, as a fraction of <i>W<sub>0</sub></i>, is one minus the product of the segment fractions, and <i>k</i> adds the trapped fuel and reserves."
+    },
+    {
+      "id": "L02-q4",
+      "page": "mission-fuel",
+      "section": "Breguet range and endurance",
+      "question": "Initial sizing holds <i>V</i> and <i>L/D</i> constant over the cruise segment. What does the aircraft then do as it burns fuel?",
+      "options": [
+        "It climbs slowly as its weight decreases",
+        "It descends slowly as its weight decreases",
+        "It slows down at a constant altitude",
+        "It holds altitude and reduces thrust"
+      ],
+      "explanation": "Constant <i>L/D</i> fixes <i>C<sub>L</sub></i>, so at constant <i>V</i> a lower <i>W</i> needs a lower air density. This is the cruise-climb between points 2 and 3 of the mission profile."
+    },
+    {
+      "id": "L02-q5",
+      "page": "sizing-loop",
+      "section": "The loop",
+      "question": "An invented transport carries 9,000 lb of crew and payload. At convergence, <i>W<sub>e</sub>/W<sub>0</sub></i> = 0.55 and <i>W<sub>fuel</sub>/W<sub>0</sub></i> = 0.25. What is <i>W<sub>0</sub></i>?",
+      "options": [
+        "45,000 lb",
+        "11,250 lb",
+        "16,200 lb",
+        "20,000 lb"
+      ],
+      "explanation": "<i>W<sub>0</sub></i> = (<i>W<sub>crew</sub></i> + <i>W<sub>payload</sub></i>) / (1 − <i>W<sub>e</sub>/W<sub>0</sub></i> − <i>W<sub>fuel</sub>/W<sub>0</sub></i>) = 9,000 / 0.20 = 45,000 lb. Crew and payload are the 20 percent of <i>W<sub>0</sub></i> that is neither empty weight nor fuel."
+    },
+    {
+      "id": "L02-q6",
+      "page": "design-missions",
+      "section": "The training flight",
+      "question": "Segments 4 and 8 of the training flight read \"speed/thrust not specified.\" Where does the sizing code get the speed and thrust for them?",
+      "options": [
+        "From the team's own choice, stated as an assumption",
+        "From the 250 KCAS the RFP gives for the climbs",
+        "From the Mach 0.60 the RFP gives for segment 6",
+        "From the maximum endurance speed of the reserve"
+      ],
+      "explanation": "Where the RFP leaves the speed and thrust open, the choice is the team's. It moves the fuel number, so it is recorded as a dated assumption in ASORT."
+    },
+    {
+      "id": "L02-q7",
+      "page": "design-missions",
+      "section": "The mission that sizes the fuel",
+      "question": "The RFP prescribes a training flight and a 600 nmi ferry flight. How does a team establish which one sizes the fuel?",
+      "options": [
+        "Run both flights, since either one can need more fuel",
+        "Run the ferry flight alone, since it has the longer range",
+        "Run the ferry flight alone, since it has the longer reserve",
+        "Run the training flight alone, since it has more segments"
+      ],
+      "explanation": "The winner is not obvious. The training flight is short but spends an hour at high thrust or high drag, and the result depends on the part-power specific fuel consumption."
+    },
+    {
+      "id": "L02-q8",
+      "page": "design-missions",
+      "section": "FCLP shapes the aircraft",
+      "question": "The training flight includes 30 min of FCLP at approach speed in landing configuration. What does a draggier landing configuration cost?",
+      "options": [
+        "More mission fuel, since approach <i>L/D</i> drops for 30 min",
+        "More reserve fuel, since the reserve is flown in that configuration",
+        "No added fuel, since FCLP is flown at idle thrust",
+        "No added fuel, since landing uses a fixed historical fraction"
+      ],
+      "explanation": "The FCLP allowance couples fuel volume to approach <i>L/D</i>, so a draggy landing configuration is paid for in mission fuel. The reserve is a separate segment at maximum endurance speed in cruise configuration."
+    }
+  ]
+}

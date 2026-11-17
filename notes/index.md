@@ -187,6 +187,8 @@ More lectures will be added during the semester.
 
 Each lecture is one chapter. A chapter follows the slides shown in class and adds the explanation given in the room. Figures and tables from the slides are included. Diagrams were redrawn for the web so their text stays sharp at any zoom level. Each figure has alt text for screen readers.
 
+The last page of each lecture ends with a quiz of eight questions. It is not graded and nothing is recorded.
+
 ## Boxes used in the notes
 
 The notes use eight kinds of box. Each has one meaning.

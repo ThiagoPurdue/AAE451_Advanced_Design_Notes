@@ -313,6 +313,15 @@ Take the cut of your scissor plot and the loading loop of your CG envelope. Whic
 Gudmundsson (2022), Chapters 11, 24, and 25; Nelson (1998), Chapter 2; and Raymer (2018), Chapters 4 and 6.
 :::
 
+## Quiz
+
+:::{iframe} ../quickcheck/quiz-lecture-10.html
+:label: quiz-lecture-10
+:width: 100%
+
+Quiz on Lecture 10: eight questions, one at a time, with the explanation after each answer. It is not graded and nothing is recorded.
+:::
+
 ## References
 
 - Gudmundsson, S., *General Aviation Aircraft Design: Applied Methods and Procedures*, 2nd ed., Butterworth-Heinemann, 2022. Chapters 11, 24, and 25.

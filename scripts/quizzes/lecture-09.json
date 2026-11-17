@@ -1,0 +1,109 @@
+{
+  "lecture": 9,
+  "questions": [
+    {
+      "id": "L09-q1",
+      "page": "constraint-method",
+      "section": "The master equation",
+      "question": "An invented aircraft weighs 12,000 lb and flies at 400 ft/s with a thrust of 5,000 lb and a drag of 2,000 lb. What is its specific excess power <i>P<sub>s</sub></i>?",
+      "options": [
+        "100 ft/s",
+        "167 ft/s",
+        "67 ft/s",
+        "233 ft/s"
+      ],
+      "explanation": "<i>P<sub>s</sub></i> = (<i>T</i> − <i>D</i>) <i>V</i>/<i>W</i> = 3,000 × 400/12,000 = 100 ft/s. Only the thrust in excess of the drag is left to climb or accelerate."
+    },
+    {
+      "id": "L09-q2",
+      "page": "constraint-method",
+      "section": "The cases",
+      "question": "At the same altitude, speed, and weight, how does a sustained turn boundary compare with the cruise boundary?",
+      "options": [
+        "It lies above, and the gap grows with the wing loading",
+        "It lies above, and the gap shrinks with the wing loading",
+        "It lies above by the same amount at every wing loading",
+        "It coincides, because <i>P<sub>s</sub></i> = 0 in both cases"
+      ],
+      "explanation": "The turn multiplies the induced term by <i>n</i>², and that term grows with the wing loading. A shift by the same amount at every wing loading is the climb or the acceleration case."
+    },
+    {
+      "id": "L09-q3",
+      "page": "constraint-method",
+      "section": "Normalizing to sea-level static",
+      "question": "The field requirements of an invented aircraft move from sea level to a higher density altitude, with the same distances. How do the takeoff and landing boundaries move?",
+      "options": [
+        "The takeoff line steepens and the landing line moves left",
+        "The takeoff line flattens and the landing line moves right",
+        "The takeoff line steepens and the landing line stays in place",
+        "The takeoff line stays in place and the landing line moves left"
+      ],
+      "explanation": "A lower density steepens the takeoff line, through <i>ρ</i> and through the lower thrust lapse <i>α</i>, and it lowers the wing loading that the braking roll allows. The landing line is independent of the thrust and still moves with the density."
+    },
+    {
+      "id": "L09-q4",
+      "page": "trainer-boundaries",
+      "section": "Choosing the design point",
+      "question": "A design point is placed inside the feasible region, at a distance from the active boundaries. What does this margin cover?",
+      "options": [
+        "The uncertainty in inputs such as <i>C<sub>D0</sub></i>, <i>C<sub>Lmax</sub></i>, and the thrust lapse <i>α</i>",
+        "The gap between the threshold and the objective boundaries",
+        "The thrust lost between sea-level static and the condition",
+        "The fuel burned between takeoff and the condition"
+      ],
+      "explanation": "Each boundary is computed from estimated inputs, and an error in one of them moves the boundary. The thrust lapse and the fuel burned are already in each boundary through <i>α</i> and <i>β</i>."
+    },
+    {
+      "id": "L09-q5",
+      "page": "trainer-boundaries",
+      "section": "Rubber engine and fixed engine",
+      "question": "With a fixed engine, the sizing loop returns a higher <i>W<sub>TO</sub></i> than the pass before. What happens to the available <i>T<sub>SL</sub></i>/<i>W<sub>TO</sub></i>?",
+      "options": [
+        "It falls, because <i>T<sub>SL</sub></i> stays at the published value",
+        "It holds, because the engine is scaled with <i>W<sub>TO</sub></i>",
+        "It rises, because a heavier aircraft needs more thrust",
+        "It holds, because the design point fixes the ratio"
+      ],
+      "explanation": "A fixed engine has a published <i>T<sub>SL</sub></i>, and the ratio falls as <i>W<sub>TO</sub></i> grows. Thrust that scales with the weight describes a rubber engine."
+    },
+    {
+      "id": "L09-q6",
+      "page": "constraint-examples",
+      "section": "Cessna 162",
+      "question": "For the Cessna 162, the climb and the landing boundaries set the lowest feasible <i>T/W</i>, and the turn and the climb set the lowest feasible sea-level power. Why do the two diagrams differ?",
+      "options": [
+        "Each boundary is converted with its own speed, efficiency, and density ratio",
+        "Every boundary is divided by the same altitude factor of the piston engine",
+        "The landing boundary moves to a lower wing loading when thrust becomes power",
+        "The turn boundary is computed at a higher load factor on the power diagram"
+      ],
+      "explanation": "Power is thrust times true airspeed over propeller efficiency, corrected to sea level with the density ratio of the condition. Each boundary is multiplied by a different factor, and the order of the boundaries changes."
+    },
+    {
+      "id": "L09-q7",
+      "page": "constraint-examples",
+      "section": "T-45C Goshawk",
+      "question": "In the T-45C example, the ceiling and the maximum speed boundaries are the first to check. Why?",
+      "options": [
+        "They are the highest boundaries, and both rest on estimates",
+        "They are vertical boundaries, and the thrust cannot move them",
+        "They lie above the actual point, and the example fails there",
+        "They use power-on stall speeds, and the standard uses power off"
+      ],
+      "explanation": "The two highest boundaries rest on an estimated thrust lapse <i>α</i> at altitude and an estimated <i>C<sub>Dc</sub></i>. An error in either estimate changes the margin of the T-45C before any other boundary does."
+    },
+    {
+      "id": "L09-q8",
+      "page": "constraint-examples",
+      "section": "T-45C Goshawk",
+      "question": "The T-45C landing boundary is <i>W<sub>TO</sub></i>/<i>S</i> ≤ 99 lb/ft² with <i>k<sub>TD</sub></i> = 1.23. With <i>k<sub>TD</sub></i> = 1.10 and the same braking roll, about where does the boundary lie?",
+      "options": [
+        "124 lb/ft²",
+        "111 lb/ft²",
+        "79 lb/ft²",
+        "89 lb/ft²"
+      ],
+      "explanation": "The limit on <i>W<sub>TO</sub></i>/<i>S</i> varies with 1/<i>k<sub>TD</sub></i>². A lower <i>k<sub>TD</sub></i> raises it by the factor (1.23/1.10)² = 1.25, to about 124 lb/ft²."
+    }
+  ]
+}

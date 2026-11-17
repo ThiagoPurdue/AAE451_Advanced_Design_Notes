@@ -233,6 +233,15 @@ Up to 50,000 ft the FJ44-3E deck stops at Mach 0.6, and the low-bypass lapse rel
 Gudmundsson (2022), Chapters 7 and 14, and Nicolai and Carichner (2010), Chapters 15 and 18 and Appendix J. [Lecture 9](../lecture-09/constraint-method.md) covers the constraint analysis: the master equation, the trainer boundaries, and the design point.
 :::
 
+## Quiz
+
+:::{iframe} ../quickcheck/quiz-lecture-08.html
+:label: quiz-lecture-08
+:width: 100%
+
+Quiz on Lecture 8: eight questions, one at a time, with the explanation after each answer. It is not graded and nothing is recorded.
+:::
+
 ## References
 
 - Gudmundsson, S., *General Aviation Aircraft Design: Applied Methods and Procedures*, 2nd ed., Butterworth-Heinemann, 2022. Chapters 7, 14, 15, and 16.

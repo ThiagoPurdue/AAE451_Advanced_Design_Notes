@@ -1,0 +1,109 @@
+{
+  "lecture": 3,
+  "questions": [
+    {
+      "id": "L03-q1",
+      "page": "configuration",
+      "section": "Why aircraft look the way they do",
+      "question": "A team sets its configuration by engineering judgment at the start of conceptual design. What is the status of that configuration?",
+      "options": [
+        "An initial choice that the analysis has to confirm",
+        "A final choice, since judgment replaces analysis here",
+        "A choice free of compromise, if it meets the requirements",
+        "A choice set by existing aircraft, not by the requirements"
+      ],
+      "explanation": "Judgment starts the design, and only the analysis shows whether the configuration meets the requirements. Requirements drive the choice, and every choice is a compromise."
+    },
+    {
+      "id": "L03-q2",
+      "page": "configuration",
+      "section": "Wing placement",
+      "question": "A design changes from a high wing to a low wing. What does the change bring?",
+      "options": [
+        "Shorter gear and a need for dihedral",
+        "Longer gear and a need for dihedral",
+        "Shorter gear and, usually, a T-tail",
+        "Longer gear and easier loading"
+      ],
+      "explanation": "A low wing gains short gear and a spar under the cabin, and it requires dihedral. Long or podded gear, a T-tail, and easy loading belong to the high wing."
+    },
+    {
+      "id": "L03-q3",
+      "page": "configuration",
+      "section": "Fuselage cross-section",
+      "question": "A fuselage changes from a circular cross-section to a chined or blended one. What does the change bring?",
+      "options": [
+        "More fuselage lift and harder pressurization",
+        "More fuselage lift and easier construction",
+        "Less fuselage lift and harder pressurization",
+        "Lower drag and better use of volume"
+      ],
+      "explanation": "A chined or blended section gains fuselage lift and lower drag. It pays with difficult construction, poor volume use, and hard pressurization, the three things a circular section does well."
+    },
+    {
+      "id": "L03-q4",
+      "page": "configuration",
+      "section": "Jet engine and inlet placement",
+      "question": "A design moves its engines from pods under the wing to pods on the aft fuselage. What does the change bring?",
+      "options": [
+        "A clean wing and, usually, a T-tail",
+        "Wing bending relief and a quieter cabin",
+        "Longer gear and weight farther forward",
+        "No nacelle drag and a duct that loses pressure"
+      ],
+      "explanation": "Aft-fuselage pods give a clean wing, a quiet cabin, and short gear, and they cost aft weight and usually a T-tail. Bending relief comes from pods under the wing, and a duct that loses pressure belongs to a buried engine."
+    },
+    {
+      "id": "L03-q5",
+      "page": "configuration",
+      "section": "Tail arrangement",
+      "question": "A V-tail is sized so that its projected areas equal the areas of the horizontal and vertical tails it replaces. How does that sizing turn out?",
+      "options": [
+        "Too small, because a V-tail needs more area than its projection",
+        "Too large, because a V-tail has less area than the tails it replaces",
+        "Correct, because the projected areas do the work of the two tails",
+        "Correct in area, but exposed to deep stall like a T-tail"
+      ],
+      "explanation": "A V-tail is meant to save area and drag, but it needs more area than its projection suggests. Sizing by projection alone leaves the tail undersized."
+    },
+    {
+      "id": "L03-q6",
+      "page": "configuration",
+      "section": "Canard and tail-less",
+      "question": "A team adds a canard concept to its candidates and claims an advantage for it. How is that claim treated in the selection?",
+      "options": [
+        "Scored against a requirement in the Pugh matrix",
+        "Accepted without scoring, since published aircraft show it",
+        "Dropped before the matrix, since the concept is unconventional",
+        "Given a bonus in the matrix for originality"
+      ],
+      "explanation": "Unconventional options enter the Pugh matrix like any other. Each claimed advantage is scored against a requirement, with no bonus and no penalty for being unusual."
+    },
+    {
+      "id": "L03-q7",
+      "page": "configuration",
+      "section": "Landing gear arrangement",
+      "question": "Bicycle, single main, and quadricycle gear each save fuselage width, weight, or gear length. What cost do all three carry?",
+      "options": [
+        "Difficult or no rotation",
+        "A heavy nose gear",
+        "A wider fuselage",
+        "A large and complex gear"
+      ],
+      "explanation": "The gear must allow rotation. The bicycle and the quadricycle make it difficult, and the single main gives none."
+    },
+    {
+      "id": "L03-q8",
+      "page": "configuration",
+      "section": "The morphological chart",
+      "question": "A morphological chart has five rows and three options in each row. How many configurations can be composed from it, before any is disqualified?",
+      "options": [
+        "243",
+        "15",
+        "125",
+        "3"
+      ],
+      "explanation": "One pick per row is a configuration, which gives 3 × 3 × 3 × 3 × 3 = 3<sup>5</sup> = 243. Fifteen is the number of options in the chart."
+    }
+  ]
+}

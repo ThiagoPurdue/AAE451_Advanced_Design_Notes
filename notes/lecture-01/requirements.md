@@ -211,6 +211,15 @@ Each objective has a cost in weight and in money. The trade study shows that cos
 - Sadraey, M. H., *Aircraft Design: A Systems Engineering Approach*, Wiley, 2012, Chapter 2.
 :::
 
+## Quiz
+
+:::{iframe} ../quickcheck/quiz-lecture-01.html
+:label: quiz-lecture-01
+:width: 100%
+
+Quiz on Lecture 1: eight questions, one at a time, with the explanation after each answer. It is not graded and nothing is recorded.
+:::
+
 ## References
 
 - Ulrich, K. T., and Eppinger, S. D., *Product Design and Development*, 2nd ed., McGraw-Hill, 2000.

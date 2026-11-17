@@ -441,6 +441,15 @@ For each of the eight trainers, identify the wing placement, the inlet placement
 Raymer (2018), Chapter 4. Concept generation and selection follow in [](../lecture-04/concept-selection.md).
 :::
 
+## Quiz
+
+:::{iframe} ../quickcheck/quiz-lecture-03.html
+:label: quiz-lecture-03
+:width: 100%
+
+Quiz on Lecture 3: eight questions, one at a time, with the explanation after each answer. It is not graded and nothing is recorded.
+:::
+
 ## References
 
 - Raymer, D. P., *Aircraft Design: A Conceptual Approach*, 6th ed., AIAA Education Series, 2018.

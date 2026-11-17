@@ -189,6 +189,15 @@ Where exact wording matters, as for the reserves and the FCLP visibility require
 - Next is SRR week. Bring the answers.
 :::
 
+## Quiz
+
+:::{iframe} ../quickcheck/quiz-lecture-02.html
+:label: quiz-lecture-02
+:width: 100%
+
+Quiz on Lecture 2: eight questions, one at a time, with the explanation after each answer. It is not graded and nothing is recorded.
+:::
+
 ## References
 
 - AIAA Aircraft Design Technical Committee, *2026-2027 Undergraduate Team Aircraft Design Competition Request for Proposal: Design of a Navy Jet Training Aircraft*, AIAA, 2026.

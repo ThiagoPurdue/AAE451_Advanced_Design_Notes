@@ -201,6 +201,15 @@ The T-45C lies about 16% above its highest boundary, and its two highest boundar
 Mattingly et al. (2002), Chapter 2, and Gudmundsson (2022), Chapter 3. [Lecture 10](../lecture-10/cg-and-envelope.md) covers stability and control: the CG, the tail, trim, and the control surfaces.
 :::
 
+## Quiz
+
+:::{iframe} ../quickcheck/quiz-lecture-09.html
+:label: quiz-lecture-09
+:width: 100%
+
+Quiz on Lecture 9: eight questions, one at a time, with the explanation after each answer. It is not graded and nothing is recorded.
+:::
+
 ## References
 
 - Mattingly, J. D., Heiser, W. H., and Pratt, D. T., *Aircraft Engine Design*, 2nd ed., AIAA Education Series, 2002. Chapter 2.

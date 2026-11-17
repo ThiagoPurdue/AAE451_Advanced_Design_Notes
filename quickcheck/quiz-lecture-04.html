@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz: Lecture 4, Concept Generation and Selection</title>
+<style>
+  /* The color variables match the quick checks (quickcheck/*.html). Change them together. */
+  :root {
+    --bg: #ffffff; --fg: #1f2937; --muted: #4b5563; --card: #ffffff; --border: #d9d6ce;
+    --head-bg: #f7f5f0; --head-fg: #111827; --accent: #6f5630; --accent-border: #cfb991;
+    --input-bg: #ffffff; --input-border: #6b7280; --ok: #0a6b3d; --bad: #b42318;
+    --button: #111827; --button-fg: #ffffff; --sol-bg: #f7f5f0;
+    --link: #1d4ed8; --focus: #1d4ed8;
+  }
+  html.dark {
+    --bg: #1c1917; --fg: #e5e7eb; --muted: #b7bcc6; --card: #292524; --border: #44403c;
+    --head-bg: #363231; --head-fg: #ffffff; --accent: #cfb991; --accent-border: #cfb991;
+    --input-bg: #1c1917; --input-border: #9ca3af; --ok: #6ee7b7; --bad: #fca5a5;
+    --button: #cfb991; --button-fg: #000000; --sol-bg: #363231;
+    --link: #93c5fd; --focus: #93c5fd;
+  }
+  html.dark { color-scheme: dark; }   /* native radio buttons drawn for a dark page */
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg);
+         font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .card { border: 1px solid var(--border); border-left: 5px solid var(--accent-border); border-radius: 8px;
+          background: var(--card); overflow: hidden; }
+  .head { background: var(--head-bg); color: var(--head-fg); padding: 10px 16px; font-weight: 700; font-size: 1.15em;
+          display: flex; align-items: center; gap: 10px; }
+  .head svg { width: 22px; height: 22px; flex: none; }
+  .body { padding: 16px; }
+  i { font-style: italic; }
+  sub, sup { font-size: 0.75em; }
+  .ov { text-decoration: overline; }
+  .progress { margin: 0 0 6px; color: var(--muted); font-size: 0.95em; }
+  .progress:focus { outline: none; }
+  .bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; margin: 0 0 14px; }
+  .bar span { display: block; height: 100%; width: 0; background: var(--accent-border); }
+  fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+  legend { padding: 0; margin: 0 0 4px; font-size: 1.08em; font-weight: 600; color: var(--head-fg); }
+  .opt { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 4px 10px; padding: 10px 12px; margin: 8px 0 0;
+         border: 1px solid var(--input-border); border-radius: 6px; background: var(--input-bg); cursor: pointer; }
+  .opt input { flex: none; width: 1.05em; height: 1.05em; margin: 0.25em 0 0; accent-color: var(--button); }
+  .opt .text { flex: 1 1 12em; }
+  .opt .tag { flex: none; font-weight: 600; font-size: 0.92em; }
+  .opt:hover { border-color: var(--fg); }
+  .opt:has(input:checked) { border-color: var(--fg); box-shadow: inset 0 0 0 1px var(--fg); }
+  .opt:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 1px; }
+  .locked .opt { cursor: default; }
+  .locked .opt:hover { border-color: var(--input-border); }
+  .locked .opt.right, .locked .opt.right:hover { border-color: var(--ok); box-shadow: inset 0 0 0 1px var(--ok); }
+  .locked .opt.wrong, .locked .opt.wrong:hover { border-color: var(--bad); box-shadow: inset 0 0 0 1px var(--bad); }
+  .opt.right .tag { color: var(--ok); }
+  .opt.wrong .tag { color: var(--bad); }
+  .feedback { margin: 14px 0 0; }
+  .feedback.show { border: 1px solid var(--border); border-left: 4px solid var(--accent-border); border-radius: 6px;
+                   background: var(--sol-bg); padding: 10px 14px; }
+  .verdict { font-weight: 700; }
+  .verdict.ok { color: var(--ok); }
+  .verdict.bad { color: var(--bad); }
+  .buttons { display: flex; gap: 12px; margin: 16px 0 0; }
+  button { font: inherit; font-weight: 600; padding: 9px 20px; border-radius: 6px; cursor: pointer; }
+  button:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .primary { background: var(--button); color: var(--button-fg); border: 1px solid var(--button); }
+  .score { margin: 0 0 8px; font-size: 1.15em; font-weight: 700; color: var(--head-fg); }
+  .score:focus { outline: none; }
+  .result p { margin: 8px 0; }
+  .result ul { margin: 8px 0 0; padding-left: 1.3em; }
+  .result li { margin: 4px 0; }
+  a { color: var(--link); }
+  a:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="head">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4.5h6M9 10l1.5 1.5L13.5 8.5M9 16h6"/></svg>
+    Quiz: Lecture 4, Concept Generation and Selection
+  </div>
+  <div class="body">
+    <noscript><p>The quiz needs JavaScript.</p></noscript>
+    <p class="progress" id="progress" tabindex="-1"></p>
+    <div class="bar" aria-hidden="true"><span id="fill"></span></div>
+    <form id="quiz" novalidate>
+      <fieldset>
+        <legend id="legend"></legend>
+        <div id="opts"></div>
+      </fieldset>
+      <div class="feedback" id="feedback" role="status"></div>
+      <div class="buttons">
+        <button type="submit" class="primary" id="go">Check answer</button>
+      </div>
+    </form>
+    <div class="result" id="result" hidden>
+      <p class="score" id="score" tabindex="-1"></p>
+      <p id="reviewIntro">Review these sections, then start over:</p>
+      <ul id="review"></ul>
+      <div class="buttons">
+        <button type="button" class="primary" id="again">Start over</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="application/json" id="data">{"questions": [{"page": "concept-selection", "pageTitle": "Concept generation and selection", "section": "Purpose", "question": "In controlled convergence, the number of concepts rises between some matrix runs. Where do the added concepts come from?", "options": ["New concepts that the last matrix run suggested", "Eliminated concepts that are restored for another run", "Resized copies of the concepts that survived the run", "Reserve concepts that were held back from the first run"], "explanation": "Each narrowing is a matrix run, and each widening adds the concepts that run suggested. Convergence steps remove concepts and generation steps add new ones until one is left."}, {"page": "concept-selection", "pageTitle": "Concept generation and selection", "section": "Brainstorming", "question": "During a brainstorming session, a member starts to explain why another member's idea cannot work. What does the moderator do?", "options": ["Stops the criticism and lets the session go on", "Removes the idea to keep the list short", "Calls a team vote on whether to keep the idea", "Joins the discussion and settles it by judgment"], "explanation": "The moderator enforces the rules, and the first is no criticism during the session. The moderator does not take part, and technical critique waits for the Pugh sessions."}, {"page": "concept-selection", "pageTitle": "Concept generation and selection", "section": "The morphological chart", "question": "While composing concepts from a morphological chart, a team finds that the picks in one combination are incompatible. What should the team do?", "options": ["Record the disqualifier and go on composing", "Delete the combination and keep no record", "Remove the row that produced the conflict", "Rebuild the chart until no combination conflicts"], "explanation": "Incompatible combinations are expected when concepts are composed one pick per row. The disqualifier is recorded, and the record shows why the concept was dropped."}, {"page": "concept-selection", "pageTitle": "Concept generation and selection", "section": "Pugh's method", "question": "In a Pugh matrix, concept B has a plus on criterion I. What does the plus say about B on that criterion?", "options": ["Better than the datum", "Best of all the concepts", "Compliant with the requirement behind it", "Worth one point in a weighted total"], "explanation": "Every score in a Pugh matrix compares one concept with the datum on one criterion: plus for better, minus for worse, and S for the same. It does not rank B against the other concepts or check it against the requirement."}, {"page": "concept-selection", "pageTitle": "Concept generation and selection", "section": "Pugh's method", "question": "Against the datum, an invented concept is rated plus, plus, S, minus, plus on five criteria. How is the result reported?", "options": ["Three counts: 3 plus, 1 S, and 1 minus", "A net score of +2, plus count less minus count", "A score of 3 out of 5, from the plus ratings", "A total of 3.5 points, with S worth half a point"], "explanation": "Step 6 totals the plus, S, and minus counts separately and never compresses them into one score. Step 7 then works on the minus ratings, which a single number would no longer show."}, {"page": "concept-selection", "pageTitle": "Concept generation and selection", "section": "Pugh's method", "question": "After the first matrix run, the team promotes a promising concept to datum and runs the matrix again. What is the second run for?", "options": ["To test whether the first leader holds against a new datum", "To average the two runs into one firmer score per concept", "To remove the first datum from the set of concepts", "To confirm the first run, since scores do not depend on the datum"], "explanation": "Every score is a comparison against the datum, and a different datum can change it. The second run tests whether the leader of the first run still leads."}, {"page": "concept-selection", "pageTitle": "Concept generation and selection", "section": "Limits of Pugh's method", "question": "A Pugh matrix leaves three concepts ahead of the rest. What has the matrix established?", "options": ["Which concepts to carry into engineering analysis", "How much better the three perform than the datum", "That the three meet every requirement in the set", "Which of the three wins, from the highest plus count"], "explanation": "The matrix organizes qualitative judgment and selects what to analyze. Its scores are judgments against a datum, and engineering analysis compares the surviving concepts."}, {"page": "concept-selection", "pageTitle": "Concept generation and selection", "section": "Weighted objectives", "question": "In a weighted objectives matrix, concept A totals 6.70 and the other two concepts total 6.45 and 6.15. What can the team do with that result?", "options": ["Use it to shortlist, since the totals rest on judgment", "Select A, since the total measures each concept's merit", "Select A, since the weights take out the subjectivity", "Discard it, since subjective scores carry no information"], "explanation": "The total multiplies subjective weights by subjective scores. It looks like a measurement and is not, so it shortlists and never closes a decision."}]}</script>
+<script>
+(function () {
+  function syncTheme() {
+    var dark = false;
+    try { dark = window.parent.document.documentElement.classList.contains("dark"); }
+    catch (e) { dark = window.matchMedia("(prefers-color-scheme: dark)").matches; }
+    document.documentElement.classList.toggle("dark", dark);
+  }
+  syncTheme();
+  try { new MutationObserver(syncTheme).observe(window.parent.document.documentElement, { attributes: true }); } catch (e) {}
+  function fit() {
+    try {
+      var fe = window.frameElement;
+      if (fe && fe.parentElement) fe.parentElement.style.height = (Math.ceil(document.body.getBoundingClientRect().height) + 2) + "px";
+    } catch (e) {}
+  }
+  try { new ResizeObserver(fit).observe(document.body); } catch (e) {}
+  window.addEventListener("load", fit);
+
+  var Q = JSON.parse(document.getElementById("data").textContent).questions;
+  var n = Q.length, i = 0, answered = false, right = [];
+  var el = {};
+  ["progress", "fill", "quiz", "legend", "opts", "feedback", "go", "result", "score", "reviewIntro", "review", "again"]
+    .forEach(function (id) { el[id] = document.getElementById(id); });
+
+  function shuffle(a) {
+    for (var j = a.length - 1; j > 0; j--) {
+      var k = Math.floor(Math.random() * (j + 1)), t = a[j]; a[j] = a[k]; a[k] = t;
+    }
+    return a;
+  }
+
+  // Show question i. The options are drawn in a new order each time; option 0 is the correct one.
+  function show(moveFocus) {
+    var q = Q[i];
+    answered = false;
+    el.progress.textContent = "Question " + (i + 1) + " of " + n;
+    el.fill.style.width = (100 * i / n) + "%";
+    el.legend.innerHTML = q.question;
+    el.opts.innerHTML = "";
+    el.opts.className = "";
+    shuffle([0, 1, 2, 3]).forEach(function (k) {
+      var label = document.createElement("label"), input = document.createElement("input"),
+          text = document.createElement("span"), tag = document.createElement("span");
+      label.className = "opt";
+      input.type = "radio"; input.name = "answer"; input.value = String(k);
+      text.className = "text"; text.innerHTML = q.options[k];
+      tag.className = "tag";
+      label.appendChild(input); label.appendChild(text); label.appendChild(tag);
+      el.opts.appendChild(label);
+    });
+    el.feedback.className = "feedback";
+    el.feedback.textContent = "";
+    el.go.textContent = "Check answer";
+    el.result.hidden = true;
+    el.quiz.hidden = false;
+    if (moveFocus) el.progress.focus();
+  }
+
+  function check() {
+    var chosen = el.quiz.querySelector("input[name=answer]:checked");
+    if (!chosen) {
+      el.feedback.className = "feedback show";
+      el.feedback.textContent = "Choose an answer first.";
+      return;
+    }
+    answered = true;
+    right[i] = chosen.value === "0";
+    Array.prototype.forEach.call(el.opts.querySelectorAll("label"), function (label) {
+      var input = label.querySelector("input"), tag = label.querySelector(".tag");
+      if (input.value === "0") { label.classList.add("right"); tag.textContent = "✓ correct answer"; }
+      else if (input.checked) { label.classList.add("wrong"); tag.textContent = "✗ your answer"; }
+      input.disabled = true;
+    });
+    el.opts.className = "locked";
+    el.feedback.className = "feedback show";
+    el.feedback.innerHTML = '<span class="verdict ' + (right[i] ? "ok" : "bad") + '">' +
+      (right[i] ? "Correct." : "Not correct.") + "</span> " + Q[i].explanation;
+    el.go.textContent = i + 1 < n ? "Next question" : "See your score";
+    el.go.focus();
+  }
+
+  function finish() {
+    var count = right.filter(Boolean).length;
+    el.progress.textContent = "Result";
+    el.fill.style.width = "100%";
+    el.score.textContent = count === n ? "All " + n + " correct." : count + " of " + n + " correct.";
+    el.review.innerHTML = "";
+    el.reviewIntro.hidden = count === n;
+    Q.forEach(function (q, j) {
+      if (right[j]) return;
+      var li = document.createElement("li"), a = document.createElement("a");
+      a.href = "../" + q.page + "/"; a.target = "_top"; a.textContent = q.pageTitle;
+      li.appendChild(document.createTextNode("Question " + (j + 1) + ": "));
+      li.appendChild(a);
+      li.appendChild(document.createTextNode(", section “" + q.section + "”"));
+      el.review.appendChild(li);
+    });
+    el.quiz.hidden = true;
+    el.result.hidden = false;
+    el.score.focus();
+  }
+
+  el.quiz.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!answered) { check(); return; }
+    i++;
+    if (i < n) show(true); else finish();
+  });
+  el.again.addEventListener("click", function () { i = 0; right = []; show(true); });
+  show(false);
+})();
+</script>
+</body>
+</html>

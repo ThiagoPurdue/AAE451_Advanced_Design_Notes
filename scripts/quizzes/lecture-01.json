@@ -1,0 +1,109 @@
+{
+  "lecture": 1,
+  "questions": [
+    {
+      "id": "L01-q1",
+      "page": "design-process",
+      "section": "What happens in conceptual design",
+      "question": "After the baseline design is set, a team raises the specific fuel consumption by 10 percent and plots the change in takeoff weight. What kind of trade is this?",
+      "options": [
+        "A technology trade, because it changes an assumption",
+        "A mission trade, because it changes a requirement",
+        "A design trade, because it changes the wing loading",
+        "A design iteration, because it goes back to point A"
+      ],
+      "explanation": "Specific fuel consumption is an assumption about the technology, so changing it is a technology trade. A mission trade changes a requirement, such as radius, payload, or speed."
+    },
+    {
+      "id": "L01-q2",
+      "page": "design-process",
+      "section": "The systems engineering approach",
+      "question": "The fuel subsystem of an aircraft sits at Level 3 of the system levels. In the flow-down between levels, where do its requirements come from?",
+      "options": [
+        "From the aircraft requirements at Level 2",
+        "Straight from the system of systems at Level 1",
+        "From the pumps and pipes at Levels 4 and 5",
+        "From the other subsystems beside it at Level 3"
+      ],
+      "explanation": "Each level is designed against requirements that come from the level above. The system of systems sets the aircraft requirements, and those flow down to the subsystems."
+    },
+    {
+      "id": "L01-q3",
+      "page": "needs-and-conops",
+      "section": "The needs phase",
+      "question": "Which statement about an invented firefighting aircraft is written as a need?",
+      "options": [
+        "Crews want to fight wildfires from small public-use airports.",
+        "The system shall take off within 3,000 ft at maximum weight.",
+        "Crews want a tilt-rotor aircraft based at small airports.",
+        "The aircraft carries its water in two tanks under the fuselage."
+      ],
+      "explanation": "A need states what a stakeholder wants to be able to do and names no solution. A sentence with \"The system shall\" is a requirement, and a tilt rotor or a tank layout is a solution."
+    },
+    {
+      "id": "L01-q4",
+      "page": "needs-and-conops",
+      "section": "Mission statement",
+      "question": "A draft mission statement reads: \"Develop a tilt-rotor aircraft system that delivers medical supplies to remote clinics within the operator's budget.\" What should the team change?",
+      "options": [
+        "Remove the tilt rotor, because a mission statement names no product",
+        "Remove the budget, because a mission statement holds no constraints",
+        "Remove the clinics, because the environment belongs in the CONOPS",
+        "Add a takeoff weight, because a mission statement must be measurable"
+      ],
+      "explanation": "A mission statement gives the purpose and the capabilities and leaves the configuration out. The budget and the clinics stay, because the constraints and the operating environment belong in the statement."
+    },
+    {
+      "id": "L01-q5",
+      "page": "needs-and-conops",
+      "section": "Concept of operations",
+      "question": "A team writes its requirements first and plans to draw the CONOPS later as an illustration for the report. What does this order get wrong?",
+      "options": [
+        "The CONOPS drives the requirements, so it is written first",
+        "The CONOPS replaces the requirements, so only one is needed",
+        "The CONOPS shows the configuration, so it follows the sizing",
+        "The CONOPS comes from the customer, so the team does not draw it"
+      ],
+      "explanation": "The CONOPS describes how the system will be operated, and each element in it puts requirements on the aircraft. It drives the development of the requirements and the architecture, so it cannot wait until they are written."
+    },
+    {
+      "id": "L01-q6",
+      "page": "requirements",
+      "section": "Writing a requirement",
+      "question": "\"The system shall be able to operate in all weather\" has no limit that a test can check. Which sentence, with an invented value, is a good requirement for one part of it?",
+      "options": [
+        "The system shall land at a runway visual range of 1,200 ft or more.",
+        "The system shall be capable of operating in adverse weather.",
+        "The system shall use de-icing boots to operate in icing.",
+        "The system shall operate easily in wind, icing, and low visibility."
+      ],
+      "explanation": "A good requirement states one condition with a value and a limit, so a test can show it is met. The other options leave the weather without a value or prescribe the de-icing device, which is a solution."
+    },
+    {
+      "id": "L01-q7",
+      "page": "requirements",
+      "section": "Testing the requirements",
+      "question": "Every requirement in a set passes the seven checks on a single requirement. What can still be wrong with the set?",
+      "options": [
+        "The requirements cannot all be met by one design",
+        "One of the requirements has an ambiguous term",
+        "One of the requirements traces to no user need",
+        "Nothing, because each requirement has passed"
+      ],
+      "explanation": "Feasible requirements can be infeasible together, for example a short field length, a high cruise speed, and a low unit cost. Ambiguity and traceability are checks on each requirement, and those have already passed."
+    },
+    {
+      "id": "L01-q8",
+      "page": "requirements",
+      "section": "Setting requirements for aerospace systems",
+      "question": "In the compliance matrix of an invented aircraft, the landing field length has a threshold of 3,000 ft, a target of 2,400 ft, and a current value of 2,700 ft. What is the status of this row?",
+      "options": [
+        "Meets the threshold, not the target",
+        "Meets the target, not the threshold",
+        "Meets both the threshold and the target",
+        "Meets neither the threshold nor the target"
+      ],
+      "explanation": "For a field length a smaller value is better. The current value is below the 3,000 ft threshold and above the 2,400 ft target, so the row meets the threshold only."
+    }
+  ]
+}

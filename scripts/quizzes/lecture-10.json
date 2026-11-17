@@ -1,0 +1,109 @@
+{
+  "lecture": 10,
+  "questions": [
+    {
+      "id": "L10-q1",
+      "page": "cg-and-envelope",
+      "section": "Step 1: the CG table",
+      "question": "An invented aircraft has its CG at <i>x<sub>cg</sub></i> = 310 in, aft of the datum. The leading edge of <i>c̄</i> is at <i>x<sub>LEMAC</sub></i> = 280 in, and <i>c̄</i> = 100 in. What is <i>x̄<sub>cg</sub></i>?",
+      "options": [
+        "0.30",
+        "3.10",
+        "0.11",
+        "−0.30"
+      ],
+      "explanation": "<i>x̄<sub>cg</sub></i> = (<i>x<sub>cg</sub></i> − <i>x<sub>LEMAC</sub></i>)/<i>c̄</i> = (310 − 280)/100 = 0.30. Dividing the position from the datum by <i>c̄</i> gives 3.10, which is not a position on the chord."
+    },
+    {
+      "id": "L10-q2",
+      "page": "cg-and-envelope",
+      "section": "Step 1: the CG envelope",
+      "question": "On the CG envelope of the Cirrus SR22 the forward limit moves aft as the weight rises, and the aft limit is one vertical line. Why does the aft limit stay at the same position at every weight?",
+      "options": [
+        "The static margin does not depend on the weight",
+        "The nose landing gear limit does not depend on the weight",
+        "The elevator limit at rotation does not depend on the weight",
+        "The fuel burn does not move the CG of the aircraft"
+      ],
+      "explanation": "The aft limit comes from the minimum static margin, and the static margin does not depend on the weight. The nose landing gear and the elevator at takeoff rotation are the causes of the sloped forward limit."
+    },
+    {
+      "id": "L10-q3",
+      "page": "longitudinal-stability",
+      "section": "Neutral point and static margin",
+      "question": "The CG of a stable aircraft moves aft. What happens to the line of <i>C<sub>M,cg</sub></i> against <i>C<sub>L</sub></i>?",
+      "options": [
+        "It flattens, and it is horizontal with the CG at the neutral point",
+        "It steepens, and it falls fastest with the CG at the neutral point",
+        "It shifts down at the same slope, and the trim <i>C<sub>L</sub></i> falls",
+        "It flattens, and it is horizontal with the CG at the wing aerodynamic center"
+      ],
+      "explanation": "The slope of the line is −<i>SM</i>, with <i>SM</i> = <i>x̄<sub>n</sub></i> − <i>x̄<sub>cg</sub></i>, so moving the CG aft flattens it until it is horizontal at the neutral point. The tail places the neutral point aft of the wing aerodynamic center."
+    },
+    {
+      "id": "L10-q4",
+      "page": "longitudinal-stability",
+      "section": "Step 2: the scissor plot",
+      "question": "On the scissor plot, the cut is moved up to a larger tail area ratio <i>S<sub>t</sub></i>/<i>S</i>. What happens to the CG limits?",
+      "options": [
+        "The forward limit moves forward, and the aft limit moves aft",
+        "The forward limit stays, and the aft limit moves aft",
+        "The forward limit moves aft, and the aft limit moves aft",
+        "The forward limit moves aft, and the aft limit moves forward"
+      ],
+      "explanation": "The feasible region is above every line. The control lines on its left fall to the right and the stability and stall-recovery lines on its right rise, so a higher cut is longer at both ends."
+    },
+    {
+      "id": "L10-q5",
+      "page": "trim",
+      "section": "The trim diagram",
+      "question": "In the trim diagram, the line of <i>δ<sub>e,trim</sub></i> for the forward CG meets the elevator limit at a high <i>C<sub>L,trim</sub></i>. What does that point give?",
+      "options": [
+        "The slowest speed the aircraft can trim at that CG",
+        "The fastest speed the aircraft can trim at that CG",
+        "The stall speed of the wing at that CG",
+        "The speed at which the static margin reaches zero"
+      ],
+      "explanation": "The forward CG needs the largest elevator deflection, trailing edge up, at high lift, and a high <i>C<sub>L</sub></i> = <i>W</i>/(<i>qS</i>) means a low speed. Beyond the elevator limit the moment about the CG cannot be brought to zero, so the aircraft cannot trim at a lower speed."
+    },
+    {
+      "id": "L10-q6",
+      "page": "trim",
+      "section": "Trim drag",
+      "question": "Why is the trim drag largest at the forward CG?",
+      "options": [
+        "The tail download is largest, and the wing must lift more than the weight",
+        "The tail upload is largest, and the wing lifts less than the weight",
+        "The trim angle of attack is largest, and <i>C<sub>D0</sub></i> rises with it",
+        "The static margin is smallest, and the elevator must deflect more"
+      ],
+      "explanation": "A download on the tail makes the wing lift more than the weight: the induced drag of the wing rises, and the tail adds its own. The forward CG has the largest static margin and needs the largest elevator deflection, trailing edge up, to trim."
+    },
+    {
+      "id": "L10-q7",
+      "page": "lateral-and-controls",
+      "section": "Step 6: dihedral effect",
+      "question": "High-wing swept transports are built with anhedral. Why?",
+      "options": [
+        "Sweep and the high wing give too much dihedral effect, and anhedral removes some",
+        "Sweep and the high wing make <i>C<sub>ℓβ</sub></i> positive, and anhedral makes it negative",
+        "Sweep and the high wing reduce the yaw stiffness <i>C<sub>nβ</sub></i>, and anhedral restores it",
+        "Sweep and the high wing reduce the roll damping <i>C<sub>ℓp</sub></i>, and anhedral restores it"
+      ],
+      "explanation": "Sweep and a high wing each add a negative part to <i>C<sub>ℓβ</sub></i>, and too much dihedral effect is a handling problem. A negative dihedral angle adds a positive part and brings <i>C<sub>ℓβ</sub></i> back into range."
+    },
+    {
+      "id": "L10-q8",
+      "page": "lateral-and-controls",
+      "section": "Step 5: the engine-out case and the rudder",
+      "question": "In the engine-out case, the rotation speed must lie above the minimum control speed <i>V<sub>mc</sub></i>. What fails below <i>V<sub>mc</sub></i>?",
+      "options": [
+        "The rudder at its largest deflection cannot balance the yawing moment of the engines",
+        "The wing at its largest lift coefficient cannot carry the weight of the aircraft",
+        "The elevator at its largest deflection cannot rotate the aircraft about the main gear",
+        "The live engine at its largest thrust cannot balance the drag of the aircraft"
+      ],
+      "explanation": "The rudder moment <i>q S b</i> |<i>C<sub>nδr</sub></i>| <i>δ<sub>r,max</sub></i> is proportional to <i>q</i>. <i>V<sub>mc</sub></i> is the speed at which it just balances the yawing moment (<i>T</i> + <i>D<sub>dead</sub></i>) <i>y<sub>e</sub></i> of the live and the failed engine; below that speed the rudder moment is too small."
+    }
+  ]
+}

@@ -234,6 +234,15 @@ Write the problem statement for your brainstorming session in one sentence. Then
 Clausing, "Selecting a Winning Concept," on Brightspace. [](../assignments/a03.md) states what Deliverables 2 and 3 ask for.
 :::
 
+## Quiz
+
+:::{iframe} ../quickcheck/quiz-lecture-04.html
+:label: quiz-lecture-04
+:width: 100%
+
+Quiz on Lecture 4: eight questions, one at a time, with the explanation after each answer. It is not graded and nothing is recorded.
+:::
+
 ## References
 
 - Pugh, S., *Total Design: Integrated Methods for Successful Product Engineering*, Addison-Wesley, 1991.

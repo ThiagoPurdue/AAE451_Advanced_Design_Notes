@@ -406,6 +406,15 @@ Take the wing area and span of the T-45 from your A02 database. Compute $AR$, an
 Gudmundsson (2022), Chapters 8 and 9. The next lecture covers high-lift systems: device types, increments, and the field-length method for the required $C_{L_{max}}$. [](../assignments/a04.md) states what the deliverables ask for.
 :::
 
+## Quiz
+
+:::{iframe} ../quickcheck/quiz-lecture-05.html
+:label: quiz-lecture-05
+:width: 100%
+
+Quiz on Lecture 5: eight questions, one at a time, with the explanation after each answer. It is not graded and nothing is recorded.
+:::
+
 ## References
 
 - Gudmundsson, S., *General Aviation Aircraft Design: Applied Methods and Procedures*, 2nd ed., Butterworth-Heinemann, 2022. Chapter 8, The Anatomy of the Airfoil; Chapter 9, The Anatomy of the Wing; Chapter 16, Aircraft Drag Analysis, Section 16.3.3.

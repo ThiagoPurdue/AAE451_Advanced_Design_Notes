@@ -1,0 +1,109 @@
+{
+  "lecture": 8,
+  "questions": [
+    {
+      "id": "L08-q1",
+      "page": "engine-selection",
+      "section": "Propulsive efficiency",
+      "question": "An invented engine with an exit speed <i>V<sub>e</sub></i> = 3<i>V<sub>∞</sub></i> has <i>η<sub>prop</sub></i> = 0.50. What is <i>η<sub>prop</sub></i> of a second engine that gives the same thrust at the same flight speed with twice the mass flow?",
+      "options": [
+        "0.67",
+        "0.80",
+        "0.50",
+        "0.33"
+      ],
+      "explanation": "At the same thrust, twice the mass flow needs half the velocity change: <i>V<sub>e</sub></i> − <i>V<sub>∞</sub></i> falls from 2<i>V<sub>∞</sub></i> to <i>V<sub>∞</sub></i>, so <i>V<sub>e</sub></i> = 2<i>V<sub>∞</sub></i> and <i>η<sub>prop</sub></i> = 2/(1 + 2) = 0.67. Halving <i>V<sub>e</sub></i> itself gives 0.80."
+    },
+    {
+      "id": "L08-q2",
+      "page": "engine-selection",
+      "section": "Turbojet and turbofan",
+      "question": "Two turbofans have the same sea-level static thrust. What does the one with the higher bypass ratio have?",
+      "options": [
+        "Lower TSFC, a larger fan, and thrust that falls faster with Mach number",
+        "Lower TSFC, a smaller fan, and thrust that falls faster with Mach number",
+        "Lower TSFC, a larger fan, and thrust that falls more slowly with Mach number",
+        "Higher TSFC, a larger fan, and thrust that falls more slowly with Mach number"
+      ],
+      "explanation": "More bypass air is a larger mass flow with a smaller velocity change, which lowers the TSFC and needs a larger fan. The cost is thrust that falls faster as Mach number rises."
+    },
+    {
+      "id": "L08-q3",
+      "page": "engine-models",
+      "section": "Thrust lapse of a turbofan",
+      "question": "The sea-level curves of the turbofan thrust lapse show a break as Mach number rises. What does the break mark?",
+      "options": [
+        "<i>θ<sub>0</sub></i> reaches <i>TR</i>, and the turbine entry temperature is at its limit",
+        "The nozzle chokes, and the exit Mach number stays at 1 from there on",
+        "The ram pressure stops rising, and <i>δ<sub>0</sub></i> stays constant from there on",
+        "The flow at the inlet lip goes sonic, and a shock lowers the recovery"
+      ],
+      "explanation": "The throttle ratio <i>TR</i> is the value of <i>θ<sub>0</sub></i> at which the turbine entry temperature reaches its limit. Above it, the term in <i>θ<sub>0</sub></i> − <i>TR</i> enters the relation and takes thrust away."
+    },
+    {
+      "id": "L08-q4",
+      "page": "engine-models",
+      "section": "A published engine deck: the FJ44-3E",
+      "question": "On an engine deck, TSFC is flat near full throttle and rises steeply at low throttle settings. A sizing code uses one TSFC value, read near full throttle, for every segment. What is the effect on the mission fuel?",
+      "options": [
+        "It underestimates the fuel of the descent and the loiter",
+        "It overestimates the fuel of the descent and the loiter",
+        "It underestimates the fuel of the takeoff and the climb",
+        "It overestimates the fuel of the takeoff and the climb"
+      ],
+      "explanation": "The descent and the loiter are flown at low throttle settings, where the TSFC is well above the full-throttle value. Takeoff and climb are near full throttle, where the curve is flat and the throttle setting adds little error."
+    },
+    {
+      "id": "L08-q5",
+      "page": "engine-models",
+      "section": "Thrust sizing",
+      "question": "The equation for the maximum sustained load factor <i>n<sub>MS</sub></i> contains <i>T/W</i> and <i>W/S</i>. For a turn at altitude, partway through the mission, which thrust and weight go in?",
+      "options": [
+        "The thrust and the weight at that flight condition",
+        "The sea-level static thrust and the takeoff weight",
+        "The sea-level static thrust and the weight at that condition",
+        "The thrust at that flight condition and the takeoff weight"
+      ],
+      "explanation": "<i>T/W</i> and <i>W/S</i> in the equation are the values at the flight condition. Carrying (<i>T/W</i>)<sub>TO</sub> into it skips the thrust lapse and the fuel burned."
+    },
+    {
+      "id": "L08-q6",
+      "page": "engine-integration",
+      "section": "Jet inlet: the capture area",
+      "question": "An invented aircraft has an inlet sized at its cruise condition, so the lip area is about the area of the cruise streamtube. What does the takeoff check find?",
+      "options": [
+        "The streamtube is wider than the lip, so the inlet needs rounded lips and perhaps doors",
+        "The streamtube is narrower than the lip, so the lip area can be reduced further",
+        "The streamtube has the same area as the lip, so the takeoff check changes nothing",
+        "The streamtube is wider than the lip, so the diffuser must be made longer"
+      ],
+      "explanation": "The demand capture area is the airflow divided by 32.17<i>ρ<sub>∞</sub>V<sub>∞</sub></i>, so it grows as the flight speed falls. At takeoff the engine draws air from a region wider than a lip sized for cruise, and the air has to turn around the lip."
+    },
+    {
+      "id": "L08-q7",
+      "page": "engine-integration",
+      "section": "Diffuser: duct length and recovery",
+      "question": "A layout shortens the inlet diffuser to save fuselage length, with the throat diameter <i>D<sub>t</sub></i> and the compressor-face diameter <i>D<sub>f</sub></i> unchanged. What is the risk?",
+      "options": [
+        "The included angle goes above 10° and the flow can separate",
+        "The compressor-face Mach number goes above the 0.4 to 0.5 band",
+        "The demand capture area becomes smaller than the lip area",
+        "The fuselage boundary layer enters the inlet at the lip"
+      ],
+      "explanation": "With <i>D<sub>f</sub></i> − <i>D<sub>t</sub></i> fixed, a shorter length <i>L</i> gives a larger included angle <i>θ</i>. The 10° limit keeps the diffuser below the angle at which the flow separates."
+    },
+    {
+      "id": "L08-q8",
+      "page": "engine-integration",
+      "section": "Nozzle: what to check",
+      "question": "A team has an uninstalled deck and an installed deck. To which one does it apply its inlet pressure recovery and its nozzle coefficient in full?",
+      "options": [
+        "An uninstalled deck only, since an installed deck already includes them",
+        "An installed deck only, since an uninstalled deck has no inlet or nozzle",
+        "Both decks, since the two losses change with Mach number",
+        "Neither deck, since both losses belong in the drag build-up"
+      ],
+      "explanation": "An installed deck already carries a pressure recovery and a nozzle coefficient, so applying the team's values again counts each loss twice. If the team's recovery is below the one the deck assumed, only the difference costs thrust. The boattail drag is the item that goes in the drag build-up."
+    }
+  ]
+}

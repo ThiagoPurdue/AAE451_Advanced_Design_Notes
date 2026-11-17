@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz: Lecture 5, Aerodynamics, Airfoil and Wing</title>
+<style>
+  /* The color variables match the quick checks (quickcheck/*.html). Change them together. */
+  :root {
+    --bg: #ffffff; --fg: #1f2937; --muted: #4b5563; --card: #ffffff; --border: #d9d6ce;
+    --head-bg: #f7f5f0; --head-fg: #111827; --accent: #6f5630; --accent-border: #cfb991;
+    --input-bg: #ffffff; --input-border: #6b7280; --ok: #0a6b3d; --bad: #b42318;
+    --button: #111827; --button-fg: #ffffff; --sol-bg: #f7f5f0;
+    --link: #1d4ed8; --focus: #1d4ed8;
+  }
+  html.dark {
+    --bg: #1c1917; --fg: #e5e7eb; --muted: #b7bcc6; --card: #292524; --border: #44403c;
+    --head-bg: #363231; --head-fg: #ffffff; --accent: #cfb991; --accent-border: #cfb991;
+    --input-bg: #1c1917; --input-border: #9ca3af; --ok: #6ee7b7; --bad: #fca5a5;
+    --button: #cfb991; --button-fg: #000000; --sol-bg: #363231;
+    --link: #93c5fd; --focus: #93c5fd;
+  }
+  html.dark { color-scheme: dark; }   /* native radio buttons drawn for a dark page */
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg);
+         font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .card { border: 1px solid var(--border); border-left: 5px solid var(--accent-border); border-radius: 8px;
+          background: var(--card); overflow: hidden; }
+  .head { background: var(--head-bg); color: var(--head-fg); padding: 10px 16px; font-weight: 700; font-size: 1.15em;
+          display: flex; align-items: center; gap: 10px; }
+  .head svg { width: 22px; height: 22px; flex: none; }
+  .body { padding: 16px; }
+  i { font-style: italic; }
+  sub, sup { font-size: 0.75em; }
+  .ov { text-decoration: overline; }
+  .progress { margin: 0 0 6px; color: var(--muted); font-size: 0.95em; }
+  .progress:focus { outline: none; }
+  .bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; margin: 0 0 14px; }
+  .bar span { display: block; height: 100%; width: 0; background: var(--accent-border); }
+  fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+  legend { padding: 0; margin: 0 0 4px; font-size: 1.08em; font-weight: 600; color: var(--head-fg); }
+  .opt { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 4px 10px; padding: 10px 12px; margin: 8px 0 0;
+         border: 1px solid var(--input-border); border-radius: 6px; background: var(--input-bg); cursor: pointer; }
+  .opt input { flex: none; width: 1.05em; height: 1.05em; margin: 0.25em 0 0; accent-color: var(--button); }
+  .opt .text { flex: 1 1 12em; }
+  .opt .tag { flex: none; font-weight: 600; font-size: 0.92em; }
+  .opt:hover { border-color: var(--fg); }
+  .opt:has(input:checked) { border-color: var(--fg); box-shadow: inset 0 0 0 1px var(--fg); }
+  .opt:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 1px; }
+  .locked .opt { cursor: default; }
+  .locked .opt:hover { border-color: var(--input-border); }
+  .locked .opt.right, .locked .opt.right:hover { border-color: var(--ok); box-shadow: inset 0 0 0 1px var(--ok); }
+  .locked .opt.wrong, .locked .opt.wrong:hover { border-color: var(--bad); box-shadow: inset 0 0 0 1px var(--bad); }
+  .opt.right .tag { color: var(--ok); }
+  .opt.wrong .tag { color: var(--bad); }
+  .feedback { margin: 14px 0 0; }
+  .feedback.show { border: 1px solid var(--border); border-left: 4px solid var(--accent-border); border-radius: 6px;
+                   background: var(--sol-bg); padding: 10px 14px; }
+  .verdict { font-weight: 700; }
+  .verdict.ok { color: var(--ok); }
+  .verdict.bad { color: var(--bad); }
+  .buttons { display: flex; gap: 12px; margin: 16px 0 0; }
+  button { font: inherit; font-weight: 600; padding: 9px 20px; border-radius: 6px; cursor: pointer; }
+  button:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .primary { background: var(--button); color: var(--button-fg); border: 1px solid var(--button); }
+  .score { margin: 0 0 8px; font-size: 1.15em; font-weight: 700; color: var(--head-fg); }
+  .score:focus { outline: none; }
+  .result p { margin: 8px 0; }
+  .result ul { margin: 8px 0 0; padding-left: 1.3em; }
+  .result li { margin: 4px 0; }
+  a { color: var(--link); }
+  a:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="head">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4.5h6M9 10l1.5 1.5L13.5 8.5M9 16h6"/></svg>
+    Quiz: Lecture 5, Aerodynamics, Airfoil and Wing
+  </div>
+  <div class="body">
+    <noscript><p>The quiz needs JavaScript.</p></noscript>
+    <p class="progress" id="progress" tabindex="-1"></p>
+    <div class="bar" aria-hidden="true"><span id="fill"></span></div>
+    <form id="quiz" novalidate>
+      <fieldset>
+        <legend id="legend"></legend>
+        <div id="opts"></div>
+      </fieldset>
+      <div class="feedback" id="feedback" role="status"></div>
+      <div class="buttons">
+        <button type="submit" class="primary" id="go">Check answer</button>
+      </div>
+    </form>
+    <div class="result" id="result" hidden>
+      <p class="score" id="score" tabindex="-1"></p>
+      <p id="reviewIntro">Review these sections, then start over:</p>
+      <ul id="review"></ul>
+      <div class="buttons">
+        <button type="button" class="primary" id="again">Start over</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="application/json" id="data">{"questions": [{"page": "airfoil", "pageTitle": "The airfoil", "section": "Camber and thickness", "question": "The drag bucket of a candidate airfoil lies below the cruise <i>C<sub>l<\/sub><\/i>. Which change to the airfoil moves the bucket to a higher <i>C<sub>l<\/sub><\/i>, and what does it cost?", "options": ["More camber, at the cost of more nose-down <i>C<sub>m<\/sub><\/i> and trim drag", "Less camber, at the cost of a lower <i>C<sub>lmax<\/sub><\/i> at the stall", "More thickness, at the cost of a higher <i>C<sub>dmin<\/sub><\/i> in cruise", "Less thickness, at the cost of a shallower spar and a heavier wing"], "explanation": "More camber moves the drag bucket to a higher <i>C<sub>l<\/sub><\/i> and raises <i>C<sub>lmax<\/sub><\/i>. It costs more nose-down <i>C<sub>m<\/sub><\/i> and the trim drag that goes with it."}, {"page": "airfoil", "pageTitle": "The airfoil", "section": "Reynolds number", "question": "A team has airfoil data measured at a Reynolds number lower than the one its wing has at the stall. If it uses the data as measured, what is the error in the stall estimate?", "options": ["<i>C<sub>lmax<\/sub><\/i> and <i>α<sub>stall<\/sub><\/i> are both underestimated", "<i>C<sub>lmax<\/sub><\/i> and <i>α<sub>stall<\/sub><\/i> are both overestimated", "<i>C<sub>lα<\/sub><\/i> is underestimated over the linear range", "Only <i>C<sub>dmin<\/sub><\/i> is in error; the stall is unchanged"], "explanation": "A higher Reynolds number raises <i>C<sub>lmax<\/sub><\/i> and <i>α<sub>stall<\/sub><\/i> and lowers <i>C<sub>dmin<\/sub><\/i>, while <i>C<sub>lα<\/sub><\/i> does not change. Data taken at a lower Reynolds number put the stall too early and <i>C<sub>lmax<\/sub><\/i> too low."}, {"page": "airfoil", "pageTitle": "The airfoil", "section": "Compressibility", "question": "An invented conventional airfoil has <i>t/c<\/i> = 0.10 and flies at <i>C<sub>l<\/sub><\/i> = 0.4. With <i>κ<\/i> = 0.87 for a conventional airfoil and 0.95 for a supercritical one, what <i>M<sub>dd<\/sub><\/i> does the Korn relation give?", "options": ["0.73", "0.77", "0.81", "0.37"], "explanation": "<i>M<sub>dd<\/sub><\/i> = <i>κ<\/i> − <i>t/c<\/i> − 0.1 <i>C<sub>l<\/sub><\/i> = 0.87 − 0.10 − 0.04 = 0.73. The lift coefficient enters with a factor of 0.1, and 0.95 applies only to a supercritical airfoil."}, {"page": "airfoil", "pageTitle": "The airfoil", "section": "Airfoil selection", "question": "The comparison table scores the thickness ratio with the highest value as best. What does the thicker airfoil give the aircraft?", "options": ["A deeper spar, so a lighter wing, and more fuel volume", "A higher <i>M<sub>dd<\/sub><\/i> at the design <i>C<sub>l<\/sub><\/i>, so a faster cruise speed", "A lower <i>C<sub>dmin<\/sub><\/i>, so less drag at the cruise and climb <i>C<sub>l<\/sub><\/i>", "Less nose-down <i>C<sub>m<\/sub><\/i>, so less trim drag and tail load"], "explanation": "The criterion <i>t/c<\/i> traces to spar depth and fuel volume, and a deeper spar makes a lighter wing. The costs of thickness, a higher <i>C<sub>dmin<\/sub><\/i> and a lower <i>M<sub>dd<\/sub><\/i>, are scored on their own rows."}, {"page": "wing-geometry-and-lift", "pageTitle": "Wing geometry and lift", "section": "Aspect ratio", "question": "The horizontal tail is given an aspect ratio below the wing's. What is the reason?", "options": ["A low <i>AR<\/i> has a higher <i>α<sub>stall<\/sub><\/i>, so the tail stalls after the wing", "A low <i>AR<\/i> has a steeper <i>C<sub>Lα<\/sub><\/i>, so the tail can be smaller", "A low <i>AR<\/i> has less induced drag, so the trim drag is lower", "A low <i>AR<\/i> has a lower <i>α<sub>stall<\/sub><\/i>, so the tail warns of the wing stall"], "explanation": "A low aspect ratio gives a shallow <i>C<sub>Lα<\/sub><\/i> and a high <i>α<sub>stall<\/sub><\/i>. The tail then stalls after the wing, at the price of more induced drag."}, {"page": "wing-geometry-and-lift", "pageTitle": "Wing geometry and lift", "section": "The pitch-up boundary of swept wings", "question": "A swept wing plots in Region II of the pitch-up boundary, where the nose rises at stall. Which change moves it toward Region I?", "options": ["A lower aspect ratio", "A higher aspect ratio", "A higher taper ratio <i>λ<\/i>", "More quarter-chord sweep"], "explanation": "Region I lies below the limiting aspect ratio, so a lower <i>AR<\/i> moves the wing toward it. More sweep or a higher <i>λ<\/i> lowers the limit and leaves the wing deeper in Region II."}, {"page": "wing-geometry-and-lift", "pageTitle": "Wing geometry and lift", "section": "Twist and stall progression", "question": "A wing with a taper ratio of 0.3 is tip loaded, and it gets a large washout. What is the washout for?", "options": ["To make the stall start inboard, so the ailerons stay effective", "To make the stall start at the tip, so the nose drops at stall", "To raise the wing lift at a given <i>α<\/i>, so the stall speed falls", "To delay the stall at the root, where a tapered wing stalls first"], "explanation": "A tip-loaded wing reaches the airfoil <i>C<sub>lmax<\/sub><\/i> outboard first. Washout lowers the incidence of the tip so the stall starts inboard, and it costs lift at a given <i>α<\/i>."}, {"page": "wing-geometry-and-lift", "pageTitle": "Wing geometry and lift", "section": "Maximum lift of the clean wing", "question": "An invented clean wing has <i>Λ<sub>c/4<\/sub><\/i> = 45° (cos 45° = 0.707) and an airfoil with <i>C<sub>lmax<\/sub><\/i> = 1.50 at the MGC and the stall Reynolds number. With the rapid estimate for <i>C<sub>Lmax0<\/sub><\/i> and the sweep factor <i>K<sub>Λ<\/sub><\/i>, what is the wing <i>C<sub>Lmax<\/sub><\/i>?", "options": ["0.95", "1.35", "1.06", "1.50"], "explanation": "<i>C<sub>Lmax0<\/sub><\/i> = 0.9 × 1.50 = 1.35, and the sweep factor <i>K<sub>Λ<\/sub><\/i> = cos <i>Λ<sub>c/4<\/sub><\/i> gives 1.35 × 0.707 = 0.95. Stopping at 1.35 leaves out the sweep."}]}</script>
+<script>
+(function () {
+  function syncTheme() {
+    var dark = false;
+    try { dark = window.parent.document.documentElement.classList.contains("dark"); }
+    catch (e) { dark = window.matchMedia("(prefers-color-scheme: dark)").matches; }
+    document.documentElement.classList.toggle("dark", dark);
+  }
+  syncTheme();
+  try { new MutationObserver(syncTheme).observe(window.parent.document.documentElement, { attributes: true }); } catch (e) {}
+  function fit() {
+    try {
+      var fe = window.frameElement;
+      if (fe && fe.parentElement) fe.parentElement.style.height = (Math.ceil(document.body.getBoundingClientRect().height) + 2) + "px";
+    } catch (e) {}
+  }
+  try { new ResizeObserver(fit).observe(document.body); } catch (e) {}
+  window.addEventListener("load", fit);
+
+  var Q = JSON.parse(document.getElementById("data").textContent).questions;
+  var n = Q.length, i = 0, answered = false, right = [];
+  var el = {};
+  ["progress", "fill", "quiz", "legend", "opts", "feedback", "go", "result", "score", "reviewIntro", "review", "again"]
+    .forEach(function (id) { el[id] = document.getElementById(id); });
+
+  function shuffle(a) {
+    for (var j = a.length - 1; j > 0; j--) {
+      var k = Math.floor(Math.random() * (j + 1)), t = a[j]; a[j] = a[k]; a[k] = t;
+    }
+    return a;
+  }
+
+  // Show question i. The options are drawn in a new order each time; option 0 is the correct one.
+  function show(moveFocus) {
+    var q = Q[i];
+    answered = false;
+    el.progress.textContent = "Question " + (i + 1) + " of " + n;
+    el.fill.style.width = (100 * i / n) + "%";
+    el.legend.innerHTML = q.question;
+    el.opts.innerHTML = "";
+    el.opts.className = "";
+    shuffle([0, 1, 2, 3]).forEach(function (k) {
+      var label = document.createElement("label"), input = document.createElement("input"),
+          text = document.createElement("span"), tag = document.createElement("span");
+      label.className = "opt";
+      input.type = "radio"; input.name = "answer"; input.value = String(k);
+      text.className = "text"; text.innerHTML = q.options[k];
+      tag.className = "tag";
+      label.appendChild(input); label.appendChild(text); label.appendChild(tag);
+      el.opts.appendChild(label);
+    });
+    el.feedback.className = "feedback";
+    el.feedback.textContent = "";
+    el.go.textContent = "Check answer";
+    el.result.hidden = true;
+    el.quiz.hidden = false;
+    if (moveFocus) el.progress.focus();
+  }
+
+  function check() {
+    var chosen = el.quiz.querySelector("input[name=answer]:checked");
+    if (!chosen) {
+      el.feedback.className = "feedback show";
+      el.feedback.textContent = "Choose an answer first.";
+      return;
+    }
+    answered = true;
+    right[i] = chosen.value === "0";
+    Array.prototype.forEach.call(el.opts.querySelectorAll("label"), function (label) {
+      var input = label.querySelector("input"), tag = label.querySelector(".tag");
+      if (input.value === "0") { label.classList.add("right"); tag.textContent = "✓ correct answer"; }
+      else if (input.checked) { label.classList.add("wrong"); tag.textContent = "✗ your answer"; }
+      input.disabled = true;
+    });
+    el.opts.className = "locked";
+    el.feedback.className = "feedback show";
+    el.feedback.innerHTML = '<span class="verdict ' + (right[i] ? "ok" : "bad") + '">' +
+      (right[i] ? "Correct." : "Not correct.") + "</span> " + Q[i].explanation;
+    el.go.textContent = i + 1 < n ? "Next question" : "See your score";
+    el.go.focus();
+  }
+
+  function finish() {
+    var count = right.filter(Boolean).length;
+    el.progress.textContent = "Result";
+    el.fill.style.width = "100%";
+    el.score.textContent = count === n ? "All " + n + " correct." : count + " of " + n + " correct.";
+    el.review.innerHTML = "";
+    el.reviewIntro.hidden = count === n;
+    Q.forEach(function (q, j) {
+      if (right[j]) return;
+      var li = document.createElement("li"), a = document.createElement("a");
+      a.href = "../" + q.page + "/"; a.target = "_top"; a.textContent = q.pageTitle;
+      li.appendChild(document.createTextNode("Question " + (j + 1) + ": "));
+      li.appendChild(a);
+      li.appendChild(document.createTextNode(", section “" + q.section + "”"));
+      el.review.appendChild(li);
+    });
+    el.quiz.hidden = true;
+    el.result.hidden = false;
+    el.score.focus();
+  }
+
+  el.quiz.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!answered) { check(); return; }
+    i++;
+    if (i < n) show(true); else finish();
+  });
+  el.again.addEventListener("click", function () { i = 0; right = []; show(true); });
+  show(false);
+})();
+</script>
+</body>
+</html>
