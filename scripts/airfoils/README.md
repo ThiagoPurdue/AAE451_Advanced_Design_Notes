@@ -19,8 +19,11 @@ reports themselves.
 `gudmundsson-fig-8-74.json`: the lift curves and drag polars of the NACA 23015 and the
 NACA 65(2)-415 at a Reynolds number of 6 million (data of NACA Report 824), read from the
 plotted curves of Gudmundsson (2022), Figure 8-74, by color segmentation of the figure
-image. Reading accuracy is about 0.01 in lift coefficient, 0.0002 in drag coefficient and
-0.2 degrees in angle of attack.
+image. The dashed NACA 23015 curves are medians over bins (1 degree of angle of attack on the
+lift curve, 0.03 in lift coefficient on the polar). Reading accuracy is about 0.01 in lift
+coefficient, 0.0002 in drag coefficient and 0.2 degrees in angle of attack. The read curves
+reproduce the values Table 8-9 lists for the two airfoils (slope, zero-lift angle, drag at
+lift coefficients of 0, 0.4 and 0.8) within that accuracy; `section_data` asserts it.
 
 The NACA 4-digit and 5-digit sections are not stored here: `make_aero_figures.py`
 computes them from the NACA equations (`naca4`, `naca230`).

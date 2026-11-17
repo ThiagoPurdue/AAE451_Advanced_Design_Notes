@@ -105,10 +105,10 @@ A04 accepts only cited, published data. Start with NACA Report 824 and Gudmundss
 
 :::{figure} figures/section-data.svg
 :label: fig-section-data
-:alt: Two schematic plots. Left, section lift coefficient against angle of attack: a straight line through the zero-lift angle, marked, with its linear range and slope labeled, bending over to the maximum lift coefficient at the stall angle, marked, then falling. Right, section lift coefficient against drag coefficient: a polar with its minimum drag marked at a lift coefficient of about 0.3 and a shaded band labeled drag bucket, the low-drag range, around it.
+:alt: Two plots of the measured NACA 65 2-415 at a Reynolds number of 6 million. Left, section lift coefficient against angle of attack: a straight line through the zero-lift angle, marked at about minus 2.6 degrees, with its linear range and slope labeled and a dashed extension of the straight line; the curve leaves the line near 9 degrees, bends over to the maximum lift coefficient of about 1.6 at the stall angle near 18 degrees, marked, then falls to about 1.1 at 23 degrees. Right, section lift coefficient against drag coefficient: a polar whose drag coefficient stays near 0.0043 between lift coefficients of about 0.1 and 0.65, a shaded band labeled drag bucket, the low-drag range, with the minimum drag marked inside it; outside the band the drag rises quickly, to about 0.008 at a lift coefficient of 0.8 and 0.02 at 1.4.
 :width: 100%
 
-What to read from an airfoil's lift curve and drag polar. Schematic, after Gudmundsson (2022), Figure 8-5, which shows the measured NACA 4415 data from NACA Report 824.
+What to read from an airfoil's lift curve and drag polar. The curves are the NACA 65$_2$-415 measured at a Reynolds number of 6 million (NACA Report 824), read from Gudmundsson (2022), Figure 8-74; his Figure 8-5 marks the same quantities on the NACA 4415.
 :::
 
 Read from the curves:
@@ -282,10 +282,10 @@ $W/S$ is the ASORT value. The design $C_L$ is provisional until the constraint d
 
 :::{figure} figures/airfoil-comparison.svg
 :label: fig-airfoil-comparison
-:alt: Two schematic plots comparing candidate A, solid, and candidate B, dashed. Left, the drag polars with horizontal dotted lines at the cruise and climb lift coefficients: candidate A has the lower drag at both. Right, the lift curves: candidate B reaches the higher maximum lift coefficient and stalls more sharply.
+:alt: Two plots comparing the NACA 65 2-415, solid, and the NACA 23015, dashed, both measured at a Reynolds number of 6 million. Left, the drag polars with horizontal dotted lines at an example cruise lift coefficient of 0.3 and an example climb lift coefficient of 0.7. The 65 2-415 has a drag bucket: at the cruise line its drag coefficient is about 0.0043 against 0.0065 for the 23015. The climb line sits at the upper edge of the bucket, where the 65 2-415 is still lower, about 0.0054 against 0.0073; above a lift coefficient of about 0.75 the 23015 has the lower drag. Right, the lift curves: the 23015 reaches the higher maximum lift coefficient, 1.69 against 1.62, and then drops abruptly to about 1.1 within 2 degrees, while the 65 2-415 rounds over and falls gradually.
 :width: 100%
 
-How two candidates are compared: at the lift coefficients you fly on the polar, and at $C_{l_{max}}$ on the lift curve. Schematic; Gudmundsson (2022), Figure 8-74, shows the comparison with measured data for NACA 23015 and 65$_2$-415.
+How two candidates are compared: at the lift coefficients you fly on the polar, and at $C_{l_{max}}$ on the lift curve. The curves are the NACA 65$_2$-415 and the NACA 23015 measured at a Reynolds number of 6 million (NACA Report 824), read from Gudmundsson (2022), Figure 8-74. The cruise and climb lift coefficients, 0.3 and 0.7, are examples.
 :::
 
 :::{admonition} Navy Jet Trainer

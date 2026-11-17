@@ -259,37 +259,43 @@ def naca_families():
 
 # ------------------------------------------------------------ section data
 def section_data():
+    """The measured NACA 65(2)-415 at Re = 6e6 (NACA Report 824), read from Gudmundsson (2022),
+    Figure 8-74, with what is read from the two curves marked."""
+    a, cl, slope, a0, clmax, amax = _read_lift("lift_652415")
+    pcl, pcd, cdmin, lo, hi = _read_polar("polar_652415")
+    # the read curves agree with the tabulated values of Gudmundsson (2022), Table 8-9, and Figure 8-74
+    assert abs(clmax - 1.62) < 0.03 and abs(slope - 0.107) < 0.005 and abs(a0 + 2.6) < 0.3
+    assert abs(cdmin - 0.0042) < 0.0003 and abs(np.interp(0.8, pcl, pcd) - 0.0084) < 0.0004
+    assert 0.0 < lo < 0.15 and 0.55 < hi < 0.75                      # the bucket spans the design C_l of 0.4
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.4))
-    a = np.linspace(-8, 20, 400)
-    a0, amax, clmax = -2.0, 15.0, 1.5
-    cl = lift_curve(a, a0, amax, clmax)
-    ax1.plot(a, cl, color=BLUE, lw=2.2)
-    ax1.plot([a0 - 2, 8], [-0.2, 0.1 * (8 - a0)], color=STEEL, lw=0.9, ls="--")
+    keep = a > -11
+    ax1.plot(a[keep], cl[keep], color=BLUE, lw=2.2)
+    ax1.plot([a0 - 3, 13], [slope * -3, slope * (13 - a0)], color=STEEL, lw=0.9, ls="--")
     ax1.axhline(0, color=STEEL, lw=0.7)
     ax1.axvline(0, color=STEEL, lw=0.7)
     ax1.plot([a0], [0], "o", color=VERM, ms=7)
-    ax1.text(a0 - 0.5, -0.22, r"$\alpha_{ZL}$", color=VERM, ha="right", fontsize=12)
+    ax1.text(a0 - 0.6, 0.06, r"$\alpha_{ZL}$", color=VERM, ha="right", va="bottom", fontsize=12)
     ax1.plot([amax], [clmax], "o", color=VERM, ms=7)
-    ax1.annotate(r"$C_{l_{max}}$ at $\alpha_{stall}$", xy=(amax, clmax), xytext=(5, 1.78), color=VERM, fontsize=12,
+    ax1.annotate(r"$C_{l_{max}}$ at $\alpha_{stall}$", xy=(amax, clmax), xytext=(3.5, 1.78), color=VERM, fontsize=12,
                  arrowprops=dict(arrowstyle="-|>", color=VERM, lw=1))
-    ax1.text(4.0, 0.25, "linear range,\nslope $C_{l_\\alpha}$", color=STEEL, fontsize=11)
+    ax1.text(5.5, 0.38, "linear range,\nslope $C_{l_\\alpha}$", color=STEEL, fontsize=11)
+    ax1.text(-9.6, 1.78, "NACA 65$_2$-415\n$Re$ = 6 × 10$^6$", fontsize=10, color=STEEL, va="center")
     ax1.set_xlabel(r"Angle of attack $\alpha$ (deg)")
     ax1.set_ylabel("Section lift coefficient $C_l$")
-    ax1.set_xlim(-8, 20)
-    ax1.set_ylim(-0.8, 2.0)
+    ax1.set_xlim(-10, 24)
+    ax1.set_ylim(-1.0, 2.0)
     clean(ax1)
-    cl2 = np.linspace(-0.4, 1.6, 300)
-    cd = 0.006 + 0.004 * np.clip(np.abs(cl2 - 0.3) - 0.3, 0, None) ** 1.2 * 6 + 0.011 * (cl2 - 0.3) ** 2
-    ax2.plot(cd, cl2, color=BLUE, lw=2.2)
-    ax2.axhspan(0.0, 0.6, xmin=0.02, xmax=0.25, color=DUST, alpha=0.7)
-    ax2.text(0.0125, 0.3, "drag bucket:\nthe low-drag range", color=AGED, fontsize=11, va="center")
-    ax2.plot([0.006], [0.3], "o", color=VERM, ms=7)
-    ax2.annotate(r"$C_{d_{min}}$, and the $C_l$ where it occurs", xy=(0.006, 0.3), xytext=(0.009, -0.25), color=VERM, fontsize=11,
+    ax2.axhspan(lo, hi, xmin=0.0, xmax=(cdmin + 0.0008) / 0.024, color=DUST, alpha=0.7, lw=0)
+    ax2.plot(pcd, pcl, color=BLUE, lw=2.2)
+    ax2.text(0.0085, 0.36, "drag bucket:\nthe low-drag range", color=AGED, fontsize=11, va="center")
+    i = int(np.argmin(np.abs(pcl - 0.5 * (lo + hi))))
+    ax2.plot([pcd[i]], [pcl[i]], "o", color=VERM, ms=7)
+    ax2.annotate(r"$C_{d_{min}}$, and the $C_l$ where it occurs", xy=(pcd[i], pcl[i]), xytext=(0.0085, -0.45), color=VERM, fontsize=11,
                  arrowprops=dict(arrowstyle="-|>", color=VERM, lw=1))
     ax2.set_xlabel("Section drag coefficient $C_d$")
     ax2.set_ylabel("Section lift coefficient $C_l$")
-    ax2.set_xlim(0, 0.03)
-    ax2.set_ylim(-0.4, 1.6)
+    ax2.set_xlim(0, 0.024)
+    ax2.set_ylim(-0.8, 1.6)
     clean(ax2)
     fig.tight_layout()
     save(fig, "section-data")
@@ -524,33 +530,41 @@ def drag_bucket_trio():
 
 
 def airfoil_comparison():
+    """The measured NACA 65(2)-415 and NACA 23015 at Re = 6e6 (NACA Report 824), read from
+    Gudmundsson (2022), Figure 8-74, compared at example cruise and climb lift coefficients."""
+    cruise, climb = 0.3, 0.7
+    A = dict(name="NACA 65$_2$-415", c=BLUE, ls="-", lift=_read_lift("lift_652415"), polar=_read_polar("polar_652415"))
+    B = dict(name="NACA 23015", c=VERM, ls="--", lift=_read_lift("lift_23015"), polar=_read_polar("polar_23015"))
+    cd = lambda s, v: float(np.interp(v, s["polar"][0], s["polar"][1]))
+    after = lambda s: float(s["lift"][4] - np.interp(s["lift"][5] + 2.0, s["lift"][0], s["lift"][1]))
+    assert cd(A, cruise) < cd(B, cruise) - 0.0015 and cd(A, climb) < cd(B, climb)     # the bucket pays at both
+    assert cd(A, 0.8) > cd(B, 0.8)                                                   # and no longer above it
+    assert abs(A["lift"][4] - 1.62) < 0.03 and abs(B["lift"][4] - 1.69) < 0.03       # the values printed on Figure 8-74
+    assert after(B) > 0.45 and after(A) < 0.25                                       # the 23015 stalls abruptly
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.2))
-    cl = np.linspace(-0.4, 1.6, 300)
-    cdA = 0.0055 + 0.03 * np.clip(np.abs(cl - 0.35) - 0.25, 0, None) ** 2 + 0.004 * (cl - 0.35) ** 2
-    cdB = 0.0085 + 0.012 * (cl - 0.3) ** 2
-    ax1.plot(cdA, cl, color=BLUE, lw=2.2, label="candidate A")
-    ax1.plot(cdB, cl, color=VERM, lw=2.2, ls="--", label="candidate B")
-    for v, lab in ((0.3, "cruise $C_l$"), (0.8, "climb $C_l$")):
+    for s in (A, B):
+        ax1.plot(s["polar"][1], s["polar"][0], color=s["c"], lw=2.2, ls=s["ls"], label=s["name"])
+        keep = s["lift"][0] > -7
+        ax2.plot(s["lift"][0][keep], s["lift"][1][keep], color=s["c"], lw=2.2, ls=s["ls"], label=s["name"])
+    for v, lab in ((cruise, "cruise $C_l$"), (climb, "climb $C_l$")):
         ax1.axhline(v, color=STEEL, lw=0.9, ls=":")
-        ax1.text(0.0295, v + 0.03, lab, color=STEEL, fontsize=10, ha="right")
-    ax1.text(0.012, -0.25, "read $C_d$ where you fly:\nat the cruise and climb $C_l$", fontsize=11, color=STEEL)
+        ax1.text(0.0235, v + 0.03, lab, color=STEEL, fontsize=10, ha="right")
+    ax1.text(0.0105, -0.55, "read $C_d$ where you fly:\nat the cruise and climb $C_l$", fontsize=11, color=STEEL)
     ax1.set_xlabel("$C_d$")
     ax1.set_ylabel("$C_l$")
-    ax1.set_xlim(0, 0.03)
-    ax1.set_ylim(-0.4, 1.7)
+    ax1.set_xlim(0, 0.024)
+    ax1.set_ylim(-0.8, 1.8)
     ax1.legend(frameon=False, fontsize=10, loc="upper left")
     clean(ax1)
-    a = np.linspace(-6, 20, 400)
-    ax2.plot(a, lift_curve(a, -2.5, 15, 1.5), color=BLUE, lw=2.2, label="candidate A")
-    ax2.plot(a, lift_curve(a, -1.5, 16, 1.7, post=0.08), color=VERM, lw=2.2, ls="--", label="candidate B")
     ax2.axhline(0, color=STEEL, lw=0.7)
-    ax2.text(-5, 1.85, "compare $C_{l_{max}}$ and the stall shape", fontsize=11, color=STEEL)
+    ax2.text(-5.5, 1.85, "compare $C_{l_{max}}$ and the stall shape", fontsize=11, color=STEEL)
     ax2.set_xlabel(r"$\alpha$ (deg)")
     ax2.set_ylabel("$C_l$")
-    ax2.set_xlim(-6, 20)
+    ax2.set_xlim(-6, 24)
     ax2.set_ylim(-0.6, 2.1)
     ax2.legend(frameon=False, fontsize=10, loc="lower right")
     clean(ax2)
+    fig.text(0.5, -0.02, "Measured at $Re$ = 6 × 10$^6$, NACA Report 824.", ha="center", fontsize=10, color=STEEL)
     fig.tight_layout()
     save(fig, "airfoil-comparison")
 
@@ -927,6 +941,26 @@ def wing_height():
         ax.set_title(title, fontsize=12)
     fig.tight_layout()
     save(fig, "wing-height")
+
+
+def _read_lift(key):
+    """Angle, lift coefficient, and the values read from a measured lift curve: slope per degree
+    and zero-lift angle of the straight part, maximum lift coefficient and its angle."""
+    a, cl = measured(key).T
+    lin = (a > -6) & (a < 6)
+    slope, b = np.polyfit(a[lin], cl[lin], 1)
+    i = int(np.argmax(cl))
+    return a, cl, slope, -b / slope, cl[i], a[i]
+
+
+def _read_polar(key):
+    """Lift and drag coefficient sorted by lift coefficient, the minimum drag and where it occurs,
+    and the lift-coefficient range of the low-drag bucket (within 0.0008 of the minimum)."""
+    cl, cd = measured(key).T
+    o = np.argsort(cl)
+    cl, cd = cl[o], cd[o]
+    low = cl[cd < cd.min() + 0.0008]
+    return cl, cd, cd.min(), low.min(), low.max()
 
 
 ALL = [wing_airfoil_nomenclature, wing_planform, naca_families, section_data, camber_effect, reynolds_effect,
