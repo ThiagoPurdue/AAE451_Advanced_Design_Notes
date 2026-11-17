@@ -196,10 +196,10 @@ Decide whether "basic maneuvers" include stalls. Either way, find the stall clas
 
 :::{figure} figures/mach-effects.svg
 :label: fig-mach-effects
-:alt: Left, lift coefficient against angle of attack at Mach 0.2, 0.6, 0.7, and 0.8: the slope steepens with Mach number, and at 0.7 and 0.8 the curves peak lower and earlier. Right, section drag coefficient against Mach number: flat at the incompressible level, then rising steeply. A dashed vertical line marks the critical Mach number at the start of the rise; a marker shows the Boeing definition of drag divergence, where the drag is 0.002 above the incompressible level, and a second marker further along shows the Douglas definition, where the slope reaches 0.10 per unit Mach.
+:alt: Left, lift coefficient against angle of attack at Mach 0.2, 0.6, 0.7, and 0.8: the slope steepens with Mach number, and at 0.7 and 0.8 the curves peak lower and earlier. Right, section drag coefficient against Mach number: flat at the incompressible level, then rising steeply. A dashed vertical line marks the critical Mach number at the start of the rise, drawn at Mach 0.60; a marker at Mach 0.70 shows the Boeing definition of drag divergence, where the drag is 0.002 above the incompressible level of 0.006, and a second marker just after it, at Mach 0.71, shows the Douglas definition, where the slope reaches 0.10 per unit Mach.
 :width: 100%
 
-Mach number effects on the lift curve and the drag coefficient, with the critical and drag divergence Mach numbers. Schematic, after Gudmundsson (2022), Figure 8-67.
+Mach number effects on the lift curve and the drag coefficient, with the critical and drag divergence Mach numbers. Schematic, after Gudmundsson (2022), Figure 8-67. The drag rise is drawn with the Mach numbers of a conventional airfoil 12 percent thick at a lift coefficient of 0.4, for which {eq}`eq-korn-section` gives $M_{dd}$ = 0.71.
 :::
 
 - $M_{crit}$, the {term}`critical Mach number`: the first sonic point on the airfoil.

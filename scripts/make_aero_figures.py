@@ -356,11 +356,13 @@ def camber_effect():
 
 def reynolds_effect():
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.2))
-    a = np.linspace(-6, 22, 400)
-    sets = ((12, 1.25, 0.0105, ":", "$Re_1$"), (14, 1.42, 0.0085, "--", "$Re_2$"), (16, 1.58, 0.0065, "-", "$Re_3$"))
+    a = np.linspace(-6, 22, 500)
+    # schematic: the differences are drawn larger than a factor of two or three in Re gives, as in the source
+    sets = ((13.5, 1.30, 0.0078, ":", "$Re_1$"), (15.0, 1.45, 0.0068, "--", "$Re_2$"), (16.5, 1.58, 0.0060, "-", "$Re_3$"))
     for amax, clmax, cdmin, ls, lab in sets:
-        ax1.plot(a, lift_curve(a, -2, amax, clmax), color=BLUE, lw=2.0, ls=ls, label=lab)
-    ax1.text(1, 1.8, "$Re_1 < Re_2 < Re_3$: same slope,\nhigher $C_{l_{max}}$ and $\\alpha_{stall}$", fontsize=11, color=STEEL)
+        ax1.plot(a, lift_curve(a, -2, amax, clmax, drop=0.35, width=4.5), color=BLUE, lw=2.0, ls=ls, label=lab)
+    assert all(s1[0] < s2[0] and s1[1] < s2[1] and s1[2] > s2[2] for s1, s2 in zip(sets, sets[1:]))
+    ax1.text(-5.5, 1.85, "$Re_1 < Re_2 < Re_3$: same slope,\nhigher $C_{l_{max}}$ and $\\alpha_{stall}$", fontsize=11, color=STEEL, va="center")
     ax1.axhline(0, color=STEEL, lw=0.7)
     ax1.set_xlabel(r"$\alpha$ (deg)")
     ax1.set_ylabel("$C_l$")
@@ -370,11 +372,11 @@ def reynolds_effect():
     clean(ax1)
     cl = np.linspace(-0.4, 1.5, 300)
     for amax, clmax, cdmin, ls, lab in sets:
-        ax2.plot(cdmin + 0.011 * (cl - 0.3) ** 2, cl, color=BLUE, lw=2.0, ls=ls, label=lab)
-    ax2.text(0.015, 0.2, "lower $C_{d_{min}}$\nat higher $Re$", fontsize=11, color=STEEL)
+        ax2.plot(bucket_polar(cl, cdmin, 0.003, 0.3, k4=0.004), cl, color=BLUE, lw=2.0, ls=ls, label=lab)
+    ax2.text(0.0105, 0.3, "lower $C_{d_{min}}$\nat higher $Re$", fontsize=11, color=STEEL, va="center")
     ax2.set_xlabel("$C_d$")
     ax2.set_ylabel("$C_l$")
-    ax2.set_xlim(0, 0.03)
+    ax2.set_xlim(0, 0.024)
     ax2.set_ylim(-0.5, 1.6)
     ax2.legend(frameon=False, fontsize=10, loc="lower right")
     clean(ax2)
@@ -383,21 +385,26 @@ def reynolds_effect():
 
 
 def stall_classes():
+    """Three lift curves with the same slope and the same peak: A rounds over early and loses
+    lift slowly, C stays on the straight line almost to the peak and drops at once."""
     fig, axes = plt.subplots(1, 3, figsize=(11, 3.6), sharey=True)
-    a = np.linspace(-2, 22, 400)
-    specs = [("Class A: trailing-edge stall", lambda: lift_curve(a, -2, 14, 1.5, post=0.03)),
-             ("Class B: between A and C", lambda: lift_curve(a, -2, 14, 1.5, post=0.09)),
-             ("Class C: leading-edge stall", lambda: np.where(a < 14, 0.1 * (a + 2) * 1.5 / 1.6, 0.9 - 0.02 * (a - 14)))]
-    notes = ["separation grows forward\nfrom the trailing edge", "", "a leading-edge bubble bursts:\nsharp drop after the peak"]
-    for ax, (t, f), n in zip(axes, specs, notes):
-        ax.plot(a, f(), color=BLUE, lw=2.2)
+    a = np.linspace(-2, 24, 800)
+    specs = [("Class A: trailing-edge stall", dict(a_stall=18.0, drop=0.25, width=7.0), "separation grows forward\nfrom the trailing edge"),
+             ("Class B: between A and C", dict(a_stall=16.5, drop=0.55, width=3.0), ""),
+             ("Class C: leading-edge stall", dict(a_stall=14.0, drop=0.60, width=0.6), "a leading-edge bubble bursts:\nsharp drop after the peak")]
+    lost = []
+    for ax, (t, kw, n) in zip(axes, specs):
+        cl = lift_curve(a, -2.0, clmax=1.6, **kw)
+        lost.append(1.6 - np.interp(kw["a_stall"] + 2.0, a, cl))           # lift lost 2 degrees past the peak
+        ax.plot(a, cl, color=BLUE, lw=2.2)
         ax.set_title(t, fontsize=11)
         ax.set_xlabel(r"$\alpha$ (deg)")
-        ax.set_xlim(-2, 22)
+        ax.set_xlim(-2, 24)
         ax.set_ylim(0, 2.0)
         if n:
-            ax.text(1, 0.25, n, fontsize=10, color=STEEL)
+            ax.text(5.5, 0.25, n, fontsize=10, color=STEEL)
         clean(ax)
+    assert lost[0] < 0.05 < lost[1] < 0.3 < lost[2]
     axes[0].set_ylabel("$C_l$")
     fig.tight_layout()
     save(fig, "stall-classes")
@@ -405,11 +412,14 @@ def stall_classes():
 
 def mach_effects():
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.4))
-    a = np.linspace(-4, 20, 400)
-    for M, amax, clmax, ls, c in ((0.2, 15, 1.5, "-", BLUE), (0.6, 14, 1.55, "--", BLUE), (0.7, 11, 1.2, "-.", VERM), (0.8, 9, 0.9, ":", VERM)):
-        beta = np.sqrt(1 - M ** 2)
-        ax1.plot(a, lift_curve(a, -2, amax, clmax, slope=0.1 / beta, post=0.05), color=c, lw=2.0, ls=ls, label=f"$M$ = {M}")
-    ax1.text(-3.5, 1.8, "compressibility steepens the slope;\nabove $M_{crit}$ the curve changes shape", fontsize=11, color=STEEL)
+    a = np.linspace(-4, 20, 600)
+    # left, schematic: Prandtl-Glauert slope; C_lmax rises a little at first, then falls with shock-induced separation
+    for M, amax, clmax, drop, width, ls, c in ((0.2, 15, 1.50, 0.30, 5.0, "-", BLUE), (0.6, 13, 1.58, 0.35, 4.0, "--", BLUE),
+                                              (0.7, 9, 1.25, 0.45, 3.0, "-.", VERM), (0.8, 5, 0.90, 0.30, 3.0, ":", VERM)):
+        show = a <= amax + 5                         # each curve is drawn to 5 degrees past its peak
+        ax1.plot(a[show], lift_curve(a, -2, amax, clmax, slope=0.1 / np.sqrt(1 - M ** 2), drop=drop, width=width)[show],
+                 color=c, lw=2.0, ls=ls, label=f"$M$ = {M}")
+    ax1.text(-3.5, 1.9, "compressibility steepens the slope;\nabove $M_{crit}$ the curve changes shape", fontsize=11, color=STEEL, va="center")
     ax1.axhline(0, color=STEEL, lw=0.7)
     ax1.set_xlabel(r"$\alpha$ (deg)")
     ax1.set_ylabel("$C_l$")
@@ -417,28 +427,30 @@ def mach_effects():
     ax1.set_ylim(-0.3, 2.1)
     ax1.legend(frameon=False, fontsize=10, loc="lower right")
     clean(ax1)
-    M = np.linspace(0.3, 0.95, 400)
-    cd0 = 0.008
-    cd = cd0 + np.where(M > 0.70, 0.9 * (M - 0.70) ** 3, 0) + np.where(M > 0.6, 0.004 * (M - 0.6) ** 2, 0)
+    # right, schematic with the sizes of a 12% conventional section near C_l = 0.4: the wave drag grows as the
+    # fourth power of the Mach number past M_crit, which puts the Douglas point 0.108 above M_crit
+    M = np.linspace(0.4, 0.78, 600)
+    cd0, mcrit = 0.006, 0.60
+    cd = cd0 + 20.0 * np.clip(M - mcrit, 0, None) ** 4
+    m_boeing = mcrit + (0.002 / 20.0) ** 0.25
+    m_douglas = mcrit + (0.10 / 80.0) ** (1 / 3)
+    assert abs(m_boeing - 0.70) < 0.001 and abs(m_douglas - 0.708) < 0.001 and mcrit < m_boeing < m_douglas
     ax2.plot(M, cd, color=BLUE, lw=2.4)
     ax2.axhline(cd0, color=STEEL, lw=0.8, ls=":")
-    ax2.text(0.31, cd0 + 0.0003, "incompressible level", fontsize=10, color=STEEL, va="bottom")
-    mcrit = 0.78
+    ax2.text(0.405, cd0 + 0.0002, "incompressible level", fontsize=10, color=STEEL, va="bottom")
     ax2.axvline(mcrit, color=STEEL, lw=0.8, ls="--")
-    ax2.text(mcrit - 0.005, 0.0265, "$M_{crit}$: first sonic point", rotation=90, va="top", ha="right", fontsize=10, color=STEEL)
-    mb = M[np.argmax(cd >= cd0 + 0.002)]
-    ax2.plot([mb], [cd0 + 0.002], "o", color=VERM, ms=7)
-    ax2.annotate("Boeing: $C_d$ 0.002 above\nthe incompressible level", xy=(mb, cd0 + 0.002), xytext=(0.40, 0.016),
+    ax2.text(mcrit + 0.005, 0.0048, "$M_{crit}$: first sonic point", va="center", ha="left", fontsize=10, color=STEEL)
+    ax2.plot([m_boeing], [cd0 + 0.002], "o", color=VERM, ms=7)
+    ax2.annotate("Boeing: $C_d$ 0.002 above\nthe incompressible level", xy=(m_boeing, cd0 + 0.002), xytext=(0.42, 0.0092),
                  fontsize=10, color=VERM, arrowprops=dict(arrowstyle="-|>", color=VERM, lw=1))
-    dcd = np.gradient(cd, M)
-    i = np.argmax(dcd >= 0.10)
-    ax2.plot([M[i]], [cd[i]], "s", color=GREEN, ms=7)
-    ax2.annotate("Douglas: $dC_d/dM = 0.10$", xy=(M[i], cd[i]), xytext=(0.44, 0.0225),
+    cd_d = cd0 + 20.0 * (m_douglas - mcrit) ** 4
+    ax2.plot([m_douglas], [cd_d], "s", color=GREEN, ms=7)
+    ax2.annotate("Douglas: $dC_d/dM = 0.10$", xy=(m_douglas, cd_d), xytext=(0.44, 0.0118),
                  fontsize=10, color=GREEN, arrowprops=dict(arrowstyle="-|>", color=GREEN, lw=1))
     ax2.set_xlabel("Mach number $M$")
     ax2.set_ylabel("$C_d$")
-    ax2.set_xlim(0.3, 0.95)
-    ax2.set_ylim(0.005, 0.03)
+    ax2.set_xlim(0.4, 0.78)
+    ax2.set_ylim(0.004, 0.014)
     clean(ax2)
     fig.tight_layout()
     save(fig, "mach-effects")
@@ -531,20 +543,28 @@ def supercritical_sketch():
 
 
 def drag_bucket_trio():
+    """Three polars with the sizes of real sections: a 4-digit-like polar with no bucket, and
+    6-series-like polars with a wide and a narrow bucket."""
     fig, axes = plt.subplots(1, 3, figsize=(11, 3.4), sharey=True)
-    cl = np.linspace(-0.4, 1.3, 400)
-    specs = [("Undesirable: no bucket,\nhigh $C_{d_{min}}$ at a high $C_l$", 0.012 + 0.03 * (cl - 0.6) ** 2),
-             ("Desirable: wide bucket,\ncruise and climb inside", 0.006 + 0.03 * np.clip(np.abs(cl - 0.4) - 0.32, 0, None) ** 2),
-             ("Undesirable: narrow bucket,\ncruise and climb outside", 0.006 + 0.03 * np.clip(np.abs(cl - 0.45) - 0.06, 0, None) ** 2)]
+    cl = np.linspace(-0.4, 1.3, 600)
+    cruise, climb = 0.25, 0.65
+    specs = [("Undesirable: no bucket,\nhigh $C_{d_{min}}$ at a high $C_l$", bucket_polar(cl, 0.0085, 0.005, 0.75, k4=0.006)),
+             ("Desirable: wide bucket,\ncruise and climb inside", bucket_polar(cl, 0.0062, 0.004, 0.45, 0.0019, 0.10, 0.80)),
+             ("Undesirable: narrow bucket,\ncruise and climb outside", bucket_polar(cl, 0.0062, 0.004, 0.45, 0.0019, 0.36, 0.54))]
+    at = lambda cd, v: float(np.interp(v, cl, cd))
+    none, wide, narrow = (s[1] for s in specs)
+    assert none.min() > wide.min() + 0.003 and abs(cl[np.argmin(none)] - 0.75) < 0.01
+    assert max(at(wide, cruise), at(wide, climb)) < wide.min() + 0.0004           # both inside the wide bucket
+    assert min(at(narrow, cruise), at(narrow, climb)) > narrow.min() + 0.0015     # both outside the narrow one
     for ax, (t, cd) in zip(axes, specs):
         ax.plot(cl, cd, color=BLUE, lw=2.2)
-        for v, lab in ((0.25, "$C_{l,cruise}$"), (0.65, "$C_{l,climb}$")):
+        for v, lab in ((cruise, "$C_{l,cruise}$"), (climb, "$C_{l,climb}$")):
             ax.axvline(v, color=VERM, lw=1.0, ls="--")
-            ax.text(v, 0.0305, lab, color=VERM, fontsize=10, ha="center", va="top")
+            ax.text(v, 0.0153, lab, color=VERM, fontsize=10, ha="center", va="top")
         ax.set_title(t, fontsize=10.5)
         ax.set_xlabel("$C_l$")
         ax.set_xlim(-0.4, 1.3)
-        ax.set_ylim(0, 0.032)
+        ax.set_ylim(0, 0.016)
         clean(ax)
     axes[0].set_ylabel("$C_d$")
     fig.tight_layout()
