@@ -160,7 +160,7 @@ def method_flow():
     save(fig, "method-flow")
 
 
-def _side_view(ax, x0=0.0, y0=0.0, s=1.0, nose_up=0.0, prop=False, de=0.0, tail=True, wing_y=-0.28, z=2):
+def _side_view(ax, x0=0.0, y0=0.0, s=1.0, nose_up=0.0, prop=False, de=0.0, tail=True, wing_y=-0.28, z=2, wing=True):
     """Side view of a tandem-seat jet trainer, nose to the left, length 10 s. Returns the page
     position of named points. prop=True draws a spinner and propeller disc at the nose (the
     single-engine example of the textbook); de deflects the elevator, trailing edge down positive."""
@@ -180,7 +180,8 @@ def _side_view(ax, x0=0.0, y0=0.0, s=1.0, nose_up=0.0, prop=False, de=0.0, tail=
         ax.add_patch(Polygon(T(_smooth([(-0.35, 0.0), (-0.2, 0.12), (0.05, 0.2), (0.05, -0.2), (-0.2, -0.12)])), closed=True,
                              fc="#B8BDC4", ec=STEEL, lw=0.9, zorder=z + 0.3))
         ax.plot(*T([(0.0, -1.15), (0.0, 1.15)]).T, color=STEEL, lw=2.2, solid_capstyle="round", zorder=z + 0.25)
-    ax.add_patch(Polygon(T(_naca(3.75, 2.9, wing_y, t=0.11)), closed=True, fc=LIGHT, ec=INK, lw=0.9, zorder=z + 0.4))
+    if wing:                 # wing=False leaves the wing section out, for a caller that draws its own
+        ax.add_patch(Polygon(T(_naca(3.75, 2.9, wing_y, t=0.11)), closed=True, fc=LIGHT, ec=INK, lw=0.9, zorder=z + 0.4))
     pts = {"nose": T([(0, 0)])[0], "wing_ac": T([(3.75 + 0.25 * 2.9, wing_y + 0.05)])[0], "fin_top": T([(9.2, 1.95)])[0],
            "tail_ac": T([(8.2 + 0.25 * 1.45, 0.14)])[0], "disc_top": T([(0, 1.15)])[0], "tail_end": T([(10.05, 0.1)])[0]}
     if tail:

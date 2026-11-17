@@ -86,7 +86,7 @@ A04 Deliverable 4: required fuel volume against available volume, with the wing 
 
 :::{figure} figures/wing-height.svg
 :label: fig-wing-height
-:alt: Two front views of a fuselage circle with a fin, one with the wing bar above the fuselage center and one with it below, each with the ground line and an arrow h from the ground to the wing.
+:alt: Two front views of a jet standing on its landing gear, with the fuselage, canopy, fin, and tailplane: one with the wing on top of the fuselage and one with it under the fuselage, each with the ground line and an arrow h from the ground to the wing.
 :width: 70%
 
 High and low wing, front view, with the wing height $h$ above the ground. Redrawn from the slide.
@@ -254,7 +254,7 @@ Check $AR$, $\lambda$, and $\Lambda_{c/4}$ against the boundary.
 
 :::{figure} figures/stall-progression.svg
 :label: fig-stall-progression
-:alt: Four columns for rectangular, elliptical, tapered, and swept planforms. The top row shows the section lift coefficient along the span: highest at the root for the rectangular wing, constant for the elliptical wing, peaking outboard for the tapered wing, and rising to the tip for the swept wing. The bottom row shows each half wing in top view, root at the left, with the region that stalls first shaded: the root for the rectangular wing, the whole span for the elliptical wing, the outer part for the tapered wing, and the tip for the swept wing.
+:alt: Four columns for rectangular, elliptical, tapered, and swept planforms. The top row shows the section lift coefficient along the span: highest at the root for the rectangular wing, constant for the elliptical wing, peaking outboard for the tapered wing, and rising toward the tip for the swept wing; all but the elliptical fall to zero at the tip itself. The bottom row shows each half wing in top view, root at the left and leading edge up, with the region that stalls first shaded along the trailing edge: at the root for the rectangular wing, along the whole span for the elliptical wing, on the outer part for the tapered wing, and at the tip for the swept wing.
 :width: 100%
 
 Where the stall starts on four planforms. Schematic, after Gudmundsson (2022), Figure 9-83.
@@ -270,7 +270,7 @@ Where the stall starts on four planforms. Schematic, after Gudmundsson (2022), F
 
 :::{figure} figures/wing-incidence.svg
 :label: fig-wing-incidence
-:alt: Three side views of a fuselage flying to the right along a flight path arrow, each with the wing chord drawn at the same cruise angle of attack. Top, too large an incidence: the fuselage flies nose down, high fuselage drag. Middle, too small an incidence: the fuselage flies nose up, high fuselage drag. Bottom, the correct incidence: the fuselage follows the flight path, least drag.
+:alt: Three side views of a jet trainer flying to the right along a flight path arrow, each with the wing section, a NACA 2412 drawn in gold, at the same cruise angle of attack of 4 degrees to the flight path, and the fuselage datum dashed. Top, too large an incidence: the fuselage flies nose down, high fuselage drag. Middle, too small an incidence: the fuselage flies nose up, high fuselage drag. Bottom, the correct incidence: the fuselage follows the flight path, least drag.
 :width: 80%
 
 The wing incidence sets the fuselage angle of attack in cruise. Schematic, after Gudmundsson (2022), Figure 9-28.

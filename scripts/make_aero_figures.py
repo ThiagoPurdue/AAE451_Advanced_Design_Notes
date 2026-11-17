@@ -790,11 +790,18 @@ def draw_sweep_components(ax):
 def sweepback_effects():
     fig, (a1, a2) = plt.subplots(1, 2, figsize=(12, 4.6), gridspec_kw=dict(width_ratios=[1.15, 1]))
     draw_sweep_components(a1)
-    M = np.linspace(0.3, 3.0, 500)
-    for sw, Mp, amp, w, ls, c in ((0, 1.02, 1.0, 0.07, "-", BLUE), (30, 1.17, 0.72, 0.11, "--", VERM),
-                                  (45, 1.42, 0.5, 0.2, "-.", GREEN), (60, 1.95, 0.32, 0.4, ":", AGED)):
-        rise = amp * np.exp(-((M - Mp) / w) ** 2) + amp * 0.35 / (1 + np.exp(-(M - Mp) / (0.6 * w + 0.05))) * np.exp(-0.25 * (M - Mp).clip(0))
+    # schematic: a steep rise near Mach 1, one peak, and a slow decay; more sweep moves the rise later
+    # and makes the peak lower and broader
+    M = np.linspace(0.3, 3.0, 800)
+    peaks = []
+    for sw, Mr, w, amp, tau, ls, c in ((0, 0.95, 0.045, 1.15, 0.55, "-", BLUE), (30, 1.07, 0.055, 0.95, 0.60, "--", VERM),
+                                       (45, 1.24, 0.085, 0.70, 0.75, "-.", GREEN), (60, 1.68, 0.16, 0.44, 1.3, ":", AGED)):
+        rise = amp / (1 + np.exp(-(M - Mr) / w)) / (1 + np.clip(M - Mr, 0, None) / tau) ** 1.5
+        i = int(np.argmax(rise))
+        assert np.all(np.diff(rise[:i]) >= 0) and np.all(np.diff(rise[i:]) <= 0)        # one peak, no dip after it
+        peaks.append((M[i], rise[i]))
         a2.plot(M, 0.1 + rise, ls=ls, color=c, lw=2.0, label=f"$\\Lambda$ = {sw}°")
+    assert all(p1[0] < p2[0] and p1[1] > p2[1] for p1, p2 in zip(peaks, peaks[1:]))   # later and lower with sweep
     a2.set_xlabel("Mach number $M$")
     a2.set_ylabel("$C_{D_0}$, schematic")
     a2.set_title("Sweep delays the drag rise and lowers its peak", fontsize=11)
@@ -845,12 +852,15 @@ def pitch_up_boundary():
 
 
 def stall_progression():
+    """Top: schematic spanwise section lift coefficient. Bottom: the half wing with the region
+    that stalls first, which grows forward from the trailing edge."""
     fig, axes = plt.subplots(2, 4, figsize=(11, 4.6), gridspec_kw=dict(height_ratios=[1, 1.1]))
-    eta = np.linspace(0, 1, 200)
-    chord_r, L_r = schrenk(eta, 1.0)
-    chord_t, L_t = schrenk(eta, 0.4)
-    dists = [("Rectangular", L_r / chord_r), ("Elliptical", np.ones_like(eta)), ("Tapered", L_t / chord_t),
-             ("Swept", 0.92 + 0.35 * eta ** 2)]
+    eta = np.linspace(0, 1, 300)
+    tip = lambda n: np.sqrt(np.clip(1 - eta ** n, 0, None))               # the loading falls to zero at the tip
+    dists = [("Rectangular", 1.12 * (1 - eta ** 2) ** 0.35), ("Elliptical", np.ones_like(eta)),
+             ("Tapered", (0.95 + 0.35 * eta - 0.30 * eta ** 2) * tip(8)), ("Swept", (0.85 + 0.45 * eta ** 2) * tip(10))]
+    peak = [eta[np.argmax(d)] for _, d in dists]
+    assert peak[0] == 0 and 0.5 < peak[2] < 0.75 and 0.75 < peak[3] < 0.9 and np.ptp(dists[1][1]) == 0
     for ax, (name, d) in zip(axes[0], dists):
         ax.plot(eta, d, color=BLUE, lw=2.2)
         ax.set_title(name, fontsize=11)
@@ -860,69 +870,60 @@ def stall_progression():
         ax.set_yticks([])
         clean(ax)
     axes[0, 0].set_ylabel("section $C_l$")
-    for ax in axes[0, 1:]:
-        ax.set_yticklabels([])
-    # planforms with the stall region shaded
-    specs = [("rect", 0.0, 1.0, 0, (0.0, 0.3)), ("ellipse", 0.0, 1.0, 0, (0.0, 1.0)),
-             ("taper", 0.0, 0.4, 0, (0.65, 1.0)), ("swept", 0.0, 0.55, 35, (0.65, 1.0))]
-    for ax, (kind, _, lam, sweep, (s0, s1)) in zip(axes[1], specs):
+    x = np.linspace(0, 1, 200)
+    cr = 0.6
+    # leading edge, chord, and the height of the stalled region above the trailing edge, along the half span
+    plan = [(0 * x + cr / 2, 0 * x + cr, 0.55 * cr * np.sqrt(np.clip(1 - (x / 0.45) ** 2, 0, None)), "root stalls first"),
+            (cr / 2 * np.sqrt(1 - x ** 2), cr * np.sqrt(1 - x ** 2), 0.35 * cr * np.sqrt(1 - x ** 2), "whole span at once"),
+            (cr / 2 - 0.25 * 0.6 * cr * x, cr * (1 - 0.6 * x), 0.5 * cr * (1 - 0.6 * x) * np.exp(-((x - 0.66) / 0.2) ** 2), "tip stalls first"),
+            (cr / 2 - np.tan(np.radians(35)) * x, cr * (1 - 0.45 * x), 0.6 * cr * (1 - 0.45 * x) * np.exp(-((x - 0.92) / 0.2) ** 2), "tip stalls first")]
+    for ax, (le, chord, h, label) in zip(axes[1], plan):
         ax.set_aspect("equal")
         ax.axis("off")
-        if kind == "ellipse":
-            ax.add_patch(Ellipse((0, 0), 2.0, 0.55, fc=LIGHT, ec=INK, lw=1.4))
-            ax.set_xlim(-0.05, 1.1)
-            ax.set_ylim(-0.4, 0.4)
-            ax.fill_between(np.linspace(0, 1, 100), -0.275 * np.sqrt(1 - np.linspace(0, 1, 100) ** 2) * 0.35,
-                            0.275 * np.sqrt(1 - np.linspace(0, 1, 100) ** 2) * 0.35, color=VERM, alpha=0.35, lw=0)
-        else:
-            cr = 0.6
-            ct = lam * cr
-            sw = np.tan(np.radians(sweep))
-            pts = np.array([[0, cr / 2], [1, cr / 2 - sw], [1, cr / 2 - sw - ct], [0, -cr / 2]])
-            ax.add_patch(Polygon(pts, closed=True, fc=LIGHT, ec=INK, lw=1.4))
-            xs = np.linspace(s0, s1, 50)
-            top = cr / 2 - sw * xs
-            bot = cr / 2 - sw * xs - (cr - (cr - ct) * xs)
-            ax.fill_between(xs, bot, top, color=VERM, alpha=0.35, lw=0)
-            ax.set_xlim(-0.05, 1.1)
-            ax.set_ylim(-0.9, 0.5)
-        ax.plot([0, 0], [-0.45, 0.45], color=STEEL, lw=0.8, ls=":")
-    axes[1, 0].text(0.0, -0.75, "root stalls first", fontsize=10, color=VERM)
-    axes[1, 1].text(0.0, -0.37, "whole span at once", fontsize=10, color=VERM)
-    axes[1, 2].text(0.0, -0.75, "tip stalls first", fontsize=10, color=VERM)
-    axes[1, 3].text(0.0, -0.85, "tip stalls first", fontsize=10, color=VERM)
-    fig.text(0.5, 0.0, "Top: where the section lift coefficient peaks. Bottom: the half wing, root at the left, with the region that stalls first shaded.",
+        te = le - chord
+        ax.fill(np.r_[x, x[::-1]], np.r_[le, te[::-1]], color=LIGHT, ec=INK, lw=1.4)
+        ax.fill_between(x, te, te + h, color=VERM, alpha=0.35, lw=0)
+        ax.plot([0, 0], [te[0] - 0.15, le[0] + 0.15], color=STEEL, lw=0.8, ls=":")
+        ax.text(0.0, min(te.min(), te[0]) - 0.22, label, fontsize=10, color=VERM, va="top")
+        ax.set_xlim(-0.05, 1.1)
+        ax.set_ylim(-1.25, 0.5)
+    fig.text(0.5, 0.0, "Top: where the section lift coefficient peaks. Bottom: the half wing, root at the left, leading edge up, with the region that stalls first shaded.",
              ha="center", fontsize=10, color=STEEL)
     fig.tight_layout()
     save(fig, "stall-progression")
 
 
 def wing_incidence():
-    fig, axes = plt.subplots(3, 1, figsize=(8, 6.0))
-    alpha = 4.0
+    """The jet trainer side view of Lecture 10 at three fuselage attitudes, with a NACA 2412 wing
+    section held at the same cruise angle of attack to the flight path."""
+    import make_stability_figures as msf
+    from matplotlib.transforms import Affine2D
+    fig, axes = plt.subplots(3, 1, figsize=(8, 6.4))
+    alpha, s = 4.0, 0.62
+    xw, yw, c = 3.75 + 0.25 * 2.9, -0.28, 2.9            # wing quarter chord and chord in the side view's own units
     cases = [("Too large an incidence: the fuselage flies nose down, high fuselage drag", -4.0),
              ("Too small an incidence: the fuselage flies nose up, high fuselage drag", 5.0),
              ("Correct incidence: the fuselage follows the flight path, least drag", 0.0)]
+    ox, oy = outline(naca4(0.02, 0.4, 0.12))
     for ax, (title, theta) in zip(axes, cases):
         ax.set_aspect("equal")
         ax.axis("off")
-        th = np.radians(theta)
-        # fuselage as a rotated rounded bar
-        L, H = 6.0, 0.9
-        box = FancyBboxPatch((-L / 2, -H / 2), L, H, boxstyle="round,pad=0,rounding_size=0.45", fc=LIGHT, ec=INK, lw=1.4,
-                             transform=matplotlib.transforms.Affine2D().rotate(th) + ax.transData)
-        ax.add_patch(box)
-        # wing chord at the cruise angle of attack, fixed to the flight path
-        c = 2.0
-        xw = -0.4
-        aw = np.radians(alpha)
-        ax.plot([xw - c / 2 * np.cos(aw), xw + c / 2 * np.cos(aw)], [-c / 2 * np.sin(aw), c / 2 * np.sin(aw)], color=AGED, lw=4, solid_capstyle="round")
-        ax.annotate("", xy=(-3.6, 1.0), xytext=(-5.4, 1.0), arrowprops=dict(arrowstyle="-|>", color=VERM, lw=2))
-        ax.text(-5.4, 1.15, "flight path", color=VERM, fontsize=10)
+        n_p, n_l = len(ax.patches), len(ax.lines)
+        msf._side_view(ax, wing=False)
+        ax.plot([-0.6, 10.6], [0.05, 0.05], color=STEEL, lw=0.9, ls=(0, (6, 3)))      # fuselage datum
+        # mirrored to fly to the right, wing quarter chord at the origin, pitched nose up by theta
+        tr = Affine2D().translate(-xw, -yw).scale(-s, s).rotate_deg(theta) + ax.transData
+        for art in ax.patches[n_p:] + ax.lines[n_l:]:
+            art.set_transform(tr)
+        wing = Affine2D().translate(-0.25, 0).scale(-c * s, c * s).rotate_deg(alpha) + ax.transData
+        ax.add_patch(Polygon(np.column_stack([ox, oy]), closed=True, fc=GOLD, ec=INK, lw=1.0, zorder=6, transform=wing))
+        ax.plot([-4.6, 3.6], [0, 0], color=VERM, lw=0.8, ls=":", zorder=1)
+        ax.annotate("", xy=(-3.5, 1.05), xytext=(-5.3, 1.05), arrowprops=dict(arrowstyle="-|>", color=VERM, lw=2))
+        ax.text(-5.3, 1.2, "flight path", color=VERM, fontsize=10)
         ax.set_title(title, fontsize=10.5, loc="left")
         ax.set_xlim(-5.6, 4.0)
-        ax.set_ylim(-1.3, 1.5)
-    axes[2].text(1.6, -1.15, "wing chord at the cruise angle of attack", color=AGED, fontsize=10)
+        ax.set_ylim(-1.25, 1.75)
+    axes[2].text(3.9, -1.2, "gold: wing section at the cruise angle of attack; dashed: fuselage datum", color=STEEL, fontsize=10, ha="right")
     fig.tight_layout()
     save(fig, "wing-incidence")
 
@@ -989,18 +990,34 @@ def stall_speed():
 
 
 def wing_height():
-    fig, axes = plt.subplots(1, 2, figsize=(8, 2.8))
-    for ax, hw, title in zip(axes, (0.36, -0.36), ("High wing", "Low wing")):
+    """Front views of a jet with the wing on top of the fuselage and under it, on its landing gear."""
+    fig, axes = plt.subplots(1, 2, figsize=(8, 2.9))
+    th = np.linspace(0, 2 * np.pi, 80)
+    ground = -1.25
+    for ax, hw, gamma, title in zip(axes, (0.38, -0.30), (-2.0, 4.0), ("High wing", "Low wing")):
         ax.set_aspect("equal")
         ax.axis("off")
-        ax.plot([-2.1, 2.1], [-0.95, -0.95], color=STEEL, lw=1.2)
-        ax.add_patch(plt.Circle((0, 0), 0.45, fc=DUST, ec=AGED, lw=1.5))
-        ax.plot([-1.7, 1.7], [hw, hw], color=AGED, lw=4)
-        ax.plot([-0.06, -0.02, 0.06, 0.06], [0.44, 1.0, 1.0, 0.44], color=AGED, lw=1.5)
-        ax.annotate("", xy=(1.95, hw), xytext=(1.95, -0.95), arrowprops=dict(arrowstyle="<->", color=STEEL, lw=1))
-        ax.text(2.05, (hw - 0.95) / 2, "$h$", fontsize=12, color=STEEL, va="center")
-        ax.set_xlim(-2.3, 2.5)
-        ax.set_ylim(-1.1, 1.2)
+        ax.plot([-3.3, 3.3], [ground, ground], color=STEEL, lw=1.2)
+        g = np.tan(np.radians(gamma))
+        ty = 0.0 if hw > 0 else 0.34                    # tailplane, kept clear of the wing in this view
+        ax.add_patch(Polygon([(-1.2, ty), (1.2, ty), (1.2, ty + 0.05), (-1.2, ty + 0.05)], closed=True, fc=LIGHT, ec=AGED, lw=1.0, zorder=1))
+        ax.add_patch(Polygon([(-0.06, 0.4), (-0.03, 1.55), (0.03, 1.55), (0.06, 0.4)], closed=True, fc=LIGHT, ec=AGED, lw=1.0, zorder=1))   # fin
+        for sgn in (1, -1):
+            root, tipx = 0.38, 2.9
+            ytip = hw + g * (tipx - root)
+            ax.add_patch(Polygon([(sgn * root, hw + 0.09), (sgn * tipx, ytip + 0.03), (sgn * tipx, ytip - 0.03), (sgn * root, hw - 0.09)],
+                                 closed=True, fc=GOLD, ec=AGED, lw=1.2, zorder=3 if hw > 0 else 2))
+            # main gear: under the wing for the low wing, from the fuselage for the high wing
+            top = (sgn * 1.0, hw + g * (1.0 - root) - 0.07) if hw < 0 else (sgn * 0.36, -0.38)
+            foot = (sgn * 1.0, ground + 0.2) if hw < 0 else (sgn * 0.85, ground + 0.2)
+            ax.plot([top[0], foot[0]], [top[1], foot[1]], color=STEEL, lw=2.0, zorder=1.5)
+            ax.add_patch(FancyBboxPatch((foot[0] - 0.07, ground), 0.14, 0.4, boxstyle="round,pad=0,rounding_size=0.06", fc=STEEL, ec=STEEL, zorder=1.6))
+        ax.add_patch(Polygon(np.column_stack([0.27 * np.cos(th[:41]), 0.40 + 0.34 * np.sin(th[:41])]), closed=True, fc="#C9D5E1", ec=AGED, lw=1.0, zorder=2.5))
+        ax.add_patch(Polygon(np.column_stack([0.5 * np.cos(th), 0.52 * np.sin(th)]), closed=True, fc=DUST, ec=AGED, lw=1.5, zorder=2.6))
+        ax.annotate("", xy=(3.05, hw + g * (2.9 - 0.38)), xytext=(3.05, ground), arrowprops=dict(arrowstyle="<->", color=STEEL, lw=1))
+        ax.text(3.15, (hw + g * (2.9 - 0.38) + ground) / 2, "$h$", fontsize=12, color=STEEL, va="center")
+        ax.set_xlim(-3.4, 3.6)
+        ax.set_ylim(ground - 0.1, 1.7)
         ax.set_title(title, fontsize=12)
     fig.tight_layout()
     save(fig, "wing-height")
