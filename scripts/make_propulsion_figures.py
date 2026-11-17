@@ -618,23 +618,27 @@ def diffuser():
     fig, (a1, a2) = plt.subplots(1, 2, figsize=(10.8, 4.3), gridspec_kw=dict(width_ratios=[1, 1.15]))
     a1.set_aspect("equal")
     a1.axis("off")
-    # a blunt lip ahead of the throat at x = 0, then a straight diffuser wall to the compressor face at x = 3
-    wall = _cowl(-0.30, 0.86, 0.0, 0.80, 3.0, 1.16, 4.4, 1.5, 1.42)
-    assert abs(np.degrees(2 * np.arctan((1.16 - 0.80) / 3.0)) - 13.7) < 0.1     # the included angle as drawn
+    # a blunt lip ahead of the throat at x = 0, a straight diffuser wall to the compressor face at x = 3,
+    # then a constant section. The included angle is measured from the wall as drawn.
+    wall = _cowl(-0.30, 0.86, 0.0, 0.80, 3.0, 1.06, 4.4, 1.5, 1.42)
+    i_t = int(np.argmin(wall[:, 1]))                                   # the throat: the smallest radius
+    (x_t, r_t), (x_f, r_f) = wall[i_t], wall[i_t + 1]                    # and the end of the straight wall
+    slope = (r_f - r_t) / (x_f - x_t)
+    theta = np.degrees(2 * np.arctan(slope))
+    assert (x_t, x_f) == (0.0, 3.0) and 9.5 < theta <= 10.0, theta       # at the 10 degrees the page recommends
     for s in (1, -1):
         a1.add_patch(Polygon(np.c_[wall[:, 0], s * wall[:, 1]], closed=True, fc="#E6E6E6", ec=INK, lw=1.2, joinstyle="round"))
-        a1.plot([-1.6, 0.0], [s * (0.80 - 1.6 * 0.12), s * 0.80], color=GRAY, lw=0.9, ls=":")
-    _fan(a1, 3.0, 1.14, 0.0)
+        a1.plot([-1.6, 0.0], [s * (r_t - 1.6 * slope), s * r_t], color=GRAY, lw=0.9, ls=":")
+    _fan(a1, 3.0, r_f - 0.02, 0.0)
     a1.annotate("", xy=(0.25, 0.80), xytext=(0.25, -0.80), arrowprops=dict(arrowstyle="<->", color=BLUE, lw=1.1))
     a1.text(0.4, 0.0, "$D_t$", fontsize=12, va="center")
-    a1.plot([3.0, 3.0], [1.16, 1.3], color=GRAY, lw=0.8)
-    a1.annotate("", xy=(2.3, 1.08), xytext=(2.3, -1.08), arrowprops=dict(arrowstyle="<->", color=BLUE, lw=1.1))
-    a1.text(1.82, 0.0, "$D_f$", fontsize=12, va="center")
+    a1.annotate("", xy=(3.75, r_f), xytext=(3.75, -r_f), arrowprops=dict(arrowstyle="<->", color=BLUE, lw=1.1, shrinkA=0, shrinkB=0))
+    a1.text(3.87, 0.0, "$D_f$", fontsize=12, va="center")
     a1.annotate("", xy=(3.0, 1.85), xytext=(0.0, 1.85), arrowprops=dict(arrowstyle="<->", color=BLUE, lw=1.1))
     a1.plot([0, 0], [1.0, 1.95], color=GRAY, lw=0.8)
     a1.plot([3.0, 3.0], [1.5, 1.95], color=GRAY, lw=0.8)
     a1.text(1.5, 2.0, "$L$", fontsize=12, ha="center", va="bottom")
-    a1.annotate("", xy=(-1.45, 0.62), xytext=(-1.45, -0.62),
+    a1.annotate("", xy=(-1.45, r_t - 1.45 * slope), xytext=(-1.45, -(r_t - 1.45 * slope)),
                 arrowprops=dict(arrowstyle="<->", color=BLUE, lw=1.1, connectionstyle="arc3,rad=0.25"))
     a1.text(-1.95, 0.0, r"$\theta$", fontsize=13, ha="center", va="center")
     a1.text(3.11, -1.65, "compressor\nface", fontsize=10, ha="center", va="top")
