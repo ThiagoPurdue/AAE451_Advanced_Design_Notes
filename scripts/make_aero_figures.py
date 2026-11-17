@@ -429,6 +429,7 @@ def mach_effects():
     clean(ax1)
     # right, schematic with the sizes of a 12% conventional section near C_l = 0.4: the wave drag grows as the
     # fourth power of the Mach number past M_crit, which puts the Douglas point 0.108 above M_crit
+    # (Gudmundsson 2022, Eq. 16-106, the relation the wing page uses). M_crit here is where the wave drag starts.
     M = np.linspace(0.4, 0.78, 600)
     cd0, mcrit = 0.006, 0.60
     cd = cd0 + 20.0 * np.clip(M - mcrit, 0, None) ** 4
@@ -439,7 +440,7 @@ def mach_effects():
     ax2.axhline(cd0, color=STEEL, lw=0.8, ls=":")
     ax2.text(0.405, cd0 + 0.0002, "incompressible level", fontsize=10, color=STEEL, va="bottom")
     ax2.axvline(mcrit, color=STEEL, lw=0.8, ls="--")
-    ax2.text(mcrit + 0.005, 0.0048, "$M_{crit}$: first sonic point", va="center", ha="left", fontsize=10, color=STEEL)
+    ax2.text(mcrit + 0.005, 0.0048, "$M_{crit}$: the rise starts", va="center", ha="left", fontsize=10, color=STEEL)
     ax2.plot([m_boeing], [cd0 + 0.002], "o", color=VERM, ms=7)
     ax2.annotate("Boeing: $C_d$ 0.002 above\nthe incompressible level", xy=(m_boeing, cd0 + 0.002), xytext=(0.42, 0.0092),
                  fontsize=10, color=VERM, arrowprops=dict(arrowstyle="-|>", color=VERM, lw=1))
