@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-11-17T08:37:39.802310</dc:date>
+    <dc:date>2026-11-17T09:19:54.046279</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -30,7 +30,7 @@ z
   </g>
   <g id="axes_1">
    <g id="patch_2">
-    <path d="M 230.4 67.464 
+    <path d="M 179.064 67.464 
 L 54.63 67.464 
 L 53.090757 67.309992 
 L 51.054336 67.169376 
@@ -93,9 +93,9 @@ L 98.77896 14.489712
 L 100.60362 14.487759 
 L 102.06 14.454 
 L 342 14.454 
-L 342 22.824 
+L 342 32.868 
 z
-" clip-path="url(#p77e919eb6b)" style="fill: #ebd99f; stroke: #8e6f3e; stroke-width: 1.6"/>
+" clip-path="url(#p2b895b66a8)" style="fill: #ebd99f; stroke: #8e6f3e; stroke-width: 1.6"/>
    </g>
    <g id="patch_3">
     <path d="M 36.216 30.636 
@@ -149,22 +149,22 @@ L 39.134619 28.479888
 L 37.751616 29.287872 
 L 36.752517 30.015504 
 z
-" clip-path="url(#p77e919eb6b)" style="fill: #c9d5e1; stroke: #8e6f3e; stroke-linejoin: miter"/>
+" clip-path="url(#p2b895b66a8)" style="fill: #c9d5e1; stroke: #8e6f3e; stroke-linejoin: miter"/>
    </g>
    <g id="patch_4">
-    <path d="M 325.26 67.464 
-C 325.26 62.279557 324.834977 57.103829 323.989204 51.98884 
-C 323.14343 46.87385 321.879749 41.836796 320.210863 36.928307 
-" clip-path="url(#p77e919eb6b)" style="fill: none; stroke: #555960; stroke-linejoin: miter"/>
+    <path d="M 273.924 67.464 
+C 273.924 64.155453 273.750906 60.849171 273.405427 57.558711 
+C 273.059948 54.268251 272.542558 50.998118 271.855378 47.761721 
+" clip-path="url(#p2b895b66a8)" style="fill: none; stroke: #555960; stroke-linejoin: miter"/>
    </g>
    <g id="line2d_1">
-    <path d="M 230.4 67.464 
+    <path d="M 179.064 67.464 
 L 364.32 67.464 
-" clip-path="url(#p77e919eb6b)" style="fill: none; stroke-dasharray: 3.33,1.44; stroke-dashoffset: 0; stroke: #555960; stroke-width: 0.9"/>
+" clip-path="url(#p2b895b66a8)" style="fill: none; stroke-dasharray: 3.33,1.44; stroke-dashoffset: 0; stroke: #555960; stroke-width: 0.9"/>
    </g>
    <g id="text_1">
     <!-- $u$ -->
-    <g style="fill: #555960" transform="translate(333.63 56.058188)">
+    <g style="fill: #555960" transform="translate(282.294 56.058188)">
      <text>
       <tspan x="0" y="-0.4375" style="font-style: oblique; font-size: 12px; font-family: 'DejaVu Sans'; fill: #555960">u</tspan>
      </text>
@@ -173,7 +173,7 @@ L 364.32 67.464
   </g>
  </g>
  <defs>
-  <clipPath id="p77e919eb6b">
+  <clipPath id="p2b895b66a8">
    <rect x="7.2" y="7.2" width="368.28" height="66.96"/>
   </clipPath>
  </defs>

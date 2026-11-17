@@ -245,9 +245,9 @@ def upsweep():
     fig, ax = plt.subplots(figsize=(6.6, 2.1))
     ax.set_aspect("equal")
     ax.axis("off")
-    x_k, x_end, y_top, y_end = 3.9, 5.9, 0.95, 0.80
-    u = np.degrees(np.arctan((y_end - 0.12) / (x_end - x_k)))
-    assert 15 < u < 20                                   # upsweep angles of rear-loading and tail-low aft bodies
+    x_k, x_end, y_top, y_end = 2.98, 5.9, 0.95, 0.62
+    u = np.degrees(np.arctan2(y_end, x_end - x_k))       # the angle of the aft lower surface as drawn
+    assert 11.5 < u < 12.5                               # below the 15 degrees above which separation is likely
     nose = msf._smooth([(0.75, 0.0), (0.3, 0.06), (0.03, 0.30), (0.12, 0.52), (0.55, 0.78), (1.15, 0.93), (1.6, y_top)], closed=False)
     outline = np.vstack([nose[::-1][:0], [(x_k, 0.0)], nose, [(x_end, y_top), (x_end, y_end)]])
     ax.add_patch(Polygon(outline, closed=True, fc=DUST, ec=AGED, lw=1.6, joinstyle="round"))
@@ -259,6 +259,11 @@ def upsweep():
     ax.set_xlim(-0.1, 6.5)
     ax.set_ylim(-0.12, 1.08)
     save(fig, "upsweep")
+
+
+SR22_F = [("Wing", 1.14), ("Fuselage", 0.72), ("Main gear", 0.45), ("Windscreen", 0.45), ("Leakage and protuberance", 0.27),
+          ("Horizontal tail", 0.23), ("Nose gear", 0.18), ("Engine cooling", 0.15), ("Vertical tail", 0.14), ("Engine installation", 0.06)]
+SR22_S, SR22_W, SR22_Q, SR22_AR = 144.9, 2750.0, 91.6, 10.0  # AR as in Gudmundsson, Example 9-4
 
 
 def sr22_buildup():
