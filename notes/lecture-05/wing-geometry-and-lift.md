@@ -86,10 +86,10 @@ A04 Deliverable 4: required fuel volume against available volume, with the wing 
 
 :::{figure} figures/wing-height.svg
 :label: fig-wing-height
-:alt: Two front views of a jet standing on its landing gear, with the fuselage, canopy, fin, and tailplane: one with the wing on top of the fuselage and one with it under the fuselage, each with the ground line and an arrow h from the ground to the wing.
+:alt: Two front views of a jet on its landing gear, with the fuselage, canopy, fin, and horizontal tail: one with the wing high on the fuselage sides and one with it low, each with the ground line and an arrow h from the ground to the wing at the mean geometric chord.
 :width: 70%
 
-High and low wing, front view, with the wing height $h$ above the ground. Schematic.
+High and low wing, front view, with the wing height $h$ above the ground, measured to the mean geometric chord. Schematic.
 :::
 
 ::::{grid} 1 1 2 2
@@ -254,7 +254,7 @@ Check $AR$, $\lambda$, and $\Lambda_{c/4}$ against the boundary.
 
 :::{figure} figures/stall-progression.svg
 :label: fig-stall-progression
-:alt: Four columns for rectangular, elliptical, tapered, and swept planforms. The top row shows the section lift coefficient along the span: highest at the root for the rectangular wing, constant for the elliptical wing, peaking outboard for the tapered wing, and rising toward the tip for the swept wing; all but the elliptical fall to zero at the tip itself. The bottom row shows each half wing in top view, root at the left and leading edge up, with the region that stalls first shaded along the trailing edge: at the root for the rectangular wing, along the whole span for the elliptical wing, on the outer part for the tapered wing, and at the tip for the swept wing.
+:alt: Four columns for rectangular, elliptical, tapered, and swept planforms. The top row shows the section lift coefficient along the span: highest at the root for the rectangular wing, constant for the elliptical wing, peaking outboard for the tapered wing, and rising toward the tip for the swept wing; all but the elliptical fall to zero at the tip itself. The bottom row shows each half wing in top view, root at the left and leading edge up, with the region that stalls first shaded along the trailing edge: at the root for the rectangular wing, along the whole span for the elliptical wing, outboard, short of the tip, for the tapered wing, and at the tip for the swept wing.
 :width: 100%
 
 Where the stall starts on four planforms. Schematic, after Gudmundsson (2022), Figure 9-83.
@@ -270,10 +270,10 @@ Where the stall starts on four planforms. Schematic, after Gudmundsson (2022), F
 
 :::{figure} figures/wing-incidence.svg
 :label: fig-wing-incidence
-:alt: Three side views of a jet trainer flying to the right along a flight path arrow, each with the wing section, a NACA 2412 drawn in gold, at the same cruise angle of attack of 4 degrees to the flight path, and the fuselage datum dashed. Top, too large an incidence: the fuselage flies nose down, high fuselage drag. Middle, too small an incidence: the fuselage flies nose up, high fuselage drag. Bottom, the correct incidence: the fuselage follows the flight path, least drag.
+:alt: Three side views of a jet trainer flying to the right along a flight path arrow, each with a cambered wing section drawn in gold at the same cruise angle of attack, and the fuselage datum dashed. Top, too large an incidence: the fuselage flies nose down, high fuselage drag. Middle, too small an incidence: the fuselage flies nose up, high fuselage drag. Bottom, the correct incidence: the fuselage follows the flight path, least drag.
 :width: 80%
 
-The wing incidence sets the fuselage angle of attack in cruise. Schematic, after Gudmundsson (2022), Figure 9-28.
+The wing incidence sets the fuselage angle of attack in cruise. Schematic with invented angles, after Gudmundsson (2022), Figure 9-28.
 :::
 
 - Set $i_W$ so the fuselage flies at its minimum-drag angle of attack in cruise.
@@ -422,10 +422,10 @@ Quiz on Lecture 5: eight questions, one at a time, with the explanation after ea
 - Gudmundsson, S., *General Aviation Aircraft Design: Applied Methods and Procedures*, 2nd ed., Butterworth-Heinemann, 2022. Chapter 8, The Anatomy of the Airfoil; Chapter 9, The Anatomy of the Wing; Chapter 16, Aircraft Drag Analysis, Section 16.3.3.
 - Nicolai, L. M., and Carichner, G. E., *Fundamentals of Aircraft and Airship Design, Volume 1: Aircraft Design*, AIAA Education Series, 2010. Chapter 2, Review of Practical Aerodynamics.
 - Abbott, I. H., von Doenhoff, A. E., and Stivers, L. S., "Summary of Airfoil Data," NACA Report 824, 1945.
-- Loftin, L. K., "Theoretical and Experimental Data for a Number of NACA 6A-Series Airfoil Sections," NACA Report 903, 1948.
+- Loftin, L. K., Jr., "Theoretical and Experimental Data for a Number of NACA 6A-Series Airfoil Sections," NACA Report 903, 1948.
 - Somers, D. M., "Design and Experimental Results for a Natural-Laminar-Flow Airfoil for General Aviation Applications," NASA TP-1861, 1981.
 - Harris, C. D., "NASA Supercritical Airfoils: A Matrix of Family-Related Airfoils," NASA TP-2969, 1990.
-- Selig, M. S., *UIUC Airfoil Coordinates Database*, University of Illinois at Urbana-Champaign, m-selig.ae.illinois.edu/ads/coord_database.html. Source of the coordinate files of the NACA 65$_2$-415, NACA 64A410, NASA NLF(1)-0416, and NASA SC(2) sections drawn in part 1.
+- Selig, M. S., [*UIUC Airfoil Coordinates Database*](https://m-selig.ae.illinois.edu/ads/coord_database.html), University of Illinois at Urbana-Champaign, retrieved 16 November 2026. Coordinates of the NACA 65$_2$-415, NACA 64A410, NASA NLF(1)-0416, and NASA SC(2) airfoils drawn in part 1.
 - Schrenk, O., "A Simple Approximation Method for Obtaining the Spanwise Lift Distribution," NACA TM 948, 1940.
 - Shortal, J. A., and Maggin, B., "Effect of Sweepback and Aspect Ratio on Longitudinal Stability Characteristics of Wings at Low Speeds," NACA TN 1093, 1946.
 - Furlong, G. C., and McHugh, J. G., "A Summary and Analysis of the Low-Speed Longitudinal Characteristics of Swept Wings at High Reynolds Number," NACA Report 1339, 1957.
