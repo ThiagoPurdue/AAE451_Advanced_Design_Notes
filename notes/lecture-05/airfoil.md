@@ -231,10 +231,10 @@ Transonic flow over an airfoil as the Mach number rises. Schematic, after Nicola
 
 :::{figure} figures/supercritical-airfoil.svg
 :label: fig-supercritical
-:alt: Two columns. Left, a conventional airfoil at Mach 0.72 with a strong shock on the upper surface and separated flow behind it; below it, the pressure coefficient along the chord, upper surface solid and lower surface dashed, with a sharp jump at the shock near mid-chord. Right, a supercritical airfoil at Mach 0.80, flatter on top, with a weak shock far aft; below it, a flat pressure plateau on the upper surface, a small step at the shock, and aft loading from the lower surface near the trailing edge.
+:alt: Two columns. Left, a conventional airfoil, the NACA 64A410, at Mach 0.72 with a shaded supersonic region on the upper surface that ends in a strong shock at mid-chord and separated flow behind it; below it, the pressure coefficient along the chord, upper surface solid and lower surface dashed: the upper-surface suction grows to about minus 1.25, well beyond the sonic value of minus 0.70 marked by a dotted line, and jumps to about minus 0.3 at the shock. Right, a supercritical airfoil, the NASA SC(2)-0710, at Mach 0.80, flatter on top, with a longer and lower supersonic region that ends in a weak shock at about 72 percent of the chord; below it, a flat pressure plateau near minus 0.75 on the upper surface, just beyond the sonic value of minus 0.43, a small step at the shock, and aft loading: the lower-surface pressure rises to about plus 0.45 near 85 percent of the chord. In both plots the two surfaces meet at the trailing edge.
 :width: 90%
 
-A conventional and a supercritical airfoil at the same lift coefficient. Schematic, after Nicolai and Carichner (2010), Figure 2.22.
+A conventional airfoil (NACA 64A410) and a supercritical airfoil (NASA SC(2)-0710) of the same thickness, 10 percent, at the same lift coefficient. The outlines are the published coordinates. The flow and the pressure distributions are schematic, after Nicolai and Carichner (2010), Figure 2.22, with the sonic pressure coefficient computed for each Mach number.
 :::
 
 - A flatter upper surface gives a weaker shock and less separation.

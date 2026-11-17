@@ -495,49 +495,70 @@ def transonic_sketch():
 
 
 def supercritical_sketch():
-    fig, axes = plt.subplots(2, 2, figsize=(10, 5.2), gridspec_kw=dict(height_ratios=[1, 1.15]))
-    x = 0.5 * (1 - np.cos(np.linspace(0, np.pi, 200)))
-    yt = 5 * 0.12 * (0.2969 * np.sqrt(x) - 0.1260 * x - 0.3516 * x ** 2 + 0.2843 * x ** 3 - 0.1015 * x ** 4)
-    conv = naca4(0.02, 0.4, 0.12)
-    cx, cy = outline(conv)
-    # supercritical: flat upper surface, aft camber on the lower surface
-    yu = np.minimum(yt * 1.05, 0.062) * (1 - 0.35 * x ** 3)
-    yl = -yt * 0.85 + 0.09 * x ** 3 * (1 - x) * 4
-    sx, sy = np.concatenate([x, x[::-1]]), np.concatenate([yu, yl[::-1]])
-    for ax, (px, py), title, xs_shock, sep in ((axes[0, 0], (cx, cy), "Conventional airfoil, $M$ = 0.72", 0.5, True),
-                                              (axes[0, 1], (sx, sy), "Supercritical airfoil, $M$ = 0.80", 0.72, False)):
+    """A NACA 64A410 and a NASA SC(2)-0710, both 10% thick, from their published coordinates.
+    The pressure distributions are schematic; the sonic pressure coefficient of each Mach number
+    is computed, and both distributions close at the trailing edge."""
+    conv, sc = airfoil_file("naca64a410"), airfoil_file("sc20710")
+    assert abs(thickness(conv) - 0.10) < 0.002 and abs(thickness(sc) - 0.10) < 0.002
+    xp = np.linspace(0, 1, 600)
+    step = lambda x0, w: 0.5 * (1 + np.tanh((xp - x0) / w))            # 0 before x0, 1 after
+    nose = lambda w: np.exp(-xp / w)                                    # stagnation region
+    # conventional, M = 0.72: the suction grows to a strong shock at mid-chord; the flow separates behind it
+    xs_c, te_c = 0.50, -0.05
+    cpu_c = 1.1 * nose(0.006) - (0.95 + 0.60 * xp) * (1 - nose(0.03)) * (1 - step(xs_c, 0.008)) \
+        + (-0.30 + (te_c + 0.30) * (xp - xs_c) / (1 - xs_c)) * step(xs_c, 0.008)
+    cpl_c = 1.1 * nose(0.006) + (-0.45 * xp * (1 - xp) + te_c * xp) * (1 - nose(0.02))
+    # supercritical, M = 0.80: a flat roof top just above sonic, a weak shock far aft, aft loading below
+    xs_s, te_s = 0.72, 0.15
+    ramp = np.clip((xp - xs_s - 0.05) / (1 - xs_s - 0.05), 0, 1)
+    cpu_s = 1.15 * nose(0.006) - (0.72 + 0.04 * xp) * (1 - nose(0.02)) * (1 - step(xs_s, 0.008)) \
+        + (-0.40 + (te_s + 0.40) * ramp ** 1.5) * step(xs_s, 0.008)
+    cove = 0.45 * np.exp(-((xp - 0.86) / 0.11) ** 2)
+    cpl_s = 1.15 * nose(0.006) + (-1.3 * xp * (1 - xp) ** 1.6 + cove + (te_s - 0.45 * np.exp(-(0.14 / 0.11) ** 2)) * xp ** 6) * (1 - nose(0.02))
+    cs_c, cs_s = cp_sonic(0.72), cp_sonic(0.80)
+    assert abs(cs_c + 0.700) < 0.002 and abs(cs_s + 0.435) < 0.002
+    jump = lambda cp, xs: float(np.interp(xs + 0.03, xp, cp) - np.interp(xs - 0.03, xp, cp))
+    assert jump(cpu_c, xs_c) > 2.5 * jump(cpu_s, xs_s) > 0                              # strong against weak shock
+    assert np.interp(xs_c - 0.03, xp, cpu_c) < cs_c - 0.4                               # well supersonic ahead of the strong shock
+    assert cs_s - 0.4 < np.interp(xs_s - 0.03, xp, cpu_s) < cs_s - 0.2                  # just supersonic on the roof top
+    assert np.interp(xs_c + 0.03, xp, cpu_c) > cs_c and np.interp(xs_s + 0.03, xp, cpu_s) > cs_s   # subsonic behind both
+    assert abs(cpu_c[-1] - cpl_c[-1]) < 0.01 and abs(cpu_s[-1] - cpl_s[-1]) < 0.01      # the pressures close at the trailing edge
+    assert np.interp(0.86, xp, cpl_s) > 0.35 > 0.1 > np.interp(0.86, xp, cpl_c)         # aft loading on the supercritical only
+    lift = lambda cpu, cpl: float(np.sum(0.5 * ((cpl - cpu)[1:] + (cpl - cpu)[:-1]) * np.diff(xp)))
+    assert abs(lift(cpu_c, cpl_c) - 0.5) < 0.05 and abs(lift(cpu_s, cpl_s) - 0.5) < 0.05   # both carry C_l = 0.5, as in the source
+    fig, axes = plt.subplots(2, 2, figsize=(10, 5.4), gridspec_kw=dict(height_ratios=[1, 1.25]))
+    for ax, shape, title, xs, x0, hgt, sep in ((axes[0, 0], conv, "NACA 64A410, $M$ = 0.72", xs_c, 0.06, 0.20, True),
+                                              (axes[0, 1], sc, "NASA SC(2)-0710, $M$ = 0.80", xs_s, 0.04, 0.13, False)):
         ax.set_aspect("equal")
         ax.axis("off")
-        ax.fill(px, py, color=LIGHT, ec=INK, lw=1.4)
-        ytop = np.interp(xs_shock, px[:200], py[:200])
-        ax.plot([xs_shock, xs_shock], [ytop, ytop + (0.22 if sep else 0.12)], color=INK, lw=2.4 if sep else 1.4)
-        ax.text(xs_shock + 0.02, ytop + (0.2 if sep else 0.1), "strong shock" if sep else "weak shock", fontsize=10)
+        x, yu = shape[2], shape[3]
+        ytop = float(np.interp(xs, x, yu))
+        xb = np.linspace(x0, xs, 80)
+        top = np.interp(xb, x, yu) + hgt * np.sin(0.5 * np.pi * (xb - x0) / (xs - x0)) ** 0.6
+        ax.fill_between(xb, np.interp(xb, x, yu), top, color=SKY, alpha=0.45, lw=0)
+        ax.fill(*outline(shape), color=LIGHT, ec=INK, lw=1.4)
+        ax.plot([xs, xs], [ytop, ytop + hgt], color=INK, lw=2.6 if sep else 1.3)
+        ax.text(xs + 0.02, ytop + hgt - 0.02, "strong shock" if sep else "weak shock", fontsize=10, va="top")
+        ax.text(0.5 * (x0 + xs), ytop + hgt + 0.03, "supersonic", fontsize=10, color=BLUE, ha="center")
         if sep:
-            xs2 = np.linspace(xs_shock, 1.05, 30)
-            ax.plot(xs2, ytop + 0.03 * (xs2 - xs_shock) + 0.01 * np.sin(40 * xs2), color=STEEL, lw=0.9, ls="--")
-            ax.text(0.62, 0.17, "separated flow", fontsize=10, color=STEEL)
+            xw = np.linspace(xs, 1.08, 60)
+            ax.plot(xw, ytop + 0.035 * (xw - xs) / 0.58 + 0.008 * np.sin(38 * xw), color=STEEL, lw=0.9, ls="--")
+            ax.text(0.80, ytop + 0.065, "separated flow", fontsize=10, color=STEEL, ha="center")
         ax.set_title(title, fontsize=11)
-        ax.set_xlim(-0.05, 1.1)
-        ax.set_ylim(-0.2, 0.32)
-    # pressure distributions, schematic: Cp plotted upward negative
-    xp = np.linspace(0, 1, 300)
-    cpu_conv = -np.where(xp < 0.5, 1.1 + 0.3 * np.sqrt(xp), 1.4 - 1.1 * np.clip((xp - 0.5) / 0.08, 0, 1) - 0.3 * np.clip((xp - 0.58) / 0.42, 0, 1))
-    cpl_conv = -0.2 - 0.2 * np.sqrt(xp) + 0.5 * xp ** 2
-    cpu_sc = -np.where(xp < 0.72, 0.85 + 0.0 * xp, 0.85 - 0.35 * np.clip((xp - 0.72) / 0.06, 0, 1) - 0.5 * np.clip((xp - 0.78) / 0.22, 0, 1))
-    cpl_sc = -0.1 - 0.3 * np.sqrt(xp) + 0.9 * xp ** 2.2
-    for ax, cpu, cpl in ((axes[1, 0], cpu_conv, cpl_conv), (axes[1, 1], cpu_sc, cpl_sc)):
+        ax.set_xlim(-0.05, 1.12)
+        ax.set_ylim(-0.1, 0.36)
+    for ax, cpu, cpl, cs in ((axes[1, 0], cpu_c, cpl_c, cs_c), (axes[1, 1], cpu_s, cpl_s, cs_s)):
         ax.plot(xp, cpu, color=BLUE, lw=2.0, label="upper surface")
         ax.plot(xp, cpl, color=VERM, lw=2.0, ls="--", label="lower surface")
-        ax.axhline(-0.8, color=STEEL, lw=0.8, ls=":")
-        ax.text(0.01, -0.83, "$C_p$ for $M$ = 1 locally", fontsize=9, color=STEEL, va="top")
-        ax.invert_yaxis()
+        ax.axhline(cs, color=STEEL, lw=0.8, ls=":")
+        ax.text(0.99, cs - 0.03, f"sonic, $C_p$ = −{-cs:.2f}", fontsize=9, color=STEEL, va="bottom", ha="right")
         ax.set_xlabel("$x/c$")
         ax.set_ylabel("$C_p$")
         ax.set_xlim(0, 1)
-        ax.set_ylim(1.1, -1.6)
-        ax.legend(frameon=False, fontsize=9, loc="lower right")
+        ax.set_ylim(1.2, -1.6)
+        ax.legend(frameon=False, fontsize=9, loc="lower right", bbox_to_anchor=(1.0, 0.0))
         clean(ax)
-    axes[1, 1].text(0.35, -1.45, "flat plateau, then aft loading", fontsize=10, color=STEEL)
+    axes[1, 1].text(0.36, -1.0, "flat roof top, weak shock,\nthen aft loading", fontsize=10, color=STEEL, ha="center")
     fig.tight_layout()
     save(fig, "supercritical-airfoil")
 
@@ -1003,6 +1024,11 @@ def _read_polar(key):
     cl, cd = cl[o], cd[o]
     low = cl[cd < cd.min() + 0.0008]
     return cl, cd, cd.min(), low.min(), low.max()
+
+
+def cp_sonic(M, g=1.4):
+    """Pressure coefficient at which the local Mach number is 1 (isentropic flow)."""
+    return 2 / (g * M ** 2) * (((2 + (g - 1) * M ** 2) / (g + 1)) ** (g / (g - 1)) - 1)
 
 
 ALL = [wing_airfoil_nomenclature, wing_planform, naca_families, section_data, camber_effect, reynolds_effect,
