@@ -312,9 +312,11 @@ def turbojet_turbofan():
     for s in (1, -1):
         ax.plot(xf, y + s * cowl, color=INK, lw=3.0, solid_capstyle="round")
     _gas_generator(ax, y, 2.12)
-    ax.add_patch(Rectangle((1.72, y - 2.02), 0.26, 4.04, fc=COLD, ec=INK, lw=1.0))
+    for sg in (1, -1):               # the fan blade, wider at the hub than at the tip
+        ax.add_patch(Polygon([(1.72, y + sg * 0.36), (1.78, y + sg * 2.04), (1.96, y + sg * 2.04), (2.04, y + sg * 0.36)],
+                             closed=True, fc=COLD, ec=INK, lw=1.0))
     _spinner(ax, 1.05, 1.72, y)
-    ax.add_patch(Rectangle((1.98, y - 0.36), X2 - 1.98, 0.72, fc=SHELL, ec=STEEL, lw=0.8))
+    ax.add_patch(Rectangle((1.72, y - 0.36), X2 - 1.72, 0.72, fc=SHELL, ec=STEEL, lw=0.8))
     for dy in (1.6, 0.55, -0.55, -1.6):
         _flow(ax, -0.55, 0.75, y + dy, BLUE)
     for s in (1, -1):
@@ -530,13 +532,35 @@ def deck_mission_points():
 
 
 # ----------------------------------------------------------- part 3, integration
+def _cowl(x_hl, r_hl, x_th, r_th, x_f, r_f, x_end, x_max, r_max, n=30):
+    """One wall of a subsonic pitot inlet in section, as (x, r) points: a blunt lip with its
+    highlight at (x_hl, r_hl), an elliptical inner lip that contracts to the throat (x_th, r_th),
+    a straight diffuser to the fan face (x_f, r_f), and an elliptical forecowl that reaches the
+    maximum radius r_max at x_max. Subsonic inlets have thick, rounded lips so the flow stays
+    attached when it is drawn in from the side at rest."""
+    t = np.linspace(0, 1, n)
+    inner = np.c_[x_hl + (x_th - x_hl) * t, r_hl - (r_hl - r_th) * np.sqrt(1 - (1 - t) ** 2)]
+    outer = np.c_[x_hl + (x_max - x_hl) * t, r_hl + (r_max - r_hl) * np.sqrt(1 - (1 - t) ** 2)]
+    return np.vstack([outer[::-1], inner[1:], [(x_f, r_f), (x_end, r_f), (x_end, r_max)]])
+
+
+def _fan(ax, x, r_tip, y0, r_hub=0.30, chord=0.22, spinner=0.5):
+    """A fan in section: a spinner, and a blade above and below the hub, wider at the hub than at the tip."""
+    th = np.linspace(0, np.pi / 2, 20)
+    xs, rs = x - spinner * np.cos(th), r_hub * np.sin(th)
+    ax.add_patch(Polygon(np.c_[np.r_[xs, xs[::-1]], y0 + np.r_[rs, -rs[::-1]]], closed=True, fc=COLD, ec=INK, lw=1.0))
+    ax.add_patch(Rectangle((x, y0 - r_hub), 1.25 * chord, 2 * r_hub, fc=COLD, ec=INK, lw=1.0))
+    for s in (1, -1):
+        ax.add_patch(Polygon([(x, y0 + s * r_hub), (x + 0.2 * chord, y0 + s * r_tip), (x + chord, y0 + s * r_tip),
+                              (x + 1.25 * chord, y0 + s * r_hub)], closed=True, fc=COLD, ec=INK, lw=1.0))
+
+
 def _nacelle(ax, y0):
     """An inlet lip and duct in section, with the fan face."""
+    wall = _cowl(0.0, 0.93, 0.35, 0.87, 2.7, 1.12, 4.2, 1.7, 1.45)
     for s in (1, -1):
-        ax.add_patch(Polygon([(0, y0 + s * 0.90), (0.35, y0 + s * 1.22), (1.6, y0 + s * 1.45), (4.2, y0 + s * 1.45),
-                              (4.2, y0 + s * 1.12), (1.6, y0 + s * 1.12), (0.5, y0 + s * 0.98)],
-                             closed=True, fc="#E6E6E6", ec=INK, lw=1.2))
-    ax.add_patch(Rectangle((2.7, y0 - 1.10), 0.22, 2.2, fc=COLD, ec=INK, lw=1.0))
+        ax.add_patch(Polygon(np.c_[wall[:, 0], y0 + s * wall[:, 1]], closed=True, fc="#E6E6E6", ec=INK, lw=1.2, joinstyle="round"))
+    _fan(ax, 2.7, 1.10, y0)
     ax.text(2.81, y0 - 1.62, "fan", ha="center", va="top", fontsize=10)
 
 
@@ -594,15 +618,18 @@ def diffuser():
     fig, (a1, a2) = plt.subplots(1, 2, figsize=(10.8, 4.3), gridspec_kw=dict(width_ratios=[1, 1.15]))
     a1.set_aspect("equal")
     a1.axis("off")
+    # a blunt lip ahead of the throat at x = 0, then a straight diffuser wall to the compressor face at x = 3
+    wall = _cowl(-0.30, 0.86, 0.0, 0.80, 3.0, 1.16, 4.4, 1.5, 1.42)
+    assert abs(np.degrees(2 * np.arctan((1.16 - 0.80) / 3.0)) - 13.7) < 0.1     # the included angle as drawn
     for s in (1, -1):
-        a1.add_patch(Polygon([(0, s * 0.80), (0.3, s * 1.10), (1.5, s * 1.42), (4.4, s * 1.42), (4.4, s * 1.18),
-                              (3.0, s * 1.18), (0.45, s * 0.86)], closed=True, fc="#E6E6E6", ec=INK, lw=1.2))
-        a1.plot([-1.6, 0.0], [s * 0.60, s * 0.80], color=GRAY, lw=0.9, ls=":")
-    a1.add_patch(Rectangle((3.0, -1.16), 0.22, 2.32, fc=COLD, ec=INK, lw=1.0))
+        a1.add_patch(Polygon(np.c_[wall[:, 0], s * wall[:, 1]], closed=True, fc="#E6E6E6", ec=INK, lw=1.2, joinstyle="round"))
+        a1.plot([-1.6, 0.0], [s * (0.80 - 1.6 * 0.12), s * 0.80], color=GRAY, lw=0.9, ls=":")
+    _fan(a1, 3.0, 1.14, 0.0)
     a1.annotate("", xy=(0.25, 0.80), xytext=(0.25, -0.80), arrowprops=dict(arrowstyle="<->", color=BLUE, lw=1.1))
     a1.text(0.4, 0.0, "$D_t$", fontsize=12, va="center")
-    a1.annotate("", xy=(2.7, 1.16), xytext=(2.7, -1.16), arrowprops=dict(arrowstyle="<->", color=BLUE, lw=1.1))
-    a1.text(2.25, 0.0, "$D_f$", fontsize=12, va="center")
+    a1.plot([3.0, 3.0], [1.16, 1.3], color=GRAY, lw=0.8)
+    a1.annotate("", xy=(2.3, 1.08), xytext=(2.3, -1.08), arrowprops=dict(arrowstyle="<->", color=BLUE, lw=1.1))
+    a1.text(1.82, 0.0, "$D_f$", fontsize=12, va="center")
     a1.annotate("", xy=(3.0, 1.85), xytext=(0.0, 1.85), arrowprops=dict(arrowstyle="<->", color=BLUE, lw=1.1))
     a1.plot([0, 0], [1.0, 1.95], color=GRAY, lw=0.8)
     a1.plot([3.0, 3.0], [1.5, 1.95], color=GRAY, lw=0.8)
