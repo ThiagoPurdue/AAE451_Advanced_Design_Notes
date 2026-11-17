@@ -21,6 +21,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, Polygon, Ellipse
 
 OUT = Path(__file__).resolve().parents[1] / "notes" / "lecture-05" / "figures"
+AIRFOILS = Path(__file__).resolve().parent / "airfoils"
 PREVIEW = os.environ.get("FIG_PREVIEW")
 
 plt.rcParams.update({
@@ -84,19 +85,50 @@ def outline(shape):
     return np.concatenate([xu, xl[::-1]]), np.concatenate([yu, yl[::-1]])
 
 
-def lift_curve(a, a0, a_stall, clmax, post=0.04, slope=0.1):
-    """A schematic lift curve: linear from the zero-lift angle, rounding to a
-    peak at the stall angle, then a drop."""
-    x = np.clip(a - a0, 0, None)
-    k = slope / clmax
-    pre = clmax * np.tanh(k * x) + 0.08 * np.clip(x, 0, None) * np.exp(-((a - a0) / 6) ** 2) * 0
-    pre = np.where(a < a0, slope * (a - a0), pre)
-    cl_stall = clmax * np.tanh(k * (a_stall - a0))
-    scale = clmax / cl_stall
-    pre = pre * scale
-    pre = np.where(a < a0, slope * (a - a0), pre)
-    post_curve = clmax - post * (a - a_stall) ** 1.0 - 0.01 * (a - a_stall) ** 2
-    return np.where(a <= a_stall, pre, post_curve)
+def airfoil_file(name, n=200):
+    """An airfoil from its published coordinates (scripts/airfoils/<name>.dat), returned like
+    naca4(): x, mean line, and the two surfaces on a cosine-spaced x. The ordinates are
+    interpolated against sqrt(x), which keeps the leading-edge radius of the listed points."""
+    pts = np.loadtxt(AIRFOILS / f"{name}.dat", comments="#")
+    i = int(np.argmin(pts[:, 0]))
+    up, lo = pts[: i + 1][::-1], pts[i:]
+    x = 0.5 * (1 - np.cos(np.linspace(0, np.pi, n)))
+    yu = np.interp(np.sqrt(x), np.sqrt(up[:, 0]), up[:, 1])
+    yl = np.interp(np.sqrt(x), np.sqrt(lo[:, 0]), lo[:, 1])
+    return x, 0.5 * (yu + yl), x, yu, x, yl
+
+
+def thickness(shape):
+    """Maximum thickness of an airfoil returned by naca4, naca230 or airfoil_file, in chords."""
+    x, yc, xu, yu, xl, yl = shape
+    return float(np.max(np.interp(x, xu, yu) - np.interp(x, xl, yl)))
+
+
+def measured(key):
+    """A curve read from Gudmundsson (2022), Figure 8-74 (NACA Report 824, Re = 6e6)."""
+    import json
+    return np.array(json.loads((AIRFOILS / "gudmundsson-fig-8-74.json").read_text())[key])
+
+
+def lift_curve(a, a0, a_stall, clmax, slope=0.106, drop=0.3, width=6.0):
+    """A section lift curve with the shape of the measured ones: a straight line of the given
+    slope (per degree) from the zero-lift angle, a parabola that leaves it tangentially and
+    reaches clmax with zero slope at the stall angle, and after the stall a loss of `drop` in
+    lift that develops over `width` degrees (small width: abrupt stall)."""
+    d = slope * (a_stall - a0) - clmax          # lift lost to the rounding before the stall
+    assert d > 0, "clmax above the straight line"
+    h = 2 * d / slope
+    lin = slope * (a - a0)
+    rnd = clmax - slope * (a_stall - a) ** 2 / (2 * h)
+    post = clmax - drop * (1 - np.exp(-((a - a_stall) / width) ** 2))
+    return np.where(a <= a_stall - h, lin, np.where(a <= a_stall, rnd, post))
+
+
+def bucket_polar(cl, c0, k, c, depth=0.0, lo=0.0, hi=0.0, s=0.025, k4=0.0):
+    """A section drag polar: c0 + k (cl - c)^2 + k4 (cl - c)^4, less a laminar bucket of the
+    given depth between the lift coefficients lo and hi (depth 0: no bucket)."""
+    out = c0 + k * (cl - c) ** 2 + k4 * (cl - c) ** 4
+    return out - depth * 0.5 * (np.tanh((cl - lo) / s) - np.tanh((cl - hi) / s))
 
 
 # ------------------------------------------------------------ nomenclature
@@ -191,21 +223,37 @@ def wing_planform():
 
 
 def naca_families():
-    fig, axes = plt.subplots(1, 3, figsize=(11, 2.9))
-    items = [(naca4(0.0, 0.0, 0.12), "NACA 0012: symmetric, 12% thick"),
-             (naca4(0.02, 0.4, 0.12), "NACA 2412: 2% camber at 40% chord"),
-             (naca230(0.12), "NACA 23012: camber forward, at 15% chord")]
-    for ax, (shape, title) in zip(axes, items):
+    """One or two sections from each family of the table on the page. The 4-digit and 5-digit
+    sections are computed from the NACA equations; the others are their published coordinates."""
+    items = [(naca4(0.0, 0.0, 0.12), "NACA 0012", "4-digit: symmetric, 12% thick", 0.12),
+             (naca4(0.02, 0.4, 0.12), "NACA 2412", "4-digit: 2% camber at 40% chord", 0.12),
+             (naca230(0.12), "NACA 23012", "5-digit: camber forward, at 15% chord", 0.12),
+             (airfoil_file("naca652415"), "NACA 65$_2$-415", "6-series: thickest at 40% chord", 0.15),
+             (airfoil_file("nlf416"), "NASA NLF(1)-0416", "laminar: 16% thick, cambered aft", 0.16),
+             (airfoil_file("sc20714"), "NASA SC(2)-0714", "supercritical: flat top, aft camber, blunt trailing edge", 0.14)]
+    for shape, name, _, t in items:
+        assert abs(thickness(shape) - t) < 0.002, name                      # each outline has the thickness of its name
+    x, yc = items[2][0][0], items[2][0][1]
+    assert abs(x[np.argmax(yc)] - 0.15) < 0.01                              # 23012: maximum camber at 15% chord
+    x, yc = items[1][0][0], items[1][0][1]
+    assert abs(x[np.argmax(yc)] - 0.40) < 0.01 and abs(yc.max() - 0.02) < 1e-4
+    sc = items[5][0]
+    assert sc[3][-1] - sc[5][-1] > 0.005 and sc[1][-1] < -0.01              # SC(2)-0714: blunt, drooped trailing edge
+    s6 = items[3][0]
+    assert abs(s6[0][np.argmax(s6[3] - s6[5])] - 0.40) < 0.02               # 65-series: thickest at 40% chord
+    fig, axes = plt.subplots(2, 3, figsize=(11, 3.9))
+    for ax, (shape, name, note, _) in zip(axes.ravel(), items):
         ax.fill(*outline(shape), color=LIGHT, ec=INK, lw=1.6)
         ax.plot(shape[0], shape[1], color=VERM, lw=1.3, ls="--")
         ax.plot([0, 1], [0, 0], color=STEEL, lw=0.6, ls=":")
         ax.set_aspect("equal")
         ax.set_xlim(-0.03, 1.03)
-        ax.set_ylim(-0.17, 0.2)
+        ax.set_ylim(-0.12, 0.17)
         ax.axis("off")
-        ax.set_title(title, fontsize=11)
-    axes[0].text(0.5, -0.15, "dashed: camber line", ha="center", va="top", fontsize=10, color=VERM)
-    fig.tight_layout()
+        ax.set_title(name, fontsize=11.5, pad=14)
+        ax.text(0.5, 0.165, note, ha="center", va="bottom", fontsize=9.5, color=STEEL)
+    axes[1, 0].text(0.5, -0.115, "dashed: mean camber line", ha="center", va="top", fontsize=10, color=VERM)
+    fig.tight_layout(h_pad=0.2)
     save(fig, "naca-families")
 
 

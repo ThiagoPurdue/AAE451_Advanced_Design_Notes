@@ -1,0 +1,26 @@
+# Airfoil data used by the figure scripts
+
+Published coordinates and measured curves. Nothing here is computed or invented.
+
+| File | Airfoil | Ordinates published in | Fetched from |
+|---|---|---|---|
+| `naca652415.dat` | NACA 65(2)-415 | Abbott, von Doenhoff and Stivers (1945), NACA Report 824 | https://m-selig.ae.illinois.edu/ads/coord/naca652415.dat |
+| `naca64a410.dat` | NACA 64A410 | Loftin (1948), NACA Report 903 | https://m-selig.ae.illinois.edu/ads/coord/naca64a410.dat |
+| `nlf416.dat` | NASA NLF(1)-0416 | Somers (1981), NASA TP-1861 | https://m-selig.ae.illinois.edu/ads/coord/nlf416.dat |
+| `sc20710.dat` | NASA SC(2)-0710 | Harris (1990), NASA TP-2969 | https://m-selig.ae.illinois.edu/ads/coord/sc20710.dat |
+| `sc20714.dat` | NASA SC(2)-0714 | Harris (1990), NASA TP-2969 | https://m-selig.ae.illinois.edu/ads/coord/sc20714.dat |
+
+The `.dat` files hold the numbers of the UIUC Airfoil Coordinates Database files (fetched
+2026-11-16), rewritten in one order: upper surface from the trailing edge to the leading
+edge, then the lower surface. The report named for each airfoil is the one the database
+and Gudmundsson (2022), Table 8-10, give; the ordinates were not checked against the
+reports themselves.
+
+`gudmundsson-fig-8-74.json`: the lift curves and drag polars of the NACA 23015 and the
+NACA 65(2)-415 at a Reynolds number of 6 million (data of NACA Report 824), read from the
+plotted curves of Gudmundsson (2022), Figure 8-74, by color segmentation of the figure
+image. Reading accuracy is about 0.01 in lift coefficient, 0.0002 in drag coefficient and
+0.2 degrees in angle of attack.
+
+The NACA 4-digit and 5-digit sections are not stored here: `make_aero_figures.py`
+computes them from the NACA equations (`naca4`, `naca230`).

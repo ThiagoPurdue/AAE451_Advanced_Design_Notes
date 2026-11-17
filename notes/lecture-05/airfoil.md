@@ -76,10 +76,10 @@ A04: each choice is traced to a requirement and entered in {term}`ASORT`.
 
 :::{figure} figures/naca-families.svg
 :label: fig-naca-families
-:alt: Three airfoil outlines side by side with their camber lines dashed. NACA 0012, symmetric and 12 percent thick, has a straight camber line. NACA 2412 has a gently arched camber line with its peak at 40 percent of the chord. NACA 23012 has its camber concentrated near the leading edge, at 15 percent of the chord.
+:alt: Six airfoil outlines in two rows with their mean camber lines dashed. Top row: NACA 0012, symmetric and 12 percent thick, with a straight camber line; NACA 2412, with a gently arched camber line that peaks at 40 percent of the chord; NACA 23012, with its camber concentrated near the leading edge, at 15 percent of the chord. Bottom row: NACA 65 2-415, a 6-series section 15 percent thick, thickest at 40 percent of the chord, with a thin cusped rear; NASA NLF(1)-0416, a laminar section 16 percent thick with a concave lower surface near the trailing edge; NASA SC(2)-0714, a supercritical section 14 percent thick with a blunt nose, a nearly flat upper surface, a lower surface that curves up over the last third of the chord, and a blunt trailing edge that droops below the chord line.
 :width: 100%
 
-Three NACA airfoils computed from the published shape equations. The 4-digit and 5-digit numbers encode camber and thickness; the 6-series and the newer laminar and supercritical families are defined by their pressure distributions and have no simple formula. Gudmundsson (2022), Figure 8-39, shows the measured lift curves and polars of five such airfoils from NACA Report 824.
+Six airfoils, at least one from each family in the table below. The NACA 0012, 2412, and 23012 are computed from the published shape equations: the 4-digit and 5-digit numbers encode camber and thickness. The 6-series and the newer laminar and supercritical families are defined by their pressure distributions and have no simple formula; the NACA 65$_2$-415 (NACA Report 824), the NASA NLF(1)-0416 (NASA TP-1861), and the NASA SC(2)-0714 (NASA TP-2969) are drawn from their published coordinates, as listed in the UIUC Airfoil Coordinates Database. Gudmundsson (2022), Figure 8-39, shows the measured lift curves and polars of five such airfoils from NACA Report 824.
 :::
 
 :::{table} Airfoil families and what each trades. After Gudmundsson (2022), Tables 8-7 and 8-12, and Nicolai and Carichner (2010).
