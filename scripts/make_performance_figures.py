@@ -574,16 +574,19 @@ def takeoff_speeds():
     xs = [m[0] for m in marks]
     assert xs == sorted(xs) and len(set(xs)) == len(xs), "the speeds follow one another along the run"
     assert all(float(path(x)) == y_g for x in xs[:-1]) and float(path(x_lof + 0.05)) > y_g, "airborne after V_LOF"
-    h_obst = float(path(x_2)) - y_g                         # height gained at V_2
-    assert h_obst > 0.3
+    pitch_2 = math.degrees(theta) + 4.0                     # deck angle in the climb: path angle plus angle of attack
+    c2, s2 = math.cos(math.radians(pitch_2)), math.sin(math.radians(pitch_2))
+    wheel = np.array([x_2, float(path(x_2))]) + s * np.array([-0.7 * c2 + 1.22 * s2, -0.7 * s2 - 1.22 * c2])
+    h_obst = float(wheel[1])                                # the main wheels clear the obstacle height at V_2
+    assert 0.3 < h_obst < float(path(x_2))
     fig, ax = sketch((10.6, 3.3))
-    ax.add_patch(Rectangle((0, -0.3), 10.9, 0.3, fc=DUST, ec="none"))
-    ax.plot([0, 10.9], [0, 0], color=INK, lw=1.4)
+    ax.add_patch(Rectangle((-0.45, -0.3), 11.35, 0.3, fc=DUST, ec="none"))
+    ax.plot([-0.45, 10.9], [0, 0], color=INK, lw=1.4)
     xx = np.linspace(0.4, 10.75, 300)
     ax.plot(xx, path(xx), color=BLUE, lw=1.6, ls="--", zorder=1)
-    _trainer_side(ax, 0.4 + 0.2, y_g, s, gear=True)
+    _trainer_side(ax, 0.4 + 0.7 * s, y_g, s, gear=True)     # main wheels on the brake-release mark
     _trainer_side(ax, 6.85, y_g + 0.045, s, pitch=7.0, gear=True)
-    _trainer_side(ax, x_2, float(path(x_2)), s, pitch=math.degrees(theta) + 4.0, gear=True)
+    _trainer_side(ax, x_2, float(path(x_2)), s, pitch=pitch_2, gear=True)
     for x, lab in marks:
         ax.plot([x, x], [-0.04, -0.42], color=STEEL, lw=1.0)
         ax.text(x, -0.48, lab, fontsize=11.5, ha="center", va="top")
@@ -592,10 +595,10 @@ def takeoff_speeds():
     ax.text(x_lof, -0.86, "liftoff", fontsize=10, ha="center", va="top", color=STEEL)
     ax.text(x_2, -0.86, "obstacle height", fontsize=10, ha="center", va="top", color=STEEL)
     xd = 10.72
-    ax.plot([x_2 + 0.35, xd + 0.1], [h_obst, h_obst], color=STEEL, lw=0.8, ls=":")
+    ax.plot([wheel[0] + 0.06, xd + 0.1], [h_obst, h_obst], color=STEEL, lw=0.8, ls=":")
     ax.annotate("", xy=(xd, h_obst), xytext=(xd, 0), arrowprops=dict(arrowstyle="<->", color=STEEL, lw=1.0))
     ax.text(xd + 0.1, h_obst / 2, "$h_{obst}$", fontsize=11.5, ha="left", va="center")
-    ax.set_xlim(-0.35, 11.5)
+    ax.set_xlim(-0.55, 11.5)
     ax.set_ylim(-1.15, 1.75)
     save(fig, "takeoff-speeds")
 
@@ -655,10 +658,10 @@ def balanced_field():
     Gudmundsson (2022), Figures 18-16 and 18-17. Each branch is a constant acceleration, so the
     square of the speed is a straight line in distance; invented scale."""
     s_lof, s_fail, s_bfl, v2 = 0.80, 0.42, 1.00, 1.10       # distance in balanced field lengths, speed in V_LOF
-    x_all = np.linspace(0, s_lof, 80)
+    x_all = s_lof * np.linspace(0, 1, 200) ** 2             # dense near brake release, where the curve is steep
     v_all = np.sqrt(x_all / s_lof)
     v1 = math.sqrt(s_fail / s_lof)
-    x_br = np.linspace(s_fail, s_bfl, 80)
+    x_br = s_bfl - (s_bfl - s_fail) * np.linspace(1, 0, 200) ** 2      # dense near the stop
     v_go = np.sqrt(v1 ** 2 + (v2 ** 2 - v1 ** 2) * (x_br - s_fail) / (s_bfl - s_fail))
     v_stop = np.sqrt(np.clip(v1 ** 2 * (1 - (x_br - s_fail) / (s_bfl - s_fail)), 0, None))
     close(float(np.interp(s_fail, x_all, v_all)), v_go[0], 1e-3, "the continue branch starts on the all-engines curve")
@@ -666,8 +669,8 @@ def balanced_field():
     close(v_go[-1], v2, 1e-9, "continue: V_2 reached at the balanced field length")
     close(v_stop[-1], 0.0, 1e-9, "stop: at rest at the balanced field length")
     assert x_br[-1] == s_bfl and np.all(np.diff(v_go) > 0) and np.all(np.diff(v_stop) < 0)
-    slope_all = np.gradient(v_all ** 2, x_all)[40]
-    slope_go = np.gradient(v_go ** 2, x_br)[40]
+    slope_all = np.gradient(v_all ** 2, x_all)[100]
+    slope_go = np.gradient(v_go ** 2, x_br)[100]
     assert 0 < slope_go < slope_all, "with an engine out the aircraft accelerates more slowly"
     fig, ax = plt.subplots(figsize=(7.8, 5.0))
     ax.plot(x_all, v_all, color=BLUE, lw=2.4)
@@ -677,21 +680,23 @@ def balanced_field():
     ax.plot([s_bfl, s_bfl], [0, v2], color=GRAY, lw=1.0, ls=":")
     ax.plot(s_fail, v1, "o", color=INK, ms=7, zorder=5)
     ax.text(s_fail - 0.02, v1 + 0.04, "engine fails at $V_{EF}$,\ndecision at $V_1$", fontsize=10.5, ha="right", va="bottom")
-    ax.text(0.60, 1.0, "all engines", fontsize=10.5, ha="right", va="bottom")
+    ax.text(0.60, 0.91, "all engines", fontsize=10.5, ha="right", va="bottom")
     ax.text(0.75, 0.86, "continue, engine out", fontsize=10.5, ha="left", va="top")
     ax.text(0.60, 0.33, "stop, brakes", fontsize=10.5, ha="right", va="center")
     ax.add_patch(Rectangle((0, -0.2), s_bfl, 0.08, fc=DUST, ec=STEEL, lw=0.8, clip_on=False))
     ax.text(s_bfl / 2, -0.16, "runway", fontsize=10, ha="center", va="center", clip_on=False)
     ax.annotate("", xy=(s_bfl, -0.29), xytext=(0, -0.29), arrowprops=dict(arrowstyle="<->", color=STEEL, lw=1.0),
                 annotation_clip=False)
-    ax.text(s_bfl / 2, -0.33, "balanced field length: both branches end here", fontsize=10.5, ha="center", va="top",
+    ax.text(s_bfl / 2, -0.32, "balanced field length: both branches end here", fontsize=10.5, ha="center", va="top",
             clip_on=False)
     ax.set_xlim(0, 1.1)
     ax.set_ylim(0, 1.25)
     ax.set_xticks([])
-    ax.set_yticks([v2])
-    ax.set_yticklabels(["$V_2$"])
-    ax.set_xlabel("Distance from brake release $S$", labelpad=62)
+    ax.set_yticks([v1, 1.0, v2])
+    ax.set_yticklabels(["$V_1$", "$V_{LOF}$", "$V_2$"])
+    ax.plot([0, s_fail], [v1, v1], color=GRAY, lw=1.0, ls=":")
+    ax.plot([0, s_lof], [1.0, 1.0], color=GRAY, lw=1.0, ls=":")
+    ax.text(1.1, -0.025, "distance $S$", fontsize=11, ha="right", va="top", clip_on=False)
     ax.set_ylabel("Airspeed")
     clean(ax, grid=False)
     fig.tight_layout()
@@ -729,32 +734,29 @@ def takeoff_altitude_weight():
     w_exp = np.log(wts[21500][0] / wts[18000][0]) / np.log(21500 / 18000)
     close(w_exp, 2.1, 0.05, "weight exponent of the ground run at sea level")
     close(float(np.max(np.abs(wts[21500] - temp[0]))), 0.0, 1e-9, "the two panels share the 21,500 lb ISA line")
-    fig, (a1, a2) = plt.subplots(1, 2, figsize=(10.6, 4.5), sharey=True)
-    a1.plot(temp[-20], hs, color=BLUE, lw=2.0, ls="-.")
-    a1.plot(temp[0], hs, color=INK, lw=2.2)
-    a1.plot(temp[20], hs, color=VERM, lw=2.0, ls="--")
-    a1.text(float(np.interp(7400, hs, temp[-20])) - 110, 7400, "ISA − 20 °C", fontsize=10.5, ha="right", va="center")
-    a1.text(float(np.interp(4300, hs, temp[0])) + 60, 4050, "ISA", fontsize=10.5, ha="left", va="center")
-    a1.text(float(np.interp(7400, hs, temp[20])) + 110, 7400, "ISA + 20 °C", fontsize=10.5, ha="left", va="center")
+    fig, (a1, a2) = plt.subplots(1, 2, figsize=(10.6, 4.6), sharey=True)
+    a1.plot(temp[-20], hs, color=BLUE, lw=2.0, ls="-.", label="ISA − 20 °C")
+    a1.plot(temp[0], hs, color=INK, lw=2.2, label="ISA")
+    a1.plot(temp[20], hs, color=VERM, lw=2.0, ls="--", label="ISA + 20 °C")
     a1.plot([temp[0][0], temp[0][-1]], [0, 10000], "o", color=INK, ms=6, zorder=5, clip_on=False)
-    a1.text(temp[0][0] + 110, 420, f"{temp[0][0]:,.0f} ft", fontsize=10.5, ha="left", va="center")
-    a1.text(temp[0][-1] - 60, 10000, f"{temp[0][-1]:,.0f} ft", fontsize=10.5, ha="right", va="bottom")
-    a2.plot(wts[18000], hs, color=GREEN, lw=2.0, ls="-.")
-    a2.plot(wts[20000], hs, color=BLUE, lw=2.0, ls="--")
-    a2.plot(wts[21500], hs, color=INK, lw=2.2)
-    a2.text(float(np.interp(8600, hs, wts[18000])) - 110, 8600, "18,000 lb", fontsize=10.5, ha="right", va="center")
-    a2.text(float(np.interp(5600, hs, wts[20000])) - 110, 5900, "20,000 lb", fontsize=10.5, ha="right", va="center")
-    a2.text(float(np.interp(5000, hs, wts[21500])) + 110, 4800, "21,500 lb", fontsize=10.5, ha="left", va="center")
+    a1.text(1150, 9900, f"ISA: {temp[0][0]:,.0f} ft at sea level,\n{temp[0][-1]:,.0f} ft at 10,000 ft", fontsize=10.5, ha="left",
+            va="top", linespacing=1.3)
+    a2.plot(wts[18000], hs, color=GREEN, lw=2.0, ls="-.", label="18,000 lb")
+    a2.plot(wts[20000], hs, color=BLUE, lw=2.0, ls="--", label="20,000 lb")
+    a2.plot(wts[21500], hs, color=INK, lw=2.2, label="21,500 lb")
+    a2.text(1150, 9900, f"$S_G \\propto W^{{{w_exp:.1f}}}$ at sea level", fontsize=10.5, ha="left", va="top")
     a1.set_title("Temperature, 21,500 lb", fontweight="bold")
     a2.set_title("Weight, ISA", fontweight="bold")
     a1.set_ylabel("Pressure altitude (ft)")
     for ax in (a1, a2):
-        ax.set_xlim(1500, 5500)
+        ax.set_xlim(1000, 5500)
         ax.set_ylim(0, 10500)
+        ax.set_xticks(range(1000, 5001, 1000))
         ax.set_yticks(range(0, 10001, 2000))
         ax.set_xlabel("Ground run $S_G$ (ft)")
         thousands(ax, "x")
         clean(ax)
+        ax.legend(frameon=False, fontsize=10.5, loc="lower right")
     thousands(a1)
     fig.tight_layout()
     save(fig, "takeoff-altitude-weight")
@@ -802,7 +804,9 @@ def turn_rate_chart():
     for lev in (-25, 25, 75):
         for seg in contour_segments(MM, OM, PS, lev):
             ax.plot(seg[:, 0], seg[:, 1], color=GRAY, lw=1.2, ls="--")
-    ax.plot(M[fly], om_env[fly], color=INK, lw=2.6)
+    m_s1 = np.sqrt(2 * W / (rho * S * CLMAX)) / a           # 1 g stall: the boundary starts on the axis
+    assert M[fly][0] - m_s1 < M[1] - M[0]
+    ax.plot(np.concatenate(([m_s1], M[fly])), np.concatenate(([0.0], om_env[fly])), color=INK, lw=2.6)
     ax.plot([mlim, mlim], [0, om_env[-1]], color=INK, lw=2.6)
     ax.plot(M[ok], om_sus[ok], color=BLUE, lw=2.6)
     ax.plot(M[i_c], om_env[i_c], "o", color=VERM, mec=INK, mew=0.8, ms=9, zorder=6)
@@ -810,15 +814,14 @@ def turn_rate_chart():
     ax.text(M[i_c] + 0.012, om_env[i_c] + 0.35, f"corner: Mach {M[i_c]:.2f}, {om_env[i_c]:.1f} deg/s", fontsize=10.5,
             ha="left", va="bottom")
     ax.text(0.565, 10.9, "$n_{max}$ = 3.5", fontsize=10.5, ha="left", va="bottom")
-    ax.text(0.288, 9.6, "stall", fontsize=10.5, ha="right", va="center")
+    ax.text(0.29, 9.0, "stall", fontsize=10.5, ha="right", va="center")
     ax.text(mlim + 0.008, 4.6, f"$V_{{MO}}$, Mach {mlim:.2f}", fontsize=10.5, ha="left", va="center", rotation=90)
-    ax.annotate(f"sustained, $P_s$ = 0\nbest: {om_sus[i_s]:.1f} deg/s at Mach {M[i_s]:.2f}", xy=(M[i_s], om_sus[i_s]),
-                xytext=(0.245, 13.6), fontsize=10.5, ha="center", va="center",
-                arrowprops=dict(arrowstyle="-", color=GRAY, lw=0.8, shrinkB=5))
+    ax.text(M[i_s] + 0.005, om_sus[i_s] - 0.3, f"sustained, $P_s$ = 0\nbest: {om_sus[i_s]:.1f} deg/s at Mach {M[i_s]:.2f}",
+            fontsize=10.5, ha="center", va="top", linespacing=1.25)
     box = dict(fc="white", ec="none", pad=1.2)
     ax.text(0.30, 6.35, "$P_s$ = 25 ft/s", fontsize=10, color=STEEL, ha="center", va="center", bbox=box)
     ax.text(0.55, 3.45, "75 ft/s", fontsize=10, color=STEEL, ha="center", va="center", bbox=box)
-    ax.text(0.455, 12.1, "−25 ft/s", fontsize=10, color=STEEL, ha="center", va="center", bbox=box)
+    ax.text(0.382, 12.75, "−25 ft/s", fontsize=10, color=STEEL, ha="right", va="center")
     ax.set_xlim(0.12, 0.72)
     ax.set_ylim(0, 16)
     ax.set_xlabel("Mach number")
@@ -891,15 +894,16 @@ def flight_envelope():
     ax.plot(edge_m, edge_h, color=INK, lw=2.4, solid_capstyle="projecting")
     box = dict(fc="white", ec="none", pad=1.2)
     ax.text(0.235, 27, "stall, 1 g", fontsize=10.5, ha="right", va="center")
-    ax.text(0.56, h_abs / 1000 + 1.6, f"$P_s$ = 0: absolute ceiling {round(h_abs, -3):,.0f} ft", fontsize=10.5, ha="center",
-            va="bottom")
+    ax.text(0.56, h_abs / 1000 + 1.4, f"$P_s$ = 0: absolute ceiling {round(h_abs, -3):,.0f} ft\n"
+            f"service ceiling ($P_s$ = 100 ft/min) {round(h_srv, -3):,.0f} ft", fontsize=10.5, ha="center", va="bottom",
+            linespacing=1.3)
     ax.text(0.55, 24.9, "$P_s$ = 50 ft/s", fontsize=10, ha="center", va="center", bbox=box)
     ax.text(0.55, 12.4, "100 ft/s", fontsize=10, ha="center", va="center", bbox=box)
     ax.text(0.425, 3.0, "150 ft/s", fontsize=10, ha="center", va="center", bbox=box)
     ax.text(0.715, 14, "$V_{MO}$\n330 KIAS", fontsize=10.5, ha="left", va="center")
     ax.text(0.817, 38, "$M_{MO}$\n0.81", fontsize=10.5, ha="left", va="center")
     ax.set_xlim(0.1, 0.9)
-    ax.set_ylim(0, 56)
+    ax.set_ylim(0, 58)
     ax.set_xlabel("Mach number")
     ax.set_ylabel("Pressure altitude (1,000 ft)")
     clean(ax)
@@ -933,17 +937,17 @@ def loop_forces():
         d = np.array([-math.sin(math.radians(ang)), math.cos(math.radians(ang))])
         ax.annotate("", xy=tuple(p + 0.22 * d), xytext=tuple(p - 0.22 * d),
                     arrowprops=dict(arrowstyle="-|>", color=STEEL, lw=1.2, mutation_scale=16))
-    _trainer_side(ax, *bottom, 0.16)                        # upright, flying to the right
-    _trainer_side(ax, *top, 0.16, pitch=180.0)              # inverted, flying to the left, canopy toward the center
+    _trainer_side(ax, *bottom, 0.2)                         # upright, flying to the right
+    _trainer_side(ax, *top, 0.2, pitch=180.0)               # inverted, flying to the left, canopy toward the center
     _force(ax, f_bot["L"], "$L$", BLUE, (-0.25, -0.12), origin=tuple(bottom))
     _force(ax, f_bot["W"], "$W$", GREEN, (-0.28, 0.12), origin=tuple(bottom))
     _force(ax, f_top["L"], "$L$", BLUE, (-0.25, 0.12), origin=(top[0] - 0.22, top[1]))
     _force(ax, f_top["W"], "$W$", GREEN, (0.3, 0.12), origin=(top[0] + 0.22, top[1]))
     for p in (bottom, top):
         ax.plot(*p, "o", color=INK, ms=5, zorder=8)
-    ax.text(1.25, R + 0.05, r"inverted at the top:  $L + W = \dfrac{W}{g}\,\dfrac{V^2}{r}$", fontsize=11.5, ha="left", va="center")
-    ax.text(1.25, -R - 0.05, r"pull-up at the bottom:  $L - W = \dfrac{W}{g}\,\dfrac{V^2}{r}$", fontsize=11.5, ha="left", va="center")
-    ax.set_xlim(-3.3, 6.2)
+    ax.text(1.5, R + 0.05, r"inverted at the top:  $L + W = \dfrac{W}{g}\,\dfrac{V^2}{r}$", fontsize=11.5, ha="left", va="center")
+    ax.text(1.5, -R - 0.05, r"pull-up at the bottom:  $L - W = \dfrac{W}{g}\,\dfrac{V^2}{r}$", fontsize=11.5, ha="left", va="center")
+    ax.set_xlim(-3.3, 6.5)
     ax.set_ylim(-R - 1.0, R + 0.8)
     save(fig, "loop-forces")
 
@@ -1057,16 +1061,16 @@ def maneuver_vn():
     ax.text(0.78, nmax + 0.12, "$n_{max}$ = 7.33", fontsize=10.5, ha="center", va="bottom")
     ax.text(0.405, 3.7, "stall, $C_{L_{max}}$ = 2.0", fontsize=10.5, ha="right", va="center")
     ax.text(0.60, float(np.sqrt(n2_at(0.0, 0.62))) + 0.25, "$P_s$ = 0", fontsize=10.5, ha="right", va="bottom")
-    ax.text(mmax, -0.62, "Mach 0.9", fontsize=10.5, ha="center", va="top", clip_on=False)
     ax.text(0.965, 8.05, "bank", fontsize=10.5, ha="left", va="center", clip_on=False)
     ax.text(1.115, 8.05, "$P_s$ (ft/s)", fontsize=10.5, ha="right", va="center", clip_on=False)
     for n, lev, bank in table:
-        ax.text(0.965, n, f"{bank:.1f}°" if bank % 1 > 0.05 else f"{bank:.0f}°", fontsize=10.5, ha="left", va="center", clip_on=False)
+        whole = abs(bank - round(bank)) < 1e-6
+        ax.text(0.965, n, f"{bank:.0f}°" if whole else f"{bank:.1f}°", fontsize=10.5, ha="left", va="center", clip_on=False)
         ax.text(1.115, n, f"{lev:.0f}".replace("-", "−") if abs(lev) > 0.5 else "0", fontsize=10.5, ha="right", va="center",
                 clip_on=False)
     ax.set_xlim(0.15, 0.95)
     ax.set_ylim(0, 8.4)
-    ax.set_xticks([0.2, 0.4, 0.6, 0.8])
+    ax.set_xticks([0.2, 0.4, 0.6, 0.8, 0.9])
     ax.set_xlabel("Mach number at 30,000 ft")
     ax.set_ylabel("Load factor $n$")
     clean(ax)
