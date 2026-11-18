@@ -139,6 +139,21 @@ The trim equations, the elevator derivatives, the trim diagram, trim with thrust
 The fin and its three checks, the dihedral, the control surfaces and the roll requirement, and the check with a vortex-lattice tool.
 :::
 
+:::{card} Lecture 11, part 1: Level flight, range, and endurance
+:link: lecture-11/level-flight-and-range.md
+What the RFP asks, the check on the sizing, the equations of motion, the level-flight speeds, range and endurance, and the segment table.
+:::
+
+:::{card} Lecture 11, part 2: Climb and field performance
+:link: lecture-11/climb-and-field.md
+The steady climb, the best angle and the best rate, the takeoff speeds, the ground run, the balanced and critical field lengths, and the landing.
+:::
+
+:::{card} Lecture 11, part 3: Maneuver and the V-n diagram
+:link: lecture-11/maneuver-and-vn.md
+Energy height and specific excess power, turns, the turn-rate chart, the flight envelope, and the maneuver V-n diagram.
+:::
+
 :::{card} Assignment A01: RFP breakdown and system requirements
 :link: assignments/a01.md
 The first assignment: deconstruct the RFP, write the needs, the concept of operations, and the requirements, and trace them together.

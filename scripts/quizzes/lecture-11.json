@@ -1,0 +1,109 @@
+{
+  "lecture": 11,
+  "questions": [
+    {
+      "id": "L11-q1",
+      "page": "level-flight-and-range",
+      "section": "Drag and power required",
+      "question": "An aircraft with a parabolic polar flies at the same weight at sea level and at 30,000 ft. How do the minimum drag <i>D<sub>min</sub></i> and its true airspeed <i>V<sub>md</sub></i> at 30,000 ft compare with sea level?",
+      "options": [
+        "<i>D<sub>min</sub></i> is the same, and <i>V<sub>md</sub></i> is higher",
+        "<i>D<sub>min</sub></i> is lower, and <i>V<sub>md</sub></i> is the same",
+        "<i>D<sub>min</sub></i> is lower, and <i>V<sub>md</sub></i> is higher",
+        "<i>D<sub>min</sub></i> is the same, and <i>V<sub>md</sub></i> is the same"
+      ],
+      "explanation": "<i>D<sub>min</sub></i> = <i>W</i>/(<i>L/D</i>)<sub>max</sub> depends on the weight and the polar only. It occurs at one <i>C<sub>L</sub></i>, so its true airspeed rises as 1/√<i>σ</i>; the minimum power rises with altitude."
+    },
+    {
+      "id": "L11-q2",
+      "page": "level-flight-and-range",
+      "section": "Range and endurance",
+      "question": "With a parabolic polar and constant <i>C</i>, the best range of a jet is at 1.316 <i>V<sub>md</sub></i>, where <i>L/D</i> is 0.866 (<i>L/D</i>)<sub>max</sub>. Why is it there?",
+      "options": [
+        "The product <i>V</i> <i>L/D</i> is highest at 1.316 <i>V<sub>md</sub></i>",
+        "The fuel flow <i>C</i> <i>T</i> is lowest at 1.316 <i>V<sub>md</sub></i>",
+        "The power required <i>D</i> <i>V</i> is lowest at 1.316 <i>V<sub>md</sub></i>",
+        "The parasite drag equals the drag due to lift at 1.316 <i>V<sub>md</sub></i>"
+      ],
+      "explanation": "At constant <i>C</i> the Breguet range is proportional to <i>V</i> <i>L/D</i>, and up to 1.316 <i>V<sub>md</sub></i> the speed gains more than <i>L/D</i> loses. The fuel flow is lowest at <i>V<sub>md</sub></i>, which gives the maximum endurance."
+    },
+    {
+      "id": "L11-q3",
+      "page": "climb-and-field",
+      "section": "Best angle and best rate",
+      "question": "An invented jet has <i>T/W</i> = 0.25 and (<i>L/D</i>)<sub>max</sub> = 10, with a thrust that does not change with speed. What is its steepest steady climb, and near which speed is it flown?",
+      "options": [
+        "sin <i>γ</i> = 0.15, near <i>V<sub>md</sub></i>",
+        "sin <i>γ</i> = 0.25, near <i>V<sub>md</sub></i>",
+        "sin <i>γ</i> = 0.15, near <i>V<sub>Y</sub></i>",
+        "sin <i>γ</i> = 0.25, near <i>V<sub>Y</sub></i>"
+      ],
+      "explanation": "sin <i>γ<sub>max</sub></i> = <i>T/W</i> − 1/(<i>L/D</i>)<sub>max</sub> = 0.25 − 0.10 = 0.15, about 8.6°. The angle follows <i>T</i> − <i>D</i>, which is largest at the minimum drag; <i>V<sub>Y</sub></i> is higher, because the rate is <i>V</i> (<i>T</i> − <i>D</i>)/<i>W</i>."
+    },
+    {
+      "id": "L11-q4",
+      "page": "climb-and-field",
+      "section": "Integrating the ground run",
+      "question": "For the Learjet 45 example with a constant thrust, the step integration and the closed form with the average acceleration both give a ground run of 2,246 ft. Why can the two differ when the thrust comes from an engine deck?",
+      "options": [
+        "The thrust varies along the run, and one acceleration at <i>V<sub>R</sub></i>/√2 no longer represents it",
+        "The closed form leaves out the rolling friction <i>μ</i> (<i>W</i> − <i>L</i>), and the integration keeps it",
+        "The closed form ends the run at <i>V<sub>R</sub></i>/√2, and the integration continues to <i>V<sub>R</sub></i>",
+        "The step of 0.25 s is too long once the thrust changes, and the integration loses accuracy"
+      ],
+      "explanation": "The closed form takes one acceleration, evaluated at <i>V<sub>R</sub></i>/√2, for the whole run to <i>V<sub>R</sub></i>, friction included. It matches the integration at constant thrust; a thrust that varies along the run needs <i>T</i>, <i>L</i>, and <i>D</i> at each step."
+    },
+    {
+      "id": "L11-q5",
+      "page": "climb-and-field",
+      "section": "Landing",
+      "question": "In the braking roll the braking force is <i>μ<sub>B</sub></i> (<i>W</i> − <i>L</i>). What happens to it when the spoilers open after touchdown?",
+      "options": [
+        "It grows, because less lift leaves more weight on the wheels",
+        "It grows, because the spoilers raise the braking friction coefficient <i>μ<sub>B</sub></i>",
+        "It falls, because the spoiler drag takes over part of the braking",
+        "It stays the same, because the wheels carry the full weight after touchdown"
+      ],
+      "explanation": "Spoilers dump the lift, so <i>W</i> − <i>L</i> and the braking force grow. They also add to the drag <i>D</i>; <i>μ<sub>B</sub></i> depends on the runway surface."
+    },
+    {
+      "id": "L11-q6",
+      "page": "maneuver-and-vn",
+      "section": "Turns",
+      "question": "The corner speed <i>V</i>* gives the highest instantaneous turn rate. What limits the turn on each side of it?",
+      "options": [
+        "Below it the stall limits <i>n</i>; above it the structure limits <i>n</i> and <i>ω</i> falls with <i>V</i>",
+        "Below it the structure limits <i>n</i>; above it the stall limits <i>n</i> and <i>ω</i> falls with <i>V</i>",
+        "Below it the thrust limits <i>n</i>; above it the drag limits <i>n</i> and <i>ω</i> falls with <i>V</i>",
+        "Below it the stall limits <i>n</i>; above it <i>n</i> keeps growing with <i>q</i> but <i>ω</i> falls with <i>V</i>"
+      ],
+      "explanation": "Along the stall limit <i>n</i> = <i>q</i> <i>C<sub>Lmax</sub></i>/(<i>W/S</i>) grows with the speed, and the turn rate rises. Above <i>V</i>* the structure holds <i>n</i> at <i>n<sub>max</sub></i>, and <i>ω</i> = <i>g</i>√(<i>n</i>² − 1)/<i>V</i> falls."
+    },
+    {
+      "id": "L11-q7",
+      "page": "maneuver-and-vn",
+      "section": "Specific excess power at load factor",
+      "question": "At one speed, weight, altitude, and rating, an invented aircraft has <i>P<sub>s</sub></i> = 320 ft/s at 1 g and 200 ft/s at 2 g. What is <i>P<sub>s</sub></i> at 3 g?",
+      "options": [
+        "0 ft/s",
+        "80 ft/s",
+        "50 ft/s",
+        "−160 ft/s"
+      ],
+      "explanation": "The loss from the 1 g value is proportional to <i>n</i>² − 1: 120 ft/s for <i>n</i>² − 1 = 3, so 320 ft/s for <i>n</i>² − 1 = 8. That leaves <i>P<sub>s</sub></i> = 0: 3 g is the sustained load factor at this speed."
+    },
+    {
+      "id": "L11-q8",
+      "page": "maneuver-and-vn",
+      "section": "The maneuver V-n diagram: Air-to-Air Fighter",
+      "question": "On the maneuver V-n diagram of the Air-to-Air Fighter, the point at Mach 0.9 and 7.33 g lies on the limit load factor, below the stall line, and above the line of <i>P<sub>s</sub></i> = 0. What is true of a turn at that point?",
+      "options": [
+        "It can be flown, but it loses speed or altitude while it lasts",
+        "It cannot be flown, because the thrust cannot balance the drag",
+        "It can be held at constant speed and altitude, within the limit load factor",
+        "It stalls the wing, because the load factor is above <i>n<sub>sus</sub></i>"
+      ],
+      "explanation": "The point is within the stall limit and the limit load factor, so the turn can be flown. Above the line of <i>P<sub>s</sub></i> = 0 the drag exceeds the thrust, here <i>P<sub>s</sub></i> = −595 ft/s, and the turn lasts until the speed or the altitude runs out."
+    }
+  ]
+}

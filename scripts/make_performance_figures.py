@@ -397,13 +397,13 @@ def drag_power():
     close(pmin[0.0], 610, 1, "minimum power at sea level, hp")
     close(pmin[30000.0], 998, 1, "minimum power at 30,000 ft, hp")
     assert pmin[0.0] < pmin[15000.0] < pmin[30000.0], "minimum power rises with altitude"
-    a1.annotate("$D_{min}$ = 1,294 lbf\nat every altitude", xy=(235, 1294), xytext=(300, 420), fontsize=10.5, ha="center",
+    a1.annotate("$D_{min}$ = 1,294 lb\nat every altitude", xy=(235, 1294), xytext=(300, 420), fontsize=10.5, ha="center",
                 va="center", arrowprops=dict(arrowstyle="-", color=GRAY, lw=0.8, shrinkB=4))
     a2.annotate(f"{pmin[0.0]:,.0f} hp", xy=(at[0.0], pmin[0.0]), xytext=(175, 180), fontsize=10.5, ha="center", va="center",
                 arrowprops=dict(arrowstyle="-", color=GRAY, lw=0.8, shrinkB=4))
     a2.annotate(f"{pmin[30000.0]:,.0f} hp", xy=(at[30000.0], pmin[30000.0]), xytext=(300, 330),
                 fontsize=10.5, ha="center", va="center", arrowprops=dict(arrowstyle="-", color=GRAY, lw=0.8, shrinkB=4))
-    for ax, top, lab in ((a1, 6000, "Drag $D$ (lbf)"), (a2, 5000, "Power required $P_{req}$ (hp)")):
+    for ax, top, lab in ((a1, 6000, "Drag $D$ (lb)"), (a2, 5000, "Power required $P_{req}$ (hp)")):
         ax.set_xlim(120, 560)
         ax.set_ylim(0, top)
         ax.set_xlabel("True airspeed (KTAS)")
@@ -454,7 +454,7 @@ def level_speeds():
     ax.set_ylim(0, 4000)
     ax.set_yticks(range(0, 3001, 1000))
     ax.set_xlabel("True airspeed (KTAS)")
-    ax.set_ylabel("Force (lbf)")
+    ax.set_ylabel("Force (lb)")
     thousands(ax)
     clean(ax)
     fig.tight_layout()
@@ -511,7 +511,7 @@ def climb_learjet():
     gopt = np.degrees(np.arcsin(tw - np.sqrt(4 * CD0 * K)))
     close(gopt, 9.62, 0.01, "gamma_opt, Ex. 19-7")
     close(np.sqrt(2 / RHO0 * ws * np.sqrt(K / CD0) * np.cos(np.radians(gopt))), 293.5, 0.3, "V_X, Ex. 19-7")
-    kc = np.linspace(110, 380, 541)
+    kc = np.linspace(110, 380, 2701)                        # 0.1 kt: the maxima are read from this grid
     V = kc * KT
     out, curves = {}, {}
     for key, T in (("c", np.full_like(V, T0)), ("l", thrust(0.0, V / a))):
@@ -521,18 +521,20 @@ def climb_learjet():
         roc, gam = V * sg * 60, np.degrees(np.arcsin(sg))
         out[key] = (kc[np.argmax(gam)], gam.max(), kc[np.argmax(roc)], roc.max())
         curves[key] = (roc, gam)
-    for key, book in (("c", (174, 9.7, 278, 3874)), ("l", (192, 9.1, 326, 4180))):
+    for key, book in (("c", (174, 9.7, 278, 3874)), ("l", (192, 9.1, 327, 4180))):
         close(out[key][0], book[0], 0.5, "V_X, KCAS")
         close(out[key][1], book[1], 0.05, "best climb angle, deg")
         close(out[key][2], book[2], 0.5, "V_Y, KCAS")
         close(out[key][3], book[3], 1.0, "best rate of climb, ft/min")
+        assert f"{out[key][0]:.0f}" == f"{book[0]}" and f"{out[key][2]:.0f}" == f"{book[2]}", "the speeds as labeled"
+    close(out["l"][2], 326.6, 0.2, "V_Y with the military thrust, KCAS")
     close(out["c"][2], vy / KT, 1, "V_Y of the curve against the closed form, Ex. 19-4")
     close(out["l"][3] / out["c"][3], 1.08, 0.005, "the rate rises 8% with the military rating")
     fig, (a1, a2) = plt.subplots(1, 2, figsize=(10.6, 4.6))
-    style = (("c", "$T$ held at 4,635 lbf", BLUE, "-"), ("l", "military rating, Mattingly model", VERM, "--"))
+    style = (("c", "$T$ held at 4,635 lb", BLUE, "-"), ("l", "military thrust, Mattingly model", VERM, "--"))
     for key, name, color, ls in style:
-        a1.plot(kc, curves[key][0], color=color, lw=2.0, ls=ls, label=name)
-        a2.plot(kc, curves[key][1], color=color, lw=2.0, ls=ls, label=name)
+        a1.plot(kc[::5], curves[key][0][::5], color=color, lw=2.0, ls=ls, label=name)      # drawn every 0.5 kt
+        a2.plot(kc[::5], curves[key][1][::5], color=color, lw=2.0, ls=ls, label=name)
         a1.plot(out[key][2], out[key][3], "o", color=color, mec=INK, mew=0.8, ms=7, zorder=5)
         a2.plot(out[key][0], out[key][1], "s", color=color, mec=INK, mew=0.8, ms=7, zorder=5)
     a1.annotate(f"$V_Y$ {out['c'][2]:.0f} KCAS\n{out['c'][3]:,.0f} ft/min", xy=(out["c"][2], out["c"][3]), xytext=(232, 2500),
@@ -561,7 +563,7 @@ def takeoff_speeds():
     s = 0.15                                                # trainer length 1.5
     y_g = 1.22 * s                                          # height of the axis with the wheels on the runway
     x_lof, x_2, theta, rad = 7.2, 9.8, math.radians(17.0), 4.2
-    marks = [(0.4, "$V$ = 0"), (3.7, "$V_S$"), (4.5, "$V_{MC}$"), (5.5, "$V_1$"), (6.1, "$V_R$"), (6.7, "$V_{MU}$"),
+    marks = [(0.4, "$V$ = 0"), (3.7, "$V_{S1}$"), (4.5, "$V_{mc}$"), (5.5, "$V_1$"), (6.1, "$V_R$"), (6.7, "$V_{MU}$"),
              (x_lof, "$V_{LOF}$"), (x_2, "$V_2$")]
 
     def path(x):                                            # the axis of the aircraft: runway, arc, straight climb
@@ -587,19 +589,22 @@ def takeoff_speeds():
     _trainer_side(ax, 0.4 + 0.7 * s, y_g, s, gear=True)     # main wheels on the brake-release mark
     _trainer_side(ax, 6.85, y_g + 0.045, s, pitch=7.0, gear=True)
     _trainer_side(ax, x_2, float(path(x_2)), s, pitch=pitch_2, gear=True)
+    row = 0.38                                              # one line of labels
     for x, lab in marks:
-        ax.plot([x, x], [-0.04, -0.42], color=STEEL, lw=1.0)
-        ax.text(x, -0.48, lab, fontsize=11.5, ha="center", va="top")
-    ax.text(0.4, -0.86, "brake release", fontsize=10, ha="center", va="top", color=STEEL)
-    ax.text(6.1, -0.86, "rotation", fontsize=10, ha="center", va="top", color=STEEL)
-    ax.text(x_lof, -0.86, "liftoff", fontsize=10, ha="center", va="top", color=STEEL)
-    ax.text(x_2, -0.86, "obstacle height", fontsize=10, ha="center", va="top", color=STEEL)
+        drop = row if x == x_lof else 0.0                 # V_LOF one line lower, clear of V_MU
+        ax.plot([x, x], [-0.04, -0.42 - drop], color=STEEL, lw=1.0)
+        ax.text(x, -0.48 - drop, lab, fontsize=11.5, ha="center", va="top")
+    y_w = -0.86 - row                                    # the words, below both lines of speeds
+    ax.text(0.4, y_w, "brake release", fontsize=10, ha="center", va="top", color=STEEL)
+    ax.text(6.1, y_w, "rotation", fontsize=10, ha="center", va="top", color=STEEL)
+    ax.text(x_lof, y_w, "liftoff", fontsize=10, ha="center", va="top", color=STEEL)
+    ax.text(x_2, y_w, "obstacle height", fontsize=10, ha="center", va="top", color=STEEL)
     xd = 10.72
     ax.plot([wheel[0] + 0.06, xd + 0.1], [h_obst, h_obst], color=STEEL, lw=0.8, ls=":")
     ax.annotate("", xy=(xd, h_obst), xytext=(xd, 0), arrowprops=dict(arrowstyle="<->", color=STEEL, lw=1.0))
     ax.text(xd + 0.1, h_obst / 2, "$h_{obst}$", fontsize=11.5, ha="left", va="center")
     ax.set_xlim(-0.55, 11.5)
-    ax.set_ylim(-1.15, 1.75)
+    ax.set_ylim(-1.15 - row, 1.75)
     save(fig, "takeoff-speeds")
 
 
@@ -744,7 +749,8 @@ def takeoff_altitude_weight():
     a2.plot(wts[18000], hs, color=GREEN, lw=2.0, ls="-.", label="18,000 lb")
     a2.plot(wts[20000], hs, color=BLUE, lw=2.0, ls="--", label="20,000 lb")
     a2.plot(wts[21500], hs, color=INK, lw=2.2, label="21,500 lb")
-    a2.text(1150, 9900, f"$S_G \\propto W^{{{w_exp:.1f}}}$ at sea level", fontsize=10.5, ha="left", va="top")
+    a2.text(1150, 9900, f"$S_G$ grows as $W^{{{w_exp:.1f}}}$\nat sea level", fontsize=10.5, ha="left", va="top",
+            linespacing=1.3)                                # two lines, clear of the 18,000 lb curve
     a1.set_title("Temperature, 21,500 lb", fontweight="bold")
     a2.set_title("Weight, ISA", fontweight="bold")
     a1.set_ylabel("Pressure altitude (ft)")
@@ -873,6 +879,7 @@ def flight_envelope():
     close(h_abs, 49000, 500, "absolute ceiling, ft")
     close(h_srv, 48000, 500, "service ceiling (100 ft/min), ft")
     assert h_srv < h_abs
+    close(h_abs - h_srv, 770, 10, "the two ceilings are about 770 ft apart")
     m_j = m_stall(h_j)
     segs = contour_segments(MM, HH, PS, 0)
     assert len(segs) == 1, "one P_s = 0 line inside the envelope"
@@ -945,8 +952,8 @@ def loop_forces():
     _force(ax, f_top["W"], "$W$", GREEN, (0.3, 0.12), origin=(top[0] + 0.22, top[1]))
     for p in (bottom, top):
         ax.plot(*p, "o", color=INK, ms=5, zorder=8)
-    ax.text(1.5, R + 0.05, r"inverted at the top:  $L + W = \dfrac{W}{g}\,\dfrac{V^2}{r}$", fontsize=11.5, ha="left", va="center")
-    ax.text(1.5, -R - 0.05, r"pull-up at the bottom:  $L - W = \dfrac{W}{g}\,\dfrac{V^2}{r}$", fontsize=11.5, ha="left", va="center")
+    ax.text(1.5, R + 0.05, r"inverted at the top:  $L + W = W\,V^2/(g\,r)$", fontsize=11.5, ha="left", va="center")
+    ax.text(1.5, -R - 0.05, r"pull-up at the bottom:  $L - W = W\,V^2/(g\,r)$", fontsize=11.5, ha="left", va="center")
     ax.set_xlim(-3.3, 6.5)
     ax.set_ylim(-R - 1.0, R + 0.8)
     save(fig, "loop-forces")
@@ -1043,6 +1050,15 @@ def maneuver_vn():
         close(bank, bank_b, 0.05, "bank angle of the level turn, deg")
         lines.append((Mc, ncc))
         table.append((n, lev, bank))
+    # the other columns of the table on the page: the turn rate (deg/s), and the energy rate as a climb at
+    # constant speed (ft/min) or as an acceleration in level flight (kt/s)
+    page = [(0.0, 35700, 12.7), (3.6, 31700, 11.2), (8.0, 15400, 5.5), (10.6, 0, 0.0), (15.0, -35700, -12.7)]
+    for (n, lev, _), (om_b, dhdt_b, dvdt_b) in zip(table, page):
+        close(math.degrees(G * math.sqrt(n ** 2 - 1) / v0), om_b, 0.05, "turn rate of the level turn, deg/s")
+        close(lev * 60, dhdt_b, 50, "dh/dt at constant speed, ft/min")
+        close(G * lev / v0 / KT, dvdt_b, 0.05, "dV/dt in level flight, kt/s")
+    close(math.degrees(G * (nmax - 1) / v0), 13.0, 0.05, "turn rate of the pull-up at n_max, deg/s")
+    close(math.degrees(G * (nmax + 1) / v0), 17.2, 0.05, "turn rate of the pull-down from inverted at n_max, deg/s")
     nv = np.sqrt(np.clip(n2_at(0.0, M), 0, None))
     assert nv.max() < nmax, "the sustained load factor stays below n_max to Mach 0.9"
     fig, ax = plt.subplots(figsize=(9.0, 5.4))

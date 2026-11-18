@@ -5,6 +5,9 @@ title: Glossary
 The notes use these terms in a fixed sense. In the text, a term with a dotted underline opens its definition.
 
 :::{glossary}
+Absolute ceiling
+: The altitude at which the specific excess power at 1 g falls to zero. The aircraft cannot climb above it.
+
 Active boundary
 : A boundary of the constraint diagram that closes the feasible region. Its requirement is a driving requirement.
 
@@ -13,6 +16,9 @@ Aspect ratio
 
 ASORT
 : Authoritative source of truth. One parameter file that every script of the sizing code reads, so that no constant is duplicated in code.
+
+Balanced field length
+: The runway length at which, after an engine failure at the engine-failure speed, the distance to continue the takeoff to the obstacle height equals the distance to stop. The critical field length balances the distance to lift off.
 
 Bypass ratio
 : The bypass mass flow of a turbofan divided by its core mass flow.
@@ -44,8 +50,11 @@ CONOPS
 Constraint diagram
 : The thrust-to-weight ratio against the wing loading, with one boundary for each requirement.
 
+Corner speed
+: The speed at which the stall limit and the limit load factor meet. It gives the highest instantaneous turn rate.
+
 Critical field length
-: The runway length at which, after an engine failure at the engine-failure speed, continuing the takeoff and stopping take the same distance. Defined for the Navy Jet Trainer in MIL-STD-3013B.
+: The runway length at which, after an engine failure at the engine-failure speed, lifting off and stopping take the same distance. Defined for the Navy Jet Trainer in MIL-STD-3013B.
 
 Critical Mach number
 : $M_{crit}$, the flight Mach number at which the flow first reaches sonic speed somewhere on the airfoil.
@@ -95,6 +104,9 @@ Flap
 Flat-plate area
 : $f = C_{D_0} S_{ref}$, the parasite drag of an aircraft or a component written as an area with a drag coefficient of 1.
 
+Flight envelope
+: The region of altitude and Mach number in which the aircraft can fly at 1 g. Its bounds are the stall, the ceiling where the specific excess power is zero, and the maximum operating speed and Mach number.
+
 Form factor
 : $FF$, the factor on skin friction drag that accounts for the pressure drag of a component.
 
@@ -109,6 +121,12 @@ Installed thrust
 
 Interference factor
 : $Q$, the factor on the drag of a component that accounts for the flow around its neighbors.
+
+Load factor
+: $n = L/W$, the lift divided by the weight. It is 1 in straight, level flight and $1/\cos\phi$ in a level turn at the bank angle $\phi$.
+
+Maneuver V-n diagram
+: Load factor against speed or Mach number at one weight and altitude, with the stall line, the limit load factor, the maximum operating speed, and lines of constant specific excess power.
 
 Master equation
 : The thrust-to-weight ratio that a condition requires at each wing loading, from the energy of the aircraft. Mattingly et al. (2002), Eq. 2.11.
@@ -175,6 +193,9 @@ Rubber engine
 
 Scissor plot
 : The tail area ratio that each stability and control requirement needs, against the CG position. Its cut at the chosen area gives the CG limits.
+
+Service ceiling
+: The altitude at which the best rate of climb falls to 100 ft/min.
 
 Skin friction coefficient
 : $C_f$, the viscous drag of a surface per unit of wetted area and dynamic pressure.

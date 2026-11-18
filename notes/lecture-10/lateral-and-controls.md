@@ -310,7 +310,7 @@ Take the cut of your scissor plot and the loading loop of your CG envelope. Whic
 :::
 
 :::{seealso} Reading
-Gudmundsson (2022), Chapters 11, 24, and 25; Nelson (1998), Chapter 2; and Raymer (2018), Chapters 4 and 6.
+Gudmundsson (2022), Chapters 11, 24, and 25; Nelson (1998), Chapter 2; and Raymer (2018), Chapters 4 and 6. [Lecture 11](../lecture-11/level-flight-and-range.md) covers the performance assessment: level flight and range, climb and field performance, and maneuver.
 :::
 
 ## Quiz

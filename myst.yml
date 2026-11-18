@@ -83,6 +83,11 @@ project:
         - file: notes/lecture-10/longitudinal-stability.md
         - file: notes/lecture-10/trim.md
         - file: notes/lecture-10/lateral-and-controls.md
+    - title: "Lecture 11: Performance Assessment"
+      children:
+        - file: notes/lecture-11/level-flight-and-range.md
+        - file: notes/lecture-11/climb-and-field.md
+        - file: notes/lecture-11/maneuver-and-vn.md
     - title: Assignments
       children:
         - file: notes/assignments/a01.md

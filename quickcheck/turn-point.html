@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quick check: a level turn</title>
+<style>
+  :root {
+    --bg: #ffffff; --fg: #1f2937; --muted: #4b5563; --card: #ffffff; --border: #d9d6ce;
+    --head-bg: #f7f5f0; --head-fg: #111827; --accent: #6f5630; --accent-border: #cfb991;
+    --input-bg: #ffffff; --input-border: #6b7280; --ok: #0a6b3d; --bad: #b42318;
+    --button: #111827; --button-fg: #ffffff; --sol-bg: #f7f5f0;
+  }
+  html.dark {
+    --bg: #1c1917; --fg: #e5e7eb; --muted: #b7bcc6; --card: #292524; --border: #44403c;
+    --head-bg: #363231; --head-fg: #ffffff; --accent: #cfb991; --accent-border: #cfb991;
+    --input-bg: #1c1917; --input-border: #9ca3af; --ok: #6ee7b7; --bad: #fca5a5;
+    --button: #cfb991; --button-fg: #000000; --sol-bg: #363231;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg);
+         font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .card { border: 1px solid var(--border); border-left: 5px solid var(--accent-border); border-radius: 8px;
+          background: var(--card); overflow: hidden; }
+  .head { background: var(--head-bg); color: var(--head-fg); padding: 10px 16px; font-weight: 700; font-size: 1.15em;
+          display: flex; align-items: center; gap: 10px; }
+  .head svg { width: 22px; height: 22px; }
+  .body { padding: 16px; }
+  .given { display: flex; flex-wrap: wrap; gap: 8px 28px; margin: 6px 0 14px; font-size: 1.05em; }
+  .given span { white-space: nowrap; }
+  i { font-style: italic; }
+  .row { display: grid; grid-template-columns: minmax(6em, 11em) minmax(6em, 11em) 1fr; align-items: center; gap: 10px; margin: 8px 0; }
+  .row label { font-size: 1.05em; }
+  input[type="text"] { width: 100%; padding: 8px 10px; font: inherit; background: var(--input-bg); color: var(--fg);
+                       border: 1px solid var(--input-border); border-radius: 6px; }
+  input[type="text"]:focus { outline: 3px solid #93c5fd; outline-offset: 1px; }
+  .mark { font-weight: 600; }
+  .mark.ok { color: var(--ok); }
+  .mark.bad { color: var(--bad); }
+  .buttons { display: flex; gap: 12px; margin: 16px 0 14px; }
+  button { font: inherit; font-weight: 600; padding: 9px 20px; border-radius: 6px; cursor: pointer; }
+  button:focus-visible { outline: 3px solid #93c5fd; outline-offset: 2px; }
+  .primary { background: var(--button); color: var(--button-fg); border: 1px solid var(--button); }
+  .secondary { background: transparent; color: var(--fg); border: 1px solid var(--input-border); }
+  details { border: 1px solid var(--border); border-left: 4px solid var(--accent-border); border-radius: 6px;
+            background: var(--sol-bg); }
+  summary { cursor: pointer; padding: 10px 14px; font-weight: 700; color: var(--head-fg); font-size: 1.05em; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: "▸ "; }
+  details[open] summary::before { content: "▾ "; }
+  .solution { padding: 4px 16px 14px; }
+  .solution p { margin: 6px 0; }
+  .status { margin: 4px 0 0; color: var(--muted); min-height: 1.5em; }
+  sub { font-size: 0.75em; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="head">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>
+    Quick check: a level turn
+  </div>
+  <div class="body">
+    <p>An invented aircraft flies a level turn at the true airspeed and the bank angle below. Compute the load factor, the turn rate, and the radius of the turn. Take <i>g</i> = 32.17 ft/s² and 1 knot = 1.688 ft/s. Two decimals for <i>n</i> and for the turn rate; the radius to the nearest 10 ft.</p>
+    <div class="given" aria-live="polite">
+      <span><i>V</i> = <strong id="gV"></strong> KTAS</span>
+      <span><i>φ</i> = <strong id="gPhi"></strong>°</span>
+    </div>
+    <form id="qc" novalidate>
+      <div class="row"><label for="n">Load factor <i>n</i> =</label><input type="text" id="n" inputmode="decimal" autocomplete="off"><span class="mark" id="mn" aria-live="polite"></span></div>
+      <div class="row"><label for="om">Turn rate <i>ω</i> (deg/s) =</label><input type="text" id="om" inputmode="decimal" autocomplete="off"><span class="mark" id="mom" aria-live="polite"></span></div>
+      <div class="row"><label for="r">Radius <i>r</i> (ft) =</label><input type="text" id="r" inputmode="decimal" autocomplete="off"><span class="mark" id="mr" aria-live="polite"></span></div>
+      <div class="buttons">
+        <button type="submit" class="primary">Check answers</button>
+        <button type="button" class="secondary" id="shuffle">Shuffle</button>
+      </div>
+      <p class="status" id="status" aria-live="polite"></p>
+    </form>
+    <details id="sol">
+      <summary>Solution</summary>
+      <div class="solution" id="solution"></div>
+    </details>
+  </div>
+</div>
+<script>
+(function () {
+  function syncTheme() {
+    var dark = false;
+    try { dark = window.parent.document.documentElement.classList.contains("dark"); }
+    catch (e) { dark = window.matchMedia("(prefers-color-scheme: dark)").matches; }
+    document.documentElement.classList.toggle("dark", dark);
+  }
+  syncTheme();
+  try { new MutationObserver(syncTheme).observe(window.parent.document.documentElement, { attributes: true }); } catch (e) {}
+  function fit() {
+    try {
+      var fe = window.frameElement;
+      if (fe && fe.parentElement) fe.parentElement.style.height = (Math.ceil(document.body.getBoundingClientRect().height) + 2) + "px";
+    } catch (e) {}
+  }
+  try { new ResizeObserver(fit).observe(document.body); } catch (e) {}
+  window.addEventListener("load", fit);
+
+  var G = 32.17, KT = 1.688;
+  var V, PHI, ans;
+  function pick(min, max, step) { var n = Math.round((max - min) / step); return min + step * Math.floor(Math.random() * (n + 1)); }
+  function fmt(x, d) { return Number(x).toFixed(d); }
+  function thousands(x) { return String(Math.round(x)).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+  function setProblem() {
+    V = pick(200, 450, 10);      // KTAS
+    // Bank angle in degrees. 45 is left out: there 1/sin equals 1/cos, so a wrong n would pass.
+    PHI = [30, 35, 40, 50, 55, 60, 65, 70][Math.floor(Math.random() * 8)];
+    var n = 1 / Math.cos(PHI * Math.PI / 180);
+    var root = Math.sqrt(n * n - 1);
+    var vfs = V * KT;
+    var omRad = G * root / vfs;
+    var om = omRad * 180 / Math.PI;
+    var r = vfs * vfs / (G * root);
+    ans = { n: n, om: om, r: r };
+    document.getElementById("gV").textContent = V;
+    document.getElementById("gPhi").textContent = PHI;
+    ["n", "om", "r"].forEach(function (x) {
+      document.getElementById(x).value = "";
+      var m = document.getElementById("m" + x); m.textContent = ""; m.className = "mark";
+    });
+    document.getElementById("status").textContent = "";
+    document.getElementById("sol").open = false;
+    document.getElementById("solution").innerHTML =
+      "<p><i>n</i> = 1 / cos <i>φ</i> = 1 / cos " + PHI + "° = <strong>" + fmt(n, 2) + "</strong></p>" +
+      "<p><i>V</i> = " + V + " × 1.688 = " + fmt(vfs, 1) + " ft/s, and √(<i>n</i>² − 1) = " + fmt(root, 3) + "</p>" +
+      "<p><i>ω</i> = <i>g</i> √(<i>n</i>² − 1) / <i>V</i> = 32.17 × " + fmt(root, 3) + " / " + fmt(vfs, 1) + " = " + fmt(omRad, 4) + " rad/s = <strong>" + fmt(om, 2) + " deg/s</strong></p>" +
+      "<p><i>r</i> = <i>V</i>² / (<i>g</i> √(<i>n</i>² − 1)) = " + fmt(vfs, 1) + "² / (32.17 × " + fmt(root, 3) + ") = <strong>" + thousands(Math.round(r / 10) * 10) + " ft</strong></p>" +
+      "<p>A full circle takes " + fmt(360 / om, 0) + " s. With <i>n</i> in place of √(<i>n</i>² − 1) the turn rate would be " + fmt(G * n / vfs * 180 / Math.PI, 2) + " deg/s, which is too high.</p>";
+  }
+  function check(e) {
+    e.preventDefault();
+    var right = 0, blank = 0;
+    [["n", 0.004, 0.006], ["om", 0.025, 0.006], ["r", 0.025, 6]].forEach(function (spec) {
+      var k = spec[0], raw = document.getElementById(k).value.trim().replace(/,(?=\d{3}\b)/g, "").replace(",", ".");
+      var m = document.getElementById("m" + k);
+      if (raw === "") { blank++; m.textContent = "no answer"; m.className = "mark bad"; return; }
+      var v = parseFloat(raw), a = ans[k];
+      var ok = isFinite(v) && Math.abs(v - a) <= Math.max(spec[1] * a, spec[2]);
+      if (ok) right++;
+      m.textContent = ok ? "✓ correct" : "✗ try again";
+      m.className = "mark " + (ok ? "ok" : "bad");
+    });
+    document.getElementById("status").textContent =
+      right === 3 ? "All three correct." : right + " of 3 correct" + (blank ? ", " + blank + " blank" : "") + ". Open the solution if you are stuck.";
+  }
+  document.getElementById("qc").addEventListener("submit", check);
+  document.getElementById("shuffle").addEventListener("click", setProblem);
+  setProblem();
+})();
+</script>
+</body>
+</html>
