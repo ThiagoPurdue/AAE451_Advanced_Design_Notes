@@ -31,7 +31,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.ticker
-from matplotlib.patches import Polygon, FancyBboxPatch, Circle, Rectangle
+from matplotlib.patches import FancyBboxPatch, Circle, Rectangle
 from matplotlib.transforms import Affine2D
 
 import make_stability_figures as msf        # the shared trainer drawing
@@ -379,7 +379,7 @@ def drag_power():
     kt = np.linspace(120, 560, 881)
     V = kt * KT
     fig, (a1, a2) = plt.subplots(1, 2, figsize=(10.4, 4.5))
-    pmin = {}
+    pmin, at = {}, {}
     for h, name, color, ls in LEVELS:
         rho = float(isa(h)[2])
         D = drag(V, rho, W)
@@ -389,7 +389,7 @@ def drag_power():
         close(D[i], 1294, 1, f"minimum drag at {h:.0f} ft")
         close(kt[i], vm, 0.5, "the drag curve bottoms at V_md")
         close(kt[j], vm / 3 ** 0.25, 0.5, "the power curve bottoms at V_md / 3^(1/4)")
-        pmin[h] = P[j]
+        pmin[h], at[h] = P[j], kt[j]
         a1.plot(kt, D, color=color, lw=2.0, ls=ls, label=name)
         a2.plot(kt, P, color=color, lw=2.0, ls=ls, label=name)
         a1.plot(kt[i], D[i], "o", color=INK, ms=6, zorder=5)
@@ -399,9 +399,9 @@ def drag_power():
     assert pmin[0.0] < pmin[15000.0] < pmin[30000.0], "minimum power rises with altitude"
     a1.annotate("$D_{min}$ = 1,294 lbf\nat every altitude", xy=(235, 1294), xytext=(300, 420), fontsize=10.5, ha="center",
                 va="center", arrowprops=dict(arrowstyle="-", color=GRAY, lw=0.8, shrinkB=4))
-    a2.annotate(f"{pmin[0.0]:,.0f} hp", xy=(kt[0] + 13, pmin[0.0]), xytext=(175, 180), fontsize=10.5, ha="center", va="center",
+    a2.annotate(f"{pmin[0.0]:,.0f} hp", xy=(at[0.0], pmin[0.0]), xytext=(175, 180), fontsize=10.5, ha="center", va="center",
                 arrowprops=dict(arrowstyle="-", color=GRAY, lw=0.8, shrinkB=4))
-    a2.annotate(f"{pmin[30000.0]:,.0f} hp", xy=(v_md(W, float(isa(30000)[2])) / KT / 3 ** 0.25, pmin[30000.0]), xytext=(300, 330),
+    a2.annotate(f"{pmin[30000.0]:,.0f} hp", xy=(at[30000.0], pmin[30000.0]), xytext=(300, 330),
                 fontsize=10.5, ha="center", va="center", arrowprops=dict(arrowstyle="-", color=GRAY, lw=0.8, shrinkB=4))
     for ax, top, lab in ((a1, 6000, "Drag $D$ (lbf)"), (a2, 5000, "Power required $P_{req}$ (hp)")):
         ax.set_xlim(120, 560)
