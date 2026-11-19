@@ -154,6 +154,16 @@ The steady climb, the best angle and the best rate, the takeoff speeds, the grou
 Energy height and specific excess power, turns, the turn-rate chart, the flight envelope, and the maneuver V-n diagram.
 :::
 
+:::{card} Lecture 12, part 1: The idea and the six steps
+:link: lecture-12/carpet-plot.md
+The question a carpet plot answers, how to read one, and the six steps from the sizing matrix to the carpet plot, on a published fighter example.
+:::
+
+:::{card} Lecture 12, part 2: A third variable, checks, and sensitivities
+:link: lecture-12/third-variable-and-sensitivities.md
+The aspect-ratio study, the checks and the common mistakes, the sensitivities at the lightest feasible point, and your team's carpet plot.
+:::
+
 :::{card} Assignment A01: RFP breakdown and system requirements
 :link: assignments/a01.md
 The first assignment: deconstruct the RFP, write the needs, the concept of operations, and the requirements, and trace them together.

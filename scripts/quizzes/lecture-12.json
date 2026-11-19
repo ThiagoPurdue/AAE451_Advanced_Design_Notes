@@ -1,0 +1,109 @@
+{
+  "lecture": 12,
+  "questions": [
+    {
+      "id": "L12-q1",
+      "page": "carpet-plot",
+      "section": "The question a carpet plot answers",
+      "question": "The constraint diagram gives the feasible <i>W<sub>TO</sub>/S</i> and <i>T<sub>SL</sub>/W<sub>TO</sub></i>. What does a carpet plot add to it?",
+      "options": [
+        "The takeoff weight <i>W<sub>TO</sub></i> over a grid of the two, from runs of the sizing code",
+        "The minimum <i>T<sub>SL</sub>/W<sub>TO</sub></i> at each <i>W<sub>TO</sub>/S</i>, from the constraint equations",
+        "A design point found by matching the constraint lines, with no run of the sizing code",
+        "The aspect ratio that gives the lowest <i>W<sub>TO</sub></i> at the chosen design point"
+      ],
+      "explanation": "The constraint diagram does not show <i>W<sub>TO</sub></i>. The carpet plot draws <i>W<sub>TO</sub></i> from converged sizing runs over the grid, with the constraint lines on it, so the lightest feasible point can be read."
+    },
+    {
+      "id": "L12-q2",
+      "page": "carpet-plot",
+      "section": "Step 3: cross-plot each constraint",
+      "question": "In the fighter example of the lecture, the takeoff distance on the <i>T<sub>SL</sub>/W<sub>TO</sub></i> = 0.9 curve runs from 670 ft at 50 lb/ft² to 1,070 ft at 70 lb/ft², against a limit of 500 ft. What does the cross-plot give for that curve?",
+      "options": [
+        "No takeoff crossing: the curve fails the takeoff limit at every wing loading of the matrix",
+        "A takeoff crossing below 50 lb/ft², read by extending the quadratic past the runs",
+        "No takeoff crossing: the curve passes the takeoff limit at every wing loading of the matrix",
+        "No takeoff crossing, so the takeoff constraint is not active anywhere on the plot"
+      ],
+      "explanation": "Takeoff fails above 500 ft, and all three runs of the 0.9 curve lie above it, so the curve fails everywhere inside the matrix. Crossings are read inside the matrix only, and the takeoff line still crosses the 1.0 and 1.1 curves."
+    },
+    {
+      "id": "L12-q3",
+      "page": "carpet-plot",
+      "section": "Step 5: read the lightest feasible point",
+      "question": "In the fighter example of the lecture, the runs of 56,000 lb and 49,000 lb meet every limit, and the lowest shaded point on the sizing plot is 46,300 lb at 56 lb/ft² and <i>T<sub>SL</sub>/W<sub>TO</sub></i> = 1.017. What comes next?",
+      "options": [
+        "Rerun the sizing code at 56 lb/ft² and 1.017 and check the rerun against every limit",
+        "Report the 49,000 lb run, the lightest of the nine that meets every limit",
+        "Report 46,300 lb as read, since every shaded point already meets every limit",
+        "Report the 43,700 lb center run, the design point chosen from the constraint diagram"
+      ],
+      "explanation": "The plot interpolates between runs, so only the rerun at the point read from it is a converged design, and it must meet every limit. It is 2,700 lb lighter than the best run; the center run misses the takeoff limit, 595 ft against 500 ft."
+    },
+    {
+      "id": "L12-q4",
+      "page": "carpet-plot",
+      "section": "Step 6: offset the curves",
+      "question": "In the fighter example of the lecture, the offset uses (<i>T<sub>SL</sub>/W<sub>TO</sub></i>)<sub>1</sub> = 0.9 and <i>k</i> = 60 lb/ft². At what abscissa <i>ξ</i> is the run at <i>W<sub>TO</sub>/S</i> = 60 lb/ft² and <i>T<sub>SL</sub>/W<sub>TO</sub></i> = 1.1 drawn on the carpet plot?",
+      "options": [
+        "<i>ξ</i> = 72 lb/ft²",
+        "<i>ξ</i> = 60 lb/ft²",
+        "<i>ξ</i> = 66 lb/ft²",
+        "<i>ξ</i> = 126 lb/ft²"
+      ],
+      "explanation": "<i>ξ</i> = 60 + 60 (1.1 − 0.9) = 72 lb/ft²: the 1.1 curve moves 12 lb/ft² to the right. The abscissa is not the wing loading, which is read from the lines of the grid."
+    },
+    {
+      "id": "L12-q5",
+      "page": "third-variable-and-sensitivities",
+      "section": "A third variable: aspect ratio",
+      "question": "The fighter study adds the aspect ratio as a third design variable and runs <i>AR</i> = 4, 5, and 6. How is the aspect ratio chosen?",
+      "options": [
+        "Fit the lightest feasible <i>W<sub>TO</sub></i> of each <i>AR</i>, read the minimum, and run a new matrix at that <i>AR</i>",
+        "Vary <i>AR</i> at the lightest feasible point of the <i>AR</i> = 5 matrix, with <i>W<sub>TO</sub>/S</i> and <i>T<sub>SL</sub>/W<sub>TO</sub></i> held",
+        "Take whichever of 4, 5, and 6 gives the lowest lightest feasible <i>W<sub>TO</sub></i>",
+        "Fit the lightest feasible <i>W<sub>TO</sub></i> of each <i>AR</i> and report the minimum of the fit as the answer"
+      ],
+      "explanation": "Each <i>AR</i> moves the feasible region and its lowest point, so each needs its own matrix and lightest feasible point. The quadratic finds the minimum between the values run, and a matrix, a carpet plot, and a rerun at that <i>AR</i> confirm it."
+    },
+    {
+      "id": "L12-q6",
+      "page": "third-variable-and-sensitivities",
+      "section": "Checks and common mistakes",
+      "question": "The lightest feasible point of the fighter example lies on the takeoff line, with <i>P<sub>s</sub></i> = 217 ft/s and an acceleration time of 47.3 s against 50 s. How is the point reported?",
+      "options": [
+        "Takeoff as the active constraint, and <i>P<sub>s</sub></i> and acceleration with their margins",
+        "All three constraints as active, since the point meets all three limits",
+        "Acceleration as the active constraint, since its 2.7 s margin is the smallest",
+        "Takeoff as the active constraint, with nothing on the other two since they are met"
+      ],
+      "explanation": "An active constraint closes the feasible region at the point, and here only the takeoff line does. The others are reported with their margins: 217 ft/s against 0 ft/s, and 47.3 s against 50 s."
+    },
+    {
+      "id": "L12-q7",
+      "page": "third-variable-and-sensitivities",
+      "section": "Sensitivities at the lightest feasible point",
+      "question": "At the lightest feasible point of the fighter example, <i>W<sub>TO</sub></i> = 46,300 lb, <i>T<sub>SL</sub>/W<sub>TO</sub></i> = 1.017, and ∂<i>W<sub>TO</sub></i>/∂(<i>T<sub>SL</sub>/W<sub>TO</sub></i>) ≈ 56,300 lb per unit. What is the sensitivity <i>s<sub>x</sub></i> to <i>T<sub>SL</sub>/W<sub>TO</sub></i>?",
+      "options": [
+        "1.24",
+        "1.22",
+        "0.81",
+        "57,400"
+      ],
+      "explanation": "<i>s<sub>x</sub></i> = (1.017/46,300) × 56,300 = 1.24, so 1% more <i>T<sub>SL</sub>/W<sub>TO</sub></i> gives about 1.24% more <i>W<sub>TO</sub></i>. Dividing the derivative by <i>W<sub>TO</sub></i> alone, without the factor <i>x</i>, gives 1.22."
+    },
+    {
+      "id": "L12-q8",
+      "page": "third-variable-and-sensitivities",
+      "section": "Sensitivities at the lightest feasible point",
+      "question": "In the fighter example, <i>W<sub>TO</sub></i> stays within 200 lb along the takeoff line from 53 to 60 lb/ft². Why is the minimum along the line this flat?",
+      "options": [
+        "Along the line both variables rise, and their opposite effects on <i>W<sub>TO</sub></i> cancel at the point",
+        "Both sensitivities are near zero at the lightest feasible point, as at any minimum",
+        "The takeoff constraint holds <i>W<sub>TO</sub></i> fixed at every point of its line",
+        "The 2% step of the central difference is too coarse to show the change"
+      ],
+      "explanation": "Up the takeoff line <i>W<sub>TO</sub>/S</i> and <i>T<sub>SL</sub>/W<sub>TO</sub></i> both rise. With <i>s<sub>x</sub></i> = −0.58 for <i>W<sub>TO</sub>/S</i> and 1.24 for <i>T<sub>SL</sub>/W<sub>TO</sub></i>, the two changes cancel at the point; neither sensitivity is small."
+    }
+  ]
+}

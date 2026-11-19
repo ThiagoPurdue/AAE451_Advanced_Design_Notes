@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quick check: a sensitivity</title>
+<style>
+  :root {
+    --bg: #ffffff; --fg: #1f2937; --muted: #4b5563; --card: #ffffff; --border: #d9d6ce;
+    --head-bg: #f7f5f0; --head-fg: #111827; --accent: #6f5630; --accent-border: #cfb991;
+    --input-bg: #ffffff; --input-border: #6b7280; --ok: #0a6b3d; --bad: #b42318;
+    --button: #111827; --button-fg: #ffffff; --sol-bg: #f7f5f0;
+  }
+  html.dark {
+    --bg: #1c1917; --fg: #e5e7eb; --muted: #b7bcc6; --card: #292524; --border: #44403c;
+    --head-bg: #363231; --head-fg: #ffffff; --accent: #cfb991; --accent-border: #cfb991;
+    --input-bg: #1c1917; --input-border: #9ca3af; --ok: #6ee7b7; --bad: #fca5a5;
+    --button: #cfb991; --button-fg: #000000; --sol-bg: #363231;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg);
+         font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .card { border: 1px solid var(--border); border-left: 5px solid var(--accent-border); border-radius: 8px;
+          background: var(--card); overflow: hidden; }
+  .head { background: var(--head-bg); color: var(--head-fg); padding: 10px 16px; font-weight: 700; font-size: 1.15em;
+          display: flex; align-items: center; gap: 10px; }
+  .head svg { width: 22px; height: 22px; }
+  .body { padding: 16px; }
+  .given { display: flex; flex-wrap: wrap; gap: 8px 28px; margin: 6px 0 14px; font-size: 1.05em; }
+  .given span { white-space: nowrap; }
+  i { font-style: italic; }
+  .row { display: grid; grid-template-columns: minmax(6em, 11em) minmax(6em, 11em) 1fr; align-items: center; gap: 10px; margin: 8px 0; }
+  .row label { font-size: 1.05em; }
+  input[type="text"] { width: 100%; padding: 8px 10px; font: inherit; background: var(--input-bg); color: var(--fg);
+                       border: 1px solid var(--input-border); border-radius: 6px; }
+  input[type="text"]:focus { outline: 3px solid #93c5fd; outline-offset: 1px; }
+  .mark { font-weight: 600; }
+  .mark.ok { color: var(--ok); }
+  .mark.bad { color: var(--bad); }
+  .buttons { display: flex; gap: 12px; margin: 16px 0 14px; }
+  button { font: inherit; font-weight: 600; padding: 9px 20px; border-radius: 6px; cursor: pointer; }
+  button:focus-visible { outline: 3px solid #93c5fd; outline-offset: 2px; }
+  .primary { background: var(--button); color: var(--button-fg); border: 1px solid var(--button); }
+  .secondary { background: transparent; color: var(--fg); border: 1px solid var(--input-border); }
+  details { border: 1px solid var(--border); border-left: 4px solid var(--accent-border); border-radius: 6px;
+            background: var(--sol-bg); }
+  summary { cursor: pointer; padding: 10px 14px; font-weight: 700; color: var(--head-fg); font-size: 1.05em; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: "▸ "; }
+  details[open] summary::before { content: "▾ "; }
+  .solution { padding: 4px 16px 14px; }
+  .solution p { margin: 6px 0; }
+  .status { margin: 4px 0 0; color: var(--muted); min-height: 1.5em; }
+  sub { font-size: 0.75em; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="head">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>
+    Quick check: a sensitivity
+  </div>
+  <div class="body">
+    <p>The sizing code of an invented aircraft was run three times: at an input <i>x</i>, at <i>x</i> − <i>h</i>, and at <i>x</i> + <i>h</i>, with <i>h</i> = 2% of <i>x</i> and every other input fixed. Compute the central-difference derivative ∂<i>W</i><sub>TO</sub>/∂<i>x</i> and the sensitivity <i>s<sub>x</sub></i> at <i>x</i>. Give both to three significant figures.</p>
+    <div aria-live="polite">
+      <div class="given">
+        <span><i>x</i>: <strong id="gName"></strong></span>
+        <span><i>x</i> = <strong id="gX"></strong></span>
+        <span><i>h</i> = <strong id="gH"></strong></span>
+      </div>
+      <div class="given">
+        <span><i>W</i><sub>TO</sub>(<i>x</i> − <i>h</i>) = <strong id="gWm"></strong> lb</span>
+        <span><i>W</i><sub>TO</sub>(<i>x</i>) = <strong id="gW0"></strong> lb</span>
+        <span><i>W</i><sub>TO</sub>(<i>x</i> + <i>h</i>) = <strong id="gWp"></strong> lb</span>
+      </div>
+    </div>
+    <form id="qc" novalidate>
+      <div class="row"><label for="d">∂<i>W</i><sub>TO</sub>/∂<i>x</i> (<span id="uD"></span>)&nbsp;=</label><input type="text" id="d" inputmode="decimal" autocomplete="off"><span class="mark" id="md" aria-live="polite"></span></div>
+      <div class="row"><label for="s">Sensitivity <i>s<sub>x</sub></i> =</label><input type="text" id="s" inputmode="decimal" autocomplete="off"><span class="mark" id="ms" aria-live="polite"></span></div>
+      <div class="buttons">
+        <button type="submit" class="primary">Check answers</button>
+        <button type="button" class="secondary" id="shuffle">Shuffle</button>
+      </div>
+      <p class="status" id="status" aria-live="polite"></p>
+    </form>
+    <details id="sol">
+      <summary>Solution</summary>
+      <div class="solution" id="solution"></div>
+    </details>
+  </div>
+</div>
+<script>
+(function () {
+  function syncTheme() {
+    var dark = false;
+    try { dark = window.parent.document.documentElement.classList.contains("dark"); }
+    catch (e) { dark = window.matchMedia("(prefers-color-scheme: dark)").matches; }
+    document.documentElement.classList.toggle("dark", dark);
+  }
+  syncTheme();
+  try { new MutationObserver(syncTheme).observe(window.parent.document.documentElement, { attributes: true }); } catch (e) {}
+  function fit() {
+    try {
+      var fe = window.frameElement;
+      if (fe && fe.parentElement) fe.parentElement.style.height = (Math.ceil(document.body.getBoundingClientRect().height) + 2) + "px";
+    } catch (e) {}
+  }
+  try { new ResizeObserver(fit).observe(document.body); } catch (e) {}
+  window.addEventListener("load", fit);
+
+  // BEGIN model (the tolerance test evaluates this block)
+  // Inputs: x values, decimals shown for x and h (h = 0.02 x is shown exactly), and the range of the sensitivity s.
+  // x stays away from 1 so that h = 0.02 in place of 0.02 x gives a wrong answer. The aircraft is invented and
+  // kept out of the jet-trainer class (W_TO 60,000 to 120,000 lb, W/S 90 to 130 lb/ft², T/W 0.25 to 0.40).
+  var INPUTS = [
+    { name: "wing loading <i>W</i><sub>TO</sub>/<i>S</i> (lb/ft²)", short: "wing loading", unit: " lb/ft²", per: "lb per lb/ft²",
+      xmin: 90, xmax: 130, xstep: 5, dx: 0, dh: 1, smin: -0.45, smax: -0.25 },
+    { name: "thrust-to-weight ratio <i>T</i><sub>SL</sub>/<i>W</i><sub>TO</sub>", short: "thrust-to-weight ratio", unit: "", per: "lb per unit",
+      xmin: 0.25, xmax: 0.40, xstep: 0.01, dx: 2, dh: 4, smin: 0.40, smax: 0.90 },
+    { name: "TSFC <i>C</i> (1/h)", short: "TSFC", unit: " 1/h", per: "lb per 1/h",
+      xmin: 0.55, xmax: 0.85, xstep: 0.05, dx: 2, dh: 3, smin: 0.30, smax: 0.70 },
+    { name: "zero-lift drag coefficient <i>C</i><sub><i>D</i>0</sub>", short: "<i>C</i><sub><i>D</i>0</sub>", unit: "", per: "lb per unit",
+      xmin: 0.016, xmax: 0.028, xstep: 0.001, dx: 4, dh: 5, smin: 0.25, smax: 0.55 }
+  ];
+  var WMIN = 60000, WMAX = 120000, WSTEP = 10;  // W_TO at x, lb
+  var RMIN = 0.05, RMAX = 0.09;                 // forward difference / central difference − 1
+  // W_TO(x + u x) = W0 (1 + s u + k u²), u = ±0.02, k = r |s| / 0.02 > 0 (convex).
+  // The central difference returns s W0 / x exactly; a one-sided difference is off by r.
+  function make(inp, x, s, W0, r) {
+    var h = 0.02 * x, k = r * Math.abs(s) / 0.02, u = 0.02;
+    var Wm = Math.round(W0 * (1 - s * u + k * u * u));
+    var Wp = Math.round(W0 * (1 + s * u + k * u * u));
+    var d = (Wp - Wm) / (2 * h);
+    return { inp: inp, x: x, h: h, Wm: Wm, W0: W0, Wp: Wp, d: d, s: x / W0 * d };
+  }
+  var TOL = { d: 0.015, s: 0.015 };             // relative
+  function within(v, a, tol) { return isFinite(v) && Math.abs(v - a) <= tol * Math.abs(a); }
+  // An answer as typed. A comma is a decimal mark when it is the only separator and no group of exactly
+  // three digits follows a nonzero integer part: "0,350" is 0.350 and "-87,5" is -87.5; "1,080" is 1080.
+  function parseAnswer(str) {
+    var t = String(str).trim().replace(/[\u2212\u2013]/g, "-").replace(/\s+/g, "");
+    var m = t.match(/^([+-]?)(\d+),(\d+)(?![\d,.])/);
+    if (m && (t.match(/,/g) || []).length === 1 && t.indexOf(".") < 0 && !(Number(m[2]) !== 0 && m[3].length === 3))
+      t = m[1] + m[2] + "." + t.slice(m[0].length - m[3].length);
+    return parseFloat(t.replace(/,(?=\d{3}(?!\d))/g, ""));
+  }
+  // END model
+
+  var P;
+  function pick(min, max, step) { var n = Math.round((max - min) / step); return min + step * Math.floor(Math.random() * (n + 1)); }
+  function uni(min, max) { return min + (max - min) * Math.random(); }
+  function fmt(x, d) { return Number(x).toFixed(d); }
+  function thousands(x) { return String(Math.round(x)).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+  function minus(t) { return String(t).replace(/^-/, "−"); }
+  function sig(x, n) {   // n significant figures, thousands separated, true minus sign
+    var v = Number(Number(x).toPrecision(n)), a = Math.abs(v);
+    var t = a >= 1000 ? thousands(a) : a.toPrecision(n);   // keeps trailing zeros: 62.0
+    return (v < 0 ? "−" : "") + t;
+  }
+  function setProblem() {
+    var inp = INPUTS[Math.floor(Math.random() * INPUTS.length)];
+    var x = Number(pick(inp.xmin, inp.xmax, inp.xstep).toFixed(inp.dx));
+    P = make(inp, x, uni(inp.smin, inp.smax), pick(WMIN, WMAX, WSTEP), uni(RMIN, RMAX));
+    var hs = fmt(P.h, inp.dh);
+    document.getElementById("gName").innerHTML = inp.name;
+    document.getElementById("gX").textContent = fmt(x, inp.dx) + inp.unit;
+    document.getElementById("gH").textContent = hs + inp.unit;
+    document.getElementById("gWm").textContent = thousands(P.Wm);
+    document.getElementById("gW0").textContent = thousands(P.W0);
+    document.getElementById("gWp").textContent = thousands(P.Wp);
+    document.getElementById("uD").textContent = inp.per.replace(/ /g, "\u00a0");   // the label breaks after ∂x only
+    ["d", "s"].forEach(function (k) {
+      document.getElementById(k).value = "";
+      var m = document.getElementById("m" + k); m.textContent = ""; m.className = "mark";
+    });
+    document.getElementById("status").textContent = "";
+    document.getElementById("sol").open = false;
+    var dW = P.Wp - P.Wm, fwd = (P.Wp - P.W0) / P.h, pct = Math.abs(P.s);
+    document.getElementById("solution").innerHTML =
+      "<p><i>h</i> = 0.02 × " + fmt(x, inp.dx) + " = " + hs + ", so 2<i>h</i> = " + fmt(2 * P.h, inp.dh) + "</p>" +
+      "<p>∂<i>W</i><sub>TO</sub>/∂<i>x</i> ≈ [<i>W</i><sub>TO</sub>(<i>x</i> + <i>h</i>) − <i>W</i><sub>TO</sub>(<i>x</i> − <i>h</i>)] / (2<i>h</i>) = (" +
+        thousands(P.Wp) + " − " + thousands(P.Wm) + ") / " + fmt(2 * P.h, inp.dh) + " = " + minus(thousands(dW)) + " / " + fmt(2 * P.h, inp.dh) +
+        " = " + sig(P.d, 4) + ", so ∂<i>W</i><sub>TO</sub>/∂<i>x</i> = <strong>" + sig(P.d, 3) + " " + inp.per + "</strong></p>" +
+      "<p><i>s<sub>x</sub></i> = (<i>x</i> / <i>W</i><sub>TO</sub>) ∂<i>W</i><sub>TO</sub>/∂<i>x</i> = (" + fmt(x, inp.dx) + " / " + thousands(P.W0) + ") × " +
+        (P.d < 0 ? "(" + sig(P.d, 4) + ")" : sig(P.d, 4)) + " = <strong>" + sig(x / P.W0 * Number(P.d.toPrecision(4)), 3) + "</strong></p>" +
+      "<p>1% more " + inp.short + " gives " + fmt(pct, 2) + "% " + (P.s < 0 ? "less" : "more") + " <i>W</i><sub>TO</sub>. " +
+        "The forward difference (" + thousands(P.Wp) + " − " + thousands(P.W0) + ") / " + hs + " = " + sig(fwd, 3) +
+        " is " + fmt(Math.abs(fwd / P.d - 1) * 100, 1) + "% off, because the three weights do not lie on a straight line.</p>";
+  }
+  function check(e) {
+    e.preventDefault();
+    var right = 0, blank = 0, a = { d: P.d, s: P.s };
+    ["d", "s"].forEach(function (k) {
+      var raw = document.getElementById(k).value.trim();
+      var m = document.getElementById("m" + k);
+      if (raw === "") { blank++; m.textContent = "no answer"; m.className = "mark bad"; return; }
+      var ok = within(parseAnswer(raw), a[k], TOL[k]);
+      if (ok) right++;
+      m.textContent = ok ? "✓ correct" : "✗ try again";
+      m.className = "mark " + (ok ? "ok" : "bad");
+    });
+    document.getElementById("status").textContent =
+      right === 2 ? "Both correct." : right + " of 2 correct" + (blank ? ", " + blank + " blank" : "") + ". Open the solution if you are stuck.";
+  }
+  document.getElementById("qc").addEventListener("submit", check);
+  document.getElementById("shuffle").addEventListener("click", setProblem);
+  setProblem();
+})();
+</script>
+</body>
+</html>

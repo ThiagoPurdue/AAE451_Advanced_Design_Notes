@@ -88,6 +88,10 @@ project:
         - file: notes/lecture-11/level-flight-and-range.md
         - file: notes/lecture-11/climb-and-field.md
         - file: notes/lecture-11/maneuver-and-vn.md
+    - title: "Lecture 12: Carpet Plots and Sensitivity Analysis"
+      children:
+        - file: notes/lecture-12/carpet-plot.md
+        - file: notes/lecture-12/third-variable-and-sensitivities.md
     - title: Assignments
       children:
         - file: notes/assignments/a01.md

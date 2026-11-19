@@ -211,7 +211,7 @@ The design point sets:
 
 - The wing area and the A04 geometry.
 - The engine thrust and the A05 selection.
-- The starting point of the performance analysis and of the carpet plots.
+- The starting point of the performance analysis ([Lecture 11](../lecture-11/level-flight-and-range.md)) and of the carpet plots ([Lecture 12](../lecture-12/carpet-plot.md)).
 
 The source is Mattingly et al. (2002), Section 2.4.2.
 

@@ -26,6 +26,9 @@ Bypass ratio
 Capture area
 : The free-stream cross-section of the streamtube that the engine and the secondary systems take in, $A_{\infty E}$. Also called the demand capture area. The cowl capture area of Nicolai and Carichner (2010) is the opening of the inlet at the lip, which these notes call the lip area.
 
+Carpet plot
+: The takeoff weight over a grid of the wing loading and the thrust-to-weight ratio, with the constraint lines drawn on it. Each node of the grid is one sizing run. Each curve of constant thrust-to-weight ratio is shifted sideways, so only the vertical axis has a scale.
+
 Certification basis
 : The airworthiness document and the sections of it that apply to the aircraft, against which compliance is shown. In this course the Navy Jet Trainer uses MIL-HDBK-516C.
 
@@ -58,6 +61,12 @@ Critical field length
 
 Critical Mach number
 : $M_{crit}$, the flight Mach number at which the flow first reaches sonic speed somewhere on the airfoil.
+
+Crossing
+: In a carpet-plot study, the point where a curve of constant thrust-to-weight ratio or a line of constant wing loading meets the limit of a constraint on a cross-plot.
+
+Cross-plot
+: The value of one constraint against one design variable, one curve per value of the other variable, with the limit drawn. Its crossings locate the constraint line on the sizing plot.
 
 Datum
 : The reference concept in a Pugh matrix. Every other concept is scored against it, criterion by criterion. At the first run it is often an existing aircraft.
@@ -93,7 +102,7 @@ FCLP
 : Field Carrier Landing Practice. Carrier approaches and landings flown to a land runway marked as a carrier deck.
 
 Feasible region
-: The part of the constraint diagram that meets every requirement.
+: The part of the constraint diagram, or of a sizing plot or carpet plot, that meets every requirement.
 
 Fixed engine
 : An engine selected off the shelf, with known thrust and fuel flow, that does not change during sizing.
@@ -122,11 +131,20 @@ Installed thrust
 Interference factor
 : $Q$, the factor on the drag of a component that accounts for the flow around its neighbors.
 
+Lightest feasible point
+: The lowest point of the feasible region on a sizing plot or a carpet plot: the takeoff weight, wing loading, and thrust-to-weight ratio of the lightest aircraft that meets every constraint. It usually lies between the runs, and the sizing code is run again there.
+
+Limit
+: In a carpet-plot study, the required value of a constraint.
+
 Load factor
 : $n = L/W$, the lift divided by the weight. It is 1 in straight, level flight and $1/\cos\phi$ in a level turn at the bank angle $\phi$.
 
 Maneuver V-n diagram
 : Load factor against speed or Mach number at one weight and altitude, with the stall line, the limit load factor, the maximum operating speed, and lines of constant specific excess power.
+
+Mark
+: In a carpet-plot study, a crossing drawn on the sizing plot. The marks of one constraint, joined, form its constraint line.
 
 Master equation
 : The thrust-to-weight ratio that a condition requires at each wing loading, from the energy of the aircraft. Mattingly et al. (2002), Eq. 2.11.
@@ -161,6 +179,9 @@ Nozzle pressure ratio
 Objective
 : The value of a requirement that the customer would like to reach. In the lecture example it is called the target.
 
+Offset
+: In a carpet plot, the fixed sideways shift of each curve of constant thrust-to-weight ratio that opens the grid. The shifted abscissa is not the wing loading.
+
 Parasite drag
 : $C_{D_0}$, the drag at zero lift: skin friction, form, interference, and the miscellaneous items.
 
@@ -194,8 +215,17 @@ Rubber engine
 Scissor plot
 : The tail area ratio that each stability and control requirement needs, against the CG position. Its cut at the chosen area gives the CG limits.
 
+Sensitivity
+: $s_x = (x/W_{TO})\,\partial W_{TO}/\partial x$, the percent change in the takeoff weight per percent change in a design variable or an input $x$.
+
 Service ceiling
 : The altitude at which the best rate of climb falls to 100 ft/min.
+
+Sizing matrix
+: Nine converged runs of the sizing code, three values of each of the two design variables, centered on the design point, with the takeoff weight and every constraint value recorded.
+
+Sizing plot
+: The takeoff weight against the wing loading from the sizing matrix, one curve per thrust-to-weight ratio, with lines joining the runs of equal wing loading.
 
 Skin friction coefficient
 : $C_f$, the viscous drag of a surface per unit of wetted area and dynamic pressure.
@@ -240,7 +270,7 @@ Thrust-to-weight ratio
 : $T_{SL}/W_{TO}$ on the constraint diagram: the sea-level static thrust over the takeoff weight. At a flight condition, $T/W$ is the thrust and the weight there: $T/W = (\alpha/\beta)\,T_{SL}/W_{TO}$.
 
 Trade study
-: An analysis that changes one requirement or one assumption and measures the effect on the design, usually as a change in a measure of merit.
+: An analysis that changes a requirement, an assumption, or a design variable and measures the effect on the design, usually as a change in a measure of merit.
 
 Trim
 : The state in which the moment about the CG is zero and the lift equals the weight.
