@@ -204,6 +204,11 @@ The seventh assignment: the weight statement and the CG envelope, the scissor pl
 The eighth assignment: the speed limits, both design missions, climb and the flight envelope, turns, field performance, the maneuver V-n diagram, and the compliance table.
 :::
 
+:::{card} Assignment A09: Carpet plot and sensitivity analysis
+:link: assignments/a09.md
+The ninth assignment: the sizing matrix, the sizing plot and the cross-plots, the carpet plot and the lightest feasible point, a third design variable, the sensitivities, and the design point for PDR.
+:::
+
 ::::
 
 More lectures will be added during the semester.

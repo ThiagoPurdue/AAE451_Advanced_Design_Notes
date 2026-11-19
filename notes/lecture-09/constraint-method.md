@@ -32,6 +32,7 @@ Each row gives boundaries on the diagram. The range and the endurance of the des
 A requirement with a threshold and an objective gives two boundaries. How far apart are the two at your wing loading?
 :::
 
+(method-constraint-diagram)=
 ## The constraint diagram
 
 :::{prf:definition} Constraint diagram

@@ -102,6 +102,7 @@ project:
         - file: notes/assignments/a06.md
         - file: notes/assignments/a07.md
         - file: notes/assignments/a08.md
+        - file: notes/assignments/a09.md
     - file: notes/glossary.md
     - file: notes/accessibility.md
 site:

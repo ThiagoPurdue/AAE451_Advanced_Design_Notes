@@ -190,6 +190,7 @@ Here $q$ is the dynamic pressure, and $C_{D_0}$ and $K$ are those of the polar o
 Sustained +4.0 g (T) and +6.0 g (O) at 15,000 ft, at MTOW less 50% fuel. What thrust does {eq}`eq-sustained-load-factor` give at your {term}`wing loading`, and how does it compare with the thrust for Mach 0.90?
 :::
 
+(engine-rubber-scaling)=
 ## Rubber-engine scaling
 
 A {term}`rubber engine` is scaled from a reference engine. The scale factor is the ratio of the sea-level static airflows. At constant exit velocity it equals the ratio of the thrusts, $SF = \dot{m}/\dot{m}_{ref} = T/T_{ref}$. The weight, the diameter, and the length of the engine then scale as (Nicolai and Carichner 2010, Eqs. 18.1 to 18.4)

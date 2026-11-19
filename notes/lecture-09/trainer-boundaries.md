@@ -137,6 +137,7 @@ A constraint diagram of a fighter, with one boundary for each of eight requireme
 
 In {numref}`fig-fighter-diagram`, acceleration, turn, takeoff, and landing close the region. Ceiling, maximum speed, dash, and one-engine climb have margin. The cohort aircraft on the same axes check the inputs.
 
+(trainer-threshold-objective)=
 ## Threshold and objective
 
 The maximum operating speed, the specific excess power, and the sustained load factor each carry two values, and each gives two boundaries. The objective values shrink the region. The difference in $T_{SL}/W_{TO}$ at the design point is the added thrust, and a larger engine costs weight and money; see the thrust sizing and the scaling in [Lecture 8](../lecture-08/engine-models.md). The design point may meet the objective of one requirement and the threshold of another. State which, and why.
@@ -154,6 +155,7 @@ Report the trade in four items:
 Which objective does your team give up first, and what does that save?
 :::
 
+(trainer-design-point)=
 ## Choosing the design point
 
 :::{prf:definition} Design point
@@ -178,6 +180,7 @@ The lowest $T_{SL}/W_{TO}$ gives the smallest engine, and the highest $W_{TO}/S$
 State the design point, the active boundaries, and the margin to each. Which input has an uncertainty larger than the margin?
 :::
 
+(trainer-rubber-fixed)=
 ## Rubber engine and fixed engine
 
 With a {term}`rubber engine`:

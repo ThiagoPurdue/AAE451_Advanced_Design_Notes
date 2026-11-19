@@ -59,6 +59,7 @@ The carpet plot of a published example, a fighter, with $W_{TO}/S$ in lb/ft². R
 - Each curve is shifted sideways to open the grid, so only the vertical axis has a scale; step 6 shows how.
 - The lowest point that no constraint cuts off is the lightest feasible point. Read its $W_{TO}$, $W_{TO}/S$, and $T_{SL}/W_{TO}$ off the grid.
 
+(carpet-example-steps)=
 ## The example and the six steps
 
 :::{table} A published example: a fighter sizing study. After Raymer (2012), Section 19.4.
@@ -94,6 +95,7 @@ The six steps:
 Your constraints are those of your own constraint diagram: the maximum operating speed, the specific excess power, the sustained load factor, the takeoff distance, the critical field length, and the landing distance of [Lecture 9](../lecture-09/trainer-boundaries.md). Does your sizing code compute each one at the weight and altitude the RFP states? At which rating?
 :::
 
+(carpet-step-1)=
 ## Step 1: run the sizing matrix
 
 1. Center the matrix on the {term}`design point` chosen from the constraint diagram.
@@ -128,6 +130,7 @@ The sizing code is more detailed than the constraint diagram. Here the center ru
 How far apart do you space the three values of each variable, and does every run of your matrix converge?
 :::
 
+(carpet-step-2)=
 ## Step 2: draw the sizing plot
 
 1. Plot $W_{TO}$ against $W_{TO}/S$.
@@ -145,6 +148,7 @@ The sizing plot of a published example, a fighter: the nine runs of {numref}`tbl
 - In the example, higher $W_{TO}/S$ gives a smaller wing and a lower $W_{TO}$.
 - Higher $T_{SL}/W_{TO}$ gives a larger engine, more fuel, and a higher $W_{TO}$.
 
+(carpet-step-3)=
 ## Step 3: cross-plot each constraint
 
 :::{prf:definition} Crossing
@@ -172,6 +176,7 @@ A curve with no crossing inside the matrix passes everywhere or fails everywhere
 Do not extrapolate a crossing beyond the runs. If the lowest point of the feasible region falls on an edge of the matrix, extend the matrix past that edge with new runs.
 :::
 
+(carpet-step-4)=
 ## Step 4: mark the crossings on the sizing plot
 
 :::{prf:definition} Mark
@@ -208,6 +213,7 @@ The sizing plot of a published example, a fighter, with the marks, the three con
 
 The example draws each constraint line where the fit of that constraint equals its limit, and reads $W_{TO}$ from the same fit. Straight segments between the marks put the lowest point at mark **a**, 46,400 lb at 53.9 lb/ft²: nearly the same weight at a different wing loading. A fit other than the quadratic moves a crossing by up to about 1 lb/ft².
 
+(carpet-step-5)=
 ## Step 5: read the lightest feasible point
 
 1. Find the feasible side of each constraint line. A constraint that eases with thrust, as all three of the example do, is feasible on the side of higher $T_{SL}/W_{TO}$, above the line. A constraint set by the wing loading alone, such as the landing distance, is feasible on the side of lower $W_{TO}/S$.
@@ -233,6 +239,7 @@ The feasible region and the lightest feasible point of a published example, a fi
 The plot interpolates between runs; only the rerun is a converged design.
 :::
 
+(carpet-step-6)=
 ## Step 6: offset the curves
 
 1. Shift each $T_{SL}/W_{TO}$ curve to the right by a fixed step per curve, the {term}`offset`. The step is arbitrary, except that it must differ from the spacing of the $W_{TO}/S$ values, or runs of different curves share an abscissa; the example uses 6 lb/ft².

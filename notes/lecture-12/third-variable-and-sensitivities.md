@@ -11,6 +11,7 @@ This is the second part of Lecture 12, *Carpet Plots and Sensitivity Analysis*. 
 - The sensitivities at that point show which variable or input moves $W_{TO}$ most.
 :::
 
+(carpet-third-variable)=
 ## A third variable: aspect ratio
 
 1. Choose three aspect ratios. The example uses 4, 5, and 6.
@@ -28,6 +29,7 @@ The study takes 27 matrix runs, plus nine at the chosen $AR$.
 A third variable on a published example, a fighter: sizing plots at three aspect ratios and the lightest feasible $W_{TO}$ against $AR$. Schematic, shapes only; the values are not those of [part 1](carpet-plot.md). Solid black: constraint lines, with ticks on the failing side. Curves, bottom to top: $T_{SL}/W_{TO}$ = 0.9, 1.0, and 1.1. Crosses: the lightest feasible $W_{TO}$ at each $AR$. Shaded: feasible, inside the matrix. After Raymer (2012), Section 19.4.
 :::
 
+(carpet-checks)=
 ## Checks and common mistakes
 
 ### Checks before reporting
@@ -49,6 +51,7 @@ A third variable on a published example, a fighter: sizing plots at three aspect
 
 An active constraint closes the {term}`feasible region` at the lightest feasible point, as an {term}`active boundary` does at the design point of [Lecture 9](../lecture-09/trainer-boundaries.md). The active constraint has no margin at the lightest feasible point. In the example the takeoff constraint is active. The others are reported with their margins to the limit: $P_s$ = 217 ft/s against 0 ft/s, and an acceleration time of 47.3 s against 50 s.
 
+(carpet-sensitivities)=
 ## Sensitivities at the lightest feasible point
 
 Let $x$ be a design variable or an input of the sizing code, and $h$ a small step in it, about 2% of $x$. The derivative of $W_{TO}$ by central difference is
@@ -92,6 +95,7 @@ Quick check: the derivative by central difference, {eq}`eq-sens-derivative`, and
 A sensitivity holds at the point where it was taken. At which point do you report each sensitivity, and which input of your sizing code has the largest $|s_x|$ there?
 :::
 
+(carpet-team-plot)=
 ## Your team's carpet plot
 
 - **Measure of merit**: the takeoff weight, or the cost.
@@ -103,6 +107,10 @@ A sensitivity holds at the point where it was taken. At which point do you repor
 :class: navy
 
 The maximum operating speed, the specific excess power, and the sustained load factor each have a threshold and an objective ({numref}`tbl-rfp-performance` in [](../navy-rfp/navy-rfp.md)). If you add the objective values as a second set of limits, which constraint lines move, and how far does the lightest feasible point move with them?
+:::
+
+:::{tip}
+[Assignment A09](../assignments/a09.md) asks for these results from the sizing code: the sizing matrix, the sizing plot and the cross-plots, the carpet plot and the lightest feasible point, a third design variable, the sensitivities, and the design point for PDR.
 :::
 
 :::{important} Summary
